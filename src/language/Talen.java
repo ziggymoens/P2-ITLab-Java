@@ -1,4 +1,4 @@
-package talen;
+package language;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 public class Talen {
     private static Locale locale;
     private static ResourceBundle bundle;
-    private static final String location = "/talen";
+    private static final String location = "language/resourcebundle/i18n";
 
     static {
         setLocale(new Locale("en"));
