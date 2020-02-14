@@ -23,9 +23,11 @@ public class DomeinController {
 
     public String geefOverzichtVerantwoordelijke(Gebruiker gebruiker){
         StringBuilder sb = new StringBuilder();
-        for (Sessie s: sessies){
+        for (int i = 0; i < sessies.size();i++){
+            Sessie s = sessies.get(i);
+        //for(Sessie s : sessies){
             if (!s.isGeopend() && s.getVerantwoordelijke() == gebruiker){
-                sb.append(String.format("%s - %s - %s -> %s: %s", s.getVerantwoordelijke().getNaam(), s.getTitel(), s.getStartSessie().toString(),
+                sb.append(String.format(" d%. %s - %s - %s -> %s: %s",i+1, s.getVerantwoordelijke().getNaam(), s.getTitel(), s.getStartSessie().toString(),
                         s.getEindeSessie().toString(), s.isGeopend() ? String.format("%d", s.aantalVrijePlaatsen()) : String.format("%d", s.aantalAanwezigenNaSessie())));
             }
         }
@@ -35,7 +37,9 @@ public class DomeinController {
     public String geefOverzichtHoofdverantwoordelijke(){
         StringBuilder sb = new StringBuilder();
         sessies.sort(Comparator.comparing(Sessie::getStartSessie));
-        for (Sessie s: sessies) {
+        for (int i = 0; i < sessies.size();i++){
+            Sessie s = sessies.get(i);
+        //for (Sessie s: sessies) {
             if (!s.isGeopend()) {
                 sb.append(String.format("%s - %s - %s -> %s: %s", s.getVerantwoordelijke().getNaam(), s.getTitel(), s.getStartSessie().toString(),
                         s.getEindeSessie().toString(), s.isGeopend() ? String.format("%d", s.aantalVrijePlaatsen()) : String.format("%d", s.aantalAanwezigenNaSessie())));

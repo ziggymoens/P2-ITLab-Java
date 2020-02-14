@@ -2,7 +2,6 @@ package userinterface.cui;
 
 import domein.DomeinController;
 import domein.Gebruiker;
-import domein.Sessie;
 
 import java.util.Scanner;
 
@@ -28,6 +27,7 @@ public class StartUpInterface {
             gebruikersnaam = in.next();
             System.out.print("Wachtwoord: ");
             in.next();
+            gebruiker = dc.geefGebruikerMetGebruikersnaam(gebruikersnaam);
         }
 
         int keuze = 0;
@@ -37,6 +37,8 @@ public class StartUpInterface {
                 System.out.println("Geef het gewenste cijfer");
                 keuze = in.nextInt();
                 while(keuze > 5 || keuze < 1){
+                    System.out.println("Cijfer ligt niet tussen de mogelijke cijfers.");
+                    System.out.println("\nGeef het gewenste cijfer");
                     keuze = in.nextInt();
                 }
                 break;
@@ -45,6 +47,8 @@ public class StartUpInterface {
                 System.out.println("Geef het gewenste cijfer");
                 keuze = in.nextInt();
                 while(keuze > 4 || keuze < 1){
+                    System.out.println("\nCijfer ligt niet tussen de mogelijke cijfers.");
+                    System.out.println("\nGeef het gewenste cijfer");
                     keuze = in.nextInt();
                 }
                 break;

@@ -10,12 +10,28 @@ public class SessieBeheren {
     public SessieBeheren(DomeinController dc, Gebruiker gebruiker){
         this.dc = dc;
         this.gebruiker = gebruiker;
-        sessiebeheren();
+        sessieBeheren();
     }
 
-    private void sessiebeheren() {
+    private void sessieBeheren() {
+        switch (gebruiker.getType()){
+            case HOOFDVERANTWOORDELIJKE:
+                sessieBeherenAlsHoofdVerantwoordelijke();
+                break;
+            case VERANTWOORDELIJKE:
+                sessieBeherenAlsVerantwoordelijke();
+                break;
+        }
         dc.geefOverzichtVerantwoordelijke(gebruiker);
 
+    }
+
+    private void sessieBeherenAlsVerantwoordelijke() {
+        System.out.println(dc.geefOverzichtVerantwoordelijke(gebruiker));
+    }
+
+    private void sessieBeherenAlsHoofdVerantwoordelijke() {
+        System.out.println(dc.geefOverzichtHoofdverantwoordelijke());
     }
 
 

@@ -13,7 +13,7 @@ public class GebruikerMapper {
     private Set<Gebruiker> gebruikers;
     public GebruikerMapper() {
         gebruikers = new HashSet<>();
-        /*tijdelijk*/ gebruikers.add(new Gebruiker("naam", "gebruikersnaam", Gebruikersprofielen.HOOFDVERANTWOORDELIJKE, Gebruikersstatus.ACTIEF));
+        /*tijdelijk*/ gebruikers.add(new Gebruiker("naam", "a", Gebruikersprofielen.HOOFDVERANTWOORDELIJKE, Gebruikersstatus.ACTIEF));
     }
 
     public Set<Gebruiker> getGebruikers() {
