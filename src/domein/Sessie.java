@@ -199,7 +199,7 @@ public class Sessie {
         return aantal;
     }
 
-    public String geefOverzichtInschrijvingenNietGeopend() {
+    public String toString_OverzichtInschrijvingenNietGeopend() {
         StringBuilder sb = new StringBuilder();
         for(Inschrijving i : ingeschrevenGebruikers){
             sb.append(String.format("%s: %s%n",i.getGebruiker().getNaam(),i.getInschrijvingsdatum().toString()));
@@ -207,7 +207,7 @@ public class Sessie {
         return sb.toString();
     }
 
-    public String geefOverzichtAankondigingen() {
+    public String toString_OverzichtAankondigingen() {
         StringBuilder sb = new StringBuilder();
         for(Aankondiging a : aankondigingenSessie){
             sb.append(String.format("%s - %s%n%t%s%n",a.getPublicatiedatum().toString(), a.getPublicist().getNaam(), a.getInhoud()));
@@ -215,7 +215,7 @@ public class Sessie {
         return sb.toString();
     }
 
-    public String geefOverzichtInschrijvingenGeopend() {
+    public String toString_OverzichtInschrijvingenGeopend() {
         StringBuilder sb = new StringBuilder();
         for(Inschrijving i : ingeschrevenGebruikers){
             sb.append(String.format("%s: %s%n",i.getGebruiker().getNaam(),i.isStatusAanwezigheid()?"aanwezig":"afwezig"));
@@ -223,7 +223,7 @@ public class Sessie {
         return sb.toString();
     }
 
-    public String geefOverzichtFeedback() {
+    public String toString_OverzichtFeedback() {
         StringBuilder sb = new StringBuilder();
         for(Feedback f : feedbackSessie){
             sb.append(String.format("%s%n%t%s%n",f.getGebruiker().getNaam(),f.getTekst()));

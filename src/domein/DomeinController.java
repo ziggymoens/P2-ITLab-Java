@@ -49,8 +49,8 @@ public class DomeinController {
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("%s%n%s%n%s%n%s%n%s%n%s%n%d%n%s: %s%n%s%n%s%n", s.getVerantwoordelijke().getNaam(), s.getTitel(),s.getNaamGastspreker(), s.getLokaal().getLokaalCode(), s.getStartSessie().toString(),
                 s.getEindeSessie().toString(), s.getMaximumAantalPlaatsen(), "Automatische herninnering", s.isAutomatischeHerinnering()?"ja":"nee",
-                s.getMediaBijSessie().toString(), s.isGeopend()?String.format("Inschrijvingen:%n%s%nAankondigingen:%n%s", s.geefOverzichtInschrijvingenNietGeopend(), s.geefOverzichtAankondigingen())
-                        :String.format("Inschrijvingen:%n%s%nFeedback:%n%s", s.geefOverzichtInschrijvingenGeopend(), s.geefOverzichtFeedback())));
+                s.getMediaBijSessie().toString(), s.isGeopend()?String.format("Inschrijvingen:%n%s%nAankondigingen:%n%s", s.toString_OverzichtInschrijvingenNietGeopend(), s.toString_OverzichtAankondigingen())
+                        :String.format("Inschrijvingen:%n%s%nFeedback:%n%s", s.toString_OverzichtInschrijvingenGeopend(), s.toString_OverzichtFeedback())));
 
         return sb.toString();
     }
