@@ -14,6 +14,8 @@ public class PersistentieController {
 
     public PersistentieController() {
         sessieMapper = new SessieMapper();
+        gebruikerMapper = new GebruikerMapper();
+        lokaalMapper = new LokaalMapper();
     }
 
     public Set<Gebruiker> getGebruikers() {

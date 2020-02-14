@@ -1,6 +1,8 @@
 package persistentie;
 
 import domein.Gebruiker;
+import domein.Gebruikersprofielen;
+import domein.Gebruikersstatus;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,6 +13,7 @@ public class GebruikerMapper {
     private Set<Gebruiker> gebruikers;
     public GebruikerMapper() {
         gebruikers = new HashSet<>();
+        /*tijdelijk*/ gebruikers.add(new Gebruiker("naam", "gebruikersnaam", Gebruikersprofielen.HOOFDVERANTWOORDELIJKE, Gebruikersstatus.ACTIEF));
     }
 
     public Set<Gebruiker> getGebruikers() {

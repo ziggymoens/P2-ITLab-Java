@@ -1,12 +1,20 @@
 package main;
 
+import domein.DomeinController;
 import language.Talen;
+import userinterface.cui.StartUpInterface;
+
+import java.util.Scanner;
 
 public class StartUp {
 	public static void main(String[] args) {
-		System.out.println("Hello world");
-		System.out.println("Hello world v2");
-		System.out.println("test");
-		System.out.println(Talen.getString("SessieException.titel"));
+		DomeinController dc = new DomeinController();
+
+		//System.out.println(Talen.getString("Welkom"));
+
+		System.out.println("welkom\n");
+		new StartUpInterface(dc);
+
+
 	}
 }
