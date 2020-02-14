@@ -78,6 +78,21 @@ public class DomeinController {
         return null;
     }
 
+    //Gebruiker Beheren
+    public void voegGebruikerToeZonderProfielfoto(String naam, String gebruikersnaam, Gebruikersprofielen type, Gebruikersstatus status){
+        pc.voegGebruikerToeZonderProfielfoto(naam, gebruikersnaam, type, status);
+    }
+
+    public void voegGebruikerToeMetProfielfoto(String profielfoto, String naam, String gebruikersnaam, Gebruikersprofielen type, Gebruikersstatus status){
+        pc.voegGebruikerToeMetProfielfoto(profielfoto, naam, gebruikersnaam, type, status);
+    }
+
+    //moet herzien worden, nu even geen zin om hard na te denken
+    public void verwijderGebruiker(Gebruiker g){
+        pc.verwijderGebruiker(g);
+    }
+    //Einde Gebruiker Beheren
+
     public void verwijderSessie(int volgnummer){
         Sessie s = sessies.get(volgnummer-1);
         pc.verwijderSessie(s);

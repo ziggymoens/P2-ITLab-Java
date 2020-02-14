@@ -17,4 +17,11 @@ public class GebruikerMapper {
     public Set<Gebruiker> getGebruikers() {
         return gebruikers;
     }
+
+    public void voegGebruikerToe(Gebruiker g){
+        gebruikers.add(g);
+    }
+    public void verwijderGebruiker(Gebruiker g) {
+        gebruikers.remove(g);
+    }
 }

@@ -1,8 +1,6 @@
 package persistentie;
 
-import domein.Gebruiker;
-import domein.Lokaal;
-import domein.Sessie;
+import domein.*;
 
 import java.util.Date;
 import java.util.List;
@@ -30,10 +28,27 @@ public class PersistentieController {
         return sessieMapper.getSessies();
     }
 
+
+    //Gebruiker Beheren
+    public void voegGebruikerToeMetProfielfoto(String profielfoto, String naam, String gebruikersnaam, Gebruikersprofielen type, Gebruikersstatus status){
+        Gebruiker g = new Gebruiker(profielfoto, naam, gebruikersnaam, type, status);
+        gebruikerMapper.voegGebruikerToe(g);
+    }
+
+    public void voegGebruikerToeZonderProfielfoto(String naam, String gebruikersnaam, Gebruikersprofielen type, Gebruikersstatus status){
+        Gebruiker g = new Gebruiker(naam, gebruikersnaam, type, status);
+        gebruikerMapper.voegGebruikerToe(g);
+    }
+
+    public void verwijderGebruiker(Gebruiker g){
+        gebruikerMapper.verwijderGebruiker(g);
+    }
+
     public void maakNieuweSessieAan(String titel, Date startSessie, Date eindeSessie, int maximumAantalPlaatsen, Lokaal lokaal, Gebruiker verantwoordelijke) {
         Sessie s = new Sessie(titel, startSessie, eindeSessie, maximumAantalPlaatsen, lokaal, verantwoordelijke);
         sessieMapper.voegSessieToe(s);
     }
+    //Einde Gebruiker Beheren
 
     public void verwijderSessie(Sessie s) {
         sessieMapper.verwijderSessie(s);
