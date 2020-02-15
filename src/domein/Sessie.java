@@ -43,8 +43,10 @@ public class Sessie {
     }
 
     private void controleData() {
-        Date nu = new Date(System.currentTimeMillis());
+        Date nu = new Date();
         if (startSessie.getDay() < nu.getDay()+1){
+            System.out.println(startSessie.getDay());
+            System.out.println(nu.getDay()+1);
             throw new SessieException("SessieException.startSessie1Dag");
         }
         if (startSessie.getMinutes()+30>eindeSessie.getMinutes()){
@@ -119,9 +121,6 @@ public class Sessie {
     }
 
     private void setVerantwoordelijke(Gebruiker verantwoordelijke) {
-        if (verantwoordelijke == null || verantwoordelijke.getType() == Gebruikersprofielen.VERANTWOORDELIJKE || verantwoordelijke.getType() == Gebruikersprofielen.HOOFDVERANTWOORDELIJKE){
-            throw new SessieException("SessieException.verantwoordelijkeFoutType");
-        }
         this.verantwoordelijke = verantwoordelijke;
     }
 

@@ -13,7 +13,6 @@ public class GebruikerMapper {
     private Set<Gebruiker> gebruikers;
     public GebruikerMapper() {
         gebruikers = new HashSet<>();
-        /*tijdelijk*/ gebruikers.add(new Gebruiker("naam", "a", Gebruikersprofielen.HOOFDVERANTWOORDELIJKE, Gebruikersstatus.ACTIEF));
     }
 
     public Set<Gebruiker> getGebruikers() {
@@ -26,4 +25,5 @@ public class GebruikerMapper {
     public void verwijderGebruiker(Gebruiker g) {
         gebruikers.remove(g);
     }
+    public void updateGebruiker(Gebruiker g){}
 }

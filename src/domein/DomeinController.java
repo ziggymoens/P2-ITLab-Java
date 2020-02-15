@@ -41,7 +41,7 @@ public class DomeinController {
             Sessie s = sessies.get(i);
         //for (Sessie s: sessies) {
             if (!s.isGeopend()) {
-                sb.append(String.format("%s - %s - %s -> %s: %s", s.getVerantwoordelijke().getNaam(), s.getTitel(), s.getStartSessie().toString(),
+                sb.append(String.format("%d. %s - %s - %s -> %s: %s", i+1, s.getVerantwoordelijke().getNaam(), s.getTitel(), s.getStartSessie().toString(),
                         s.getEindeSessie().toString(), s.isGeopend() ? String.format("%d", s.aantalVrijePlaatsen()) : String.format("%d", s.aantalAanwezigenNaSessie())));
             }
         }
@@ -58,6 +58,9 @@ public class DomeinController {
 
         return sb.toString();
     }
+
+    //krijgt een Sessieobject mee dat mogelijke aanpassigen bevat
+    public void pasSessieAan(Sessie sessie){}
 
     public void maakNieuweSessieAan(String titel, String startSessie, String eindeSessie, int maximumAantalPlaatsen, String lokaal, String verantwoordelijke){
         pc.maakNieuweSessieAan(titel, new Date(startSessie), new Date(eindeSessie), maximumAantalPlaatsen, geefLokaalMetCode(lokaal), geefGebruikerMetGebruikersnaam(verantwoordelijke));
@@ -90,14 +93,9 @@ public class DomeinController {
     }
 
     //Gebruiker Beheren
-    public void voegGebruikerToeZonderProfielfoto(String naam, String gebruikersnaam, Gebruikersprofielen type, Gebruikersstatus status){
-        pc.voegGebruikerToeZonderProfielfoto(naam, gebruikersnaam, type, status);
+    public void voegGebruikerToe(Gebruiker gebruiker){
+        pc.voegGebruikerToe(gebruiker);
     }
-
-    public void voegGebruikerToeMetProfielfoto(String profielfoto, String naam, String gebruikersnaam, Gebruikersprofielen type, Gebruikersstatus status){
-        pc.voegGebruikerToeMetProfielfoto(profielfoto, naam, gebruikersnaam, type, status);
-    }
-
     //moet herzien worden, nu even geen zin om hard na te denken
     public void verwijderGebruiker(Gebruiker g){
         pc.verwijderGebruiker(g);
@@ -109,4 +107,12 @@ public class DomeinController {
         pc.verwijderSessie(s);
         sessies = pc.getSessies();
     }
+
+    public void voegLokaalToe(Lokaal lokaal){
+        pc.voegLokaalToe(lokaal);
+    }
+    public void voegSessieToe(Sessie sessie){
+        pc.voegSessieToe(sessie);
+    }
+
 }

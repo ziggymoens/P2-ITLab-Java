@@ -1,8 +1,8 @@
 package userinterface.cui;
 
-import domein.DomeinController;
-import domein.Gebruiker;
+import domein.*;
 
+import java.util.Date;
 import java.util.Scanner;
 
 public class StartUpInterface {
@@ -15,12 +15,18 @@ public class StartUpInterface {
     }
 
     private void welkomKeuzeScherm() {
+        Gebruiker gebruiker = new Gebruiker("naam", "a", Gebruikersprofielen.HOOFDVERANTWOORDELIJKE, Gebruikersstatus.ACTIEF);
+        Lokaal lokaal = new Lokaal("123", 100);
+        Sessie sessie = new Sessie("titel", new Date(2021, 1, 1,12,0,0),new Date(2021, 1, 1,12,15,0),  100, lokaal, gebruiker);
+        dc.voegGebruikerToe(gebruiker);
+        dc.voegSessieToe(sessie);
+        dc.voegLokaalToe(lokaal);
 
         System.out.print("Gebruikersnaam: ");
         String gebruikersnaam = in.next();
         System.out.print("Wachtwoord: ");
         in.next();
-        Gebruiker gebruiker = dc.geefGebruikerMetGebruikersnaam(gebruikersnaam);
+        Gebruiker gebruiker1 = dc.geefGebruikerMetGebruikersnaam(gebruikersnaam);
         while(gebruiker == null){
             System.out.println("Gebruiker bestaat niet\n");
             System.out.print("Gebruikersnaam: ");

@@ -1,6 +1,7 @@
 package domein;
 
 import exceptions.GebruikerException;
+import exceptions.SessieException;
 
 public class Gebruiker {
     private String profielfoto;
@@ -46,6 +47,9 @@ public class Gebruiker {
     }
 
     private void setType(Gebruikersprofielen type) {
+        if (type == null || type != Gebruikersprofielen.VERANTWOORDELIJKE && type != Gebruikersprofielen.HOOFDVERANTWOORDELIJKE){
+            throw new GebruikerException("Gebruiker.verantwoordelijkeFoutType");
+        }
         this.type = type;
     }
 

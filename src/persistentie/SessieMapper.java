@@ -1,8 +1,14 @@
 package persistentie;
 
+import domein.DomeinController;
+import domein.Gebruiker;
+import domein.Lokaal;
 import domein.Sessie;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class SessieMapper {
@@ -16,6 +22,7 @@ public class SessieMapper {
         return sessies;
     }
 
+
     public void voegSessieToe(Sessie s) {
         sessies.add(s);
     }
@@ -23,4 +30,6 @@ public class SessieMapper {
     public void verwijderSessie(Sessie s) {
         sessies.remove(s);
     }
+
+    public void updateSessie(Sessie s) {}
 }

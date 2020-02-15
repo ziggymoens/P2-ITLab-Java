@@ -32,13 +32,7 @@ public class PersistentieController {
 
 
     //Gebruiker Beheren
-    public void voegGebruikerToeMetProfielfoto(String profielfoto, String naam, String gebruikersnaam, Gebruikersprofielen type, Gebruikersstatus status){
-        Gebruiker g = new Gebruiker(profielfoto, naam, gebruikersnaam, type, status);
-        gebruikerMapper.voegGebruikerToe(g);
-    }
-
-    public void voegGebruikerToeZonderProfielfoto(String naam, String gebruikersnaam, Gebruikersprofielen type, Gebruikersstatus status){
-        Gebruiker g = new Gebruiker(naam, gebruikersnaam, type, status);
+    public void voegGebruikerToe(Gebruiker g){
         gebruikerMapper.voegGebruikerToe(g);
     }
 
@@ -52,7 +46,17 @@ public class PersistentieController {
     }
     //Einde Gebruiker Beheren
 
+    //Sessie beheren
+    public void voegSessieToe(Sessie s){sessieMapper.voegSessieToe(s);}
     public void verwijderSessie(Sessie s) {
         sessieMapper.verwijderSessie(s);
     }
+    public void updateSessie(Sessie s){sessieMapper.updateSessie(s);}
+    //Einde Sessie beheren
+
+    //Lokaal beheren
+    public void voegLokaalToe(Lokaal l){lokaalMapper.voegLokaalToe(l);}
+    public void verwijderLokaal(Lokaal l){lokaalMapper.verwijderLokaal(l);}
+    public void updateLokaal(Lokaal l){lokaalMapper.updateLokaal(l);}
+    //Einde lokaal beheren
 }

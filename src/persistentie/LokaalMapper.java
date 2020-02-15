@@ -1,5 +1,6 @@
 package persistentie;
 
+import domein.Gebruiker;
 import domein.Lokaal;
 
 import java.util.HashSet;
@@ -15,4 +16,12 @@ public class LokaalMapper {
     public Set<Lokaal> getLokalen() {
         return lokalen;
     }
+
+    public void voegLokaalToe(Lokaal l){
+        lokalen.add(l);
+    }
+    public void verwijderLokaal(Lokaal l) {
+        lokalen.remove(l);
+    }
+    public void updateLokaal(Lokaal l){}
 }
