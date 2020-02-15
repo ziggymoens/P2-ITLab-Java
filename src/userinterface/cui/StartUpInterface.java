@@ -33,7 +33,7 @@ public class StartUpInterface {
             gebruikersnaam = in.next();
             System.out.print("Wachtwoord: ");
             in.next();
-            gebruiker = dc.geefGebruikerMetGebruikersnaam(gebruikersnaam);
+            dc.setGebruiker(dc.geefGebruikerMetGebruikersnaam(gebruikersnaam));
         }
 
         int keuze = 0;
@@ -64,7 +64,7 @@ public class StartUpInterface {
         }
 
         switch (keuze){
-            case 1: new SessieBeheren(dc, gebruiker); break;
+            case 1: new SessieBeheren(dc); break;
             case 2: new SessiekalenderBeheren(dc); break;
             case 3: new AankondigingOfHerinneringSturen(dc); break;
             case 4: new StatistiekenRaadplegen(dc); break;

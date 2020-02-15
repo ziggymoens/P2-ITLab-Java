@@ -9,6 +9,8 @@ public class DomeinController {
     private Set<Lokaal> lokalen;
     private List<Sessie> sessies;
     private PersistentieController pc;
+    private Gebruiker gebruiker;
+    private Sessie sessie;
 
     public DomeinController() {
         pc = new PersistentieController();
@@ -50,6 +52,7 @@ public class DomeinController {
 
     public String geefDetailVanSessie(int volgnummer){
         Sessie s = sessies.get(volgnummer-1);
+        setSessie(s);
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("%s%n%s%n%s%n%s%n%s%n%s%n%d%n%s: %s%n%s%n%s%n", s.getVerantwoordelijke().getNaam(), s.getTitel(),s.getNaamGastspreker(), s.getLokaal().getLokaalCode(), s.getStartSessie().toString(),
                 s.getEindeSessie().toString(), s.getMaximumAantalPlaatsen(), "Automatische herninnering", s.isAutomatischeHerinnering()?"ja":"nee",
@@ -59,8 +62,20 @@ public class DomeinController {
         return sb.toString();
     }
 
+
     //krijgt een Sessieobject mee dat mogelijke aanpassigen bevat
-    public void pasSessieAan(Sessie sessie){}
+    public void pasSessieAan(String verantwoordelijkeNaam,String titel, String naamGastSpreker,int lokaalcode,String startSessie,String eindSessie,String maxAantalPlaatsen,String autoHerinnering,String tijdstipAutoHerinnering,
+                             String inhoudautoHerinnering,String media,String gebruikers,String aankondigingen,String feedback){
+
+    }
+
+    public Sessie getSessie () {
+        return this.sessie;
+    }
+
+    public void setSessie(Sessie s){
+        this.sessie = s;
+    }
 
     public void maakNieuweSessieAan(String titel, String startSessie, String eindeSessie, int maximumAantalPlaatsen, String lokaal, String verantwoordelijke){
         pc.maakNieuweSessieAan(titel, new Date(startSessie), new Date(eindeSessie), maximumAantalPlaatsen, geefLokaalMetCode(lokaal), geefGebruikerMetGebruikersnaam(verantwoordelijke));
@@ -81,6 +96,14 @@ public class DomeinController {
             }
         }
         return null;
+    }
+
+    public Gebruiker getGebruiker (){
+        return this.gebruiker;
+    }
+
+    public void setGebruiker(Gebruiker g){
+        this.gebruiker = g;
     }
 
     private Lokaal geefLokaalMetCode(String lokaal) {

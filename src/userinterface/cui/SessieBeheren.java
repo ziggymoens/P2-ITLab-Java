@@ -1,23 +1,21 @@
 package userinterface.cui;
 
 import domein.DomeinController;
-import domein.Gebruiker;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class SessieBeheren {
     Scanner in = new Scanner(System.in);
     DomeinController dc;
-    Gebruiker gebruiker;
 
-    public SessieBeheren(DomeinController dc, Gebruiker gebruiker){
+    public SessieBeheren(DomeinController dc){
         this.dc = dc;
-        this.gebruiker = gebruiker;
         sessieBeheren();
     }
 
     private void sessieBeheren() {
-        switch (gebruiker.getType()) {
+        switch (dc.getGebruiker().getType()) {
             case HOOFDVERANTWOORDELIJKE:
                 sessieBeherenAlsHoofdVerantwoordelijke();
                 break;
@@ -25,9 +23,11 @@ public class SessieBeheren {
                 sessieBeherenAlsVerantwoordelijke();
                 break;
         }
-        System.out.println("Kies een sessie: ");
+        System.out.println("\nKies een sessie: ");
         int keuzeSessie = in.nextInt();
 
+        String verantwoordelijkeNaam, titel, naamGastSpreker, startSessie, eindSessie, inhoudautoHerinnering, autoHerinnering;
+        String tijdstipAutoHerinnering, maxAantalPlaatsen, lokaalcode,media, gebruikers, aankondigingen,feedback;
         int keuzeVoorAanpassen = -1;
         while (keuzeVoorAanpassen != 0) {
             System.out.println("Gekozen sessie ziet er momenteel als volgt uit.");
@@ -41,6 +41,14 @@ public class SessieBeheren {
             }
             switch(keuzeVoorAanpassen){
                 case 1:
+                    System.out.print("Geef een nieuwe verantwoordelijke: ");
+                        verantwoordelijkeNaam = in.next();
+                        dc.pasSessieAan(verantwoordelijkeNaam,dc.getSessie().getTitel(),
+                                dc.getSessie().getNaamGastspreker(), dc.getSessie().getLokaal().getLokaalCode(),dc.getSessie().getStartSessie().toString(),
+                                dc.getSessie().getEindeSessie().toString(), dc.getSessie().getMaximumAantalPlaatsen(),
+                                dc.getSessie().isAutomatischeHerinnering()?"ja":"nee",dc.getSessie().getHerinnering().getDagenVooraf(),
+                                dc.getSessie().getHerinnering().getInhoud(), dc.getSessie().getMediaBijSessie().toString(),
+                                dc.getSessie().toString_OverzichtInschrijvingenNietGeopend(), dc.getSessie().toString_OverzichtAankondigingen());
                     break;
                 case 2:
                     break;
@@ -68,7 +76,7 @@ public class SessieBeheren {
     }
 
     private void sessieBeherenAlsVerantwoordelijke() {
-        System.out.println(dc.geefOverzichtVerantwoordelijke(gebruiker));
+        System.out.println(dc.geefOverzichtVerantwoordelijke(dc.getGebruiker()));
     }
 
     private void sessieBeherenAlsHoofdVerantwoordelijke() {
