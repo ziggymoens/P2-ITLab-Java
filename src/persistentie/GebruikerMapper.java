@@ -2,14 +2,13 @@ package persistentie;
 
 import domein.Gebruiker;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
 
 public class GebruikerMapper {
-    private Set<Gebruiker> gebruikers;
 
+    private Set<Gebruiker> gebruikers;
     public GebruikerMapper() {
         gebruikers = new HashSet<>();
     }

@@ -72,4 +72,10 @@ public class Gebruiker {
     public Gebruikersstatus getStatus() {
         return status;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Naam: %s%nGebruikersnaam Chamilo: %s%nType: %s%nStatus: %s%n",
+                                naam, gebruikersnaam, type, status);
+    }
 }

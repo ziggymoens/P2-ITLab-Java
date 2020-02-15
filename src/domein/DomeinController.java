@@ -60,6 +60,13 @@ public class DomeinController {
         sessies = pc.getSessies();
     }
 
+    public String geefOverzichtAlleGebruikers(){
+        Set<Gebruiker> gebruikers = pc.getGebruikers();
+        StringBuilder sb = new StringBuilder();
+        gebruikers.stream().forEach(gebruiker -> sb.append(gebruiker.toString()));
+        return sb.toString();
+    }
+
     private Gebruiker geefGebruikerMetGebruikersnaam(String verantwoordelijke) {
         for (Gebruiker g: gebruikers){
             if(g.getGebruikersnaam().equals(verantwoordelijke)){
