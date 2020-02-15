@@ -71,7 +71,7 @@ public class DomeinController {
         return sb.toString();
     }
 
-    private Gebruiker geefGebruikerMetGebruikersnaam(String verantwoordelijke) {
+    public Gebruiker geefGebruikerMetGebruikersnaam(String verantwoordelijke) {
         for (Gebruiker g: gebruikers){
             if(g.getGebruikersnaam().equals(verantwoordelijke)){
                 return g;

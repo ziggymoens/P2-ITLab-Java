@@ -6,4 +6,6 @@ import domein.Gebruiker;
 import java.util.Scanner;
 
 public class GebruikerBeheren {
+    public GebruikerBeheren(DomeinController dc) {
+    }
 }
