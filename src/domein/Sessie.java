@@ -3,6 +3,8 @@ package domein;
 import exceptions.SessieException;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -43,15 +45,49 @@ public class Sessie {
     }
 
     private void controleData() {
-        Date nu = new Date();
-        if (startSessie.getDay() < nu.getDay()+1){
-            System.out.println(startSessie.getDay());
-            System.out.println(nu.getDay()+1);
-            throw new SessieException("SessieException.startSessie1Dag");
-        }
-        if (startSessie.getMinutes()+30>eindeSessie.getMinutes()){
+
+        Date startPlus30Min = new Date(startSessie.getTime());
+        Date nuPlus1Dag = new Date();
+        startPlus30Min.setMinutes(startPlus30Min.getMinutes()+30);
+        nuPlus1Dag.setDate(nuPlus1Dag.getDate()+1);
+
+        if (startPlus30Min.after(eindeSessie)){
             throw new SessieException("SessieException.startEinde30Min");
         }
+
+        if (nuPlus1Dag.after(startSessie)){
+            throw new SessieException("SessieException.startSessie1Dag");
+        }
+
+//        LocalDate nu = LocalDate.now();
+//        LocalDate localStartDate = startSessie.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+//        LocalDate localEndDate= eindeSessie.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+//
+//        if (localStartDate.atTime(startSessie.getHours(), startSessie.getMinutes()).plusMinutes(30).isAfter(localEndDate.atTime(eindeSessie.getHours(), eindeSessie.getMinutes()))) {
+//            throw new SessieException("SessieException.startEinde30Min");
+//        }
+//
+//        if (localStartDate.isBefore(nu.plusDays(1))) {
+//            throw new SessieException("SessieException.startSessie1Dag");
+//        }
+
+//        Calendar now = Calendar.getInstance();
+//        Calendar calendarStart = Calendar.getInstance();
+//        Calendar calendarEinde = Calendar.getInstance();
+//        now.setTime(new Date());
+//        calendarStart.setTime(startSessie);
+//        calendarEinde.setTime(eindeSessie);
+//
+//        if (calendarStart.add(Calendar.MINUTE, 30) > calendarEinde) {
+//            throw new SessieException("SessieException.startEinde30Min");
+//        }
+//
+//        if () {
+//            throw new SessieException("SessieException.startSessie1Dag");
+//        }
+//      FACK MEN LEVEN :(
+
+
     }
 
     private void setTitel(String titel) {
