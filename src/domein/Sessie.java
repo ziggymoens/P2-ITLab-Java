@@ -5,10 +5,7 @@ import exceptions.SessieException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class Sessie {
     private String titel;
@@ -266,5 +263,29 @@ public class Sessie {
         return sb.toString();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Sessie)) return false;
+        Sessie sessie = (Sessie) o;
+        return maximumAantalPlaatsen == sessie.maximumAantalPlaatsen &&
+                automatischeHerinnering == sessie.automatischeHerinnering &&
+                geopend == sessie.geopend &&
+                titel.equals(sessie.titel) &&
+                Objects.equals(naamGastspreker, sessie.naamGastspreker) &&
+                startSessie.equals(sessie.startSessie) &&
+                eindeSessie.equals(sessie.eindeSessie) &&
+                Objects.equals(herinnering, sessie.herinnering) &&
+                Objects.equals(mediaBijSessie, sessie.mediaBijSessie) &&
+                Objects.equals(ingeschrevenGebruikers, sessie.ingeschrevenGebruikers) &&
+                Objects.equals(aankondigingenSessie, sessie.aankondigingenSessie) &&
+                Objects.equals(feedbackSessie, sessie.feedbackSessie) &&
+                lokaal.equals(sessie.lokaal) &&
+                verantwoordelijke.equals(sessie.verantwoordelijke);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(titel, naamGastspreker, startSessie, eindeSessie, maximumAantalPlaatsen, automatischeHerinnering, herinnering, mediaBijSessie, ingeschrevenGebruikers, aankondigingenSessie, feedbackSessie, lokaal, verantwoordelijke, geopend);
+    }
 }

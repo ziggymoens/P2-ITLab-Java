@@ -3,6 +3,8 @@ package domein;
 import exceptions.GebruikerException;
 import exceptions.SessieException;
 
+import java.util.Objects;
+
 public class Gebruiker {
     private String profielfoto;
     private String naam;
@@ -81,5 +83,22 @@ public class Gebruiker {
     public String toString() {
         return String.format("Naam: %s%nGebruikersnaam Chamilo: %s%nType: %s%nStatus: %s%n",
                                 naam, gebruikersnaam, type, status);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Gebruiker)) return false;
+        Gebruiker gebruiker = (Gebruiker) o;
+        return Objects.equals(profielfoto, gebruiker.profielfoto) &&
+                naam.equals(gebruiker.naam) &&
+                gebruikersnaam.equals(gebruiker.gebruikersnaam) &&
+                type == gebruiker.type &&
+                status == gebruiker.status;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(profielfoto, naam, gebruikersnaam, type, status);
     }
 }

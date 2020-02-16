@@ -2,6 +2,8 @@ package domein;
 
 import exceptions.LokaalException;
 
+import java.util.Objects;
+
 public class Lokaal {
     private String lokaalCode;
     private int aantalPlaatsen;
@@ -31,5 +33,19 @@ public class Lokaal {
 
     public int getAantalPlaatsen() {
         return aantalPlaatsen;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Lokaal)) return false;
+        Lokaal lokaal = (Lokaal) o;
+        return aantalPlaatsen == lokaal.aantalPlaatsen &&
+                lokaalCode.equals(lokaal.lokaalCode);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(lokaalCode, aantalPlaatsen);
     }
 }
