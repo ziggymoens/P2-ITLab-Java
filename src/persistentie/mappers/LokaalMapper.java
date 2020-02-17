@@ -1,6 +1,5 @@
 package persistentie.mappers;
 
-import domein.Gebruiker;
 import domein.Lokaal;
 
 import java.util.HashSet;

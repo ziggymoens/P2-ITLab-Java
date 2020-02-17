@@ -3,7 +3,6 @@ package domein;
 import exceptions.domein.SessieException;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
