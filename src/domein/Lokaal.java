@@ -6,6 +6,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Lokaal implements Serializable {
+    private static final long serialVersionUID = 4560547008363911138L;
+
     //region Variabelen
     //Primairy key
     private String lokaalCode;

@@ -134,7 +134,7 @@ public class DomeinController {
 
     public void verwijderSessie(int volgnummer) {
         Sessie s = sessies.get(volgnummer - 1);
-        pc.verwijderSessie(s);
+        pc.beheerSessie("DELETE",s);
         sessies = pc.getSessies();
     }
 
@@ -143,7 +143,7 @@ public class DomeinController {
     }
 
     public void voegSessieToe(Sessie sessie) {
-        pc.voegSessieToe(sessie);
+        pc.beheerSessie("CREATE", sessie);
     }
 
 }

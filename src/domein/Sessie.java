@@ -2,12 +2,15 @@ package domein;
 
 import exceptions.domein.SessieException;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
 
-public class Sessie {
+public class Sessie implements Serializable {
+    private static final long serialVersionUID = 6484163469782688241L;
+
     //region variabelen
     //Primairy key
     private String sessieId;

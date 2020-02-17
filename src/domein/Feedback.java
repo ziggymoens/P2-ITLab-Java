@@ -2,9 +2,12 @@ package domein;
 
 import exceptions.domein.FeedbackException;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Feedback {
+public class Feedback implements Serializable {
+    private static final long serialVersionUID = -7572591287217890928L;
+
     //region Variabelen
     //Primairy key
     private String feedbackId;

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Media implements Serializable {
+    private static final long serialVersionUID = 6488538626159580748L;
+
     //region Variabelen
     //Primairy key
     private String mediaId;

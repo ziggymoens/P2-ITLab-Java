@@ -2,10 +2,13 @@ package domein;
 
 import exceptions.domein.AankondigingException;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class Aankondiging {
+public class Aankondiging  implements Serializable {
+    private static final long serialVersionUID = -5032924408446952572L;
+
     //region Variabelen
     //Primairy key
     private String aankondigingsId;

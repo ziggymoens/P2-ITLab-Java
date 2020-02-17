@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class SessieKalender implements Serializable {
+    private static final long serialVersionUID = -6861574744672315162L;
+
     //region Variabelen
     //Primairy key
     private String sessieKalenderId;

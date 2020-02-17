@@ -6,6 +6,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Gebruiker implements Serializable {
+    private static final long serialVersionUID = -5444941573344748602L;
+
     //region Variabelen
     //Primairy key
     private String gebruikersnaam;

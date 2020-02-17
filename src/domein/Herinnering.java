@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Herinnering implements Serializable {
+    private static final long serialVersionUID = 6099128486423253923L;
+
     //region Variabelen
     //Primairy key
     private String herinneringsId;
