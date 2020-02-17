@@ -18,9 +18,11 @@ public class PersistentieController {
     }
 
     public void initRepos() {
-        sessieRepository = new SessieRepository();
         gebruikerRepository = new GebruikerRepository();
         lokaalRepository = new LokaalRepository();
+        sessieRepository = new SessieRepository();
+        sessieRepository.setPersistenieController(this);
+        sessieRepository.maakSessies();
     }
 
     public Set<Gebruiker> getGebruikers() {
@@ -43,6 +45,10 @@ public class PersistentieController {
 
     public void verwijderGebruiker(Gebruiker g) {
         gebruikerRepository.verwijderGebruiker(g);
+    }
+
+    public Gebruiker geefGebruikerMetCode(String s) {
+        return gebruikerRepository.getGebruikerSet().stream().filter(g -> g.getGebruikersnaam().equals(s)).findFirst().orElse(null);
     }
 
     //endregion
@@ -70,5 +76,16 @@ public class PersistentieController {
     public void updateLokaal(Lokaal l) {
         lokaalRepository.updateLokaal(l);
     }
+
+    public Lokaal geefLokaalMetCode(String s) {
+        return lokaalRepository.getLokalenSet().stream().filter(l -> l.getLokaalCode().equals(s)).findFirst().orElse(null);
+    }
+
+    public void schrijfAllesWeg() {
+        gebruikerRepository.schrijfWeg();
+        lokaalRepository.schrijfWeg();
+        sessieRepository.schrijfWeg();
+    }
+
     //endregion
 }

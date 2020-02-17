@@ -40,6 +40,7 @@ public class Sessie implements Serializable {
         controleData();
         setLokaal(lokaal);
         setMaximumAantalPlaatsen(maximumAantalPlaatsen);
+        setNaamGastspreker("Onbekend");
         initLijsten();
     }
     //endregion
@@ -179,6 +180,12 @@ public class Sessie implements Serializable {
     //endregion
 
     //region toString
+
+    @Override
+    public String toString() {
+        return String.format("Verantwoordelijke: %s%nTitel: %s%nNaam gastspreker: %s%nLokaal: %s%nStart- & einduur: %s - %s%nMaximum plaatsten: %d",verantwoordelijke.getNaam(), titel, naamGastspreker, lokaal.getLokaalCode(), startSessie.toString(), eindeSessie.toString(), lokaal.getAantalPlaatsen());
+    }
+
     public String toString_OverzichtInschrijvingenNietGeopend() {
         StringBuilder sb = new StringBuilder();
         for (Inschrijving i : ingeschrevenGebruikers) {

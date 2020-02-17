@@ -37,4 +37,9 @@ public class GebruikerRepository {
     public void verwijderGebruiker(Gebruiker g) {
 
     }
+
+    public void schrijfWeg() {
+        update();
+        gom.schrijfGebruikers(gebruikerSet);
+    }
 }

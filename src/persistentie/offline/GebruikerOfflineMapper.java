@@ -17,7 +17,8 @@ public class GebruikerOfflineMapper {
     public GebruikerOfflineMapper() {
         this.gebruikerSet = new HashSet<>();
         gebruikersoffline = new File("src/offlineData/initData/Gebruiker");
-        //maakGebruikers();
+        maakGebruikers();
+        //leesGebruikers();
     }
 
     private void maakGebruikers() {
@@ -49,7 +50,8 @@ public class GebruikerOfflineMapper {
             }
         } catch (EOFException ignored) {
         } catch (IOException | ClassNotFoundException e) {
-            throw new GebruikerOfflineMapperException();
+            //throw new GebruikerOfflineMapperException(e.getCause());
+            e.printStackTrace();
         }
     }
 

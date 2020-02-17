@@ -41,4 +41,9 @@ public class LokaalRepository {
     public void updateLokaal(Lokaal l) {
         lm.updateLokaal(l);
     }
+
+    public void schrijfWeg() {
+        update();
+        lom.schrijfLokalen(lokalenSet);
+    }
 }
