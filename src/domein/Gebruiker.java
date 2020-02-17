@@ -1,6 +1,7 @@
 package domein;
 
 import exceptions.domein.GebruikerException;
+import language.Talen;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -53,14 +54,14 @@ public class Gebruiker implements Serializable {
 
     private void setType(Gebruikersprofielen type) {
         if (Gebruikersprofielen.valueOf(type.toString()).toString().equals("")) {
-            throw new GebruikerException("Gebruiker.verantwoordelijkeFoutType");
+            throw new GebruikerException("GebruikerException.verantwoordelijkeFoutType");
         }
         this.type = type;
     }
 
     private void setStatus(Gebruikersstatus status) {
         if (Gebruikersprofielen.valueOf(status.toString()).toString().equals("")) {
-            throw new GebruikerException("Gebruiker.verantwoordelijkeFoutStatus");
+            throw new GebruikerException("GebruikerException.verantwoordelijkeFoutStatus");
         }
         this.status = status;
     }
@@ -91,8 +92,8 @@ public class Gebruiker implements Serializable {
     //region toString
     @Override
     public String toString() {
-        return String.format("Naam: %s%nGebruikersnaam Chamilo: %s%nType: %s%nStatus: %s%n",
-                naam, gebruikersnaam, type, status);
+        return String.format("%s: %s%n%s: %s%n%s: %s%n%s: %s%n",
+                Talen.getString("Gebruiker.naam"),naam,Talen.getString("Gebruiker.gebruikersnaam"), gebruikersnaam,Talen.getString("Gebruiker.type"), type,Talen.getString("Gebruiker.status"), status);
     }
     //endregion
 

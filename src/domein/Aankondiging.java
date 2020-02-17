@@ -81,4 +81,5 @@ public class Aankondiging  implements Serializable {
         return Objects.hash(aankondigingsId);
     }
     //endregion
+
 }
