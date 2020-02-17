@@ -27,7 +27,8 @@ public class StartUpInterface {
         System.out.print("Wachtwoord: ");
         in.next();
 
-        while(dc.geefGebruikerMetGebruikersnaam(gebruikersnaam) == null){
+        dc.setGebruiker(dc.geefGebruikerMetGebruikersnaam(gebruikersnaam));
+        while(dc.getGebruiker() == null){
             System.out.println("Gebruiker bestaat niet\n");
             System.out.print("Gebruikersnaam: ");
             gebruikersnaam = in.next();

@@ -43,12 +43,13 @@ public class SessieBeheren {
                 case 1:
                     System.out.print("Geef een nieuwe verantwoordelijke: ");
                         verantwoordelijkeNaam = in.next();
-                        dc.pasSessieAan(verantwoordelijkeNaam,dc.getSessie().getTitel(),
+                        /*dc.pasSessieAan(verantwoordelijkeNaam,dc.getSessie().getTitel(),
                                 dc.getSessie().getNaamGastspreker(), dc.getSessie().getLokaal().getLokaalCode(),dc.getSessie().getStartSessie().toString(),
                                 dc.getSessie().getEindeSessie().toString(), dc.getSessie().getMaximumAantalPlaatsen(),
                                 dc.getSessie().isAutomatischeHerinnering()?"ja":"nee",dc.getSessie().getHerinnering().getDagenVooraf(),
                                 dc.getSessie().getHerinnering().getInhoud(), dc.getSessie().getMediaBijSessie().toString(),
-                                dc.getSessie().toString_OverzichtInschrijvingenNietGeopend(), dc.getSessie().toString_OverzichtAankondigingen());
+                                dc.getSessie().toString_OverzichtInschrijvingenNietGeopend(), dc.getSessie().toString_OverzichtAankondigingen());*/
+                        // verkeerd
                     break;
                 case 2:
                     break;
