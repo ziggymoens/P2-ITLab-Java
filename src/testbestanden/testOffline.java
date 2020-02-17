@@ -2,8 +2,6 @@ package testbestanden;
 
 import domein.*;
 import persistentie.PersistentieController;
-import persistentie.offline.GebruikerOfflineMapper;
-import persistentie.offline.LokalenOfflineMapper;
 
 import java.util.List;
 import java.util.Set;

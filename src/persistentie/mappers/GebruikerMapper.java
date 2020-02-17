@@ -1,12 +1,7 @@
 package persistentie.mappers;
 
 import domein.Gebruiker;
-import domein.Gebruikersprofielen;
-import domein.Gebruikersstatus;
-import javafx.scene.layout.HBox;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.*;
 
 public class GebruikerMapper {

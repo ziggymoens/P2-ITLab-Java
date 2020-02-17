@@ -1,10 +1,7 @@
 package main;
 
 import domein.DomeinController;
-import language.Talen;
 import userinterface.cui.StartUpInterface;
-
-import java.util.Scanner;
 
 public class StartUp {
 	public static void main(String[] args) {

@@ -2,7 +2,6 @@ package userinterface.cui.ucs;
 
 import domein.DomeinController;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class SessieBeheren {

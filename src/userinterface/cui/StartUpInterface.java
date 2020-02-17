@@ -3,7 +3,6 @@ package userinterface.cui;
 import domein.*;
 import userinterface.cui.ucs.*;
 
-import java.util.Date;
 import java.util.Scanner;
 
 public class StartUpInterface {
