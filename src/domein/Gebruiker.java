@@ -54,14 +54,14 @@ public class Gebruiker implements Serializable {
     }
 
     private void setType(Gebruikersprofielen type) {
-        if (Arrays.stream(Gebruikersprofielen.values()).filter(e -> e.toString().equals(status)).findFirst().orElse(null) == null) {
+        if (type == null || Arrays.stream(Gebruikersprofielen.values()).filter(e -> e.toString().equals(status)).findFirst().orElse(null) == null) {
             throw new GebruikerException("GebruikerException.verantwoordelijkeFoutType");
         }
         this.type = type;
     }
 
     private void setStatus(Gebruikersstatus status) {
-        if (Arrays.stream(Gebruikersstatus.values()).filter(e -> e.toString().equals(status)).findFirst().orElse(null) == null) {
+        if (status == null || Arrays.stream(Gebruikersstatus.values()).filter(e -> e.toString().equals(status)).findFirst().orElse(null) == null) {
             throw new GebruikerException("GebruikerException.verantwoordelijkeFoutStatus");
         }
         this.status = status;
@@ -94,7 +94,7 @@ public class Gebruiker implements Serializable {
     @Override
     public String toString() {
         return String.format("%s: %s%n%s: %s%n%s: %s%n%s: %s%n",
-                Talen.getString("Gebruiker.naam"),naam,Talen.getString("Gebruiker.gebruikersnaam"), gebruikersnaam,Talen.getString("Gebruiker.type"), type,Talen.getString("Gebruiker.status"), status);
+                Talen.getString("Gebruiker.naam"), naam, Talen.getString("Gebruiker.gebruikersnaam"), gebruikersnaam, Talen.getString("Gebruiker.type"), type, Talen.getString("Gebruiker.status"), status);
     }
     //endregion
 
