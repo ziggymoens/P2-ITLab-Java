@@ -31,14 +31,14 @@ public class Sessie implements Serializable {
     //endregion
 
     //region Constructors
-    public Sessie(String titel, LocalDateTime startSessie, LocalDateTime eindeSessie, int maximumAantalPlaatsen, Lokaal lokaal, Gebruiker verantwoordelijke) {
+    public Sessie(String titel, LocalDateTime startSessie, LocalDateTime eindeSessie, Lokaal lokaal, Gebruiker verantwoordelijke) {
         setVerantwoordelijke(verantwoordelijke);
         setTitel(titel);
         setStartSessie(startSessie);
         setEindeSessie(eindeSessie);
         controleData();
         setLokaal(lokaal);
-        setMaximumAantalPlaatsen(maximumAantalPlaatsen);
+        setMaximumAantalPlaatsen(this.lokaal.getAantalPlaatsen());
         setNaamGastspreker("Onbekend");
         initLijsten();
     }
@@ -183,6 +183,11 @@ public class Sessie implements Serializable {
     @Override
     public String toString() {
         return String.format("Verantwoordelijke: %s%nTitel: %s%nNaam gastspreker: %s%nLokaal: %s%nStart- & einduur: %s - %s%nMaximum plaatsten: %d",verantwoordelijke.getNaam(), titel, naamGastspreker, lokaal.getLokaalCode(), startSessie.toString(), eindeSessie.toString(), lokaal.getAantalPlaatsen());
+    }
+
+    public String toString_Overzicht(){
+        return String.format("%s. %s - %s - %s -> %s: %s", sessieId, verantwoordelijke.getNaam(), titel, startSessie.toString(),
+                eindeSessie.toString(), isGeopend() ? String.format("%d", aantalVrijePlaatsen()) : String.format("%d", aantalAanwezigenNaSessie()));
     }
 
     public String toString_OverzichtInschrijvingenNietGeopend() {

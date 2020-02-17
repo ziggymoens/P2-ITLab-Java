@@ -1,24 +1,27 @@
-package persistentie.offline;
+package persistentie.mappersOffline;
 
 import domein.Gebruiker;
 import domein.Gebruikersprofielen;
 import domein.Gebruikersstatus;
 import exceptions.persistentie.offline.GebruikerOfflineMapperException;
+import persistentie.mappersAbs.GebruikerMapperAb;
 
 import java.io.*;
-import java.util.HashSet;
 import java.util.Set;
 
-public class GebruikerOfflineMapper {
+public class GebruikerOfflineMapper extends GebruikerMapperAb {
 
-    private Set<Gebruiker> gebruikerSet;
     private final File gebruikersoffline;
+    private boolean initialiseren = false;
 
     public GebruikerOfflineMapper() {
-        this.gebruikerSet = new HashSet<>();
+        super();
         gebruikersoffline = new File("src/offlineData/initData/Gebruiker");
-        maakGebruikers();
-        //leesGebruikers();
+        if(initialiseren){
+            maakGebruikers();
+        }else {
+            leesGebruikers();
+        }
     }
 
     private void maakGebruikers() {
@@ -55,11 +58,12 @@ public class GebruikerOfflineMapper {
         }
     }
 
-    public void schrijfGebruikers(Set<Gebruiker> gebruikers) {
+    @Override
+    public void schrijfGebruikers() {
         try {
             FileOutputStream fos = new FileOutputStream("src/offlineData/serieel/Gebruiker.ser");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            for (Gebruiker g : gebruikers) {
+            for (Gebruiker g : gebruikerSet) {
                 oos.writeObject(g);
             }
         } catch (IOException e) {
@@ -67,8 +71,24 @@ public class GebruikerOfflineMapper {
         }
     }
 
-
-    public Set<Gebruiker> getGebruikerSet() {
+    @Override
+    public Set<Gebruiker> getGebruikers() {
         return gebruikerSet;
+    }
+
+    @Override
+    public void voegGebruikerToe(Gebruiker g) {
+        gebruikerSet.add(g);
+        schrijfGebruikers();
+    }
+    @Override
+    public void verwijderGebruiker(Gebruiker g) {
+        gebruikerSet.remove(g);
+        schrijfGebruikers();
+    }
+
+    @Override
+    public void updateGebruiker(Gebruiker g) {
+        schrijfGebruikers();
     }
 }

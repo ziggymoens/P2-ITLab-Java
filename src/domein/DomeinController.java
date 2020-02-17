@@ -6,140 +6,87 @@ import persistentie.PersistentieController;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class DomeinController {
-    private List<Sessie> sessies;
+    //region Variabelen
     private PersistentieController pc;
     private Gebruiker gebruiker;
+    //endregion
 
+    //region Constructor
     public DomeinController() {
         initData();
     }
+    //endregion
 
+    //region Init
     private void initData() {
         pc = new PersistentieController();
-        sessies = pc.getSessies();
+    }
+    //endregion
+
+    //region Overzicht
+    public List<String> geefOverzichtVerantwoordelijke(String gebruikersCode) {
+        return pc.getSessies().stream().filter(s -> s.isGeopend() && s.getVerantwoordelijke().getGebruikersnaam().equals(gebruikersCode)).map(Sessie::toString_Overzicht).collect(Collectors.toList());
     }
 
-    private void updateData() {
-        pc.update();
+    public List<String> geefOverzichtHoofdverantwoordelijke() {
+        return pc.getSessies().stream().sorted(Comparator.comparing(Sessie::getStartSessie)).map(Sessie::toString_Overzicht).collect(Collectors.toList());
     }
 
-    public String geefOverzichtVerantwoordelijke(Gebruiker gebruiker) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < sessies.size(); i++) {
-            Sessie s = sessies.get(i);
-            //for(Sessie s : sessies){
-            if (!s.isGeopend() && s.getVerantwoordelijke() == gebruiker) {
-                sb.append(String.format("%d. %s - %s - %s -> %s: %s", i + 1, s.getVerantwoordelijke().getNaam(), s.getTitel(), s.getStartSessie().toString(),
-                        s.getEindeSessie().toString(), s.isGeopend() ? String.format("%d", s.aantalVrijePlaatsen()) : String.format("%d", s.aantalAanwezigenNaSessie())));
-            }
-        }
-        return sb.toString();
+    public List<String> geefOverzichtAlleGebruikers() {
+        return pc.getGebruikers().stream().map(Gebruiker::toString).collect(Collectors.toList());
     }
+    //endregion
 
-    public String geefOverzichtHoofdverantwoordelijke() {
-        StringBuilder sb = new StringBuilder();
-        sessies.sort(Comparator.comparing(Sessie::getStartSessie));
-        for (int i = 0; i < sessies.size(); i++) {
-            Sessie s = sessies.get(i);
-            //for (Sessie s: sessies) {
-            if (!s.isGeopend()) {
-                sb.append(String.format("%d. %s - %s - %s -> %s: %s", i + 1, s.getVerantwoordelijke().getNaam(), s.getTitel(), s.getStartSessie().toString(),
-                        s.getEindeSessie().toString(), s.isGeopend() ? String.format("%d", s.aantalVrijePlaatsen()) : String.format("%d", s.aantalAanwezigenNaSessie())));
-            }
-        }
-        return sb.toString();
-    }
-
-    public String geefDetailVanSessie(int volgnummer) {
-        Sessie s = sessies.get(volgnummer - 1);
-        StringBuilder sb = new StringBuilder();
-        sb.append(String.format("%s%n%s%n%s%n%s%n%s%n%s%n%d%n%s: %s%n%s%n%s%n", s.getVerantwoordelijke().getNaam(), s.getTitel(), s.getNaamGastspreker(), s.getLokaal().getLokaalCode(), s.getStartSessie().toString(),
-                s.getEindeSessie().toString(), s.getMaximumAantalPlaatsen(), "Automatische herninnering", s.isAutomatischeHerinnering() ? "ja" : "nee",
-                s.getMediaBijSessie().toString(), s.isGeopend() ? String.format("Inschrijvingen:%n%s%nAankondigingen:%n%s", s.toString_OverzichtInschrijvingenNietGeopend(), s.toString_OverzichtAankondigingen())
-                        : String.format("Inschrijvingen:%n%s%nFeedback:%n%s", s.toString_OverzichtInschrijvingenGeopend(), s.toString_OverzichtFeedback())));
-
-        return sb.toString();
-    }
-
-
-    //krijgt een Sessieobject mee dat mogelijke aanpassigen bevat
-    public void pasSessieAan(String verantwoordelijkeNaam, String titel, String naamGastSpreker, int lokaalcode, String startSessie, String eindSessie, String maxAantalPlaatsen, String autoHerinnering, String tijdstipAutoHerinnering,
-                             String inhoudautoHerinnering, String media, String gebruikers, String aankondigingen, String feedback) {
-
-    }
-
-    /**
-     *
-     * @param titel
-     * @param startSessie ==> vb. "2007-12-03T10:15:30"
-     * @param eindeSessie ==> vb. "2007-12-03T10:15:30"
-     * @param maximumAantalPlaatsen
-     * @param lokaal
-     * @param verantwoordelijke
-     */
-    public void maakNieuweSessieAan(String titel, CharSequence startSessie, CharSequence eindeSessie, int maximumAantalPlaatsen, String lokaal, String verantwoordelijke) {
-        pc.maakNieuweSessieAan(titel, LocalDateTime.parse(startSessie), LocalDateTime.parse(eindeSessie), maximumAantalPlaatsen, geefLokaalMetCode(lokaal), geefGebruikerMetGebruikersnaam(verantwoordelijke));
-        sessies = pc.getSessies();
-    }
-
-    public String geefOverzichtAlleGebruikers() {
-        Set<Gebruiker> gebruikers = pc.getGebruikers();
-        StringBuilder sb = new StringBuilder();
-        gebruikers.stream().forEach(gebruiker -> sb.append(gebruiker.toString()));
-        return sb.toString();
-    }
-
-    public Gebruiker geefGebruikerMetGebruikersnaam(String verantwoordelijke) {
-        for (Gebruiker g : pc.getGebruikerSet()) {
-            if (g.getGebruikersnaam().equals(verantwoordelijke)) {
-                return g;
-            }
-        }
-        return null;
-    }
-
-    public Gebruiker getGebruiker() {
-        return this.gebruiker;
-    }
-
-    public void setGebruiker(Gebruiker g) {
-        this.gebruiker = g;
-    }
-
-    private Lokaal geefLokaalMetCode(String lokaal) {
-        for (Lokaal l : pc.getLokalenSet()) {
-            if (l.getLokaalCode().equals(lokaal)) {
-                return l;
-            }
-        }
-        return null;
-    }
-
-    //Gebruiker Beheren
+    //region Gebruiker
     public void voegGebruikerToe(Gebruiker gebruiker) {
-        pc.voegGebruikerToe(gebruiker);
+        pc.beheerGebruiker("CREATE", gebruiker);
     }
 
-    //moet herzien worden, nu even geen zin om hard na te denken
     public void verwijderGebruiker(Gebruiker g) {
-        pc.verwijderGebruiker(g);
+        pc.beheerGebruiker("DELETE", gebruiker);
     }
-    //Einde Gebruiker Beheren
 
-    public void verwijderSessie(int volgnummer) {
-        Sessie s = sessies.get(volgnummer - 1);
-        pc.beheerSessie("DELETE",s);
-        sessies = pc.getSessies();
+    //endregion
+
+    //region Lokaal
+    private Lokaal geefLokaalMetCode(String lokaalCode) {
+        return pc.geefLokaalMetCode(lokaalCode);
     }
 
     public void voegLokaalToe(Lokaal lokaal) {
-        pc.voegLokaalToe(lokaal);
+        pc.beheerLokaal("CREATE", lokaal);
+    }
+    //endregion
+
+    //region Sessie
+
+    /**
+     * @param titel                 ==> titel van de sessie
+     * @param startSessie           ==> vb. "2007-12-03T10:15:30"
+     * @param eindeSessie           ==> vb. "2007-12-03T10:15:30"
+     * @param lokaalCode            ==> de code van het lokaal
+     * @param verantwoordelijkeCode ==> code van de veranwoordelijke
+     */
+    public void maakNieuweSessieAan(String titel, CharSequence startSessie, CharSequence eindeSessie, String lokaalCode, String verantwoordelijkeCode) {
+        Sessie s = new Sessie(titel, LocalDateTime.parse(startSessie), LocalDateTime.parse(eindeSessie), pc.geefLokaalMetCode(lokaalCode), pc.geefGebruikerMetCode(verantwoordelijkeCode));
+        pc.beheerSessie("CREATE", s);
     }
 
     public void voegSessieToe(Sessie sessie) {
         pc.beheerSessie("CREATE", sessie);
     }
 
+    public void verwijderSessie(String SessieId) {
+        Sessie s = pc.geefSessieMetId(SessieId);
+        pc.beheerSessie("DELETE", s);
+    }
+
+    public String geefDetailVanSessie(String sessieId) {
+        Sessie sessie = pc.geefSessieMetId(sessieId);
+        return sessie.toString();
+    }
+    //endregion
 }

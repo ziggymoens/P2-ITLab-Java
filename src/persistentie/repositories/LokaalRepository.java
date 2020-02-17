@@ -3,21 +3,23 @@ package persistentie.repositories;
 import domein.Lokaal;
 import domein.Sessie;
 import persistentie.mappers.LokaalMapper;
-import persistentie.offline.LokalenOfflineMapper;
+import persistentie.mappersOffline.LokalenOfflineMapper;
 
 import java.util.Set;
 
 public class LokaalRepository {
     private LokaalMapper lm;
+    private LokalenOfflineMapper lom;
     private Set<Lokaal> lokalenSet;
 
     public LokaalRepository() {
         lm = new LokaalMapper();
+        lom = new LokalenOfflineMapper();
         haalLokalenOp();
     }
 
     private void haalLokalenOp() {
-        lokalenSet = lm.getLokalenSet();
+        lokalenSet = lom.getLokalenSet();
     }
 
     public Set<Lokaal> getLokalenSet() {
@@ -45,10 +47,22 @@ public class LokaalRepository {
         lm.schrijfLokalen(lokalenSet);
     }
 
-    public void beheerLokaal(String optie, Sessie s) {
-        switch (optie){
+    public void beheerLokaal(String optie, Lokaal l) {
+        switch (optie.toUpperCase()){
             case "CREATE":
-                //lom.voeg
+                lm.voegLokaalToe(l);
+                break;
+            case "READ":
+                lm.geefLokaal(l.getLokaalCode());
+                break;
+            case "UPDATE":
+                lm.updateLokaal(l);
+                break;
+            case "DELETE":
+                lm.verwijderLokaal(l);
+                break;
+            default:
+                break;
 
         }
     }

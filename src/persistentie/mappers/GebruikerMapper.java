@@ -1,31 +1,50 @@
 package persistentie.mappers;
 
 import domein.Gebruiker;
+import persistentie.Connection;
+import persistentie.mappersAbs.GebruikerMapperAb;
+import persistentie.mappersOffline.GebruikerOfflineMapper;
+import persistentie.mappersoOnline.GebruikerOnlineMapper;
 
 import java.util.*;
 
 public class GebruikerMapper {
-
-    private Set<Gebruiker> gebruikers;
+    private GebruikerMapperAb mapper;
 
     public GebruikerMapper() {
-        gebruikers = new HashSet<>();
+        if (Connection.isONLINE()) {
+            mapper = new GebruikerOnlineMapper();
+        } else {
+            mapper = new GebruikerOfflineMapper();
+        }
     }
 
     public Set<Gebruiker> getGebruikers() {
-        return gebruikers;
+        return mapper.getGebruikers();
     }
 
     public void voegGebruikerToe(Gebruiker g) {
-        gebruikers.add(g);
+        mapper.voegGebruikerToe(g);
     }
 
     public void verwijderGebruiker(Gebruiker g) {
-        gebruikers.remove(g);
+        mapper.verwijderGebruiker(g);
     }
 
     public void updateGebruiker(Gebruiker g) {
         throw new UnsupportedOperationException();
     }
 
+    public void schrijfGebruikers() {
+        mapper.schrijfGebruikers();
+    }
+
+    public void update() {
+        mapper.update();
+    }
+
+
+    public Gebruiker geefGebruiker(String gebruikersnaam) {
+        return mapper.getGebruikers().stream().filter(g -> g.getGebruikersnaam().equals(gebruikersnaam)).findFirst().orElse(null);
+    }
 }

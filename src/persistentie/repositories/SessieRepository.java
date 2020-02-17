@@ -4,7 +4,7 @@ import domein.Sessie;
 import exceptions.persistentie.repositories.SessieRepositoryException;
 import persistentie.PersistentieController;
 import persistentie.mappers.SessieMapper;
-import persistentie.offline.SessieOfflineMapper;
+import persistentie.mappersOffline.SessieOfflineMapper;
 
 import java.util.List;
 

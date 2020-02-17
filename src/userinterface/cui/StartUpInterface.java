@@ -26,7 +26,7 @@ public class StartUpInterface {
         String gebruikersnaam = in.next();
         System.out.print("Wachtwoord: ");
         in.next();
-
+/*
         dc.setGebruiker(dc.geefGebruikerMetGebruikersnaam(gebruikersnaam));
         while(dc.getGebruiker() == null){
             System.out.println("Gebruiker bestaat niet\n");
@@ -36,7 +36,7 @@ public class StartUpInterface {
             in.next();
             dc.setGebruiker(dc.geefGebruikerMetGebruikersnaam(gebruikersnaam));
         }
-
+*/
         int keuze = 0;
         switch(gebruiker.getType()){
             case HOOFDVERANTWOORDELIJKE:

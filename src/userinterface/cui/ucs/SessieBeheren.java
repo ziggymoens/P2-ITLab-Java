@@ -5,8 +5,9 @@ import domein.DomeinController;
 import java.util.Scanner;
 
 public class SessieBeheren {
-    Scanner in = new Scanner(System.in);
-    DomeinController dc;
+    private Scanner in = new Scanner(System.in);
+    private DomeinController dc;
+    private String gebruikersCode;
 
     public SessieBeheren(DomeinController dc){
         this.dc = dc;
@@ -14,6 +15,7 @@ public class SessieBeheren {
     }
 
     private void sessieBeheren() {
+        /* DIT MAG NIET
         switch (dc.getGebruiker().getType()) {
             case HOOFDVERANTWOORDELIJKE:
                 sessieBeherenAlsHoofdVerantwoordelijke();
@@ -21,7 +23,7 @@ public class SessieBeheren {
             case VERANTWOORDELIJKE:
                 sessieBeherenAlsVerantwoordelijke();
                 break;
-        }
+        }*/
         System.out.println("\nKies een sessie: ");
         int keuzeSessie = in.nextInt();
 
@@ -30,7 +32,7 @@ public class SessieBeheren {
         int keuzeVoorAanpassen = -1;
         while (keuzeVoorAanpassen != 0) {
             System.out.println("Gekozen sessie ziet er momenteel als volgt uit.");
-            System.out.println(dc.geefDetailVanSessie(keuzeSessie) + "\n");
+           // System.out.println(dc.geefDetailVanSessie(keuzeSessie) + "\n");
             System.out.println("Geef het nummer van het sessiedetail dat u wenst u aan te passen, geef 0 om te stoppen. ");
             keuzeVoorAanpassen = in.nextInt();
             while (keuzeVoorAanpassen < 0 && keuzeVoorAanpassen > 11) {
@@ -76,7 +78,7 @@ public class SessieBeheren {
     }
 
     private void sessieBeherenAlsVerantwoordelijke() {
-        System.out.println(dc.geefOverzichtVerantwoordelijke(dc.getGebruiker()));
+        System.out.println(dc.geefOverzichtVerantwoordelijke(gebruikersCode));
     }
 
     private void sessieBeherenAlsHoofdVerantwoordelijke() {

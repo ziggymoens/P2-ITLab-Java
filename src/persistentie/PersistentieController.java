@@ -44,6 +44,10 @@ public class PersistentieController {
     //endregion
 
     //region Gebruiker CRUD
+    public void beheerGebruiker(String optie, Gebruiker g){
+        gebruikerRepository.beheerGebruiker(optie, g);
+    }
+
     public void voegGebruikerToe(Gebruiker g) {
         gebruikerRepository.voegGebruikerToe(g);
     }
@@ -59,33 +63,20 @@ public class PersistentieController {
     //endregion
 
     //region Sessie CRUD
-    public void maakNieuweSessieAan(String titel, LocalDateTime startSessie, LocalDateTime eindeSessie, int maximumAantalPlaatsen, Lokaal lokaal, Gebruiker verantwoordelijke) {
-        Sessie s = new Sessie(titel, startSessie, eindeSessie, maximumAantalPlaatsen, lokaal, verantwoordelijke);
-        beheerSessie("CREATE", s);
-    }
-
     public void beheerSessie(String optie, Sessie s) {
         sessieRepository.beheerSessie(optie, s);
+    }
+
+    public Sessie geefSessieMetId(String sessieId) {
+        return sessieRepository.getSessies().stream().filter(s -> s.getSessieId().equals(sessieId)).findFirst().orElse(null);
     }
     //endregion
 
     //region Lokaal CRUD
-    public void beheerLokaal(String optie, Sessie s) {
-        lokaalRepository.beheerLokaal(optie, s);
-    }
-/*
-    public void voegLokaalToe(Lokaal l) {
-        lokaalRepository.voegLokaalToe(l);
+    public void beheerLokaal(String optie, Lokaal l) {
+        lokaalRepository.beheerLokaal(optie, l);
     }
 
-    public void verwijderLokaal(Lokaal l) {
-        lokaalRepository.verwijderLokaal(l);
-    }
-
-    public void updateLokaal(Lokaal l) {
-        lokaalRepository.updateLokaal(l);
-    }
-*/
     public Lokaal geefLokaalMetCode(String s) {
         return lokaalRepository.getLokalenSet().stream().filter(l -> l.getLokaalCode().equals(s)).findFirst().orElse(null);
     }
@@ -97,9 +88,6 @@ public class PersistentieController {
         sessieRepository.schrijfWeg();
     }
 
-    public void update() {
-    }
-
     public void voegLokaalToe(Lokaal lokaal) {
 
     }
@@ -108,7 +96,5 @@ public class PersistentieController {
         return lokaalRepository.getLokalenSet();
     }
 
-    public Set<Gebruiker> getGebruikerSet() {
-        return gebruikerRepository.getGebruikerSet();
-    }
+
 }

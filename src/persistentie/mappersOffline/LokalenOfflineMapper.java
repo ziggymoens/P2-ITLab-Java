@@ -1,4 +1,4 @@
-package persistentie.offline;
+package persistentie.mappersOffline;
 
 import domein.Lokaal;
 import exceptions.persistentie.offline.LokalenOfflineMapperException;

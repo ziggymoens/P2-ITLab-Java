@@ -33,4 +33,8 @@ public class LokaalMapper {
 
     public void schrijfLokalen(Set<Lokaal> lokalenSet) {
     }
+
+    public Lokaal geefLokaal(String lokaalCode) {
+        return lokalen.stream().filter(l -> l.getLokaalCode().equals(lokaalCode)).findFirst().orElse(null);
+    }
 }

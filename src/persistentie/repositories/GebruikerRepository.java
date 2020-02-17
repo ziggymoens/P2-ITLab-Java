@@ -2,32 +2,22 @@ package persistentie.repositories;
 
 import domein.Gebruiker;
 import persistentie.mappers.GebruikerMapper;
-import persistentie.offline.GebruikerOfflineMapper;
 
 import java.util.Set;
 
 public class GebruikerRepository {
     private GebruikerMapper gm;
-    private GebruikerOfflineMapper gom;
-
-    private Set<Gebruiker> gebruikerSet;
 
     public GebruikerRepository() {
         gm = new GebruikerMapper();
-        gom = new GebruikerOfflineMapper();
-        haalGebruikersOp();
-    }
-
-    private void haalGebruikersOp() {
-        gebruikerSet = gom.getGebruikerSet();
     }
 
     public Set<Gebruiker> getGebruikerSet() {
-        return gebruikerSet;
+        return gm.getGebruikers();
     }
 
     public void update() {
-        gebruikerSet = gom.getGebruikerSet();
+        gm.update();
     }
 
     public void voegGebruikerToe(Gebruiker g) {
@@ -35,11 +25,35 @@ public class GebruikerRepository {
     }
 
     public void verwijderGebruiker(Gebruiker g) {
+        gm.verwijderGebruiker(g);
+    }
 
+    public void updateGebruiker(Gebruiker g){
+        gm.updateGebruiker(g);
+        update();
     }
 
     public void schrijfWeg() {
         update();
-        gom.schrijfGebruikers(gebruikerSet);
+        gm.schrijfGebruikers();
+    }
+
+    public void beheerGebruiker(String optie, Gebruiker g) {
+        switch (optie.toUpperCase()){
+            case "CREATE":
+                gm.voegGebruikerToe(g);
+                break;
+            case "READ":
+                gm.geefGebruiker(g.getGebruikersnaam());
+                break;
+            case "UPDATE":
+                gm.updateGebruiker(g);
+                break;
+            case "DELETE":
+                gm.verwijderGebruiker(g);
+                break;
+            default:
+                break;
+        }
     }
 }

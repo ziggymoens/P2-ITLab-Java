@@ -1,4 +1,4 @@
-package persistentie.offline;
+package persistentie.mappersOffline;
 
 import domein.Gebruiker;
 import domein.Lokaal;
@@ -35,9 +35,8 @@ public class SessieOfflineMapper {
                 LocalDateTime startSessie = LocalDateTime.parse(sessie[1]);
                 LocalDateTime eindeSessie = LocalDateTime.parse(sessie[2]);
                 Lokaal lokaal = pc.geefLokaalMetCode(sessie[3]);
-                int max = lokaal.getAantalPlaatsen();
                 Gebruiker gebruiker = pc.geefGebruikerMetCode(sessie[4]);
-                sessieList.add(new Sessie(sessie[0], startSessie, eindeSessie, max, lokaal, gebruiker));
+                sessieList.add(new Sessie(sessie[0], startSessie, eindeSessie, lokaal, gebruiker));
             }
         } catch (IOException e) {
             throw new GebruikerOfflineMapperException();
