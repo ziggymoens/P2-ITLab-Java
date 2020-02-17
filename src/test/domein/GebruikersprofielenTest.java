@@ -1,4 +1,7 @@
 package test.domein;
 
-public class GebruikersprofielenTest {
+import static org.junit.jupiter.api.Assertions.*;
+
+class GebruikersprofielenTest {
+
 }

@@ -1,4 +1,7 @@
 package test.domein;
 
-public class HerinneringTest {
+import static org.junit.jupiter.api.Assertions.*;
+
+class HerinneringTest {
+
 }

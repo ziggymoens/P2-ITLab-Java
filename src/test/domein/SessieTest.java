@@ -1,4 +1,7 @@
 package test.domein;
 
-public class SessieTest {
+import static org.junit.jupiter.api.Assertions.*;
+
+class SessieTest {
+
 }
