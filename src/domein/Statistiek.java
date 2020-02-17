@@ -12,8 +12,7 @@ public class Statistiek implements Serializable {
     //endregion
 
     //region Constructor
-    public Statistiek() {
-    }
+    public Statistiek() {    }
     //endregion
 
     //region Setters
