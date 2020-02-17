@@ -1,45 +1,56 @@
 package domein;
 
-import exceptions.AankondigingException;
+import exceptions.domein.AankondigingException;
 
 import java.util.Date;
 import java.util.Objects;
 
 public class Aankondiging {
+    //region Variabelen
     //Primairy key
     private String aankondigingsId;
 
     private Date publicatiedatum;
     private Gebruiker publicist;
     private String inhoud;
+    //endregion
 
+    //region Constructor
     public Aankondiging(Date publicatiedatum, Gebruiker publicist, String inhoud) {
         setPublicatiedatum(publicatiedatum);
         setPublicist(publicist);
         setInhoud(inhoud);
     }
+    //endregion
 
-    public void setPublicatiedatum(Date publicatiedatum) {
-        if(publicatiedatum == null){
+    //region Setters
+    private void setPublicatiedatum(Date publicatiedatum) {
+        if (publicatiedatum == null) {
             throw new AankondigingException();
         }
         this.publicatiedatum = publicatiedatum;
     }
 
-    public void setPublicist(Gebruiker publicist) {
-        if(publicist == null){
+    private void setPublicist(Gebruiker publicist) {
+        if (publicist == null) {
             throw new AankondigingException();
         }
         this.publicist = publicist;
     }
 
-    public void setInhoud(String inhoud) {
-        if (inhoud ==null || inhoud.isBlank()){
+    private void setInhoud(String inhoud) {
+        if (inhoud == null || inhoud.isBlank()) {
             throw new AankondigingException();
         }
         this.inhoud = inhoud;
     }
 
+    public void setAankondigingsId(String aankondigingsId) {
+        this.aankondigingsId = aankondigingsId;
+    }
+    //endregion
+
+    //region Getters
     public Date getPublicatiedatum() {
         return publicatiedatum;
     }
@@ -51,7 +62,9 @@ public class Aankondiging {
     public String getInhoud() {
         return inhoud;
     }
+    //endregion
 
+    //region Equals & Hashcode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -64,4 +77,5 @@ public class Aankondiging {
     public int hashCode() {
         return Objects.hash(aankondigingsId);
     }
+    //endregion
 }

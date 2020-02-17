@@ -1,35 +1,46 @@
 package domein;
 
-import exceptions.FeedbackException;
+import exceptions.domein.FeedbackException;
 
 import java.util.Objects;
 
 public class Feedback {
+    //region Variabelen
     //Primairy key
     private String feedbackId;
 
     private Gebruiker gebruiker;
     private String tekst;
+    //endregion
 
+    //region Constructor
     public Feedback(Gebruiker gebruiker, String tekst) {
         setGebruiker(gebruiker);
         setTekst(tekst);
-}
+    }
+    //endregion
 
-    public void setGebruiker(Gebruiker gebruiker) {
-        if(gebruiker == null){
+    //region Setters
+    private void setGebruiker(Gebruiker gebruiker) {
+        if (gebruiker == null) {
             throw new FeedbackException();
         }
         this.gebruiker = gebruiker;
     }
 
-    public void setTekst(String tekst) {
-        if(tekst == null || tekst.isBlank()){
+    private void setTekst(String tekst) {
+        if (tekst == null || tekst.isBlank()) {
             throw new FeedbackException();
         }
         this.tekst = tekst;
     }
 
+    public void setFeedbackId(String feedbackId) {
+        this.feedbackId = feedbackId;
+    }
+    //endregion
+
+    //region Getters
     public Gebruiker getGebruiker() {
         return gebruiker;
     }
@@ -37,7 +48,9 @@ public class Feedback {
     public String getTekst() {
         return tekst;
     }
+    //endregion
 
+    //region Equals & Hashcode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -50,4 +63,5 @@ public class Feedback {
     public int hashCode() {
         return Objects.hash(feedbackId);
     }
+    //endregion
 }

@@ -1,11 +1,12 @@
 package domein;
 
-import exceptions.GebruikerException;
-import exceptions.SessieException;
+import exceptions.domein.GebruikerException;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Gebruiker {
+public class Gebruiker implements Serializable {
+    //region Variabelen
     //Primairy key
     private String gebruikersnaam;
 
@@ -13,54 +14,57 @@ public class Gebruiker {
     private String naam;
     private Gebruikersprofielen type;
     private Gebruikersstatus status;
+    //endregion
 
+    //region Constructor
     public Gebruiker(String naam, String gebruikersnaam, Gebruikersprofielen type, Gebruikersstatus status) {
-        setNaam(naam);
-        setGebruikersnaam(gebruikersnaam);
-        setType(type);
-        setStatus(status);
+        this(naam, gebruikersnaam, type, status, null);
     }
 
-    public Gebruiker(String profielfoto, String naam, String gebruikersnaam, Gebruikersprofielen type, Gebruikersstatus status) {
+    public Gebruiker(String naam, String gebruikersnaam, Gebruikersprofielen type, Gebruikersstatus status, String profielfoto) {
         setNaam(naam);
         setGebruikersnaam(gebruikersnaam);
         setType(type);
         setStatus(status);
         setProfielfoto(profielfoto);
     }
+    //endregion
 
+    //region Setters
     private void setProfielfoto(String profielfoto) {
-        if (profielfoto == null || profielfoto.isBlank()){
-            throw new GebruikerException();
-        }
         this.profielfoto = profielfoto;
     }
 
     private void setNaam(String naam) {
-        if(naam == null || naam.isBlank()){
+        if (naam == null || naam.isBlank()) {
             throw new GebruikerException();
         }
         this.naam = naam;
     }
 
     private void setGebruikersnaam(String gebruikersnaam) {
-        if (gebruikersnaam == null || gebruikersnaam.isBlank()){
+        if (gebruikersnaam == null || gebruikersnaam.isBlank()) {
             throw new GebruikerException();
         }
         this.gebruikersnaam = gebruikersnaam;
     }
 
     private void setType(Gebruikersprofielen type) {
-        if (type == null || type != Gebruikersprofielen.VERANTWOORDELIJKE && type != Gebruikersprofielen.HOOFDVERANTWOORDELIJKE){
+        if (Gebruikersprofielen.valueOf(type.toString()).toString().equals("")) {
             throw new GebruikerException("Gebruiker.verantwoordelijkeFoutType");
         }
         this.type = type;
     }
 
     private void setStatus(Gebruikersstatus status) {
+        if (Gebruikersprofielen.valueOf(status.toString()).toString().equals("")) {
+            throw new GebruikerException("Gebruiker.verantwoordelijkeFoutStatus");
+        }
         this.status = status;
     }
+    //endregion
 
+    //region Getters
     public String getProfielfoto() {
         return profielfoto;
     }
@@ -80,27 +84,28 @@ public class Gebruiker {
     public Gebruikersstatus getStatus() {
         return status;
     }
+    //endregion
 
+    //region toString
     @Override
     public String toString() {
         return String.format("Naam: %s%nGebruikersnaam Chamilo: %s%nType: %s%nStatus: %s%n",
-                                naam, gebruikersnaam, type, status);
+                naam, gebruikersnaam, type, status);
     }
+    //endregion
 
+    //region Equals & Hashcode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Gebruiker)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Gebruiker gebruiker = (Gebruiker) o;
-        return Objects.equals(profielfoto, gebruiker.profielfoto) &&
-                naam.equals(gebruiker.naam) &&
-                gebruikersnaam.equals(gebruiker.gebruikersnaam) &&
-                type == gebruiker.type &&
-                status == gebruiker.status;
+        return Objects.equals(gebruikersnaam, gebruiker.gebruikersnaam);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(profielfoto, naam, gebruikersnaam, type, status);
+        return Objects.hash(gebruikersnaam);
     }
+    //endregion
 }

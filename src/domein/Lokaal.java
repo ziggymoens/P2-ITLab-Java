@@ -1,20 +1,26 @@
 package domein;
 
-import exceptions.LokaalException;
+import exceptions.domein.LokaalException;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Lokaal {
+public class Lokaal implements Serializable {
+    //region Variabelen
     //Primairy key
     private String lokaalCode;
 
     private int aantalPlaatsen;
+    //endregion
 
+    //region Constructor
     public Lokaal(String lokaalCode, int aantalPlaatsen) {
         setLokaalCode(lokaalCode);
         setAantalPlaatsen(aantalPlaatsen);
     }
+    //endregion
 
+    //region Setters
     private void setLokaalCode(String lokaalCode) {
         if (lokaalCode == null || lokaalCode.isBlank()){
             throw new LokaalException("LokaalException.lokaalCode");
@@ -28,7 +34,9 @@ public class Lokaal {
         }
         this.aantalPlaatsen = aantalPlaatsen;
     }
+    //endregion
 
+    //region Getters
     public String getLokaalCode() {
         return lokaalCode;
     }
@@ -36,7 +44,16 @@ public class Lokaal {
     public int getAantalPlaatsen() {
         return aantalPlaatsen;
     }
+    //endregion
 
+    //region toString
+    @Override
+    public String toString() {
+        return String.format("%s, %dp", this.lokaalCode, this.aantalPlaatsen);
+    }
+    //endregion
+
+    //region Equals & Hashcode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -49,4 +66,5 @@ public class Lokaal {
     public int hashCode() {
         return Objects.hash(lokaalCode);
     }
+    //endregion
 }

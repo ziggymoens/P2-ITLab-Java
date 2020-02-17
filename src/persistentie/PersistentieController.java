@@ -1,62 +1,74 @@
 package persistentie;
 
 import domein.*;
+import persistentie.repositories.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
 public class PersistentieController {
 
-    private SessieMapper sessieMapper;
-    private GebruikerMapper gebruikerMapper;
-    private LokaalMapper lokaalMapper;
+    private SessieRepository sessieRepository;
+    private GebruikerRepository gebruikerRepository;
+    private LokaalRepository lokaalRepository;
 
     public PersistentieController() {
-        sessieMapper = new SessieMapper();
-        gebruikerMapper = new GebruikerMapper();
-        lokaalMapper = new LokaalMapper();
+        initRepos();
+    }
+
+    public void initRepos() {
+        sessieRepository = new SessieRepository();
+        gebruikerRepository = new GebruikerRepository();
+        lokaalRepository = new LokaalRepository();
     }
 
     public Set<Gebruiker> getGebruikers() {
-        return gebruikerMapper.getGebruikers();
+        return gebruikerRepository.getGebruikerSet();
     }
 
     public Set<Lokaal> getLokalen() {
-        return lokaalMapper.getLokalen();
+        return lokaalRepository.getLokalenSet();
     }
 
     public List<Sessie> getSessies() {
-        return sessieMapper.getSessies();
+        return sessieRepository.getSessies();
     }
 
 
-    //Gebruiker Beheren
-    public void voegGebruikerToe(Gebruiker g){
-        gebruikerMapper.voegGebruikerToe(g);
+    //region Gebruiker Beheren
+    public void voegGebruikerToe(Gebruiker g) {
+        gebruikerRepository.voegGebruikerToe(g);
     }
 
-    public void verwijderGebruiker(Gebruiker g){
-        gebruikerMapper.verwijderGebruiker(g);
+    public void verwijderGebruiker(Gebruiker g) {
+        gebruikerRepository.verwijderGebruiker(g);
     }
 
-    public void maakNieuweSessieAan(String titel, Date startSessie, Date eindeSessie, int maximumAantalPlaatsen, Lokaal lokaal, Gebruiker verantwoordelijke) {
+    //endregion
+
+    //region Sessie CRUD
+    public void maakNieuweSessieAan(String titel, LocalDateTime startSessie, LocalDateTime eindeSessie, int maximumAantalPlaatsen, Lokaal lokaal, Gebruiker verantwoordelijke) {
         Sessie s = new Sessie(titel, startSessie, eindeSessie, maximumAantalPlaatsen, lokaal, verantwoordelijke);
-        sessieMapper.voegSessieToe(s);
+        beheerSessie("CREATE", s);
     }
-    //Einde Gebruiker Beheren
 
-    //Sessie beheren
-    public void voegSessieToe(Sessie s){sessieMapper.voegSessieToe(s);}
-    public void verwijderSessie(Sessie s) {
-        sessieMapper.verwijderSessie(s);
+    public void beheerSessie(String optie, Sessie s) {
+        sessieRepository.beheerSessie(optie, s);
     }
-    public void updateSessie(Sessie s){sessieMapper.updateSessie(s);}
-    //Einde Sessie beheren
+    //endregion
 
-    //Lokaal beheren
-    public void voegLokaalToe(Lokaal l){lokaalMapper.voegLokaalToe(l);}
-    public void verwijderLokaal(Lokaal l){lokaalMapper.verwijderLokaal(l);}
-    public void updateLokaal(Lokaal l){lokaalMapper.updateLokaal(l);}
-    //Einde lokaal beheren
+    //region Lokaal Beheren
+    public void voegLokaalToe(Lokaal l) {
+        lokaalRepository.voegLokaalToe(l);
+    }
+
+    public void verwijderLokaal(Lokaal l) {
+        lokaalRepository.verwijderLokaal(l);
+    }
+
+    public void updateLokaal(Lokaal l) {
+        lokaalRepository.updateLokaal(l);
+    }
+    //endregion
 }

@@ -1,5 +1,7 @@
 package language;
 
+import exceptions.language.TalenException;
+
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -49,8 +51,11 @@ public class Talen {
      * Bundle in LanguageResource initialiseren met de gegeven taal
      */
     private static void setBundle() {
-
-        Talen.bundle = ResourceBundle.getBundle(location, getLocale());
+        try {
+            Talen.bundle = ResourceBundle.getBundle(location, getLocale());
+        } catch (Exception e){
+            throw new TalenException();
+        }
     }
 
     /**

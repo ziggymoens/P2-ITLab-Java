@@ -1,14 +1,32 @@
 package domein;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Statistiek {
+public class Statistiek implements Serializable {
+    //region Variabelen
     //Primairy key
     private String statistiekId;
+    //endregion
 
+    //region Constructor
     public Statistiek() {
     }
+    //endregion
 
+    //region Setters
+
+    public void setStatistiekId(String statistiekId) {
+        this.statistiekId = statistiekId;
+    }
+
+    //endregion
+
+    //region Getters
+
+    //endregion
+
+    //region Equals & Hashcode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -21,4 +39,5 @@ public class Statistiek {
     public int hashCode() {
         return Objects.hash(statistiekId);
     }
+    //endregion
 }

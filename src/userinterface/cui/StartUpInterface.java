@@ -1,6 +1,7 @@
 package userinterface.cui;
 
 import domein.*;
+import userinterface.cui.ucs.*;
 
 import java.util.Date;
 import java.util.Scanner;
@@ -17,9 +18,9 @@ public class StartUpInterface {
     private void welkomKeuzeScherm() {
         Gebruiker gebruiker = new Gebruiker("naam", "a", Gebruikersprofielen.HOOFDVERANTWOORDELIJKE, Gebruikersstatus.ACTIEF);
         Lokaal lokaal = new Lokaal("123", 100);
-        Sessie sessie = new Sessie("titel", new Date(121, 1, 17,12,0,0),new Date(121, 1, 17,12,45,0),  100, lokaal, gebruiker);
+        //Sessie sessie = new Sessie("titel", new Date(121, 1, 17,12,0,0),new Date(121, 1, 17,12,45,0),  100, lokaal, gebruiker);
         dc.voegGebruikerToe(gebruiker);
-        dc.voegSessieToe(sessie);
+        //dc.voegSessieToe(sessie);
         dc.voegLokaalToe(lokaal);
 
         System.out.print("Gebruikersnaam: ");
