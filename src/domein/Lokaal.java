@@ -5,7 +5,9 @@ import exceptions.LokaalException;
 import java.util.Objects;
 
 public class Lokaal {
+    //Primairy key
     private String lokaalCode;
+
     private int aantalPlaatsen;
 
     public Lokaal(String lokaalCode, int aantalPlaatsen) {
@@ -38,14 +40,13 @@ public class Lokaal {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Lokaal)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Lokaal lokaal = (Lokaal) o;
-        return aantalPlaatsen == lokaal.aantalPlaatsen &&
-                lokaalCode.equals(lokaal.lokaalCode);
+        return Objects.equals(lokaalCode, lokaal.lokaalCode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(lokaalCode, aantalPlaatsen);
+        return Objects.hash(lokaalCode);
     }
 }

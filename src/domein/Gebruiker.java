@@ -6,9 +6,11 @@ import exceptions.SessieException;
 import java.util.Objects;
 
 public class Gebruiker {
+    //Primairy key
+    private String gebruikersnaam;
+
     private String profielfoto;
     private String naam;
-    private String gebruikersnaam;
     private Gebruikersprofielen type;
     private Gebruikersstatus status;
 

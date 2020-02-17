@@ -3,8 +3,12 @@ package domein;
 import exceptions.AankondigingException;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Aankondiging {
+    //Primairy key
+    private String aankondigingsId;
+
     private Date publicatiedatum;
     private Gebruiker publicist;
     private String inhoud;
@@ -46,5 +50,18 @@ public class Aankondiging {
 
     public String getInhoud() {
         return inhoud;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Aankondiging that = (Aankondiging) o;
+        return Objects.equals(aankondigingsId, that.aankondigingsId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(aankondigingsId);
     }
 }

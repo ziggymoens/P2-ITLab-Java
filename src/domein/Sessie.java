@@ -8,6 +8,9 @@ import java.time.ZoneId;
 import java.util.*;
 
 public class Sessie {
+    //Primairy key
+    private String sessieId;
+
     private String titel;
     private String naamGastspreker;
     private Date startSessie;
@@ -266,26 +269,13 @@ public class Sessie {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Sessie)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Sessie sessie = (Sessie) o;
-        return maximumAantalPlaatsen == sessie.maximumAantalPlaatsen &&
-                automatischeHerinnering == sessie.automatischeHerinnering &&
-                geopend == sessie.geopend &&
-                titel.equals(sessie.titel) &&
-                Objects.equals(naamGastspreker, sessie.naamGastspreker) &&
-                startSessie.equals(sessie.startSessie) &&
-                eindeSessie.equals(sessie.eindeSessie) &&
-                Objects.equals(herinnering, sessie.herinnering) &&
-                Objects.equals(mediaBijSessie, sessie.mediaBijSessie) &&
-                Objects.equals(ingeschrevenGebruikers, sessie.ingeschrevenGebruikers) &&
-                Objects.equals(aankondigingenSessie, sessie.aankondigingenSessie) &&
-                Objects.equals(feedbackSessie, sessie.feedbackSessie) &&
-                lokaal.equals(sessie.lokaal) &&
-                verantwoordelijke.equals(sessie.verantwoordelijke);
+        return Objects.equals(sessieId, sessie.sessieId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(titel, naamGastspreker, startSessie, eindeSessie, maximumAantalPlaatsen, automatischeHerinnering, herinnering, mediaBijSessie, ingeschrevenGebruikers, aankondigingenSessie, feedbackSessie, lokaal, verantwoordelijke, geopend);
+        return Objects.hash(sessieId);
     }
 }

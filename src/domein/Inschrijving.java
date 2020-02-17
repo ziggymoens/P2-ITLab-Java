@@ -3,8 +3,12 @@ package domein;
 import exceptions.InschrijvingException;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Inschrijving {
+    //Primairy key
+    private String inschrijvingsId;
+
     private Gebruiker gebruiker;
     private Date inschrijvingsdatum;
     private boolean statusAanwezigheid = false;
@@ -42,5 +46,18 @@ public class Inschrijving {
 
     public boolean isStatusAanwezigheid() {
         return statusAanwezigheid;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Inschrijving that = (Inschrijving) o;
+        return Objects.equals(inschrijvingsId, that.inschrijvingsId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(inschrijvingsId);
     }
 }

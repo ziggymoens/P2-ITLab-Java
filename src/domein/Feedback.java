@@ -2,7 +2,12 @@ package domein;
 
 import exceptions.FeedbackException;
 
+import java.util.Objects;
+
 public class Feedback {
+    //Primairy key
+    private String feedbackId;
+
     private Gebruiker gebruiker;
     private String tekst;
 
@@ -31,5 +36,18 @@ public class Feedback {
 
     public String getTekst() {
         return tekst;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Feedback feedback = (Feedback) o;
+        return Objects.equals(feedbackId, feedback.feedbackId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(feedbackId);
     }
 }
