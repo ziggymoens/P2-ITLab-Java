@@ -8,14 +8,18 @@ import java.util.List;
 import java.util.Set;
 
 public class PersistentieController {
-
+    //region Variabelen
     private SessieRepository sessieRepository;
     private GebruikerRepository gebruikerRepository;
     private LokaalRepository lokaalRepository;
+    //endregion
 
+    //region Constructor
     public PersistentieController() {
+        Connection.setONLINE(false);
         initRepos();
     }
+    //endregion
 
     public void initRepos() {
         gebruikerRepository = new GebruikerRepository();
@@ -25,6 +29,7 @@ public class PersistentieController {
         sessieRepository.maakSessies();
     }
 
+    //region Getters
     public Set<Gebruiker> getGebruikers() {
         return gebruikerRepository.getGebruikerSet();
     }
@@ -36,9 +41,9 @@ public class PersistentieController {
     public List<Sessie> getSessies() {
         return sessieRepository.getSessies();
     }
+    //endregion
 
-
-    //region Gebruiker Beheren
+    //region Gebruiker CRUD
     public void voegGebruikerToe(Gebruiker g) {
         gebruikerRepository.voegGebruikerToe(g);
     }
@@ -64,7 +69,11 @@ public class PersistentieController {
     }
     //endregion
 
-    //region Lokaal Beheren
+    //region Lokaal CRUD
+    public void beheerLokaal(String optie, Sessie s) {
+        lokaalRepository.beheerLokaal(optie, s);
+    }
+/*
     public void voegLokaalToe(Lokaal l) {
         lokaalRepository.voegLokaalToe(l);
     }
@@ -76,10 +85,11 @@ public class PersistentieController {
     public void updateLokaal(Lokaal l) {
         lokaalRepository.updateLokaal(l);
     }
-
+*/
     public Lokaal geefLokaalMetCode(String s) {
         return lokaalRepository.getLokalenSet().stream().filter(l -> l.getLokaalCode().equals(s)).findFirst().orElse(null);
     }
+    //endregion
 
     public void schrijfAllesWeg() {
         gebruikerRepository.schrijfWeg();
@@ -87,5 +97,18 @@ public class PersistentieController {
         sessieRepository.schrijfWeg();
     }
 
-    //endregion
+    public void update() {
+    }
+
+    public void voegLokaalToe(Lokaal lokaal) {
+
+    }
+
+    public Set<Lokaal> getLokalenSet() {
+        return lokaalRepository.getLokalenSet();
+    }
+
+    public Set<Gebruiker> getGebruikerSet() {
+        return gebruikerRepository.getGebruikerSet();
+    }
 }

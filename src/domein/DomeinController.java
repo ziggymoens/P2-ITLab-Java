@@ -8,25 +8,21 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class DomeinController {
-    private GebruikerRepository gebruikerRepository;
-    private LokaalRepository lokalenRepository;
     private List<Sessie> sessies;
     private PersistentieController pc;
     private Gebruiker gebruiker;
 
     public DomeinController() {
-        pc = new PersistentieController();
         initData();
     }
 
     private void initData() {
-        gebruikerRepository = new GebruikerRepository();
-        lokalenRepository = new LokaalRepository();
+        pc = new PersistentieController();
         sessies = pc.getSessies();
     }
 
     private void updateData() {
-        gebruikerRepository.update();
+        pc.update();
     }
 
     public String geefOverzichtVerantwoordelijke(Gebruiker gebruiker) {
@@ -96,7 +92,7 @@ public class DomeinController {
     }
 
     public Gebruiker geefGebruikerMetGebruikersnaam(String verantwoordelijke) {
-        for (Gebruiker g : gebruikerRepository.getGebruikerSet()) {
+        for (Gebruiker g : pc.getGebruikerSet()) {
             if (g.getGebruikersnaam().equals(verantwoordelijke)) {
                 return g;
             }
@@ -113,7 +109,7 @@ public class DomeinController {
     }
 
     private Lokaal geefLokaalMetCode(String lokaal) {
-        for (Lokaal l : lokalenRepository.getLokalenSet()) {
+        for (Lokaal l : pc.getLokalenSet()) {
             if (l.getLokaalCode().equals(lokaal)) {
                 return l;
             }

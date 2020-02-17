@@ -1,6 +1,7 @@
 package persistentie.repositories;
 
 import domein.Lokaal;
+import domein.Sessie;
 import persistentie.mappers.LokaalMapper;
 import persistentie.offline.LokalenOfflineMapper;
 
@@ -8,18 +9,15 @@ import java.util.Set;
 
 public class LokaalRepository {
     private LokaalMapper lm;
-    private LokalenOfflineMapper lom;
-
     private Set<Lokaal> lokalenSet;
 
     public LokaalRepository() {
         lm = new LokaalMapper();
-        lom = new LokalenOfflineMapper();
         haalLokalenOp();
     }
 
     private void haalLokalenOp() {
-        lokalenSet = lom.getLokalenSet();
+        lokalenSet = lm.getLokalenSet();
     }
 
     public Set<Lokaal> getLokalenSet() {
@@ -27,7 +25,7 @@ public class LokaalRepository {
     }
 
     public void update() {
-        lokalenSet = lom.getLokalenSet();
+        lokalenSet = lm.getLokalenSet();
     }
 
     public void voegLokaalToe(Lokaal l) {
@@ -44,6 +42,14 @@ public class LokaalRepository {
 
     public void schrijfWeg() {
         update();
-        lom.schrijfLokalen(lokalenSet);
+        lm.schrijfLokalen(lokalenSet);
+    }
+
+    public void beheerLokaal(String optie, Sessie s) {
+        switch (optie){
+            case "CREATE":
+                //lom.voeg
+
+        }
     }
 }

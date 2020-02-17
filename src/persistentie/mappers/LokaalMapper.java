@@ -26,4 +26,11 @@ public class LokaalMapper {
 
     public void updateLokaal(Lokaal l) {
     }
+
+    public Set<Lokaal> getLokalenSet() {
+        return lokalen;
+    }
+
+    public void schrijfLokalen(Set<Lokaal> lokalenSet) {
+    }
 }

@@ -4,6 +4,7 @@ import exceptions.domein.GebruikerException;
 import language.Talen;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Gebruiker implements Serializable {
@@ -53,17 +54,14 @@ public class Gebruiker implements Serializable {
     }
 
     private void setType(Gebruikersprofielen type) {
-        if (type == null ||Gebruikersprofielen.valueOf(type.toString()).toString().equals("")) {
+        if (Arrays.stream(Gebruikersprofielen.values()).filter(e -> e.toString().equals(status)).findFirst().orElse(null) == null) {
             throw new GebruikerException("GebruikerException.verantwoordelijkeFoutType");
         }
         this.type = type;
     }
 
     private void setStatus(Gebruikersstatus status) {
-        if(status == null){
-            throw new GebruikerException();
-        }
-        else if (Gebruikersprofielen.valueOf(status.toString()).toString().equals("")) {
+        if (Arrays.stream(Gebruikersstatus.values()).filter(e -> e.toString().equals(status)).findFirst().orElse(null) == null) {
             throw new GebruikerException("GebruikerException.verantwoordelijkeFoutStatus");
         }
         this.status = status;
