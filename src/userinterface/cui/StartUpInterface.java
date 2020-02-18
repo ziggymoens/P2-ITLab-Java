@@ -38,7 +38,7 @@ public class StartUpInterface {
         }
 */
         int keuze = 0;
-        switch(gebruiker.getType()){
+        switch(gebruiker.getGebruikersprofielen()){
             case HOOFDVERANTWOORDELIJKE:
                 geefOptiesHoofdverantwoordelijke();
                 System.out.println("Geef het gewenste cijfer");

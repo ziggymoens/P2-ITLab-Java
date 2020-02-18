@@ -2,7 +2,6 @@ package domein;
 
 import exceptions.domein.GebruikerException;
 import language.Talen;
-import test.domein.GebruikerTest;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -17,36 +16,36 @@ public class Gebruiker implements Serializable {
 
     private String profielfoto;
     private String naam;
-    private Gebruikersprofielen type;
+    private Gebruikersprofielen gebruikersprofiel;
     private Gebruikersstatus status;
     //endregion
 
     //region Constructor
-    public Gebruiker(String naam, String gebruikersnaam, Gebruikersprofielen type, Gebruikersstatus status) {
-        this(naam, gebruikersnaam, type, status, null);
+    public Gebruiker(String naam, String gebruikersnaam, Gebruikersprofielen gebruikersprofiel, Gebruikersstatus status) {
+        this(naam, gebruikersnaam, gebruikersprofiel, status, null);
     }
 
-    public Gebruiker(String naam, String gebruikersnaam, Gebruikersprofielen type, Gebruikersstatus status, String profielfoto) {
+    public Gebruiker(String naam, String gebruikersnaam, Gebruikersprofielen gebruikersprofiel, Gebruikersstatus status, String profielfoto) {
         setNaam(naam);
         setGebruikersnaam(gebruikersnaam);
-        setType(type);
+        setGebruikersprofielen(gebruikersprofiel);
         setStatus(status);
         setProfielfoto(profielfoto);
     }
 
-    public Gebruiker(String naam, String gebruikersnaam, String gebruikersprofiel, String gebruikerstype) {
+    public Gebruiker(String naam, String gebruikersnaam, String gebruikersprofiel, String gebruikersstatus) {
         setNaam(naam);
         setGebruikersnaam(gebruikersnaam);
-        setType((Gebruikersprofielen) generateType("TYPE", gebruikerstype));
-        setStatus((Gebruikersstatus) generateType("STATUS", gebruikersprofiel));
+        setGebruikersprofielen(genereerProfiel(gebruikersprofiel));
+        setStatus(genereerStatus(gebruikersstatus));
         setProfielfoto(null);
     }
 
-    public Gebruiker(String naam, String gebruikersnaam, String gebruikersprofiel, String gebruikerstype, String profielfoto) {
+    public Gebruiker(String naam, String gebruikersnaam, String gebruikersprofiel, String gebruikersstatus, String profielfoto) {
         setNaam(naam);
         setGebruikersnaam(gebruikersnaam);
-        setType((Gebruikersprofielen) generateType("TYPE", gebruikerstype));
-        setStatus((Gebruikersstatus) generateType("STATUS", gebruikersprofiel));
+        setGebruikersprofielen(genereerProfiel(gebruikersprofiel));
+        setStatus(genereerStatus(gebruikersstatus));
         setProfielfoto(profielfoto);
     }
     //endregion
@@ -70,13 +69,13 @@ public class Gebruiker implements Serializable {
         this.gebruikersnaam = gebruikersnaam;
     }
 
-    private void setType(Gebruikersprofielen type) {
-        if(type == null)
+    private void setGebruikersprofielen(Gebruikersprofielen gebruikersprofielen) {
+        if(gebruikersprofielen == null)
             throw new GebruikerException();
-        if (Arrays.stream(Gebruikersprofielen.values()).filter(e -> e  == type).findFirst().orElse(null) == null) {
+        if (Arrays.stream(Gebruikersprofielen.values()).filter(e -> e  == gebruikersprofielen).findFirst().orElse(null) == null) {
             throw new GebruikerException("GebruikerException.verantwoordelijkeFoutType");
         }
-        this.type = type;
+        this.gebruikersprofiel = gebruikersprofielen;
     }
 
     private void setStatus(Gebruikersstatus status) {
@@ -102,8 +101,8 @@ public class Gebruiker implements Serializable {
         return gebruikersnaam;
     }
 
-    public Gebruikersprofielen getType() {
-        return type;
+    public Gebruikersprofielen getGebruikersprofielen() {
+        return gebruikersprofiel;
     }
 
     public Gebruikersstatus getStatus() {
@@ -115,7 +114,7 @@ public class Gebruiker implements Serializable {
     @Override
     public String toString() {
         return String.format("%s: %s%n%s: %s%n%s: %s%n%s: %s%n",
-                Talen.getString("Gebruiker.naam"), naam, Talen.getString("Gebruiker.gebruikersnaam"), gebruikersnaam, Talen.getString("Gebruiker.type"), type, Talen.getString("Gebruiker.status"), status);
+                Talen.getString("Gebruiker.naam"), naam, Talen.getString("Gebruiker.gebruikersnaam"), gebruikersnaam, Talen.getString("Gebruiker.type"), gebruikersprofiel, Talen.getString("Gebruiker.status"), status);
     }
     //endregion
 
@@ -135,16 +134,11 @@ public class Gebruiker implements Serializable {
     //endregion
 
 
-    private Object generateType(String k, String naam) {
-        if(k == null || k.isBlank())
-            throw new GebruikerException();
-        switch (k.toUpperCase()){
-            case "TYPE":
-                return Arrays.stream(Gebruikersstatus.values()).filter(g -> g.toString().equals(naam.toUpperCase())).findAny();
-            case "PROFIEL":
-                return Arrays.stream(Gebruikersprofielen.values()).filter(g -> g.toString().equals(naam.toUpperCase())).findAny();
-            default:
-                return null;
-        }
+    private Gebruikersstatus genereerStatus(String gebruikersstatus) {
+        return Arrays.stream(Gebruikersstatus.values()).filter(g -> g.toString().equals(gebruikersstatus)).findFirst().orElse(null);
+    }
+
+    private Gebruikersprofielen genereerProfiel(String gebruikersprofiel) {
+        return Arrays.stream(Gebruikersprofielen.values()).filter(g -> g.toString().equals(gebruikersprofiel)).findFirst().orElse(null);
     }
 }
