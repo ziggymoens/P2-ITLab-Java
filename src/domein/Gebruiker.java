@@ -37,16 +37,16 @@ public class Gebruiker implements Serializable {
     public Gebruiker(String naam, String gebruikersnaam, String gebruikersprofiel, String gebruikerstype) {
         setNaam(naam);
         setGebruikersnaam(gebruikersnaam);
-        setType((Gebruikersprofielen) generateType("PROFIEL", gebruikersprofiel));
-        setStatus((Gebruikersstatus) generateType("TYPE", gebruikerstype));
+        setType((Gebruikersprofielen) generateType("TYPE", gebruikerstype));
+        setStatus((Gebruikersstatus) generateType("STATUS", gebruikersprofiel));
         setProfielfoto(null);
     }
 
     public Gebruiker(String naam, String gebruikersnaam, String gebruikersprofiel, String gebruikerstype, String profielfoto) {
         setNaam(naam);
         setGebruikersnaam(gebruikersnaam);
-        setType((Gebruikersprofielen) generateType("PROFIEL", gebruikersprofiel));
-        setStatus((Gebruikersstatus) generateType("TYPE", gebruikerstype));
+        setType((Gebruikersprofielen) generateType("TYPE", gebruikerstype));
+        setStatus((Gebruikersstatus) generateType("STATUS", gebruikersprofiel));
         setProfielfoto(profielfoto);
     }
     //endregion
@@ -71,6 +71,8 @@ public class Gebruiker implements Serializable {
     }
 
     private void setType(Gebruikersprofielen type) {
+        if(type == null)
+            throw new GebruikerException();
         if (Arrays.stream(Gebruikersprofielen.values()).filter(e -> e  == type).findFirst().orElse(null) == null) {
             throw new GebruikerException("GebruikerException.verantwoordelijkeFoutType");
         }
@@ -78,6 +80,8 @@ public class Gebruiker implements Serializable {
     }
 
     private void setStatus(Gebruikersstatus status) {
+        if(status == null)
+            throw new GebruikerException();
         if (Arrays.stream(Gebruikersstatus.values()).filter(e -> e  == status).findFirst().orElse(null) == null) {
             throw new GebruikerException("GebruikerException.verantwoordelijkeFoutStatus");
         }
@@ -132,11 +136,13 @@ public class Gebruiker implements Serializable {
 
 
     private Object generateType(String k, String naam) {
+        if(k == null || k.isBlank())
+            throw new GebruikerException();
         switch (k.toUpperCase()){
             case "TYPE":
-                return Arrays.stream(Gebruikersstatus.values()).filter(g -> g.toString().equals(naam.toUpperCase())).findFirst().orElse(null);
+                return Arrays.stream(Gebruikersstatus.values()).filter(g -> g.toString().equals(naam.toUpperCase())).findAny();
             case "PROFIEL":
-                return Arrays.stream(Gebruikersprofielen.values()).filter(g -> g.toString().equals(naam.toUpperCase())).findFirst().orElse(null);
+                return Arrays.stream(Gebruikersprofielen.values()).filter(g -> g.toString().equals(naam.toUpperCase())).findAny();
             default:
                 return null;
         }
