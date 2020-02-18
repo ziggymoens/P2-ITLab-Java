@@ -75,6 +75,10 @@ public class DomeinController {
         pc.beheerSessie("CREATE", s);
     }
 
+    /**
+     * Voegt sessie toe
+     * @param sessie ==> sessie object
+     */
     public void voegSessieToe(Sessie sessie) {
         pc.beheerSessie("CREATE", sessie);
     }
