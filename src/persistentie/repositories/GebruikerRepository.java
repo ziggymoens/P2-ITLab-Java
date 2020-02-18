@@ -20,19 +20,6 @@ public class GebruikerRepository {
         gm.update();
     }
 
-    public void voegGebruikerToe(Gebruiker g) {
-        gm.voegGebruikerToe(g);
-    }
-
-    public void verwijderGebruiker(Gebruiker g) {
-        gm.verwijderGebruiker(g);
-    }
-
-    public void updateGebruiker(Gebruiker g){
-        gm.updateGebruiker(g);
-        update();
-    }
-
     public void schrijfWeg() {
         update();
         gm.schrijfGebruikers();

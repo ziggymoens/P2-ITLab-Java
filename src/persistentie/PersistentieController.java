@@ -42,26 +42,17 @@ public class PersistentieController {
     }
     //endregion
 
-    //region Gebruiker CRUD
+    //region Gebruiker
     public void beheerGebruiker(String optie, Gebruiker g){
         gebruikerRepository.beheerGebruiker(optie, g);
-    }
-
-    public void voegGebruikerToe(Gebruiker g) {
-        gebruikerRepository.voegGebruikerToe(g);
-    }
-
-    public void verwijderGebruiker(Gebruiker g) {
-        gebruikerRepository.verwijderGebruiker(g);
     }
 
     public Gebruiker geefGebruikerMetCode(String s) {
         return gebruikerRepository.getGebruikerSet().stream().filter(g -> g.getGebruikersnaam().equals(s)).findFirst().orElse(null);
     }
-
     //endregion
 
-    //region Sessie CRUD
+    //region Sessie
     public void beheerSessie(String optie, Sessie s) {
         sessieRepository.beheerSessie(optie, s);
     }
@@ -71,7 +62,7 @@ public class PersistentieController {
     }
     //endregion
 
-    //region Lokaal CRUD
+    //region Lokaal
     public void beheerLokaal(String optie, Lokaal l) {
         lokaalRepository.beheerLokaal(optie, l);
     }
@@ -81,19 +72,10 @@ public class PersistentieController {
     }
     //endregion
 
+
     public void schrijfAllesWeg() {
         gebruikerRepository.schrijfWeg();
         lokaalRepository.schrijfWeg();
         sessieRepository.schrijfWeg();
     }
-
-    public void voegLokaalToe(Lokaal lokaal) {
-
-    }
-
-    public Set<Lokaal> getLokalenSet() {
-        return lokaalRepository.getLokalenSet();
-    }
-
-
 }

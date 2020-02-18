@@ -34,6 +34,14 @@ public class Gebruiker implements Serializable {
         setProfielfoto(profielfoto);
     }
 
+    public Gebruiker(String naam, String gebruikersnaam, String gebruikersprofiel, String gebruikerstype) {
+        setNaam(naam);
+        setGebruikersnaam(gebruikersnaam);
+        setType((Gebruikersprofielen) generateType("PROFIEL", gebruikersprofiel));
+        setStatus((Gebruikersstatus) generateType("TYPE", gebruikerstype));
+        setProfielfoto(null);
+    }
+
     public Gebruiker(String naam, String gebruikersnaam, String gebruikersprofiel, String gebruikerstype, String profielfoto) {
         setNaam(naam);
         setGebruikersnaam(gebruikersnaam);
