@@ -2,6 +2,7 @@ package domein;
 
 import exceptions.domein.GebruikerException;
 import language.Talen;
+import test.domein.GebruikerTest;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -30,6 +31,14 @@ public class Gebruiker implements Serializable {
         setGebruikersnaam(gebruikersnaam);
         setType(type);
         setStatus(status);
+        setProfielfoto(profielfoto);
+    }
+
+    public Gebruiker(String naam, String gebruikersnaam, String gebruikersprofiel, String gebruikerstype, String profielfoto) {
+        setNaam(naam);
+        setGebruikersnaam(gebruikersnaam);
+        setType((Gebruikersprofielen) generateType("PROFIEL", gebruikersprofiel));
+        setStatus((Gebruikersstatus) generateType("TYPE", gebruikerstype));
         setProfielfoto(profielfoto);
     }
     //endregion
@@ -112,4 +121,16 @@ public class Gebruiker implements Serializable {
         return Objects.hash(gebruikersnaam);
     }
     //endregion
+
+
+    private Object generateType(String k, String naam) {
+        switch (k.toUpperCase()){
+            case "TYPE":
+                return Arrays.stream(Gebruikersstatus.values()).filter(g -> g.toString().equals(naam.toUpperCase())).findFirst().orElse(null);
+            case "PROFIEL":
+                return Arrays.stream(Gebruikersprofielen.values()).filter(g -> g.toString().equals(naam.toUpperCase())).findFirst().orElse(null);
+            default:
+                return null;
+        }
+    }
 }

@@ -30,13 +30,11 @@ public class GebruikerOfflineMapper extends GebruikerMapperAb {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] geb = line.split(";");
-                Gebruikersprofielen profiel = Gebruikersprofielen.valueOf(geb[2].toUpperCase());
-                Gebruikersstatus status = Gebruikersstatus.valueOf(geb[3].toUpperCase());
                 String profielfoto = null;
                 if (geb.length == 5) {
                     profielfoto = geb[4];
                 }
-                gebruikerSet.add(new Gebruiker(geb[0], geb[1], profiel, status, profielfoto));
+                gebruikerSet.add(new Gebruiker(geb[0], geb[1], geb[2], geb[3], profielfoto));
             }
         } catch (IOException e) {
             throw new GebruikerOfflineMapperException();

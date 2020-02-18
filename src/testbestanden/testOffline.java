@@ -47,7 +47,5 @@ public class testOffline {
         String out = sessieList.stream().map(Sessie::toString).collect(Collectors.joining("\n"));
         System.out.println(out);
         pc.schrijfAllesWeg();
-
     }
-
 }
