@@ -12,12 +12,11 @@ import java.util.Set;
 public class GebruikerOfflineMapper extends GebruikerMapperAb {
 
     private final File gebruikersoffline;
-    private boolean initialiseren = false;
 
     public GebruikerOfflineMapper() {
         super();
         gebruikersoffline = new File("src/offlineData/initData/Gebruiker");
-        if(initialiseren){
+        if(Initialiseren.isInitialiseren()){
             maakGebruikers();
         }else {
             leesGebruikers();
@@ -39,6 +38,7 @@ public class GebruikerOfflineMapper extends GebruikerMapperAb {
         } catch (IOException e) {
             throw new GebruikerOfflineMapperException();
         }
+        schrijfGebruikers();
     }
 
     public void leesGebruikers() {
@@ -67,6 +67,11 @@ public class GebruikerOfflineMapper extends GebruikerMapperAb {
         } catch (IOException e) {
             throw new GebruikerOfflineMapperException();
         }
+    }
+
+    @Override
+    public void update() {
+
     }
 
     @Override

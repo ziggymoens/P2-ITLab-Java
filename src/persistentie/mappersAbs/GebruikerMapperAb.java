@@ -12,22 +12,15 @@ public abstract class GebruikerMapperAb {
         this.gebruikerSet = new HashSet<>();
     }
 
-    public Set<Gebruiker> getGebruikers() {
-        return null;
-    }
+    public abstract Set<Gebruiker> getGebruikers();
 
-    public void voegGebruikerToe(Gebruiker g) {
-    }
+    public abstract void voegGebruikerToe(Gebruiker g);
 
-    public void verwijderGebruiker(Gebruiker g) {
-    }
+    public abstract void verwijderGebruiker(Gebruiker g);
 
-    public void updateGebruiker(Gebruiker g) {
-    }
+    public abstract void updateGebruiker(Gebruiker g);
 
-    public void schrijfGebruikers() {
-    }
+    public abstract void schrijfGebruikers();
 
-    public void update(){
-    }
+    public abstract void update();
 }

@@ -13,17 +13,17 @@ public class GebruikerOnlineMapper extends GebruikerMapperAb {
 
     @Override
     public Set<Gebruiker> getGebruikers() {
-        return gebruikerSet;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void voegGebruikerToe(Gebruiker g) {
-        gebruikerSet.add(g);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void verwijderGebruiker(Gebruiker g) {
-        gebruikerSet.remove(g);
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -33,6 +33,11 @@ public class GebruikerOnlineMapper extends GebruikerMapperAb {
 
     @Override
     public void schrijfGebruikers() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void update() {
         throw new UnsupportedOperationException();
     }
 }

@@ -2,20 +2,21 @@ package persistentie.mappersOffline;
 
 import domein.Lokaal;
 import exceptions.persistentie.offline.LokalenOfflineMapperException;
+import persistentie.mappersAbs.LokaalMapperAb;
 
 import java.io.*;
-import java.util.HashSet;
 import java.util.Set;
 
-public class LokalenOfflineMapper {
-
-    private Set<Lokaal> lokalenSet;
+public class LokalenOfflineMapper extends LokaalMapperAb {
     private final File lokalenOffline;
 
     public LokalenOfflineMapper() {
-        this.lokalenSet = new HashSet<>();
         lokalenOffline = new File("src/offlineData/initData/Lokalen");
-        maakLokalen();
+        if(Initialiseren.isInitialiseren()){
+            maakLokalen();
+        }else{
+            leesLokalen();
+        }
     }
 
     private void maakLokalen() {
@@ -24,11 +25,12 @@ public class LokalenOfflineMapper {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] lokaal = line.split(";");
-                lokalenSet.add(new Lokaal(lokaal[0], Integer.parseInt(lokaal[1])));
+                lokaalSet.add(new Lokaal(lokaal[0], Integer.parseInt(lokaal[1])));
             }
         } catch (IOException e) {
             throw new LokalenOfflineMapperException();
         }
+        schrijfLokalen();
     }
 
     public void leesLokalen() {
@@ -37,7 +39,7 @@ public class LokalenOfflineMapper {
             ObjectInputStream ois = new ObjectInputStream(fis);
             while (true) {
                 Lokaal lokaal = (Lokaal) ois.readObject();
-                lokalenSet.add(lokaal);
+                lokaalSet.add(lokaal);
             }
         } catch (EOFException ignored) {
         } catch (IOException | ClassNotFoundException e) {
@@ -45,11 +47,11 @@ public class LokalenOfflineMapper {
         }
     }
 
-    public void schrijfLokalen(Set<Lokaal> lokalen) {
+    public void schrijfLokalen() {
         try {
             FileOutputStream fos = new FileOutputStream("src/offlineData/serieel/Lokalen.ser");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            for (Lokaal l : lokalen) {
+            for (Lokaal l : lokaalSet) {
                 oos.writeObject(l);
             }
         } catch (IOException e) {
@@ -59,6 +61,6 @@ public class LokalenOfflineMapper {
 
 
     public Set<Lokaal> getLokalenSet() {
-        return lokalenSet;
+        return lokaalSet;
     }
 }
