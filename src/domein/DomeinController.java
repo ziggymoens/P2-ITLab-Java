@@ -1,17 +1,15 @@
 package domein;
 
-import persistentie.repositories.GebruikerRepository;
-import persistentie.repositories.LokaalRepository;
 import persistentie.PersistentieController;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class DomeinController {
     //region Variabelen
     private PersistentieController pc;
-    private Gebruiker gebruiker;
     //endregion
 
     //region Constructor
@@ -45,10 +43,18 @@ public class DomeinController {
         pc.beheerGebruiker("CREATE", gebruiker);
     }
 
-    public void verwijderGebruiker(Gebruiker g) {
-        pc.beheerGebruiker("DELETE", gebruiker);
+    public String geefGebruiker(String gebruikersCode){
+        pc.geefGebruikerMetCode(gebruikersCode);
+        return null;
     }
 
+    public String geefProfielVanGebruiker(String gebruikersCode){
+        return (pc.geefGebruikerMetCode(gebruikersCode)).getGebruikersprofielen().toString();
+    }
+
+    public void verwijderGebruiker(String gebruikersCode) {
+        pc.beheerGebruiker("DELETE", pc.geefGebruikerMetCode(gebruikersCode));
+    }
     //endregion
 
     //region Lokaal
@@ -92,5 +98,15 @@ public class DomeinController {
         Sessie sessie = pc.geefSessieMetId(sessieId);
         return sessie.toString();
     }
+
+    public boolean isSessieOpen(String sessieId){
+        return pc.geefSessieMetId(sessieId).isGeopend();
+    }
+
+    public int geefAantalAanwezigenSessie(String sessieId){
+        return pc.geefSessieMetId(sessieId).aantalAanwezigenNaSessie();
+    }
+
+
     //endregion
 }
