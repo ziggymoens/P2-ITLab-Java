@@ -10,41 +10,33 @@ import java.util.List;
 
 public class SessieRepository {
 
-    private SessieMapper sm;
-    private SessieOfflineMapper som;
-    private List<Sessie> sessies;
+    private SessieMapper mapper;
 
     public SessieRepository() {
-        this.sm = new SessieMapper();
-        this.som = new SessieOfflineMapper();
-        haalSessiesOp();
+        this.mapper = new SessieMapper();
     }
 
     public void setPersistenieController(PersistentieController pc){
-        som.setPersistentieController(pc);
-    }
-
-    public void haalSessiesOp() {
-        sessies = som.getSessieList();
+        mapper.setPersistentieController(pc);
     }
 
     public List<Sessie> getSessies() {
-        return sessies;
+        return mapper.getSessies();
     }
 
     public void beheerSessie(String optie, Sessie s) {
         switch (optie) {
             case "CREATE":
-                sm.addSessie(s);
+                mapper.addSessie(s);
                 break;
             case "READ":
                 geefSessie(s.getSessieId());
                 break;
             case "UPDATE":
-                sm.updateSessie(s.getSessieId(), s);
+                mapper.updateSessie(s);
                 break;
             case "DELETE":
-                sm.verwijderSessie(s);
+                mapper.verwijderSessie(s);
                 break;
             default:
                 throw new SessieRepositoryException();
@@ -52,19 +44,14 @@ public class SessieRepository {
     }
 
     private Sessie geefSessie(String id) {
-        return sm.getSessies().stream().filter(s -> s.getSessieId().equals(id)).findFirst().orElse(null);
-    }
-
-    public void maakSessies() {
-        som.maakSessies();
+        return mapper.getSessies().stream().filter(s -> s.getSessieId().equals(id)).findFirst().orElse(null);
     }
 
     public void schrijfWeg() {
-        update();
-        som.schrijfSessies(sessies);
+        mapper.schrijfSessies();
     }
 
     private void update() {
-        sessies = som.getSessieList();
+        throw new UnsupportedOperationException();
     }
 }

@@ -12,5 +12,14 @@ public abstract class LokaalMapperAb {
         this.lokaalSet = new HashSet<>();
     }
 
+    public abstract Set<Lokaal> getLokalen();
+
+    public abstract void voegLokaalToe(Lokaal l);
+
+    public abstract void verwijderLokaal(Lokaal l);
+
+    public abstract void updateLokaal(Lokaal l);
+
+    public abstract void schrijfLokalen();
 
 }

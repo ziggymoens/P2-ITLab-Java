@@ -4,7 +4,7 @@ import domein.Gebruiker;
 import persistentie.Connection;
 import persistentie.mappersAbs.GebruikerMapperAb;
 import persistentie.mappersOffline.GebruikerOfflineMapper;
-import persistentie.mappersoOnline.GebruikerOnlineMapper;
+import persistentie.mappersOnline.GebruikerOnlineMapper;
 
 import java.util.*;
 

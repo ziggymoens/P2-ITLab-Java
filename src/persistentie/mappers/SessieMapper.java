@@ -1,30 +1,52 @@
 package persistentie.mappers;
 
 import domein.Sessie;
+import persistentie.Connection;
+import persistentie.PersistentieController;
+import persistentie.mappersAbs.SessieMapperAb;
+import persistentie.mappersOffline.SessieOfflineMapper;
+import persistentie.mappersOnline.SessieOnlineMapper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SessieMapper {
-    private List<Sessie> sessies;
+    protected SessieMapperAb mapper;
+    protected PersistentieController persistentieController;
 
     public SessieMapper() {
-        sessies = new ArrayList<>();
+        if (Connection.isONLINE()){
+            mapper = new SessieOnlineMapper();
+        }else{
+            mapper = new SessieOfflineMapper();
+        }
     }
 
     public List<Sessie> getSessies() {
-        return sessies;
+        return mapper.getSessies();
     }
 
 
     public void addSessie(Sessie s) {
-        sessies.add(s);
+        mapper.voegSessieToe(s);
     }
 
     public void verwijderSessie(Sessie s) {
-        sessies.remove(s);
+        mapper.verwijderSessie(s);
     }
 
-    public void updateSessie(String id, Sessie s) {
+    public void updateSessie(Sessie s) {
+        mapper.updateSessie(s);
+    }
+
+    public void schrijfSessies() {
+        mapper.schrijfSessies();
+    }
+
+    public void setPersistentieController(PersistentieController persistentieController) {
+        this.persistentieController = persistentieController;
+    }
+
+    public PersistentieController getPersistentieController() {
+        return persistentieController;
     }
 }

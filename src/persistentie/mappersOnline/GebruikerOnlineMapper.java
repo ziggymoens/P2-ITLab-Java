@@ -1,4 +1,4 @@
-package persistentie.mappersoOnline;
+package persistentie.mappersOnline;
 
 import domein.Gebruiker;
 import persistentie.mappersAbs.GebruikerMapperAb;

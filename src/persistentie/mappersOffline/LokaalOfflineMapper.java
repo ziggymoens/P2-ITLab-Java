@@ -7,10 +7,10 @@ import persistentie.mappersAbs.LokaalMapperAb;
 import java.io.*;
 import java.util.Set;
 
-public class LokalenOfflineMapper extends LokaalMapperAb {
+public class LokaalOfflineMapper extends LokaalMapperAb {
     private final File lokalenOffline;
 
-    public LokalenOfflineMapper() {
+    public LokaalOfflineMapper() {
         lokalenOffline = new File("src/offlineData/initData/Lokalen");
         if(Initialiseren.isInitialiseren()){
             maakLokalen();
@@ -47,6 +47,7 @@ public class LokalenOfflineMapper extends LokaalMapperAb {
         }
     }
 
+    @Override
     public void schrijfLokalen() {
         try {
             FileOutputStream fos = new FileOutputStream("src/offlineData/serieel/Lokalen.ser");
@@ -59,8 +60,23 @@ public class LokalenOfflineMapper extends LokaalMapperAb {
         }
     }
 
-
-    public Set<Lokaal> getLokalenSet() {
+    @Override
+    public Set<Lokaal> getLokalen() {
         return lokaalSet;
+    }
+
+    @Override
+    public void voegLokaalToe(Lokaal l) {
+        lokaalSet.add(l);
+    }
+
+    @Override
+    public void verwijderLokaal(Lokaal l) {
+        lokaalSet.remove(l);
+    }
+
+    @Override
+    public void updateLokaal(Lokaal l) {
+        throw new UnsupportedOperationException();
     }
 }

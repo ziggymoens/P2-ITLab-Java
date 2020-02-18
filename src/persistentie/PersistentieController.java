@@ -26,7 +26,6 @@ public class PersistentieController {
         lokaalRepository = new LokaalRepository();
         sessieRepository = new SessieRepository();
         sessieRepository.setPersistenieController(this);
-        sessieRepository.maakSessies();
     }
 
     //region Getters

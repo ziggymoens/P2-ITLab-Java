@@ -1,40 +1,45 @@
 package persistentie.mappers;
 
 import domein.Lokaal;
+import persistentie.Connection;
+import persistentie.mappersAbs.LokaalMapperAb;
+import persistentie.mappersOffline.LokaalOfflineMapper;
+import persistentie.mappersOnline.LokaalOnlineMapper;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public class LokaalMapper {
-    private Set<Lokaal> lokalen;
+    LokaalMapperAb mapper;
 
     public LokaalMapper() {
-        lokalen = new HashSet<>();
+        if(Connection.isONLINE()){
+            mapper = new LokaalOnlineMapper();
+        }else{
+            mapper = new LokaalOfflineMapper();
+        }
     }
 
     public Set<Lokaal> getLokalen() {
-        return lokalen;
+        return mapper.getLokalen();
     }
 
     public void voegLokaalToe(Lokaal l) {
-        lokalen.add(l);
+        mapper.voegLokaalToe(l);
     }
 
     public void verwijderLokaal(Lokaal l) {
-        lokalen.remove(l);
+        mapper.verwijderLokaal(l);
     }
 
     public void updateLokaal(Lokaal l) {
+        mapper.updateLokaal(l);
     }
 
-    public Set<Lokaal> getLokalenSet() {
-        return lokalen;
-    }
-
-    public void schrijfLokalen(Set<Lokaal> lokalenSet) {
+    public void schrijfLokalen() {
+        mapper.schrijfLokalen();
     }
 
     public Lokaal geefLokaal(String lokaalCode) {
-        return lokalen.stream().filter(l -> l.getLokaalCode().equals(lokaalCode)).findFirst().orElse(null);
+        return mapper.getLokalen().stream().filter(l -> l.getLokaalCode().equals(lokaalCode)).findFirst().orElse(null);
     }
 }

@@ -5,21 +5,26 @@ import domein.Lokaal;
 import domein.Sessie;
 import exceptions.persistentie.offline.GebruikerOfflineMapperException;
 import exceptions.persistentie.offline.SessieOfflineMapperException;
+import persistentie.Connection;
 import persistentie.PersistentieController;
+import persistentie.mappersAbs.SessieMapperAb;
 
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SessieOfflineMapper {
-    private List<Sessie> sessieList;
-    private final File gebruikersoffline;
+public class SessieOfflineMapper extends SessieMapperAb {
+    private final File gebruikersoffline = new File("src/offlineData/initData/Sessies");
     PersistentieController pc;
 
     public SessieOfflineMapper() {
-        this.sessieList = new ArrayList<>();
-        gebruikersoffline = new File("src/offlineData/initData/Sessies");
+        super();
+        if (Connection.isONLINE()){
+            maakSessies();
+        }else{
+            leesSessies();
+        }
     }
 
     public void setPersistentieController(PersistentieController pc) {
@@ -41,6 +46,7 @@ public class SessieOfflineMapper {
         } catch (IOException e) {
             throw new GebruikerOfflineMapperException();
         }
+        schrijfSessies();
     }
 
     public void leesSessies() {
@@ -57,7 +63,8 @@ public class SessieOfflineMapper {
         }
     }
 
-    public void schrijfSessies(List<Sessie> gebruikers) {
+    @Override
+    public void schrijfSessies() {
         try {
             FileOutputStream fos = new FileOutputStream("src/offlineData/serieel/Sessie.ser");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -69,7 +76,25 @@ public class SessieOfflineMapper {
         }
     }
 
-    public List<Sessie> getSessieList() {
+    @Override
+    public List<Sessie> getSessies() {
         return sessieList;
+    }
+
+    @Override
+    public void voegSessieToe(Sessie s) {
+        sessieList.add(s);
+        schrijfSessies();
+    }
+
+    @Override
+    public void verwijderSessie(Sessie s) {
+        sessieList.remove(s);
+        schrijfSessies();
+    }
+
+    @Override
+    public void updateSessie(Sessie s) {
+        throw new UnsupportedOperationException();
     }
 }
