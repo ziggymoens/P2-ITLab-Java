@@ -24,10 +24,10 @@ class LokaalTest {
 
     @ParameterizedTest
     @MethodSource("geldigeWaarden")
-    void maakLokaalAanMetJuisteWaarden(String lokaalCode, int aantalPlaatsen){
+    public void maakLokaalAanMetJuisteWaarden(String lokaalCode, int aantalPlaatsen){
         Lokaal lokaal = new Lokaal(lokaalCode, aantalPlaatsen);
-        Assertions.assertEquals(lokaalCode, lokaal.getLokaalCode());
-        Assertions.assertEquals(aantalPlaatsen, lokaal.getAantalPlaatsen());
+        assertEquals(lokaalCode, lokaal.getLokaalCode());
+        assertEquals(aantalPlaatsen, lokaal.getAantalPlaatsen());
     }
     //endregion
 
@@ -40,8 +40,8 @@ class LokaalTest {
 
     @ParameterizedTest
     @MethodSource("ongeldigeWaardenAantalPlaatsen")
-    void maakLokaalZonderAantalPlaatsen_GooitException(String lokaalCode, int aantalPlaatsen){
-        Assertions.assertThrows(LokaalException.class, () -> new Lokaal(lokaalCode, aantalPlaatsen));
+    public void maakLokaalZonderAantalPlaatsen_GooitException(String lokaalCode, int aantalPlaatsen){
+        assertThrows(LokaalException.class, () -> new Lokaal(lokaalCode, aantalPlaatsen));
     }
     //endregion
 
@@ -54,8 +54,8 @@ class LokaalTest {
 
     @ParameterizedTest
     @MethodSource("ongeldigeWaardenlokaalCode")
-    void maakLokaalOngeldigeWaardenAantalPlaatsen_GooitException(String lokaalCode, int aantalPlaatsen){
-        Assertions.assertThrows(LokaalException.class, () -> new Lokaal(lokaalCode, aantalPlaatsen));
+    public void maakLokaalOngeldigeWaardenAantalPlaatsen_GooitException(String lokaalCode, int aantalPlaatsen){
+        assertThrows(LokaalException.class, () -> new Lokaal(lokaalCode, aantalPlaatsen));
     }
     //endregion
 }

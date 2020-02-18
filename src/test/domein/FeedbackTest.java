@@ -2,51 +2,43 @@ package test.domein;
 
 import domein.Feedback;
 import domein.Gebruiker;
-import domein.Lokaal;
-import org.junit.jupiter.api.Assertions;
+import exceptions.domein.FeedbackException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 
-import java.util.stream.Stream;
-import static domein.Gebruikersprofielen.*;
-import static domein.Gebruikersstatus.*;
+import static domein.Gebruikersprofielen.GEBRUIKER;
+import static domein.Gebruikersstatus.ACTIEF;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import static org.junit.jupiter.api.Assertions.*;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-//@ExtendWith(MockitoExtension.class)
-class FeedbackTest {
+public class FeedbackTest {
 
-    //@Mock
-    private Gebruiker gebruikerDummy;
+    Gebruiker gebruiker;
 
-    /*private static Stream<Arguments> geldigeWaarden() {
-        return Stream.of(Arguments.of("001", gebruiker, )
-                );
-    }*/
-    //@InjectMocks
-    private Feedback feedback;
-
-    /*@ParameterizedTest
-    @MethodSource("geldigeWaarden")*/
+    @BeforeEach
+    public void before(){
+        gebruiker = new Gebruiker("862361jv", "Jonathan Vanden Eynden", GEBRUIKER, ACTIEF);
+    }
     @Test
-    void maakFeedbackGeldigeWaarden(){
-        gebruikerDummy = new Gebruiker("862361jv", "Jonathan Vanden Eynden", VERANTWOORDELIJKE, ACTIEF);
-        Mockito.when(feedback.getGebruiker()).thenReturn(gebruikerDummy);
-        feedback = new Feedback(gebruikerDummy, "test");
-        Assertions.assertEquals("test", feedback.getTekst());
+    public void maakFeedbackMetJuisteWaardenTestenOpGebruiker(){
+        Feedback feedback = new Feedback(gebruiker, "teskt");
+        assertEquals(feedback.getGebruiker(), gebruiker);
     }
 
     @Test
-    void test(){
-        Gebruiker gebruiker = new Gebruiker("862361jv", "Jonathan Vanden Eynden", VERANTWOORDELIJKE, ACTIEF);
+    public void maakFeedbackMetJuisteWaardenTestenOpTekst(){
         Feedback feedback = new Feedback(gebruiker, "tekst");
         assertEquals("tekst", feedback.getTekst());
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    @ValueSource(strings = {" "})
+    public void maakFeedbackFouteWaardenTekst_werptException(String tekst){
+        assertThrows(FeedbackException.class, () -> new Feedback(gebruiker, tekst));
     }
 }
