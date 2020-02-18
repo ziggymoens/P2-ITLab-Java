@@ -11,14 +11,17 @@ import java.util.Set;
 
 public class GebruikerOfflineMapper extends GebruikerMapperAb {
 
-    private final File gebruikersoffline;
+    private final File gebruikersoffline = new File("src/offlineData/initData/Gebruiker");
 
     public GebruikerOfflineMapper() {
         super();
-        gebruikersoffline = new File("src/offlineData/initData/Gebruiker");
-        if(Initialiseren.isInitialiseren()){
+    }
+
+    @Override
+    public void initData() {
+        if (Initialiseren.isInitialiseren()) {
             maakGebruikers();
-        }else {
+        } else {
             leesGebruikers();
         }
     }
@@ -51,7 +54,6 @@ public class GebruikerOfflineMapper extends GebruikerMapperAb {
             }
         } catch (EOFException ignored) {
         } catch (IOException | ClassNotFoundException e) {
-            //throw new GebruikerOfflineMapperException(e.getCause());
             e.printStackTrace();
         }
     }
@@ -84,6 +86,7 @@ public class GebruikerOfflineMapper extends GebruikerMapperAb {
         gebruikerSet.add(g);
         schrijfGebruikers();
     }
+
     @Override
     public void verwijderGebruiker(Gebruiker g) {
         gebruikerSet.remove(g);

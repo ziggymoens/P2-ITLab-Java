@@ -1,6 +1,7 @@
 package persistentie.mappersAbs;
 
 import domein.Sessie;
+import persistentie.PersistentieController;
 import persistentie.mappers.SessieMapper;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.Set;
 
 public abstract class SessieMapperAb {
     protected List<Sessie> sessieList;
+    protected PersistentieController persistentieController;
 
     public SessieMapperAb() {
         this.sessieList = new ArrayList<>();
@@ -24,4 +26,8 @@ public abstract class SessieMapperAb {
     public abstract void updateSessie(Sessie s);
 
     public abstract void schrijfSessies();
+
+    public abstract void setPersistentieController(PersistentieController persistentieController);
+
+    public abstract void initData();
 }

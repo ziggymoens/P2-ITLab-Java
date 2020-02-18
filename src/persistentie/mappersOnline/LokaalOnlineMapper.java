@@ -12,6 +12,11 @@ public class LokaalOnlineMapper extends LokaalMapperAb {
     }
 
     @Override
+    public void initData() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Set<Lokaal> getLokalen() {
         throw new UnsupportedOperationException();
     }

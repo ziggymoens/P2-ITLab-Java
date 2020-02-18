@@ -1,15 +1,14 @@
 package persistentie.mappersOnline;
 
-import domein.Sessie;
+import domein.Aankondiging;
 import persistentie.PersistentieController;
-import persistentie.mappersAbs.SessieMapperAb;
+import persistentie.mappersAbs.AankondigingMapperAb;
 
-import javax.naming.ldap.UnsolicitedNotification;
 import java.util.List;
 
-public class SessieOnlineMapper extends SessieMapperAb {
+public class AankondigingOnlineMapper extends AankondigingMapperAb {
 
-    public SessieOnlineMapper() {
+    public AankondigingOnlineMapper() {
         super();
     }
 
@@ -19,27 +18,27 @@ public class SessieOnlineMapper extends SessieMapperAb {
     }
 
     @Override
-    public List<Sessie> getSessies() {
+    public List<Aankondiging> getAankodigingen() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void voegSessieToe(Sessie s) {
+    public void voegAankondigingToe(Aankondiging aankondiging) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void verwijderSessie(Sessie s) {
+    public void verwijderAankondiging(Aankondiging aankondiging) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void updateSessie(Sessie s) {
+    public void updateAankondiging(Aankondiging aankondiging) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void schrijfSessies() {
+    public void schrijfAankondigingen() {
         throw new UnsupportedOperationException();
     }
 

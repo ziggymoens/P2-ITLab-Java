@@ -12,6 +12,11 @@ public class GebruikerOnlineMapper extends GebruikerMapperAb {
     }
 
     @Override
+    public void initData() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Set<Gebruiker> getGebruikers() {
         throw new UnsupportedOperationException();
     }

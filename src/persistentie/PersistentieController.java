@@ -12,6 +12,7 @@ public class PersistentieController {
     private SessieRepository sessieRepository;
     private GebruikerRepository gebruikerRepository;
     private LokaalRepository lokaalRepository;
+    private AankondigingRepository aankondigingRepository;
     //endregion
 
     //region Constructor
@@ -25,7 +26,17 @@ public class PersistentieController {
         gebruikerRepository = new GebruikerRepository();
         lokaalRepository = new LokaalRepository();
         sessieRepository = new SessieRepository();
+        aankondigingRepository = new AankondigingRepository();
         sessieRepository.setPersistenieController(this);
+        aankondigingRepository.setPersistenieController(this);
+        initData();
+    }
+
+    private void initData() {
+        gebruikerRepository.initData();
+        lokaalRepository.initData();
+        aankondigingRepository.initData();
+        sessieRepository.initData();
     }
 
     //region Getters
@@ -40,10 +51,14 @@ public class PersistentieController {
     public List<Sessie> getSessies() {
         return sessieRepository.getSessies();
     }
+
+    public List<Aankondiging> getAankondigingen() {
+        return aankondigingRepository.getAankondigingen();
+    }
     //endregion
 
     //region Gebruiker
-    public void beheerGebruiker(String optie, Gebruiker g){
+    public void beheerGebruiker(String optie, Gebruiker g) {
         gebruikerRepository.beheerGebruiker(optie, g);
     }
 
@@ -72,10 +87,21 @@ public class PersistentieController {
     }
     //endregion
 
+    //region Aankondiging
+    public void beheerAankondiging(String optie, Aankondiging a) {
+        aankondigingRepository.beheerSessie(optie, a);
+    }
+
+    public Aankondiging geefAankondigingMetId(String aankondigingsId) {
+        return aankondigingRepository.getAankondigingen().stream().filter(a -> a.getAankondigingsId().equals(aankondigingsId)).findFirst().orElse(null);
+    }
+    //endregion
+
 
     public void schrijfAllesWeg() {
         gebruikerRepository.schrijfWeg();
         lokaalRepository.schrijfWeg();
         sessieRepository.schrijfWeg();
+        aankondigingRepository.schrijfWeg();
     }
 }

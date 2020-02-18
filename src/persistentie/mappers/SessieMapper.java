@@ -43,10 +43,10 @@ public class SessieMapper {
     }
 
     public void setPersistentieController(PersistentieController persistentieController) {
-        this.persistentieController = persistentieController;
+        mapper.setPersistentieController(persistentieController);
     }
 
-    public PersistentieController getPersistentieController() {
-        return persistentieController;
+    public void initData() {
+        mapper.initData();
     }
 }

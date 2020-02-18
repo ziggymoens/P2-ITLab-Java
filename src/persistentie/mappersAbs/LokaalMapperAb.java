@@ -22,4 +22,5 @@ public abstract class LokaalMapperAb {
 
     public abstract void schrijfLokalen();
 
+    public abstract void initData();
 }

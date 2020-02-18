@@ -23,4 +23,6 @@ public abstract class GebruikerMapperAb {
     public abstract void schrijfGebruikers();
 
     public abstract void update();
+
+    public abstract void initData();
 }

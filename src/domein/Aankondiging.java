@@ -3,23 +3,24 @@ package domein;
 import exceptions.domein.AankondigingException;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
-public class Aankondiging  implements Serializable {
+public class Aankondiging implements Serializable {
     private static final long serialVersionUID = -5032924408446952572L;
 
     //region Variabelen
     //Primairy key
     private String aankondigingsId;
 
-    private Date publicatiedatum;
+    private LocalDateTime publicatiedatum;
     private Gebruiker publicist;
     private String inhoud;
     //endregion
 
     //region Constructor
-    public Aankondiging(Date publicatiedatum, Gebruiker publicist, String inhoud) {
+    public Aankondiging(LocalDateTime publicatiedatum, Gebruiker publicist, String inhoud) {
         setPublicatiedatum(publicatiedatum);
         setPublicist(publicist);
         setInhoud(inhoud);
@@ -27,7 +28,7 @@ public class Aankondiging  implements Serializable {
     //endregion
 
     //region Setters
-    private void setPublicatiedatum(Date publicatiedatum) {
+    private void setPublicatiedatum(LocalDateTime publicatiedatum) {
         if (publicatiedatum == null) {
             throw new AankondigingException();
         }
@@ -54,7 +55,7 @@ public class Aankondiging  implements Serializable {
     //endregion
 
     //region Getters
-    public Date getPublicatiedatum() {
+    public LocalDateTime getPublicatiedatum() {
         return publicatiedatum;
     }
 
@@ -65,6 +66,11 @@ public class Aankondiging  implements Serializable {
     public String getInhoud() {
         return inhoud;
     }
+
+    public String getAankondigingsId() {
+        return aankondigingsId;
+    }
+
     //endregion
 
     //region Equals & Hashcode
@@ -82,4 +88,15 @@ public class Aankondiging  implements Serializable {
     }
     //endregion
 
+    //region toString
+    @Override
+    public String toString() {
+        return "Aankondiging{" +
+                "aankondigingsId='" + aankondigingsId + '\'' +
+                ", publicatiedatum=" + publicatiedatum +
+                ", publicist=" + publicist.getNaam() +
+                ", inhoud='" + inhoud + '\'' +
+                '}';
+    }
+    //endregion
 }

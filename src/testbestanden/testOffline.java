@@ -44,8 +44,12 @@ public class testOffline {
         System.out.println(out2);
         System.out.println();
         List<Sessie> sessieList = pc.getSessies();
-        String out = sessieList.stream().map(Sessie::toString).collect(Collectors.joining("\n"));
-        System.out.println(out);
+        String out3 = sessieList.stream().map(Sessie::toString).collect(Collectors.joining("\n"));
+        System.out.println(out3);
+        System.out.println();
+        List<Aankondiging> aankondigingList = pc.getAankondigingen();
+        String out4 = aankondigingList.stream().map(Aankondiging::toString).collect(Collectors.joining("\n"));
+        System.out.println(out4);
         pc.schrijfAllesWeg();
     }
 }

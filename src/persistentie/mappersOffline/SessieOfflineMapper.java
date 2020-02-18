@@ -16,10 +16,13 @@ import java.util.List;
 
 public class SessieOfflineMapper extends SessieMapperAb {
     private final File gebruikersoffline = new File("src/offlineData/initData/Sessies");
-    PersistentieController pc;
 
     public SessieOfflineMapper() {
         super();
+    }
+
+    @Override
+    public void initData() {
         if (Connection.isONLINE()){
             maakSessies();
         }else{
@@ -28,7 +31,7 @@ public class SessieOfflineMapper extends SessieMapperAb {
     }
 
     public void setPersistentieController(PersistentieController pc) {
-        this.pc = pc;
+        persistentieController = pc;
     }
 
     public void maakSessies() {
@@ -39,8 +42,8 @@ public class SessieOfflineMapper extends SessieMapperAb {
                 String[] sessie = line.split(";");
                 LocalDateTime startSessie = LocalDateTime.parse(sessie[1]);
                 LocalDateTime eindeSessie = LocalDateTime.parse(sessie[2]);
-                Lokaal lokaal = pc.geefLokaalMetCode(sessie[3]);
-                Gebruiker gebruiker = pc.geefGebruikerMetCode(sessie[4]);
+                Lokaal lokaal = persistentieController.geefLokaalMetCode(sessie[3]);
+                Gebruiker gebruiker = persistentieController.geefGebruikerMetCode(sessie[4]);
                 sessieList.add(new Sessie(sessie[0], startSessie, eindeSessie, lokaal, gebruiker));
             }
         } catch (IOException e) {

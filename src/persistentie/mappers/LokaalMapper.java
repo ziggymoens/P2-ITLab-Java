@@ -42,4 +42,8 @@ public class LokaalMapper {
     public Lokaal geefLokaal(String lokaalCode) {
         return mapper.getLokalen().stream().filter(l -> l.getLokaalCode().equals(lokaalCode)).findFirst().orElse(null);
     }
+
+    public void initData() {
+        mapper.initData();
+    }
 }

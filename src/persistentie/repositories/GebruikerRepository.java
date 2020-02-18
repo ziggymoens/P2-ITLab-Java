@@ -12,6 +12,10 @@ public class GebruikerRepository {
         gm = new GebruikerMapper();
     }
 
+    public void initData() {
+        gm.initData();
+    }
+
     public Set<Gebruiker> getGebruikerSet() {
         return gm.getGebruikers();
     }
@@ -43,4 +47,5 @@ public class GebruikerRepository {
                 break;
         }
     }
+
 }

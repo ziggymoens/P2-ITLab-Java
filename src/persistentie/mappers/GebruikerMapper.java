@@ -47,4 +47,8 @@ public class GebruikerMapper {
     public Gebruiker geefGebruiker(String gebruikersnaam) {
         return mapper.getGebruikers().stream().filter(g -> g.getGebruikersnaam().equals(gebruikersnaam)).findFirst().orElse(null);
     }
+
+    public void initData() {
+        mapper.initData();
+    }
 }

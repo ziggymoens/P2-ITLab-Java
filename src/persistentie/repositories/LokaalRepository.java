@@ -7,16 +7,16 @@ import persistentie.mappersOffline.LokaalOfflineMapper;
 import java.util.Set;
 
 public class LokaalRepository {
-    private LokaalMapper lm;
+    private LokaalMapper mapper;
     private Set<Lokaal> lokalenSet;
 
     public LokaalRepository() {
-        lm = new LokaalMapper();
+        mapper = new LokaalMapper();
         haalLokalenOp();
     }
 
     private void haalLokalenOp() {
-        lokalenSet = lm.getLokalen();
+        lokalenSet = mapper.getLokalen();
     }
 
     public Set<Lokaal> getLokalenSet() {
@@ -24,43 +24,35 @@ public class LokaalRepository {
     }
 
     public void update() {
-        lokalenSet = lm.getLokalen();
-    }
-
-    public void voegLokaalToe(Lokaal l) {
-        lm.voegLokaalToe(l);
-    }
-
-    public void verwijderLokaal(Lokaal l) {
-        lm.verwijderLokaal(l);
-    }
-
-    public void updateLokaal(Lokaal l) {
-        lm.updateLokaal(l);
+        lokalenSet = mapper.getLokalen();
     }
 
     public void schrijfWeg() {
         update();
-        lm.schrijfLokalen();
+        mapper.schrijfLokalen();
     }
 
     public void beheerLokaal(String optie, Lokaal l) {
         switch (optie.toUpperCase()){
             case "CREATE":
-                lm.voegLokaalToe(l);
+                mapper.voegLokaalToe(l);
                 break;
             case "READ":
-                lm.geefLokaal(l.getLokaalCode());
+                mapper.geefLokaal(l.getLokaalCode());
                 break;
             case "UPDATE":
-                lm.updateLokaal(l);
+                mapper.updateLokaal(l);
                 break;
             case "DELETE":
-                lm.verwijderLokaal(l);
+                mapper.verwijderLokaal(l);
                 break;
             default:
                 break;
 
         }
+    }
+
+    public void initData() {
+        mapper.initData();
     }
 }

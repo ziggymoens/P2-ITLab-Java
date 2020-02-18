@@ -1,54 +1,54 @@
 package persistentie.repositories;
 
+import domein.Aankondiging;
 import domein.Sessie;
 import exceptions.persistentie.repositories.SessieRepositoryException;
 import persistentie.PersistentieController;
+import persistentie.mappers.AankondigingMapper;
 import persistentie.mappers.SessieMapper;
-import persistentie.mappersOffline.SessieOfflineMapper;
 
 import java.util.List;
 
-public class SessieRepository {
+public class AankondigingRepository {
+    private AankondigingMapper mapper;
 
-    private SessieMapper mapper;
-
-    public SessieRepository() {
-        this.mapper = new SessieMapper();
+    public AankondigingRepository() {
+        this.mapper = new AankondigingMapper();
     }
 
     public void setPersistenieController(PersistentieController pc){
         mapper.setPersistentieController(pc);
     }
 
-    public List<Sessie> getSessies() {
-        return mapper.getSessies();
+    public List<Aankondiging> getAankondigingen() {
+        return mapper.getAankondigingen();
     }
 
-    public void beheerSessie(String optie, Sessie s) {
+    public void beheerSessie(String optie, Aankondiging aankondiging) {
         switch (optie) {
             case "CREATE":
-                mapper.addSessie(s);
+                mapper.voegAankondigingToe(aankondiging);
                 break;
             case "READ":
-                geefSessie(s.getSessieId());
+                geefAankondigingMetId(aankondiging.getAankondigingsId());
                 break;
             case "UPDATE":
-                mapper.updateSessie(s);
+                mapper.updateAankondiging(aankondiging);
                 break;
             case "DELETE":
-                mapper.verwijderSessie(s);
+                mapper.verwijderAankondiging(aankondiging);
                 break;
             default:
                 throw new SessieRepositoryException();
         }
     }
 
-    private Sessie geefSessie(String id) {
-        return mapper.getSessies().stream().filter(s -> s.getSessieId().equals(id)).findFirst().orElse(null);
+    private Aankondiging geefAankondigingMetId(String id) {
+        return mapper.getAankondigingen().stream().filter(a -> a.getAankondigingsId().equals(id)).findFirst().orElse(null);
     }
 
     public void schrijfWeg() {
-        mapper.schrijfSessies();
+        mapper.schrijfAankondigingen();
     }
 
     private void update() {

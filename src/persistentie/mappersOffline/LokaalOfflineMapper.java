@@ -8,10 +8,14 @@ import java.io.*;
 import java.util.Set;
 
 public class LokaalOfflineMapper extends LokaalMapperAb {
-    private final File lokalenOffline;
+    private final File lokalenOffline = new File("src/offlineData/initData/Lokalen");
 
     public LokaalOfflineMapper() {
-        lokalenOffline = new File("src/offlineData/initData/Lokalen");
+        super();
+    }
+
+    @Override
+    public void initData() {
         if(Initialiseren.isInitialiseren()){
             maakLokalen();
         }else{
