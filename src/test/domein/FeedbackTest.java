@@ -20,17 +20,17 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-@ExtendWith(MockitoExtension.class)
+//@ExtendWith(MockitoExtension.class)
 class FeedbackTest {
 
-    @Mock
+    //@Mock
     private Gebruiker gebruikerDummy;
 
     /*private static Stream<Arguments> geldigeWaarden() {
         return Stream.of(Arguments.of("001", gebruiker, )
                 );
     }*/
-    @InjectMocks
+    //@InjectMocks
     private Feedback feedback;
 
     /*@ParameterizedTest
