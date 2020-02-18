@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LokaalTest {
 
+    //region maakLokaalAanMetJuisteWaardenTest
     private static Stream<Arguments> geldigeWaarden() {
         return Stream.of(Arguments.of("GSCB.3.049", 50),
                 Arguments.of("GSCB.1.017", 38));
@@ -28,7 +29,9 @@ class LokaalTest {
         Assertions.assertEquals(lokaalCode, lokaal.getLokaalCode());
         Assertions.assertEquals(aantalPlaatsen, lokaal.getAantalPlaatsen());
     }
+    //endregion
 
+    //region maakLokaalZonderAantalPlaatsen_GooitExcepionTest
     private static Stream<Arguments> ongeldigeWaardenAantalPlaatsen() {
         return Stream.of(Arguments.of("GSCB.3.049", -1)
                 //Eventueel testen met 1000+ , implementeren na vragen
@@ -40,7 +43,9 @@ class LokaalTest {
     void maakLokaalZonderAantalPlaatsen_GooitException(String lokaalCode, int aantalPlaatsen){
         Assertions.assertThrows(LokaalException.class, () -> new Lokaal(lokaalCode, aantalPlaatsen));
     }
+    //endregion
 
+    //region maakLokaalOngeldigeWaardenAantalPlaatsen_GooitExceptionTest
     private static Stream<Arguments> ongeldigeWaardenlokaalCode() {
         return Stream.of(Arguments.of("", 50),
                 Arguments.of(null, 50),
@@ -52,4 +57,5 @@ class LokaalTest {
     void maakLokaalOngeldigeWaardenAantalPlaatsen_GooitException(String lokaalCode, int aantalPlaatsen){
         Assertions.assertThrows(LokaalException.class, () -> new Lokaal(lokaalCode, aantalPlaatsen));
     }
+    //endregion
 }
