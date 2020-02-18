@@ -1,5 +1,7 @@
 package domein;
 
+import exceptions.domein.HerinneringException;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -16,8 +18,8 @@ public class Herinnering implements Serializable {
 
     //region Constructor
     public Herinnering(int dagenVooraf, String inhoud) {
-        this.dagenVooraf = dagenVooraf;
-        this.inhoud = inhoud;
+        setDagenVooraf(dagenVooraf);
+        setInhoud(inhoud);
     }
     //endregion
 
@@ -27,10 +29,14 @@ public class Herinnering implements Serializable {
     }
 
     private void setDagenVooraf(int dagenVooraf) {
+        if(dagenVooraf < 0)
+            throw new HerinneringException();
         this.dagenVooraf = dagenVooraf;
     }
 
     private void setInhoud(String inhoud) {
+        if(inhoud == null || inhoud.isBlank())
+            throw new HerinneringException();
         this.inhoud = inhoud;
     }
     //endregion
