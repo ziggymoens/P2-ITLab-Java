@@ -19,26 +19,35 @@ public class FeedbackTest {
 
     Gebruiker gebruiker;
 
+    //region beforeEach
     @BeforeEach
     public void before(){
         gebruiker = new Gebruiker("862361jv", "Jonathan Vanden Eynden", GEBRUIKER, ACTIEF);
     }
+    //endregion
+
+    //region maakFeedbackMetJuisteWaardenTestenOpGebruiker
     @Test
     public void maakFeedbackMetJuisteWaardenTestenOpGebruiker(){
         Feedback feedback = new Feedback(gebruiker, "teskt");
         assertEquals(feedback.getGebruiker(), gebruiker);
     }
+    //endregion
 
+    //region maakFeedbackMetJuisteWaardenTestenOpTekst
     @Test
     public void maakFeedbackMetJuisteWaardenTestenOpTekst(){
         Feedback feedback = new Feedback(gebruiker, "tekst");
         assertEquals("tekst", feedback.getTekst());
     }
+    //endregion
 
+    //region maakFeedbackFouteWaardenTekst_werptException
     @ParameterizedTest
     @NullAndEmptySource
     @ValueSource(strings = {" "})
     public void maakFeedbackFouteWaardenTekst_werptException(String tekst){
         assertThrows(FeedbackException.class, () -> new Feedback(gebruiker, tekst));
     }
+    //endregion
 }
