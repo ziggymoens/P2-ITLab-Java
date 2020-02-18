@@ -48,7 +48,7 @@ public class DomeinController {
         return null;
     }
 
-    public String geefProfielVanGebruiker(String gebruikersCode){
+    public String geefGebruikerProfiel(String gebruikersCode){
         return (pc.geefGebruikerMetCode(gebruikersCode)).getGebruikersprofielen().toString();
     }
 

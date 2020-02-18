@@ -23,7 +23,7 @@ public class StartUpInterface {
         dc.voegLokaalToe(lokaal);
 
         System.out.print("Gebruikersnaam: ");
-        String gebruikersnaam = in.next();
+        String gebruikersCode = in.next();
 
         System.out.print("Wachtwoord: ");
         in.next();
@@ -39,8 +39,8 @@ public class StartUpInterface {
         }
 */
         int keuze = 0;
-        switch(gebruiker.getGebruikersprofielen()){
-            case HOOFDVERANTWOORDELIJKE:
+        switch(dc.geefGebruikerProfiel(gebruikersCode)){
+            case "HOOFDVERANTWOORDELIJKE":
                 geefOptiesHoofdverantwoordelijke();
                 System.out.println("Geef het gewenste cijfer");
                 keuze = in.nextInt();
@@ -50,7 +50,7 @@ public class StartUpInterface {
                     keuze = in.nextInt();
                 }
                 break;
-            case VERANTWOORDELIJKE:
+            case "VERANTWOORDELIJKE":
                 geefOptiesVerantwoordelijke();
                 System.out.println("Geef het gewenste cijfer");
                 keuze = in.nextInt();
@@ -60,13 +60,13 @@ public class StartUpInterface {
                     keuze = in.nextInt();
                 }
                 break;
-            case GEBRUIKER:
+            case "GEBRUIKER":
                 geefOptiesgebruiker();
                 break;
         }
 
         switch (keuze){
-            case 1: new SessieBeheren(dc, gebruikersnaam); break;
+            case 1: new SessieBeheren(dc, gebruikersCode); break;
             case 2: new SessiekalenderBeheren(dc); break;
             case 3: new AankondigingOfHerinneringSturen(dc); break;
             case 4: new StatistiekenRaadplegen(dc); break;

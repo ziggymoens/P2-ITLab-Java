@@ -7,31 +7,31 @@ import java.util.Scanner;
 public class SessieBeheren {
     private Scanner in = new Scanner(System.in);
     private DomeinController dc;
-    private String gebruikersNaam;
+    private String gebruikersCode;
 
-    public SessieBeheren(DomeinController dc, String gebruikersNaam){
+    public SessieBeheren(DomeinController dc, String gebruikersCode){
         this.dc = dc;
-        this.gebruikersNaam = gebruikersNaam;
+        this.gebruikersCode = gebruikersCode;
         sessieBeheren();
     }
 
     private void sessieBeheren() {
-        switch (dc.geefProfielVanGebruiker(gebruikersNaam)) {
+        switch (dc.geefGebruikerProfiel(gebruikersCode)) {
             case "HOOFDVERANTWOORDELIJKE":
                 sessieBeherenAlsHoofdVerantwoordelijke();
                 break;
             case "VERANTWOORDELIJKE":
-                sessieBeherenAlsVerantwoordelijke(gebruikersNaam);
+                sessieBeherenAlsVerantwoordelijke(gebruikersCode);
                 break;
         }
-        System.out.println("\nKies een sessie: ");
+        System.out.print("\nKies een sessie: ");
         int keuzeSessie = in.nextInt();
 
 
         int keuzeVoorAanpassen = -1;
         while (keuzeVoorAanpassen != 0) {
             System.out.println("Gekozen sessie ziet er momenteel als volgt uit.");
-           // System.out.println(dc.geefDetailVanSessie(keuzeSessie) + "\n");
+            //System.out.println(dc.geefDetailVanSessie(Integer.toString(keuzeSessie)) + "\n");
             System.out.println("Geef het nummer van het sessiedetail dat u wenst u aan te passen, geef 0 om te stoppen. ");
             keuzeVoorAanpassen = in.nextInt();
             while (keuzeVoorAanpassen < 0 && keuzeVoorAanpassen > 11) {
@@ -102,11 +102,11 @@ public class SessieBeheren {
     }
 
     private void sessieBeherenAlsVerantwoordelijke(String gebruikersCode) {
-        System.out.println(dc.geefOverzichtVerantwoordelijke(gebruikersCode));
+        System.out.println("\n" + dc.geefOverzichtVerantwoordelijke(gebruikersCode) + "\n");
     }
 
     private void sessieBeherenAlsHoofdVerantwoordelijke() {
-        System.out.println(dc.geefOverzichtHoofdverantwoordelijke());
+        System.out.println("\n" + dc.geefOverzichtHoofdverantwoordelijke() + "\n");
     }
 
 
