@@ -24,7 +24,7 @@ public class AankondigingRepository {
         return mapper.getAankondigingen();
     }
 
-    public void beheerSessie(String optie, Aankondiging aankondiging) {
+    public void beheerAankondiging(String optie, Aankondiging aankondiging) {
         switch (optie) {
             case "CREATE":
                 mapper.voegAankondigingToe(aankondiging);

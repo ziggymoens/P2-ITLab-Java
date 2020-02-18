@@ -16,12 +16,15 @@ public class Aankondiging implements Serializable {
 
     private LocalDateTime publicatiedatum;
     private Gebruiker publicist;
+    private Sessie sessie;
     private String inhoud;
     //endregion
 
     //region Constructor
-    public Aankondiging(LocalDateTime publicatiedatum, Gebruiker publicist, String inhoud) {
+    public Aankondiging(String aankondigingsId, Sessie sessie, LocalDateTime publicatiedatum, Gebruiker publicist, String inhoud) {
+        setAankondigingsId(aankondigingsId);
         setPublicatiedatum(publicatiedatum);
+        setSessie(sessie);
         setPublicist(publicist);
         setInhoud(inhoud);
     }
@@ -52,6 +55,10 @@ public class Aankondiging implements Serializable {
     public void setAankondigingsId(String aankondigingsId) {
         this.aankondigingsId = aankondigingsId;
     }
+
+    public void setSessie(Sessie sessie) {
+        this.sessie = sessie;
+    }
     //endregion
 
     //region Getters
@@ -71,7 +78,11 @@ public class Aankondiging implements Serializable {
         return aankondigingsId;
     }
 
-    //endregion
+    public Sessie getSessie() {
+        return sessie;
+    }
+
+//endregion
 
     //region Equals & Hashcode
     @Override
@@ -89,14 +100,17 @@ public class Aankondiging implements Serializable {
     //endregion
 
     //region toString
+
     @Override
     public String toString() {
         return "Aankondiging{" +
                 "aankondigingsId='" + aankondigingsId + '\'' +
                 ", publicatiedatum=" + publicatiedatum +
                 ", publicist=" + publicist.getNaam() +
+                ", sessie=" + sessie.getSessieId() +
                 ", inhoud='" + inhoud + '\'' +
                 '}';
     }
+
     //endregion
 }

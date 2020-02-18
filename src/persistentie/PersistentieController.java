@@ -3,7 +3,6 @@ package persistentie;
 import domein.*;
 import persistentie.repositories.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -13,6 +12,7 @@ public class PersistentieController {
     private GebruikerRepository gebruikerRepository;
     private LokaalRepository lokaalRepository;
     private AankondigingRepository aankondigingRepository;
+    private FeedbackRepository feedbackRepository;
     //endregion
 
     //region Constructor
@@ -27,16 +27,19 @@ public class PersistentieController {
         lokaalRepository = new LokaalRepository();
         sessieRepository = new SessieRepository();
         aankondigingRepository = new AankondigingRepository();
+        feedbackRepository = new FeedbackRepository();
         sessieRepository.setPersistenieController(this);
         aankondigingRepository.setPersistenieController(this);
+        feedbackRepository.setPersistenieController(this);
         initData();
     }
 
     private void initData() {
         gebruikerRepository.initData();
         lokaalRepository.initData();
-        aankondigingRepository.initData();
         sessieRepository.initData();
+        aankondigingRepository.initData();
+        feedbackRepository.initData();
     }
 
     //region Getters
@@ -54,6 +57,10 @@ public class PersistentieController {
 
     public List<Aankondiging> getAankondigingen() {
         return aankondigingRepository.getAankondigingen();
+    }
+
+    public List<Feedback> getFeedback() {
+        return feedbackRepository.getFeedback();
     }
     //endregion
 
@@ -89,7 +96,7 @@ public class PersistentieController {
 
     //region Aankondiging
     public void beheerAankondiging(String optie, Aankondiging a) {
-        aankondigingRepository.beheerSessie(optie, a);
+        aankondigingRepository.beheerAankondiging(optie, a);
     }
 
     public Aankondiging geefAankondigingMetId(String aankondigingsId) {
@@ -97,11 +104,22 @@ public class PersistentieController {
     }
     //endregion
 
+    //region Feedback
+    public void beheerFeedback(String optie, Feedback feedback) {
+        feedbackRepository.beheerFeedback(optie, feedback);
+    }
+
+    public Feedback geefFeedbackMetId(String feedbackId) {
+        return feedbackRepository.getFeedback().stream().filter(a -> a.getFeedbackId().equals(feedbackId)).findFirst().orElse(null);
+    }
+
+    //endregion
 
     public void schrijfAllesWeg() {
         gebruikerRepository.schrijfWeg();
         lokaalRepository.schrijfWeg();
         sessieRepository.schrijfWeg();
         aankondigingRepository.schrijfWeg();
+        feedbackRepository.schrijfWeg();
     }
 }

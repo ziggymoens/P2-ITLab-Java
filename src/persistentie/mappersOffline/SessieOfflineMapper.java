@@ -23,7 +23,7 @@ public class SessieOfflineMapper extends SessieMapperAb {
 
     @Override
     public void initData() {
-        if (Connection.isONLINE()){
+        if (Initialiseren.isInitialiseren()){
             maakSessies();
         }else{
             leesSessies();
@@ -40,11 +40,11 @@ public class SessieOfflineMapper extends SessieMapperAb {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] sessie = line.split(";");
-                LocalDateTime startSessie = LocalDateTime.parse(sessie[1]);
-                LocalDateTime eindeSessie = LocalDateTime.parse(sessie[2]);
-                Lokaal lokaal = persistentieController.geefLokaalMetCode(sessie[3]);
-                Gebruiker gebruiker = persistentieController.geefGebruikerMetCode(sessie[4]);
-                sessieList.add(new Sessie(sessie[0], startSessie, eindeSessie, lokaal, gebruiker));
+                LocalDateTime startSessie = LocalDateTime.parse(sessie[2]);
+                LocalDateTime eindeSessie = LocalDateTime.parse(sessie[3]);
+                Lokaal lokaal = persistentieController.geefLokaalMetCode(sessie[4]);
+                Gebruiker gebruiker = persistentieController.geefGebruikerMetCode(sessie[5]);
+                sessieList.add(new Sessie(sessie[0], sessie[1], startSessie, eindeSessie, lokaal, gebruiker));
             }
         } catch (IOException e) {
             throw new GebruikerOfflineMapperException();

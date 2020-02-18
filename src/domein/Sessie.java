@@ -31,7 +31,8 @@ public class Sessie implements Serializable {
     //endregion
 
     //region Constructors
-    public Sessie(String titel, LocalDateTime startSessie, LocalDateTime eindeSessie, Lokaal lokaal, Gebruiker verantwoordelijke) {
+    public Sessie(String sessieId, String titel, LocalDateTime startSessie, LocalDateTime eindeSessie, Lokaal lokaal, Gebruiker verantwoordelijke) {
+        setSessieId(sessieId);
         setVerantwoordelijke(verantwoordelijke);
         setTitel(titel);
         setStartSessie(startSessie);
@@ -41,6 +42,10 @@ public class Sessie implements Serializable {
         setMaximumAantalPlaatsen(this.lokaal.getAantalPlaatsen());
         setNaamGastspreker("Onbekend");
         initLijsten();
+    }
+
+    public Sessie(String titel, LocalDateTime startSessie, LocalDateTime eindeSessie, Lokaal lokaal, Gebruiker verantwoordelijke) {
+        this("onbekend", titel, startSessie, eindeSessie, lokaal, verantwoordelijke);
     }
     //endregion
 
@@ -182,7 +187,7 @@ public class Sessie implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("Verantwoordelijke: %s%nTitel: %s%nNaam gastspreker: %s%nLokaal: %s%nStart- & einduur: %s - %s%nMaximum plaatsten: %d",verantwoordelijke.getNaam(), titel, naamGastspreker, lokaal.getLokaalCode(), startSessie.toString(), eindeSessie.toString(), lokaal.getAantalPlaatsen());
+        return String.format("SessieId: %s%nVerantwoordelijke: %s%nTitel: %s%nNaam gastspreker: %s%nLokaal: %s%nStart- & einduur: %s - %s%nMaximum plaatsten: %d",sessieId,verantwoordelijke.getNaam(), titel, naamGastspreker, lokaal.getLokaalCode(), startSessie.toString(), eindeSessie.toString(), lokaal.getAantalPlaatsen());
     }
 
     public String toString_Overzicht(){
