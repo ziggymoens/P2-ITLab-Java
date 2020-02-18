@@ -17,6 +17,11 @@ public class Feedback implements Serializable {
     //endregion
 
     //region Constructor
+    //constructor injectie
+    public Feedback(Gebruiker gebruiker){
+        this.gebruiker = gebruiker;
+    }
+
     public Feedback(Gebruiker gebruiker, String tekst) {
         setGebruiker(gebruiker);
         setTekst(tekst);
