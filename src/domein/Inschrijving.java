@@ -17,7 +17,7 @@ public class Inschrijving implements Serializable {
     private Sessie sessie;
     private LocalDateTime inschrijvingsdatum;
     private boolean statusAanwezigheid = false;
-    //endregion
+    //endregione
 
     //region Constructor
     public Inschrijving(String inschrijvingsId, Gebruiker gebruiker, Sessie sessie,LocalDateTime inschrijvingsdatum, boolean statusAanwezigheid) {
@@ -44,15 +44,19 @@ public class Inschrijving implements Serializable {
         this.inschrijvingsdatum = inschrijvingsdatum;
     }
 
-    public void setStatusAanwezigheid(boolean statusAanwezigheid) {
+    private void setStatusAanwezigheid(boolean statusAanwezigheid) {
         this.statusAanwezigheid = statusAanwezigheid;
     }
 
-    public void setInschrijvingsId(String inschrijvingsId) {
+    private void setInschrijvingsId(String inschrijvingsId) {
+        if(inschrijvingsId == null || inschrijvingsId.isBlank())
+            throw new InschrijvingException();
         this.inschrijvingsId = inschrijvingsId;
     }
 
-    public void setSessie(Sessie sessie) {
+    private void setSessie(Sessie sessie) {
+        if(sessie == null)
+            throw new InschrijvingException();
         this.sessie = sessie;
     }
 

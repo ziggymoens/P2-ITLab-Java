@@ -56,13 +56,13 @@ public class Aankondiging implements Serializable {
         this.inhoud = inhoud;
     }
 
-    public void setAankondigingsId(String aankondigingsId) {
+    protected void setAankondigingsId(String aankondigingsId) {
         if(aankondigingsId == null || aankondigingsId.isBlank())
             throw new AankondigingException();
         this.aankondigingsId = aankondigingsId;
     }
 
-    public void setSessie(Sessie sessie) {
+    private void setSessie(Sessie sessie) {
         if(sessie == null)
             throw new AankondigingException();
         this.sessie = sessie;
