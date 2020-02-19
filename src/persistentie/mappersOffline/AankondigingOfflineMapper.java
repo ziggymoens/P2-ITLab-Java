@@ -4,15 +4,14 @@ import domein.Aankondiging;
 import domein.Gebruiker;
 import domein.Sessie;
 import exceptions.persistentie.offline.GebruikerOfflineMapperException;
-import org.mockito.exceptions.misusing.UnnecessaryStubbingException;
 import persistentie.PersistentieController;
-import persistentie.mappersAbs.AankondigingMapperAb;
+import persistentie.mappersAbs.AankondigingMapper;
 
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class AankondigingOfflineMapper extends AankondigingMapperAb {
+public class AankondigingOfflineMapper extends AankondigingMapper {
 
     private final File aankondigingenOffline = new File("src/offlineData/initData/Aankondiging");
 

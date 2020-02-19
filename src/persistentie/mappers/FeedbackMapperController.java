@@ -3,14 +3,14 @@ package persistentie.mappers;
 import domein.Feedback;
 import persistentie.Connection;
 import persistentie.PersistentieController;
-import persistentie.mappersAbs.FeedbackMapperAb;
+import persistentie.mappersAbs.FeedbackMapper;
 import persistentie.mappersOffline.FeedbackOfflineMapper;
 import persistentie.mappersOnline.FeedbackOnlineMapper;
 
 import java.util.List;
 
 public class FeedbackMapperController {
-    private FeedbackMapperAb mapper;
+    private FeedbackMapper mapper;
 
     public FeedbackMapperController() {
         if(Connection.isONLINE()){

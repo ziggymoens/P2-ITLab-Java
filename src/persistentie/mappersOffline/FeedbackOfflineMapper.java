@@ -5,11 +5,11 @@ import domein.Gebruiker;
 import domein.Sessie;
 import exceptions.persistentie.offline.GebruikerOfflineMapperException;
 import persistentie.PersistentieController;
-import persistentie.mappersAbs.FeedbackMapperAb;
+import persistentie.mappersAbs.FeedbackMapper;
 import java.io.*;
 import java.util.List;
 
-public class FeedbackOfflineMapper extends FeedbackMapperAb {
+public class FeedbackOfflineMapper extends FeedbackMapper {
 
     private final File FeedbackenOffline = new File("src/offlineData/initData/Feedback");
     private PersistentieController pc;

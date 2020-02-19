@@ -1,14 +1,12 @@
 package persistentie.mappersOnline;
 
-import domein.Aankondiging;
 import domein.Feedback;
 import persistentie.PersistentieController;
-import persistentie.mappersAbs.AankondigingMapperAb;
-import persistentie.mappersAbs.FeedbackMapperAb;
+import persistentie.mappersAbs.FeedbackMapper;
 
 import java.util.List;
 
-public class FeedbackOnlineMapper extends FeedbackMapperAb {
+public class FeedbackOnlineMapper extends FeedbackMapper {
 
     public FeedbackOnlineMapper() {
         super();

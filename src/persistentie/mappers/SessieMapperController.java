@@ -3,14 +3,14 @@ package persistentie.mappers;
 import domein.Sessie;
 import persistentie.Connection;
 import persistentie.PersistentieController;
-import persistentie.mappersAbs.SessieMapperAb;
+import persistentie.mappersAbs.SessieMapper;
 import persistentie.mappersOffline.SessieOfflineMapper;
 import persistentie.mappersOnline.SessieOnlineMapper;
 
 import java.util.List;
 
 public class SessieMapperController {
-    protected SessieMapperAb mapper;
+    protected SessieMapper mapper;
     protected PersistentieController persistentieController;
 
     public SessieMapperController() {

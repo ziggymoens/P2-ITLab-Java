@@ -2,12 +2,11 @@ package persistentie.mappersOnline;
 
 import domein.Sessie;
 import persistentie.PersistentieController;
-import persistentie.mappersAbs.SessieMapperAb;
+import persistentie.mappersAbs.SessieMapper;
 
-import javax.naming.ldap.UnsolicitedNotification;
 import java.util.List;
 
-public class SessieOnlineMapper extends SessieMapperAb {
+public class SessieOnlineMapper extends SessieMapper {
 
     public SessieOnlineMapper() {
         super();

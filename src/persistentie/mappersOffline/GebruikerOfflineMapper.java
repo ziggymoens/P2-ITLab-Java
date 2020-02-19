@@ -1,15 +1,13 @@
 package persistentie.mappersOffline;
 
 import domein.Gebruiker;
-import domein.Gebruikersprofielen;
-import domein.Gebruikersstatus;
 import exceptions.persistentie.offline.GebruikerOfflineMapperException;
-import persistentie.mappersAbs.GebruikerMapperAb;
+import persistentie.mappersAbs.GebruikerMapper;
 
 import java.io.*;
 import java.util.Set;
 
-public class GebruikerOfflineMapper extends GebruikerMapperAb {
+public class GebruikerOfflineMapper extends GebruikerMapper {
 
     private final File gebruikersoffline = new File("src/offlineData/initData/Gebruiker");
 

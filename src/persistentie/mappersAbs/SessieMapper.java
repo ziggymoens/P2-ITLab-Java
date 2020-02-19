@@ -6,11 +6,11 @@ import persistentie.PersistentieController;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class SessieMapperAb {
+public abstract class SessieMapper {
     protected List<Sessie> sessieList;
     protected PersistentieController persistentieController;
 
-    public SessieMapperAb() {
+    public SessieMapper() {
         this.sessieList = new ArrayList<>();
     }
 

@@ -2,12 +2,12 @@ package persistentie.mappersOffline;
 
 import domein.Lokaal;
 import exceptions.persistentie.offline.LokalenOfflineMapperException;
-import persistentie.mappersAbs.LokaalMapperAb;
+import persistentie.mappersAbs.LokaalMapper;
 
 import java.io.*;
 import java.util.Set;
 
-public class LokaalOfflineMapper extends LokaalMapperAb {
+public class LokaalOfflineMapper extends LokaalMapper {
     private final File lokalenOffline = new File("src/offlineData/initData/Lokalen");
 
     public LokaalOfflineMapper() {

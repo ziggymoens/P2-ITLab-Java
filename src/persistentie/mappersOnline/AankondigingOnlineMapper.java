@@ -2,11 +2,11 @@ package persistentie.mappersOnline;
 
 import domein.Aankondiging;
 import persistentie.PersistentieController;
-import persistentie.mappersAbs.AankondigingMapperAb;
+import persistentie.mappersAbs.AankondigingMapper;
 
 import java.util.List;
 
-public class AankondigingOnlineMapper extends AankondigingMapperAb {
+public class AankondigingOnlineMapper extends AankondigingMapper {
 
     public AankondigingOnlineMapper() {
         super();

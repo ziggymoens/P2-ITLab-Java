@@ -7,11 +7,11 @@ import persistentie.PersistentieController;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class FeedbackMapperAb {
+public abstract class FeedbackMapper {
     protected List<Feedback> feedbackList;
     protected PersistentieController persistentieController;
 
-    public FeedbackMapperAb() {
+    public FeedbackMapper() {
         this.feedbackList = new ArrayList<>();
     }
 

@@ -2,14 +2,14 @@ package persistentie.mappers;
 
 import domein.Lokaal;
 import persistentie.Connection;
-import persistentie.mappersAbs.LokaalMapperAb;
+import persistentie.mappersAbs.LokaalMapper;
 import persistentie.mappersOffline.LokaalOfflineMapper;
 import persistentie.mappersOnline.LokaalOnlineMapper;
 
 import java.util.Set;
 
 public class LokaalMapperController {
-    LokaalMapperAb mapper;
+    LokaalMapper mapper;
 
     public LokaalMapperController() {
         if(Connection.isONLINE()){

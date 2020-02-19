@@ -5,10 +5,10 @@ import domein.Lokaal;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class LokaalMapperAb {
+public abstract class LokaalMapper {
     protected Set<Lokaal> lokaalSet;
 
-    public LokaalMapperAb() {
+    public LokaalMapper() {
         this.lokaalSet = new HashSet<>();
     }
 

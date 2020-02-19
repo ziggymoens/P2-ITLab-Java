@@ -5,10 +5,10 @@ import domein.Gebruiker;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class GebruikerMapperAb {
+public abstract class GebruikerMapper {
     protected Set<Gebruiker> gebruikerSet;
 
-    public GebruikerMapperAb() {
+    public GebruikerMapper() {
         this.gebruikerSet = new HashSet<>();
     }
 

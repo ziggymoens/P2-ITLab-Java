@@ -2,14 +2,14 @@ package persistentie.mappers;
 
 import domein.Gebruiker;
 import persistentie.Connection;
-import persistentie.mappersAbs.GebruikerMapperAb;
+import persistentie.mappersAbs.GebruikerMapper;
 import persistentie.mappersOffline.GebruikerOfflineMapper;
 import persistentie.mappersOnline.GebruikerOnlineMapper;
 
 import java.util.*;
 
 public class GebruikerMapperController {
-    private GebruikerMapperAb mapper;
+    private GebruikerMapper mapper;
 
     public GebruikerMapperController() {
         if (Connection.isONLINE()) {

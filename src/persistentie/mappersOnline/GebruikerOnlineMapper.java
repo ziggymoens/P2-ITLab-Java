@@ -1,11 +1,11 @@
 package persistentie.mappersOnline;
 
 import domein.Gebruiker;
-import persistentie.mappersAbs.GebruikerMapperAb;
+import persistentie.mappersAbs.GebruikerMapper;
 
 import java.util.Set;
 
-public class GebruikerOnlineMapper extends GebruikerMapperAb {
+public class GebruikerOnlineMapper extends GebruikerMapper {
 
     public GebruikerOnlineMapper() {
         super();

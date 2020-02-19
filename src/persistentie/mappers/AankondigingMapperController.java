@@ -1,17 +1,16 @@
 package persistentie.mappers;
 
 import domein.Aankondiging;
-import domein.Sessie;
 import persistentie.Connection;
 import persistentie.PersistentieController;
-import persistentie.mappersAbs.AankondigingMapperAb;
+import persistentie.mappersAbs.AankondigingMapper;
 import persistentie.mappersOffline.AankondigingOfflineMapper;
 import persistentie.mappersOnline.AankondigingOnlineMapper;
 
 import java.util.List;
 
 public class AankondigingMapperController {
-    private AankondigingMapperAb mapper;
+    private AankondigingMapper mapper;
 
     public AankondigingMapperController() {
         if(Connection.isONLINE()){

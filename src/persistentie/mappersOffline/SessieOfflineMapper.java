@@ -5,16 +5,14 @@ import domein.Lokaal;
 import domein.Sessie;
 import exceptions.persistentie.offline.GebruikerOfflineMapperException;
 import exceptions.persistentie.offline.SessieOfflineMapperException;
-import persistentie.Connection;
 import persistentie.PersistentieController;
-import persistentie.mappersAbs.SessieMapperAb;
+import persistentie.mappersAbs.SessieMapper;
 
 import java.io.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
-public class SessieOfflineMapper extends SessieMapperAb {
+public class SessieOfflineMapper extends SessieMapper {
     private final File gebruikersoffline = new File("src/offlineData/initData/Sessies");
 
     public SessieOfflineMapper() {

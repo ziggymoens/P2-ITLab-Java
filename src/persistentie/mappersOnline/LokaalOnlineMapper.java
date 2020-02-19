@@ -1,11 +1,11 @@
 package persistentie.mappersOnline;
 
 import domein.Lokaal;
-import persistentie.mappersAbs.LokaalMapperAb;
+import persistentie.mappersAbs.LokaalMapper;
 
 import java.util.Set;
 
-public class LokaalOnlineMapper extends LokaalMapperAb {
+public class LokaalOnlineMapper extends LokaalMapper {
 
     public LokaalOnlineMapper() {
         super();

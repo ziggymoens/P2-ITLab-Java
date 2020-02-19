@@ -7,11 +7,11 @@ import persistentie.PersistentieController;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AankondigingMapperAb {
+public abstract class AankondigingMapper {
     protected List<Aankondiging> aankondigingList;
     protected PersistentieController persistentieController;
 
-    public AankondigingMapperAb() {
+    public AankondigingMapper() {
         this.aankondigingList = new ArrayList<>();
     }
 
