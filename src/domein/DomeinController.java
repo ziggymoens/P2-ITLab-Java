@@ -25,12 +25,15 @@ public class DomeinController {
     //endregion
 
     //region Overzicht
-    public List<String> geefOverzichtVerantwoordelijke(String gebruikersCode) {
-        return pc.getSessies().stream().filter(s -> s.isGeopend() && s.getVerantwoordelijke().getGebruikersnaam().equals(gebruikersCode)).map(Sessie::toString_Overzicht).collect(Collectors.toList());
+    public List<String> geefOverzichtVerantwoordelijke(String gebruikersCode, boolean open) {
+        //if(open) is voor als geruiker alleen geopende sessies wilt zien
+        if(open) return pc.getSessies().stream().filter(s -> s.isGeopend() && s.getVerantwoordelijke().getGebruikersnaam().equals(gebruikersCode)).map(Sessie::toString_Overzicht).collect(Collectors.toList());
+        return pc.getSessies().stream().filter(s -> !s.isGeopend() && s.getVerantwoordelijke().getGebruikersnaam().equals(gebruikersCode)).map(Sessie::toString_Overzicht).collect(Collectors.toList());
     }
 
-    public List<String> geefOverzichtHoofdverantwoordelijke() {
-        return pc.getSessies().stream().sorted(Comparator.comparing(Sessie::getStartSessie)).map(Sessie::toString_Overzicht).collect(Collectors.toList());
+    public List<String> geefOverzichtHoofdverantwoordelijke(boolean open) {
+        if(open) return pc.getSessies().stream().filter(s -> s.isGeopend()).sorted(Comparator.comparing(Sessie::getStartSessie)).map(Sessie::toString_Overzicht).collect(Collectors.toList());
+        return pc.getSessies().stream().filter(s -> !s.isGeopend()).sorted(Comparator.comparing(Sessie::getStartSessie)).map(Sessie::toString_Overzicht).collect(Collectors.toList());
     }
 
     public List<String> geefOverzichtAlleGebruikers() {
@@ -94,9 +97,19 @@ public class DomeinController {
         pc.beheerSessie("DELETE", s);
     }
 
+
+
     public String geefDetailVanSessie(String sessieId) {
         Sessie sessie = pc.geefSessieMetId(sessieId);
-        return sessie.toString();
+        return String.format("%s%n%s",sessie.toString(), sessie.isGeopend()?
+                sessie.toString_OverzichtInschrijvingenGeopend()+sessie.toString_OverzichtFeedback()
+                :sessie.toString_OverzichtInschrijvingenNietGeopend()+sessie.toString_OverzichtAankondigingen());
+    }
+
+
+    public boolean bestaatSessie(String sessieId){
+        if(pc.geefSessieMetId(sessieId) == null) return false;
+        return true;
     }
 
     public boolean isSessieOpen(String sessieId){
@@ -107,6 +120,25 @@ public class DomeinController {
         return pc.geefSessieMetId(sessieId).aantalAanwezigenNaSessie();
     }
 
+    public int geefAantalSessies(){
+        return pc.getSessies().size();
+    }
+
+    //Sessie feedback
+    public List<String> geefAlleFeedbackVanSessie(String sessieId){
+        Sessie sessie = pc.geefSessieMetId(sessieId);
+        return sessie.getFeedbackSessie().stream().map(Feedback::toString).collect(Collectors.toList());
+    }
+    public void pasFeedbackAanVanSessie(String gekozenSessieNr, int feedBakcNr, String feedback){
+
+    }
+    public void verwijderFeedbackVanSessie(String sessieId, int feedBackNr){
+        //Verwijder de feedback bij bepaalde sessie
+    }
+    public int geefAantalFeedbackObjVanSessie(String sessieId){
+        Sessie sessie = pc.geefSessieMetId(sessieId);
+        return sessie.getFeedbackSessie().size();
+    }
 
     //endregion
 }

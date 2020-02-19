@@ -191,8 +191,8 @@ public class Sessie implements Serializable {
     }
 
     public String toString_Overzicht(){
-        return String.format("%s. %s - %s - %s -> %s: %s", sessieId, verantwoordelijke.getNaam(), titel, startSessie.toString(),
-                eindeSessie.toString(), isGeopend() ? String.format("%d", aantalVrijePlaatsen()) : String.format("%d", aantalAanwezigenNaSessie()));
+        return String.format("%s. %s - %s - %s -> %s - %s", sessieId, verantwoordelijke.getNaam(), titel, startSessie.toString(),
+                eindeSessie.toString(), isGeopend() ? String.format("%s%d", "aantal vrije plaatsen: ",aantalVrijePlaatsen()) : String.format("%s%d", "aantal aanwezigheden: ",aantalAanwezigenNaSessie()));
     }
 
     public String toString_OverzichtInschrijvingenNietGeopend() {
