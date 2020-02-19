@@ -15,6 +15,7 @@ import java.util.List;
 public class AankondigingOfflineMapper extends AankondigingMapperAb {
 
     private final File aankondigingenOffline = new File("src/offlineData/initData/Aankondiging");
+
     public AankondigingOfflineMapper() {
         super();
     }
