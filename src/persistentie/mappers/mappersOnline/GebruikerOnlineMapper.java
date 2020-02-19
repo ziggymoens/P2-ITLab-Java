@@ -1,14 +1,13 @@
-package persistentie.mappersOnline;
+package persistentie.mappers.mappersOnline;
 
-import domein.Media;
-import persistentie.PersistentieController;
-import persistentie.mappers.MediaMapper;
+import domein.Gebruiker;
+import persistentie.mappers.GebruikerMapper;
 
-import java.util.List;
+import java.util.Set;
 
-public class MediaOnlineMapper extends MediaMapper {
+public class GebruikerOnlineMapper extends GebruikerMapper {
 
-    public MediaOnlineMapper() {
+    public GebruikerOnlineMapper() {
         super();
     }
 
@@ -18,32 +17,32 @@ public class MediaOnlineMapper extends MediaMapper {
     }
 
     @Override
-    public List<Media> getMedia() {
+    public Set<Gebruiker> getGebruikers() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void voegMediaToe(Media media) {
+    public void voegGebruikerToe(Gebruiker g) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void verwijderMedia(Media media) {
+    public void verwijderGebruiker(Gebruiker g) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void updateMedia(Media media) {
+    public void updateGebruiker(Gebruiker g) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void schrijfMedia() {
+    public void schrijfGebruikers() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void setPersistentieController(PersistentieController persistentieController) {
+    public void update() {
         throw new UnsupportedOperationException();
     }
 }

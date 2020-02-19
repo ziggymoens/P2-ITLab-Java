@@ -4,8 +4,8 @@ import domein.Sessie;
 import persistentie.Connection;
 import persistentie.PersistentieController;
 import persistentie.mappers.SessieMapper;
-import persistentie.mappersOffline.SessieOfflineMapper;
-import persistentie.mappersOnline.SessieOnlineMapper;
+import persistentie.mappers.mappersOffline.SessieOfflineMapper;
+import persistentie.mappers.mappersOnline.SessieOnlineMapper;
 
 import java.util.List;
 

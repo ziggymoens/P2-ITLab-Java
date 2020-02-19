@@ -4,8 +4,8 @@ import domein.Media;
 import persistentie.Connection;
 import persistentie.PersistentieController;
 import persistentie.mappers.MediaMapper;
-import persistentie.mappersOffline.MediaOfflineMapper;
-import persistentie.mappersOnline.MediaOnlineMapper;
+import persistentie.mappers.mappersOffline.MediaOfflineMapper;
+import persistentie.mappers.mappersOnline.MediaOnlineMapper;
 
 import java.util.List;
 

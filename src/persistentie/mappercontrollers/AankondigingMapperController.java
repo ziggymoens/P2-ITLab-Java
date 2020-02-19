@@ -4,8 +4,8 @@ import domein.Aankondiging;
 import persistentie.Connection;
 import persistentie.PersistentieController;
 import persistentie.mappers.AankondigingMapper;
-import persistentie.mappersOffline.AankondigingOfflineMapper;
-import persistentie.mappersOnline.AankondigingOnlineMapper;
+import persistentie.mappers.mappersOffline.AankondigingOfflineMapper;
+import persistentie.mappers.mappersOnline.AankondigingOnlineMapper;
 
 import java.util.List;
 

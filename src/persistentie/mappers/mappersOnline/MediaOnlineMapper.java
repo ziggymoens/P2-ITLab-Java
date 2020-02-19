@@ -1,14 +1,14 @@
-package persistentie.mappersOnline;
+package persistentie.mappers.mappersOnline;
 
-import domein.Inschrijving;
+import domein.Media;
 import persistentie.PersistentieController;
-import persistentie.mappers.InschrijvingMapper;
+import persistentie.mappers.MediaMapper;
 
 import java.util.List;
 
-public class InschrijvingOnlineMapper extends InschrijvingMapper {
+public class MediaOnlineMapper extends MediaMapper {
 
-    public InschrijvingOnlineMapper() {
+    public MediaOnlineMapper() {
         super();
     }
 
@@ -18,27 +18,27 @@ public class InschrijvingOnlineMapper extends InschrijvingMapper {
     }
 
     @Override
-    public List<Inschrijving> getAankodigingen() {
+    public List<Media> getMedia() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void voegInschrijvingToe(Inschrijving inschrijving) {
+    public void voegMediaToe(Media media) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void verwijderInschrijving(Inschrijving inschrijving) {
+    public void verwijderMedia(Media media) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void updateInschrijving(Inschrijving inschrijving) {
+    public void updateMedia(Media media) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void schrijfInschrijvingen() {
+    public void schrijfMedia() {
         throw new UnsupportedOperationException();
     }
 

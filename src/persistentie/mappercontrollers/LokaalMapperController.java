@@ -3,8 +3,8 @@ package persistentie.mappercontrollers;
 import domein.Lokaal;
 import persistentie.Connection;
 import persistentie.mappers.LokaalMapper;
-import persistentie.mappersOffline.LokaalOfflineMapper;
-import persistentie.mappersOnline.LokaalOnlineMapper;
+import persistentie.mappers.mappersOffline.LokaalOfflineMapper;
+import persistentie.mappers.mappersOnline.LokaalOnlineMapper;
 
 import java.util.Set;
 

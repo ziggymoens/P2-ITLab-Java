@@ -1,14 +1,14 @@
-package persistentie.mappersOnline;
+package persistentie.mappers.mappersOnline;
 
-import domein.Herinnering;
+import domein.Aankondiging;
 import persistentie.PersistentieController;
-import persistentie.mappers.HerinneringMapper;
+import persistentie.mappers.AankondigingMapper;
 
 import java.util.List;
 
-public class HerinneringOnlineMapper extends HerinneringMapper {
+public class AankondigingOnlineMapper extends AankondigingMapper {
 
-    public HerinneringOnlineMapper() {
+    public AankondigingOnlineMapper() {
         super();
     }
 
@@ -18,27 +18,27 @@ public class HerinneringOnlineMapper extends HerinneringMapper {
     }
 
     @Override
-    public List<Herinnering> getHerinneringen() {
+    public List<Aankondiging> getAankodigingen() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void voegHerinneringToe(Herinnering herinnering) {
+    public void voegAankondigingToe(Aankondiging aankondiging) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void verwijderHerinnering(Herinnering herinnering) {
+    public void verwijderAankondiging(Aankondiging aankondiging) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void updateHerinnering(Herinnering herinnering) {
+    public void updateAankondiging(Aankondiging aankondiging) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void schrijfHerinneringen() {
+    public void schrijfAankondigingen() {
         throw new UnsupportedOperationException();
     }
 

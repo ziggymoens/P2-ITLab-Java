@@ -4,8 +4,8 @@ import domein.Herinnering;
 import persistentie.Connection;
 import persistentie.PersistentieController;
 import persistentie.mappers.HerinneringMapper;
-import persistentie.mappersOffline.HerinneringOfflineMapper;
-import persistentie.mappersOnline.HerinneringOnlineMapper;
+import persistentie.mappers.mappersOffline.HerinneringOfflineMapper;
+import persistentie.mappers.mappersOnline.HerinneringOnlineMapper;
 
 import java.util.List;
 

@@ -1,14 +1,14 @@
-package persistentie.mappersOnline;
+package persistentie.mappers.mappersOnline;
 
-import domein.Sessie;
+import domein.Inschrijving;
 import persistentie.PersistentieController;
-import persistentie.mappers.SessieMapper;
+import persistentie.mappers.InschrijvingMapper;
 
 import java.util.List;
 
-public class SessieOnlineMapper extends SessieMapper {
+public class InschrijvingOnlineMapper extends InschrijvingMapper {
 
-    public SessieOnlineMapper() {
+    public InschrijvingOnlineMapper() {
         super();
     }
 
@@ -18,27 +18,27 @@ public class SessieOnlineMapper extends SessieMapper {
     }
 
     @Override
-    public List<Sessie> getSessies() {
+    public List<Inschrijving> getAankodigingen() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void voegSessieToe(Sessie s) {
+    public void voegInschrijvingToe(Inschrijving inschrijving) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void verwijderSessie(Sessie s) {
+    public void verwijderInschrijving(Inschrijving inschrijving) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void updateSessie(Sessie s) {
+    public void updateInschrijving(Inschrijving inschrijving) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void schrijfSessies() {
+    public void schrijfInschrijvingen() {
         throw new UnsupportedOperationException();
     }
 

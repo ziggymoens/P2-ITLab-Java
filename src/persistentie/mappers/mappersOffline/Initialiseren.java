@@ -1,4 +1,4 @@
-package persistentie.mappersOffline;
+package persistentie.mappers.mappersOffline;
 
 public class Initialiseren {
     public static boolean initialiseren = true;

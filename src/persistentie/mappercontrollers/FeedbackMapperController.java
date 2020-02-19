@@ -4,8 +4,8 @@ import domein.Feedback;
 import persistentie.Connection;
 import persistentie.PersistentieController;
 import persistentie.mappers.FeedbackMapper;
-import persistentie.mappersOffline.FeedbackOfflineMapper;
-import persistentie.mappersOnline.FeedbackOnlineMapper;
+import persistentie.mappers.mappersOffline.FeedbackOfflineMapper;
+import persistentie.mappers.mappersOnline.FeedbackOnlineMapper;
 
 import java.util.List;
 

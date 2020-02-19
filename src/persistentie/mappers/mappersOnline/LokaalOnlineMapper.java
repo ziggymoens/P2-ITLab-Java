@@ -1,4 +1,4 @@
-package persistentie.mappersOnline;
+package persistentie.mappers.mappersOnline;
 
 import domein.Lokaal;
 import persistentie.mappers.LokaalMapper;

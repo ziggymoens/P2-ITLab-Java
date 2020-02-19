@@ -3,8 +3,8 @@ package persistentie.mappercontrollers;
 import domein.Gebruiker;
 import persistentie.Connection;
 import persistentie.mappers.GebruikerMapper;
-import persistentie.mappersOffline.GebruikerOfflineMapper;
-import persistentie.mappersOnline.GebruikerOnlineMapper;
+import persistentie.mappers.mappersOffline.GebruikerOfflineMapper;
+import persistentie.mappers.mappersOnline.GebruikerOnlineMapper;
 
 import java.util.*;
 
