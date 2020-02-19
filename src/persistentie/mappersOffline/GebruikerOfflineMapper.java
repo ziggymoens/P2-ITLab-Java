@@ -2,7 +2,7 @@ package persistentie.mappersOffline;
 
 import domein.Gebruiker;
 import exceptions.persistentie.offline.GebruikerOfflineMapperException;
-import persistentie.mappersAbs.GebruikerMapper;
+import persistentie.mappers.GebruikerMapper;
 
 import java.io.*;
 import java.util.Set;

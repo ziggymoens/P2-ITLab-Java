@@ -1,7 +1,7 @@
 package persistentie.repositories;
 
 import domein.Gebruiker;
-import persistentie.mappers.GebruikerMapperController;
+import persistentie.mappercontrollers.GebruikerMapperController;
 
 import java.util.Set;
 

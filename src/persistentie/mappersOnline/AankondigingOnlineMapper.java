@@ -2,7 +2,7 @@ package persistentie.mappersOnline;
 
 import domein.Aankondiging;
 import persistentie.PersistentieController;
-import persistentie.mappersAbs.AankondigingMapper;
+import persistentie.mappers.AankondigingMapper;
 
 import java.util.List;
 

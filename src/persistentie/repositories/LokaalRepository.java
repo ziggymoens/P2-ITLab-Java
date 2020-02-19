@@ -1,7 +1,7 @@
 package persistentie.repositories;
 
 import domein.Lokaal;
-import persistentie.mappers.LokaalMapperController;
+import persistentie.mappercontrollers.LokaalMapperController;
 
 import java.util.Set;
 

@@ -1,8 +1,8 @@
-package persistentie.mappers;
+package persistentie.mappercontrollers;
 
 import domein.Lokaal;
 import persistentie.Connection;
-import persistentie.mappersAbs.LokaalMapper;
+import persistentie.mappers.LokaalMapper;
 import persistentie.mappersOffline.LokaalOfflineMapper;
 import persistentie.mappersOnline.LokaalOnlineMapper;
 

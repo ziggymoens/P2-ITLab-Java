@@ -1,6 +1,5 @@
-package persistentie.mappersAbs;
+package persistentie.mappers;
 
-import domein.Aankondiging;
 import domein.Feedback;
 import persistentie.PersistentieController;
 

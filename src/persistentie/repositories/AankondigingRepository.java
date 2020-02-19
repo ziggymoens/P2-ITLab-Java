@@ -3,7 +3,7 @@ package persistentie.repositories;
 import domein.Aankondiging;
 import exceptions.persistentie.repositories.SessieRepositoryException;
 import persistentie.PersistentieController;
-import persistentie.mappers.AankondigingMapperController;
+import persistentie.mappercontrollers.AankondigingMapperController;
 
 import java.util.List;
 

@@ -1,9 +1,9 @@
-package persistentie.mappers;
+package persistentie.mappercontrollers;
 
 import domein.Feedback;
 import persistentie.Connection;
 import persistentie.PersistentieController;
-import persistentie.mappersAbs.FeedbackMapper;
+import persistentie.mappers.FeedbackMapper;
 import persistentie.mappersOffline.FeedbackOfflineMapper;
 import persistentie.mappersOnline.FeedbackOnlineMapper;
 

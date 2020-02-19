@@ -1,7 +1,7 @@
 package persistentie.mappersOnline;
 
 import domein.Gebruiker;
-import persistentie.mappersAbs.GebruikerMapper;
+import persistentie.mappers.GebruikerMapper;
 
 import java.util.Set;
 

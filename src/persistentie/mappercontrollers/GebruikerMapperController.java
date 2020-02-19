@@ -1,8 +1,8 @@
-package persistentie.mappers;
+package persistentie.mappercontrollers;
 
 import domein.Gebruiker;
 import persistentie.Connection;
-import persistentie.mappersAbs.GebruikerMapper;
+import persistentie.mappers.GebruikerMapper;
 import persistentie.mappersOffline.GebruikerOfflineMapper;
 import persistentie.mappersOnline.GebruikerOnlineMapper;
 

@@ -5,7 +5,7 @@ import domein.Gebruiker;
 import domein.Sessie;
 import exceptions.persistentie.offline.GebruikerOfflineMapperException;
 import persistentie.PersistentieController;
-import persistentie.mappersAbs.FeedbackMapper;
+import persistentie.mappers.FeedbackMapper;
 import java.io.*;
 import java.util.List;
 

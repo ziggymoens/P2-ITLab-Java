@@ -2,7 +2,7 @@ package persistentie.mappersOffline;
 
 import domein.Lokaal;
 import exceptions.persistentie.offline.LokalenOfflineMapperException;
-import persistentie.mappersAbs.LokaalMapper;
+import persistentie.mappers.LokaalMapper;
 
 import java.io.*;
 import java.util.Set;

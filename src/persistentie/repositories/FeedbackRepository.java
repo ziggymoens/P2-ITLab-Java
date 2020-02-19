@@ -3,7 +3,7 @@ package persistentie.repositories;
 import domein.Feedback;
 import exceptions.persistentie.repositories.SessieRepositoryException;
 import persistentie.PersistentieController;
-import persistentie.mappers.FeedbackMapperController;
+import persistentie.mappercontrollers.FeedbackMapperController;
 
 import java.util.List;
 

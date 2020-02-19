@@ -1,9 +1,9 @@
-package persistentie.mappers;
+package persistentie.mappercontrollers;
 
 import domein.Sessie;
 import persistentie.Connection;
 import persistentie.PersistentieController;
-import persistentie.mappersAbs.SessieMapper;
+import persistentie.mappers.SessieMapper;
 import persistentie.mappersOffline.SessieOfflineMapper;
 import persistentie.mappersOnline.SessieOnlineMapper;
 

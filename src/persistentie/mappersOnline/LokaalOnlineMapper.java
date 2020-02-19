@@ -1,7 +1,7 @@
 package persistentie.mappersOnline;
 
 import domein.Lokaal;
-import persistentie.mappersAbs.LokaalMapper;
+import persistentie.mappers.LokaalMapper;
 
 import java.util.Set;
 

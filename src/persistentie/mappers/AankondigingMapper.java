@@ -1,7 +1,6 @@
-package persistentie.mappersAbs;
+package persistentie.mappers;
 
 import domein.Aankondiging;
-import domein.Gebruiker;
 import persistentie.PersistentieController;
 
 import java.util.ArrayList;

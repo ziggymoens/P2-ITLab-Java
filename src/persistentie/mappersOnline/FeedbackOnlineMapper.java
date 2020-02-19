@@ -2,7 +2,7 @@ package persistentie.mappersOnline;
 
 import domein.Feedback;
 import persistentie.PersistentieController;
-import persistentie.mappersAbs.FeedbackMapper;
+import persistentie.mappers.FeedbackMapper;
 
 import java.util.List;
 

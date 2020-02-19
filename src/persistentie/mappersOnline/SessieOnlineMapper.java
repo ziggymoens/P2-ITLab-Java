@@ -2,7 +2,7 @@ package persistentie.mappersOnline;
 
 import domein.Sessie;
 import persistentie.PersistentieController;
-import persistentie.mappersAbs.SessieMapper;
+import persistentie.mappers.SessieMapper;
 
 import java.util.List;
 

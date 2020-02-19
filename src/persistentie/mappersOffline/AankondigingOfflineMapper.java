@@ -5,7 +5,7 @@ import domein.Gebruiker;
 import domein.Sessie;
 import exceptions.persistentie.offline.GebruikerOfflineMapperException;
 import persistentie.PersistentieController;
-import persistentie.mappersAbs.AankondigingMapper;
+import persistentie.mappers.AankondigingMapper;
 
 import java.io.*;
 import java.time.LocalDateTime;
