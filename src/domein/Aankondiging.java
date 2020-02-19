@@ -27,12 +27,11 @@ public class Aankondiging implements Serializable {
         setPublicist(publicist);
         setInhoud(inhoud);
     }
-/*
+
     public Aankondiging(Gebruiker gebruiker, Sessie sessie, LocalDateTime aangemaakt, String inhoud) {
         this("Aankondiging", sessie, aangemaakt, gebruiker, inhoud);
     }
 
- */
     //endregion
 
     //region Setters

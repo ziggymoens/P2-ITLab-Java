@@ -18,9 +18,10 @@ public class Herinnering extends Aankondiging implements Serializable {
 
     //region Constructor
     public Herinnering(String herinneringsId, int dagenVooraf, Gebruiker gebruiker, Sessie sessie, LocalDateTime aangemaakt, String inhoud) {
-        super(herinneringsId, sessie, aangemaakt, gebruiker, inhoud);
+        super(gebruiker, sessie, aangemaakt, inhoud);
         setHerinneringsId(herinneringsId);
         setDagenVooraf(dagenVooraf);
+        super.setAankondigingsId(herinneringsId);
     }
     //endregion
 
