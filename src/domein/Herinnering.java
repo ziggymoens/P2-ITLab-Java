@@ -3,9 +3,10 @@ package domein;
 import exceptions.domein.HerinneringException;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Herinnering implements Serializable {
+public class Herinnering extends Aankondiging implements Serializable{
     private static final long serialVersionUID = 6099128486423253923L;
 
     //region Variabelen
@@ -13,13 +14,13 @@ public class Herinnering implements Serializable {
     private String herinneringsId;
 
     private int dagenVooraf;
-    private String inhoud;
     //endregion
 
     //region Constructor
-    public Herinnering(int dagenVooraf, String inhoud) {
+    public Herinnering(String herinneringsId, int dagenVooraf, Gebruiker gebruiker, Sessie sessie, LocalDateTime aangemaakt, String inhoud) {
+        super(gebruiker, sessie, aangemaakt,inhoud);
+        setHerinneringsId(herinneringsId);
         setDagenVooraf(dagenVooraf);
-        setInhoud(inhoud);
     }
     //endregion
 
@@ -33,12 +34,6 @@ public class Herinnering implements Serializable {
             throw new HerinneringException();
         this.dagenVooraf = dagenVooraf;
     }
-
-    private void setInhoud(String inhoud) {
-        if(inhoud == null || inhoud.isBlank())
-            throw new HerinneringException();
-        this.inhoud = inhoud;
-    }
     //endregion
 
     //region Getters
@@ -47,7 +42,7 @@ public class Herinnering implements Serializable {
     }
 
     public String getInhoud() {
-        return inhoud;
+        return super.getInhoud();
     }
     //endregion
 

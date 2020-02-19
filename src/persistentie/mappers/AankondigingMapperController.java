@@ -10,10 +10,10 @@ import persistentie.mappersOnline.AankondigingOnlineMapper;
 
 import java.util.List;
 
-public class AankondigingMapper {
+public class AankondigingMapperController {
     private AankondigingMapperAb mapper;
 
-    public AankondigingMapper() {
+    public AankondigingMapperController() {
         if(Connection.isONLINE()){
             mapper = new AankondigingOnlineMapper();
         } else{

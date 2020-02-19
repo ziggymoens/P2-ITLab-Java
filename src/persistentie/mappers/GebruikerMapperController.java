@@ -8,10 +8,10 @@ import persistentie.mappersOnline.GebruikerOnlineMapper;
 
 import java.util.*;
 
-public class GebruikerMapper {
+public class GebruikerMapperController {
     private GebruikerMapperAb mapper;
 
-    public GebruikerMapper() {
+    public GebruikerMapperController() {
         if (Connection.isONLINE()) {
             mapper = new GebruikerOnlineMapper();
         } else {

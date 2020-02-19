@@ -1,15 +1,15 @@
 package persistentie.repositories;
 
 import domein.Gebruiker;
-import persistentie.mappers.GebruikerMapper;
+import persistentie.mappers.GebruikerMapperController;
 
 import java.util.Set;
 
 public class GebruikerRepository {
-    private GebruikerMapper gm;
+    private GebruikerMapperController gm;
 
     public GebruikerRepository() {
-        gm = new GebruikerMapper();
+        gm = new GebruikerMapperController();
     }
 
     public void initData() {

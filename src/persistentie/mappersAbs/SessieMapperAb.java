@@ -2,12 +2,9 @@ package persistentie.mappersAbs;
 
 import domein.Sessie;
 import persistentie.PersistentieController;
-import persistentie.mappers.SessieMapper;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public abstract class SessieMapperAb {
     protected List<Sessie> sessieList;

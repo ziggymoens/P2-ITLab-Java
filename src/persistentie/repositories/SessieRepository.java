@@ -3,17 +3,16 @@ package persistentie.repositories;
 import domein.Sessie;
 import exceptions.persistentie.repositories.SessieRepositoryException;
 import persistentie.PersistentieController;
-import persistentie.mappers.SessieMapper;
-import persistentie.mappersOffline.SessieOfflineMapper;
+import persistentie.mappers.SessieMapperController;
 
 import java.util.List;
 
 public class SessieRepository {
 
-    private SessieMapper mapper;
+    private SessieMapperController mapper;
 
     public SessieRepository() {
-        this.mapper = new SessieMapper();
+        this.mapper = new SessieMapperController();
     }
 
     public void setPersistenieController(PersistentieController pc){

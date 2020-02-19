@@ -9,10 +9,10 @@ import persistentie.mappersOnline.FeedbackOnlineMapper;
 
 import java.util.List;
 
-public class FeedbackMapper {
+public class FeedbackMapperController {
     private FeedbackMapperAb mapper;
 
-    public FeedbackMapper() {
+    public FeedbackMapperController() {
         if(Connection.isONLINE()){
             mapper = new FeedbackOnlineMapper();
         } else{

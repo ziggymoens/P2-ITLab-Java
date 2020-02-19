@@ -9,11 +9,11 @@ import persistentie.mappersOnline.SessieOnlineMapper;
 
 import java.util.List;
 
-public class SessieMapper {
+public class SessieMapperController {
     protected SessieMapperAb mapper;
     protected PersistentieController persistentieController;
 
-    public SessieMapper() {
+    public SessieMapperController() {
         if (Connection.isONLINE()){
             mapper = new SessieOnlineMapper();
         }else{

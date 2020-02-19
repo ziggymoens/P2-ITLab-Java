@@ -1,19 +1,17 @@
 package persistentie.repositories;
 
 import domein.Aankondiging;
-import domein.Sessie;
 import exceptions.persistentie.repositories.SessieRepositoryException;
 import persistentie.PersistentieController;
-import persistentie.mappers.AankondigingMapper;
-import persistentie.mappers.SessieMapper;
+import persistentie.mappers.AankondigingMapperController;
 
 import java.util.List;
 
 public class AankondigingRepository {
-    private AankondigingMapper mapper;
+    private AankondigingMapperController mapper;
 
     public AankondigingRepository() {
-        this.mapper = new AankondigingMapper();
+        this.mapper = new AankondigingMapperController();
     }
 
     public void setPersistenieController(PersistentieController pc){

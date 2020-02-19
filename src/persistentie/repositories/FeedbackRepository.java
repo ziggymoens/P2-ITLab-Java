@@ -3,15 +3,15 @@ package persistentie.repositories;
 import domein.Feedback;
 import exceptions.persistentie.repositories.SessieRepositoryException;
 import persistentie.PersistentieController;
-import persistentie.mappers.FeedbackMapper;
+import persistentie.mappers.FeedbackMapperController;
 
 import java.util.List;
 
 public class FeedbackRepository {
-    private FeedbackMapper mapper;
+    private FeedbackMapperController mapper;
 
     public FeedbackRepository() {
-        this.mapper = new FeedbackMapper();
+        this.mapper = new FeedbackMapperController();
     }
 
     public void setPersistenieController(PersistentieController pc){

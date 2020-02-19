@@ -1,17 +1,16 @@
 package persistentie.repositories;
 
 import domein.Lokaal;
-import persistentie.mappers.LokaalMapper;
-import persistentie.mappersOffline.LokaalOfflineMapper;
+import persistentie.mappers.LokaalMapperController;
 
 import java.util.Set;
 
 public class LokaalRepository {
-    private LokaalMapper mapper;
+    private LokaalMapperController mapper;
     private Set<Lokaal> lokalenSet;
 
     public LokaalRepository() {
-        mapper = new LokaalMapper();
+        mapper = new LokaalMapperController();
         haalLokalenOp();
     }
 

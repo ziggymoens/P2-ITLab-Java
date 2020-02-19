@@ -8,10 +8,10 @@ import persistentie.mappersOnline.LokaalOnlineMapper;
 
 import java.util.Set;
 
-public class LokaalMapper {
+public class LokaalMapperController {
     LokaalMapperAb mapper;
 
-    public LokaalMapper() {
+    public LokaalMapperController() {
         if(Connection.isONLINE()){
             mapper = new LokaalOnlineMapper();
         }else{
