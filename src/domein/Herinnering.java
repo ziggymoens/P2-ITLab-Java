@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Herinnering extends Aankondiging implements Serializable{
+public class Herinnering extends Aankondiging implements Serializable {
     private static final long serialVersionUID = 6099128486423253923L;
 
     //region Variabelen
@@ -18,7 +18,7 @@ public class Herinnering extends Aankondiging implements Serializable{
 
     //region Constructor
     public Herinnering(String herinneringsId, int dagenVooraf, Gebruiker gebruiker, Sessie sessie, LocalDateTime aangemaakt, String inhoud) {
-        super(gebruiker, sessie, aangemaakt,inhoud);
+        super(gebruiker, sessie, aangemaakt, inhoud);
         setHerinneringsId(herinneringsId);
         setDagenVooraf(dagenVooraf);
     }
@@ -30,7 +30,7 @@ public class Herinnering extends Aankondiging implements Serializable{
     }
 
     private void setDagenVooraf(int dagenVooraf) {
-        if(dagenVooraf < 0)
+        if (dagenVooraf < 0)
             throw new HerinneringException();
         this.dagenVooraf = dagenVooraf;
     }
@@ -43,6 +43,10 @@ public class Herinnering extends Aankondiging implements Serializable{
 
     public String getInhoud() {
         return super.getInhoud();
+    }
+
+    public String getHerinneringsId() {
+        return herinneringsId;
     }
     //endregion
 
@@ -58,6 +62,16 @@ public class Herinnering extends Aankondiging implements Serializable{
     @Override
     public int hashCode() {
         return Objects.hash(herinneringsId);
+    }
+
+
+    //endregion
+
+    //region toString
+
+    @Override
+    public String toString() {
+        return String.format("Herinnering: %s%nDagen vooraf: %d%nGebruiker: %s%nGeplaatst op: %s%nTekst: %s%n", herinneringsId, dagenVooraf, getPublicist().getNaam(), getPublicatiedatum().toString(), getInhoud() );
     }
     //endregion
 }

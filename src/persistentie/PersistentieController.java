@@ -13,6 +13,7 @@ public class PersistentieController {
     private LokaalRepository lokaalRepository;
     private AankondigingRepository aankondigingRepository;
     private FeedbackRepository feedbackRepository;
+    private HerinneringRepository herinneringRepository;
     //endregion
 
     //region Constructor
@@ -28,9 +29,11 @@ public class PersistentieController {
         sessieRepository = new SessieRepository();
         aankondigingRepository = new AankondigingRepository();
         feedbackRepository = new FeedbackRepository();
+        herinneringRepository = new HerinneringRepository();
         sessieRepository.setPersistenieController(this);
         aankondigingRepository.setPersistenieController(this);
         feedbackRepository.setPersistenieController(this);
+        herinneringRepository.setPersistenieController(this);
         initData();
     }
 
@@ -40,6 +43,7 @@ public class PersistentieController {
         sessieRepository.initData();
         aankondigingRepository.initData();
         feedbackRepository.initData();
+        herinneringRepository.initData();
     }
 
     //region Getters
@@ -61,6 +65,10 @@ public class PersistentieController {
 
     public List<Feedback> getFeedback() {
         return feedbackRepository.getFeedback();
+    }
+
+    public List<Herinnering> getHerinneringen() {
+        return herinneringRepository.getHerinneringen();
     }
     //endregion
 
@@ -122,4 +130,6 @@ public class PersistentieController {
         aankondigingRepository.schrijfWeg();
         feedbackRepository.schrijfWeg();
     }
+
+
 }

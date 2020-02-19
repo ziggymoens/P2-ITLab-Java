@@ -61,6 +61,11 @@ public class testOffline {
         System.out.println(out5);
         System.out.println();
 
+        List<Herinnering> herinneringList = pc.getHerinneringen();
+        String out6 = herinneringList.stream().map(Herinnering::toString).collect(Collectors.joining("\n"));
+        System.out.println(out6);
+        System.out.println();
+
         pc.schrijfAllesWeg();
     }
 }
