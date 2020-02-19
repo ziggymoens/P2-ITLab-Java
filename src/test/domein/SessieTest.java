@@ -6,6 +6,7 @@ import domein.Sessie;
 import exceptions.domein.SessieException;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -19,8 +20,8 @@ class SessieTest {
     private static Gebruiker gebruiker;
     private static Lokaal lokaal;
 
-    @BeforeEach
-    private void before(){
+    @BeforeAll
+    private static void before(){
         gebruiker = new Gebruiker("Test Persoon", "123456tp", "VERANTWOORDELIJKE", "ACTIEF");
         lokaal = new Lokaal("GSCB.3.049", 50);
     }
@@ -33,7 +34,7 @@ class SessieTest {
 
 
     //Test gooit exception op starttijdstip, iets mis met controle denk ik
-    /*@ParameterizedTest
+    @ParameterizedTest
     @MethodSource("opsommingGeldigeWaarden")
     public void maakSessieGeldigeWaarden_Slaagt(String titel, LocalDateTime startSessie, LocalDateTime eindSessie, Lokaal lokaal, Gebruiker gebruiker){
             Sessie sessie = new Sessie(titel, startSessie, eindSessie, lokaal, gebruiker);
@@ -41,7 +42,7 @@ class SessieTest {
             Assertions.assertEquals(startSessie, sessie.getStartSessie());
             Assertions.assertEquals(eindSessie, sessie.getEindeSessie());
             Assertions.assertEquals(lokaal, sessie.getLokaal());
-    }*/
+    }
 
     private static Stream<Arguments> opsommingOngeldigeWaarden(){
         return Stream.of(Arguments.of("", LocalDateTime.now(), LocalDateTime.now().plusMinutes(30), lokaal, gebruiker),
