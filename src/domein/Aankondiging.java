@@ -30,7 +30,7 @@ public class Aankondiging implements Serializable {
     }
 
     public Aankondiging(Gebruiker gebruiker, Sessie sessie, LocalDateTime aangemaakt, String inhoud) {
-        this(null, sessie, aangemaakt, gebruiker, inhoud);
+        this("Aankondiging", sessie, aangemaakt, gebruiker, inhoud);
     }
     //endregion
 
@@ -57,6 +57,8 @@ public class Aankondiging implements Serializable {
     }
 
     public void setAankondigingsId(String aankondigingsId) {
+        if(aankondigingsId == null || aankondigingsId.isBlank())
+            throw new AankondigingException();
         this.aankondigingsId = aankondigingsId;
     }
 

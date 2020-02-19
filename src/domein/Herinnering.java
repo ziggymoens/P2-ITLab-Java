@@ -26,6 +26,8 @@ public class Herinnering extends Aankondiging implements Serializable {
 
     //region Setters
     public void setHerinneringsId(String herinneringsId) {
+        if(herinneringsId == null || herinneringsId.isBlank())
+            throw new HerinneringException();
         this.herinneringsId = herinneringsId;
     }
 

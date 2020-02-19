@@ -4,6 +4,7 @@ import domein.Gebruiker;
 import domein.Herinnering;
 import domein.Lokaal;
 import domein.Sessie;
+import exceptions.domein.AankondigingException;
 import exceptions.domein.HerinneringException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -34,8 +35,9 @@ public class HerinneringTest {
     }
 
     private static Stream<Arguments> opsommingGeldigeWaarden(){
-        return Stream.of(Arguments.of("12345", 1, gebruiker, sessie, LocalDateTime.now().minusDays(2), "inhoud"),
-                Arguments.of("1", 5, gebruiker, sessie, LocalDateTime.now().minusMonths(1), "inhoud"));
+        return Stream.of(Arguments.of("12345", 1, gebruiker, sessie, LocalDateTime.now().minusDays(2), "Test inhoud 123"),
+                Arguments.of("1", 5, gebruiker, sessie, LocalDateTime.now().minusMonths(1), "Herinnering test!"),
+                Arguments.of("87247", 9, gebruiker, sessie, LocalDateTime.now().minusDays(10), "inhoud"));
     }
 
     //region maakHerinneringGeldigeGegevens
@@ -43,9 +45,39 @@ public class HerinneringTest {
     @MethodSource("opsommingGeldigeWaarden")
     public void maakHerinneringGeldigeGegevens_Slaagt(String herinneringsId, int dagenVooraf, Gebruiker gebruiker, Sessie sessie, LocalDateTime aangemaakt, String inhoud){
         Herinnering herinnering = new Herinnering(herinneringsId, dagenVooraf, gebruiker, sessie, aangemaakt, inhoud);
+        Assertions.assertEquals(herinneringsId, herinnering.getHerinneringsId());
         Assertions.assertEquals(inhoud, herinnering.getInhoud());
         Assertions.assertEquals(dagenVooraf, herinnering.getDagenVooraf());
+        Assertions.assertEquals(aangemaakt, herinnering.getPublicatiedatum());
+        Assertions.assertEquals(sessie, herinnering.getSessie());
     }
     //endregion
 
+    private static Stream<Arguments> opsommingOngeldigeWaarden(){
+        return Stream.of(Arguments.of("", 5, gebruiker, sessie, LocalDateTime.now().minusDays(2), "Test inhoud 123"),
+                Arguments.of(null, 5, gebruiker, sessie, LocalDateTime.now().minusMonths(1), "Test inhoud 123"),
+                Arguments.of("123456", -1, gebruiker, sessie, LocalDateTime.now().minusDays(10), "Test inhoud 123"),
+                Arguments.of("123456", Integer.MIN_VALUE, gebruiker, sessie, LocalDateTime.now().minusDays(10), "Test inhoud 123"));
+    }
+
+    @ParameterizedTest
+    @MethodSource("opsommingOngeldigeWaarden")
+    public void maakHerinneringOngeldigeGegevens_GooitException(String herinneringsId, int dagenVooraf, Gebruiker gebruiker, Sessie sessie, LocalDateTime aangemaakt, String inhoud){
+        Assertions.assertThrows(HerinneringException.class, () -> {
+            new Herinnering(herinneringsId, dagenVooraf, gebruiker, sessie, aangemaakt, inhoud);
+        });
+    }
+
+    private static Stream<Arguments> ongeldigeInhoud(){
+        return Stream.of(Arguments.of(null, 5, gebruiker, sessie, LocalDateTime.now().minusMonths(1), ""),
+                Arguments.of(null, 5, gebruiker, sessie, LocalDateTime.now().minusMonths(1), null));
+    }
+
+    @ParameterizedTest
+    @MethodSource("ongeldigeInhoud")
+    public void maakHerinneringZonderInhoud_GooitException(String herinneringsId, int dagenVooraf, Gebruiker gebruiker, Sessie sessie, LocalDateTime aangemaakt, String inhoud){
+        Assertions.assertThrows(AankondigingException.class, () -> {
+            new Herinnering(herinneringsId, dagenVooraf, gebruiker, sessie, aangemaakt, inhoud);
+        });
+    }
 }
