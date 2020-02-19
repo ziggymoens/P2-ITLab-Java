@@ -1,5 +1,7 @@
 package domein;
 
+import exceptions.domein.MediaException;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -27,23 +29,33 @@ public class Media implements Serializable {
     //endregion
 
     //region Setters
-    public void setMediaId(String mediaId) {
+    private void setMediaId(String mediaId) {
+        if(mediaId == null || mediaId.isBlank())
+            throw new MediaException();
         this.mediaId = mediaId;
     }
 
-    public void setSessie(Sessie sessie) {
+    private void setSessie(Sessie sessie) {
+        if(sessie == null)
+            throw new MediaException();
         this.sessie = sessie;
     }
 
-    public void setGebruiker(Gebruiker gebruiker) {
+    private void setGebruiker(Gebruiker gebruiker) {
+        if(gebruiker == null)
+            throw new MediaException();
         this.gebruiker = gebruiker;
     }
 
-    public void setLocatie(String locatie) {
+    private void setLocatie(String locatie) {
+        if(locatie == null || locatie.isBlank())
+            throw new MediaException();
         this.locatie = locatie;
     }
 
-    public void setType(String type) {
+    private void setType(String type) {
+        if(type == null || type.isBlank())
+            throw new MediaException();
         this.type = type;
     }
     //endregion

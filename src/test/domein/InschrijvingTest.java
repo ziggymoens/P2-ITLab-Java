@@ -22,7 +22,7 @@ public class InschrijvingTest {
 
     @BeforeAll
     public static void before(){
-        gebruiker = new Gebruiker("Pulicist", "123456tp", "GEBRUIKER", "ACTIEF");
+        gebruiker = new Gebruiker("TestGebruiker", "123456tp", "GEBRUIKER", "ACTIEF");
         lokaal = new Lokaal("GSCB.3.049", 50);
         sessie = new Sessie("Titel sessie", LocalDateTime.now().plusSeconds(1), LocalDateTime.now().plusMinutes(30), lokaal, gebruiker);
     }
