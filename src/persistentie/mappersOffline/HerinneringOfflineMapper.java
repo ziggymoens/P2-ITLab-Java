@@ -3,7 +3,7 @@ package persistentie.mappersOffline;
 import domein.Herinnering;
 import domein.Gebruiker;
 import domein.Sessie;
-import exceptions.persistentie.offline.GebruikerOfflineMapperException;
+import exceptions.persistentie.HerinneringPersistentieException;
 import persistentie.PersistentieController;
 import persistentie.mappers.HerinneringMapper;
 
@@ -39,7 +39,7 @@ public class HerinneringOfflineMapper extends HerinneringMapper {
                 herinneringList.add(new Herinnering(her[0], Integer.parseInt(her[1]), gebruiker, sessie, LocalDateTime.parse(her[4]), her[5]));
             }
         } catch (IOException e) {
-            throw new GebruikerOfflineMapperException();
+            throw new HerinneringPersistentieException("HerinneringOfflineMapper");
         }
         schrijfHerinneringen();
     }
@@ -54,7 +54,7 @@ public class HerinneringOfflineMapper extends HerinneringMapper {
             }
         } catch (EOFException ignored) {
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new HerinneringPersistentieException("HerinneringOfflineMapper");
         }
     }
 
@@ -67,7 +67,7 @@ public class HerinneringOfflineMapper extends HerinneringMapper {
                 oos.writeObject(herinnering);
             }
         } catch (IOException e) {
-            throw new GebruikerOfflineMapperException();
+            throw new HerinneringPersistentieException("HerinneringOfflineMapper");
         }
     }
 

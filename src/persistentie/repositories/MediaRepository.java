@@ -1,7 +1,7 @@
 package persistentie.repositories;
 
 import domein.Media;
-import exceptions.persistentie.repositories.SessieRepositoryException;
+import exceptions.persistentie.MediaPersistentieException;
 import persistentie.PersistentieController;
 import persistentie.mappercontrollers.MediaMapperController;
 
@@ -37,7 +37,7 @@ public class MediaRepository {
                 mapper.verwijderMedia(media);
                 break;
             default:
-                throw new SessieRepositoryException();
+                throw new MediaPersistentieException("MediaRepository");
         }
     }
 

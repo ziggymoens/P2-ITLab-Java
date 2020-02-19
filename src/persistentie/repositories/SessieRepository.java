@@ -1,7 +1,7 @@
 package persistentie.repositories;
 
 import domein.Sessie;
-import exceptions.persistentie.repositories.SessieRepositoryException;
+import exceptions.persistentie.SessiePersistentieException;
 import persistentie.PersistentieController;
 import persistentie.mappercontrollers.SessieMapperController;
 
@@ -38,7 +38,7 @@ public class SessieRepository {
                 mapper.verwijderSessie(s);
                 break;
             default:
-                throw new SessieRepositoryException();
+                throw new SessiePersistentieException("SessieRepository");
         }
     }
 

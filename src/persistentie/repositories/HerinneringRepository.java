@@ -1,7 +1,7 @@
 package persistentie.repositories;
 
 import domein.Herinnering;
-import exceptions.persistentie.repositories.SessieRepositoryException;
+import exceptions.persistentie.HerinneringPersistentieException;
 import persistentie.PersistentieController;
 import persistentie.mappercontrollers.HerinneringMapperController;
 
@@ -37,7 +37,7 @@ public class HerinneringRepository {
                 mapper.verwijderHerinnering(herinnering);
                 break;
             default:
-                throw new SessieRepositoryException();
+                throw new HerinneringPersistentieException("HerinneringRepository");
         }
     }
 

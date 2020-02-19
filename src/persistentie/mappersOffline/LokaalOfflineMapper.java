@@ -1,7 +1,7 @@
 package persistentie.mappersOffline;
 
 import domein.Lokaal;
-import exceptions.persistentie.offline.LokalenOfflineMapperException;
+import exceptions.persistentie.LokaalPersistentieException;
 import persistentie.mappers.LokaalMapper;
 
 import java.io.*;
@@ -32,7 +32,7 @@ public class LokaalOfflineMapper extends LokaalMapper {
                 lokaalSet.add(new Lokaal(lokaal[0], Integer.parseInt(lokaal[1])));
             }
         } catch (IOException e) {
-            throw new LokalenOfflineMapperException();
+            throw new LokaalPersistentieException("LokalenOfflineMapper");
         }
         schrijfLokalen();
     }
@@ -47,7 +47,7 @@ public class LokaalOfflineMapper extends LokaalMapper {
             }
         } catch (EOFException ignored) {
         } catch (IOException | ClassNotFoundException e) {
-            throw new LokalenOfflineMapperException();
+            throw new LokaalPersistentieException("LokalenOfflineMapper");
         }
     }
 
@@ -60,7 +60,7 @@ public class LokaalOfflineMapper extends LokaalMapper {
                 oos.writeObject(l);
             }
         } catch (IOException e) {
-            throw new LokalenOfflineMapperException();
+            throw new LokaalPersistentieException("LokalenOfflineMapper");
         }
     }
 

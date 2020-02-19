@@ -1,7 +1,7 @@
 package persistentie.repositories;
 
 import domein.Feedback;
-import exceptions.persistentie.repositories.SessieRepositoryException;
+import exceptions.persistentie.FeedbackPersistentieException;
 import persistentie.PersistentieController;
 import persistentie.mappercontrollers.FeedbackMapperController;
 
@@ -37,7 +37,7 @@ public class FeedbackRepository {
                 mapper.verwijderAankondiging(feedback);
                 break;
             default:
-                throw new SessieRepositoryException();
+                throw new FeedbackPersistentieException("FeedbackRepository");
         }
     }
 

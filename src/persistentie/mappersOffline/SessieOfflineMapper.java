@@ -3,8 +3,7 @@ package persistentie.mappersOffline;
 import domein.Gebruiker;
 import domein.Lokaal;
 import domein.Sessie;
-import exceptions.persistentie.offline.GebruikerOfflineMapperException;
-import exceptions.persistentie.offline.SessieOfflineMapperException;
+import exceptions.persistentie.SessiePersistentieException;
 import persistentie.PersistentieController;
 import persistentie.mappers.SessieMapper;
 
@@ -45,7 +44,7 @@ public class SessieOfflineMapper extends SessieMapper {
                 sessieList.add(new Sessie(sessie[0], sessie[1], startSessie, eindeSessie, lokaal, gebruiker));
             }
         } catch (IOException e) {
-            throw new GebruikerOfflineMapperException();
+            throw new SessiePersistentieException("SessieOfflineMapper");
         }
         schrijfSessies();
     }
@@ -60,7 +59,7 @@ public class SessieOfflineMapper extends SessieMapper {
             }
         } catch (EOFException ignored) {
         } catch (IOException | ClassNotFoundException e) {
-            throw new SessieOfflineMapperException();
+            throw new SessiePersistentieException("SessieOfflineMapper");
         }
     }
 
@@ -73,7 +72,7 @@ public class SessieOfflineMapper extends SessieMapper {
                 oos.writeObject(s);
             }
         } catch (IOException e) {
-            throw new GebruikerOfflineMapperException();
+            throw new SessiePersistentieException("SessieOfflineMapper");
         }
     }
 

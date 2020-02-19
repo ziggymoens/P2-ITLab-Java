@@ -1,7 +1,7 @@
 package persistentie.repositories;
 
 import domein.Inschrijving;
-import exceptions.persistentie.repositories.SessieRepositoryException;
+import exceptions.persistentie.InschrijvingPersistentieException;
 import persistentie.PersistentieController;
 import persistentie.mappercontrollers.InschrijvingMapperController;
 
@@ -37,7 +37,7 @@ public class InschrijvingRepository {
                 mapper.verwijderInschrijving(inschrijving);
                 break;
             default:
-                throw new SessieRepositoryException();
+                throw new InschrijvingPersistentieException("Inschrijvingrepository");
         }
     }
 

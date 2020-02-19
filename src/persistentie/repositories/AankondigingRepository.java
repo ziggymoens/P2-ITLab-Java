@@ -1,7 +1,7 @@
 package persistentie.repositories;
 
 import domein.Aankondiging;
-import exceptions.persistentie.repositories.SessieRepositoryException;
+import exceptions.persistentie.AankondigingPersistentieException;
 import persistentie.PersistentieController;
 import persistentie.mappercontrollers.AankondigingMapperController;
 
@@ -37,7 +37,7 @@ public class AankondigingRepository {
                 mapper.verwijderAankondiging(aankondiging);
                 break;
             default:
-                throw new SessieRepositoryException();
+                throw new AankondigingPersistentieException("AankondigingRepository");
         }
     }
 

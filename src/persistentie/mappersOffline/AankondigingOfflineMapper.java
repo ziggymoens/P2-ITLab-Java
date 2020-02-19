@@ -3,7 +3,7 @@ package persistentie.mappersOffline;
 import domein.Aankondiging;
 import domein.Gebruiker;
 import domein.Sessie;
-import exceptions.persistentie.offline.GebruikerOfflineMapperException;
+import exceptions.persistentie.AankondigingPersistentieException;
 import persistentie.PersistentieController;
 import persistentie.mappers.AankondigingMapper;
 
@@ -39,7 +39,7 @@ public class AankondigingOfflineMapper extends AankondigingMapper {
                 aankondigingList.add(new Aankondiging(aan[0], sessie, LocalDateTime.parse(aan[2]), gebruiker, aan[4]));
             }
         } catch (IOException e) {
-            throw new GebruikerOfflineMapperException();
+            throw new AankondigingPersistentieException("AankondigingOfflineMapper");
         }
         schrijfAankondigingen();
     }
@@ -54,7 +54,7 @@ public class AankondigingOfflineMapper extends AankondigingMapper {
             }
         } catch (EOFException ignored) {
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new AankondigingPersistentieException("AankondigingOfflineMapper");
         }
     }
 
@@ -67,7 +67,7 @@ public class AankondigingOfflineMapper extends AankondigingMapper {
                 oos.writeObject(aankondiging);
             }
         } catch (IOException e) {
-            throw new GebruikerOfflineMapperException();
+            throw new AankondigingPersistentieException("AankondigingOfflineMapper");
         }
     }
 

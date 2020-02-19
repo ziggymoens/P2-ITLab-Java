@@ -3,7 +3,7 @@ package persistentie.mappersOffline;
 import domein.Feedback;
 import domein.Gebruiker;
 import domein.Sessie;
-import exceptions.persistentie.offline.GebruikerOfflineMapperException;
+import exceptions.persistentie.FeedbackPersistentieException;
 import persistentie.PersistentieController;
 import persistentie.mappers.FeedbackMapper;
 import java.io.*;
@@ -11,8 +11,7 @@ import java.util.List;
 
 public class FeedbackOfflineMapper extends FeedbackMapper {
 
-    private final File FeedbackenOffline = new File("src/offlineData/initData/Feedback");
-    private PersistentieController pc;
+    private final File feedbackOffline = new File("src/offlineData/initData/Feedback");
 
     public FeedbackOfflineMapper() {
         super();
@@ -29,7 +28,7 @@ public class FeedbackOfflineMapper extends FeedbackMapper {
 
     private void maakFeedback() {
         try {
-            BufferedReader br = new BufferedReader(new FileReader(FeedbackenOffline));
+            BufferedReader br = new BufferedReader(new FileReader(feedbackOffline));
             String line;
             while ((line = br.readLine()) != null) {
                 String[] feedback = line.split(";");
@@ -38,7 +37,7 @@ public class FeedbackOfflineMapper extends FeedbackMapper {
                 feedbackList.add(new Feedback(feedback[0], sessie, gebruiker, feedback[3]));
             }
         } catch (IOException e) {
-            throw new GebruikerOfflineMapperException();
+            throw new FeedbackPersistentieException("FeedbackOfflineMapper");
         }
         schrijfFeedback();
     }
@@ -53,7 +52,7 @@ public class FeedbackOfflineMapper extends FeedbackMapper {
             }
         } catch (EOFException ignored) {
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new FeedbackPersistentieException("FeedbackOfflineMapper");
         }
     }
 
@@ -66,7 +65,7 @@ public class FeedbackOfflineMapper extends FeedbackMapper {
                 oos.writeObject(feedback);
             }
         } catch (IOException e) {
-            throw new GebruikerOfflineMapperException();
+            throw new FeedbackPersistentieException("FeedbackOfflineMapper");
         }
     }
 

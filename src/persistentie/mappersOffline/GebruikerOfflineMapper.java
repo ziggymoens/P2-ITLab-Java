@@ -1,7 +1,7 @@
 package persistentie.mappersOffline;
 
 import domein.Gebruiker;
-import exceptions.persistentie.offline.GebruikerOfflineMapperException;
+import exceptions.persistentie.GebruikerPersistentieException;
 import persistentie.mappers.GebruikerMapper;
 
 import java.io.*;
@@ -37,7 +37,7 @@ public class GebruikerOfflineMapper extends GebruikerMapper {
                 gebruikerSet.add(new Gebruiker(geb[0], geb[1], geb[2], geb[3], profielfoto));
             }
         } catch (IOException e) {
-            throw new GebruikerOfflineMapperException();
+            throw new GebruikerPersistentieException("GebruikerOfflineMapper");
         }
         schrijfGebruikers();
     }
@@ -52,7 +52,7 @@ public class GebruikerOfflineMapper extends GebruikerMapper {
             }
         } catch (EOFException ignored) {
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new GebruikerPersistentieException("GebruikerOfflineMapper");
         }
     }
 
@@ -65,7 +65,7 @@ public class GebruikerOfflineMapper extends GebruikerMapper {
                 oos.writeObject(g);
             }
         } catch (IOException e) {
-            throw new GebruikerOfflineMapperException();
+            throw new GebruikerPersistentieException("GebruikerOfflineMapper");
         }
     }
 

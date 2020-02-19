@@ -1,6 +1,7 @@
 package persistentie.repositories;
 
 import domein.Lokaal;
+import exceptions.persistentie.LokaalPersistentieException;
 import persistentie.mappercontrollers.LokaalMapperController;
 
 import java.util.Set;
@@ -46,8 +47,7 @@ public class LokaalRepository {
                 mapper.verwijderLokaal(l);
                 break;
             default:
-                break;
-
+                throw new LokaalPersistentieException("LokaalRepository");
         }
     }
 

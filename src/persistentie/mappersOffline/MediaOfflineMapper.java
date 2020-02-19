@@ -3,7 +3,7 @@ package persistentie.mappersOffline;
 import domein.Media;
 import domein.Gebruiker;
 import domein.Sessie;
-import exceptions.persistentie.offline.GebruikerOfflineMapperException;
+import exceptions.persistentie.MediaPersistentieException;
 import persistentie.PersistentieController;
 import persistentie.mappers.MediaMapper;
 
@@ -38,7 +38,7 @@ public class MediaOfflineMapper extends MediaMapper {
                 mediaList.add(new Media(media[0], sessie, gebruiker, media[3], media[4]));
             }
         } catch (IOException e) {
-            throw new GebruikerOfflineMapperException();
+            throw new MediaPersistentieException("MediaOfflineMapper");
         }
         schrijfMedia();
     }
@@ -53,7 +53,7 @@ public class MediaOfflineMapper extends MediaMapper {
             }
         } catch (EOFException ignored) {
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new MediaPersistentieException("MediaOfflineMapper");
         }
     }
 
@@ -66,7 +66,7 @@ public class MediaOfflineMapper extends MediaMapper {
                 oos.writeObject(media);
             }
         } catch (IOException e) {
-            throw new GebruikerOfflineMapperException();
+            throw new MediaPersistentieException("MediaOfflineMapper");
         }
     }
 

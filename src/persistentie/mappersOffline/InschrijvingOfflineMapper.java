@@ -3,7 +3,7 @@ package persistentie.mappersOffline;
 import domein.Inschrijving;
 import domein.Gebruiker;
 import domein.Sessie;
-import exceptions.persistentie.offline.GebruikerOfflineMapperException;
+import exceptions.persistentie.InschrijvingPersistentieException;
 import persistentie.PersistentieController;
 import persistentie.mappers.InschrijvingMapper;
 
@@ -39,7 +39,7 @@ public class InschrijvingOfflineMapper extends InschrijvingMapper {
                 inschrijvingList.add(new Inschrijving(inschrijving[0], gebruiker, sessie, LocalDateTime.parse(inschrijving[3]), inschrijving[4].equals("aanwezig")));
             }
         } catch (IOException e) {
-            throw new GebruikerOfflineMapperException();
+            throw new InschrijvingPersistentieException("InschrijvingOfflineMapper");
         }
         schrijfInschrijvingen();
     }
@@ -54,7 +54,7 @@ public class InschrijvingOfflineMapper extends InschrijvingMapper {
             }
         } catch (EOFException ignored) {
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new InschrijvingPersistentieException("InschrijvingOfflineMapper");
         }
     }
 
@@ -67,7 +67,7 @@ public class InschrijvingOfflineMapper extends InschrijvingMapper {
                 oos.writeObject(inschrijving);
             }
         } catch (IOException e) {
-            throw new GebruikerOfflineMapperException();
+            throw new InschrijvingPersistentieException("InschrijvingOfflineMapper");
         }
     }
 
