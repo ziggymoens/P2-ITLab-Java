@@ -3,7 +3,6 @@ package persistentie;
 import domein.*;
 import persistentie.repositories.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.Set;
 

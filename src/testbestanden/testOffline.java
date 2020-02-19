@@ -3,7 +3,6 @@ package testbestanden;
 import domein.*;
 import persistentie.PersistentieController;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;

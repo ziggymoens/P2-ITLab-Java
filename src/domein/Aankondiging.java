@@ -4,7 +4,6 @@ import exceptions.domein.AankondigingException;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Objects;
 
 public class Aankondiging implements Serializable {
