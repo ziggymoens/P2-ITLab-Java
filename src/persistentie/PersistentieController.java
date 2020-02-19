@@ -14,6 +14,7 @@ public class PersistentieController {
     private AankondigingRepository aankondigingRepository;
     private FeedbackRepository feedbackRepository;
     private HerinneringRepository herinneringRepository;
+    private MediaRepository mediaRepository;
     //endregion
 
     //region Constructor
@@ -30,10 +31,12 @@ public class PersistentieController {
         aankondigingRepository = new AankondigingRepository();
         feedbackRepository = new FeedbackRepository();
         herinneringRepository = new HerinneringRepository();
+        mediaRepository = new MediaRepository();
         sessieRepository.setPersistenieController(this);
         aankondigingRepository.setPersistenieController(this);
         feedbackRepository.setPersistenieController(this);
         herinneringRepository.setPersistenieController(this);
+        mediaRepository.setPersistenieController(this);
         initData();
     }
 
@@ -44,6 +47,7 @@ public class PersistentieController {
         aankondigingRepository.initData();
         feedbackRepository.initData();
         herinneringRepository.initData();
+        mediaRepository.initData();
     }
 
     //region Getters
@@ -69,6 +73,9 @@ public class PersistentieController {
 
     public List<Herinnering> getHerinneringen() {
         return herinneringRepository.getHerinneringen();
+    }
+
+    public List<Media> getMedia() { return mediaRepository.getMedia();
     }
     //endregion
 
@@ -130,6 +137,4 @@ public class PersistentieController {
         aankondigingRepository.schrijfWeg();
         feedbackRepository.schrijfWeg();
     }
-
-
 }

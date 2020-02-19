@@ -66,6 +66,11 @@ public class testOffline {
         System.out.println(out6);
         System.out.println();
 
+        List<Media> mediaList = pc.getMedia();
+        String out7 = mediaList.stream().map(Media::toString).collect(Collectors.joining("\n"));
+        System.out.println(out7);
+        System.out.println();
+
         pc.schrijfAllesWeg();
     }
 }
