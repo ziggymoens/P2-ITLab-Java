@@ -78,7 +78,6 @@ public class StartUpInterface {
     private void geefOptiesHoofdverantwoordelijke() {
         geefOptiesVerantwoordelijke();
         System.out.println("5. Beheren gebruiker");
-
     }
 
     private void geefOptiesgebruiker() {

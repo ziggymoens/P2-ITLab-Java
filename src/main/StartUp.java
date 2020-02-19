@@ -11,7 +11,5 @@ public class StartUp {
 
 		System.out.println("welkom\n");
 		new StartUpInterface(dc);
-
-
 	}
 }

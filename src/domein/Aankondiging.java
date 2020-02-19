@@ -63,6 +63,8 @@ public class Aankondiging implements Serializable {
     }
 
     public void setSessie(Sessie sessie) {
+        if(sessie == null)
+            throw new AankondigingException();
         this.sessie = sessie;
     }
     //endregion
