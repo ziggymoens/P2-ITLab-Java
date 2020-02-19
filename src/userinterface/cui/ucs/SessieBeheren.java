@@ -26,10 +26,25 @@ public class SessieBeheren {
 
         switch (dc.geefGebruikerProfiel(gebruikersCode)) {
             case "HOOFDVERANTWOORDELIJKE":
+                if(dc.geefAantalSessies() == 0){
+                System.out.println("Er zijn geen sessies");
+                } else{
                 switch(toonSessies){
-                    case 1: sessieBeherenAlsHoofdVerantwoordelijke(true);//open
+                    case 1:
+                        if (dc.geefAantalOpenSessies()==0) {
+                            System.out.println("Er zijn geen open sessies");
+                        }
+                        else {
+                            sessieBeherenAlsHoofdVerantwoordelijke(true);//open
+                        }
                         break;
-                    case 2: sessieBeherenAlsHoofdVerantwoordelijke(false);//closed
+                    case 2:
+                        if (dc.geefAantalSessies() - dc.geefAantalOpenSessies()==0) {
+                            System.out.println("Er zijn geen gesloten sessies");
+                        }
+                        else {
+                            sessieBeherenAlsHoofdVerantwoordelijke(false);//closed
+                        }
                         break;
                     case 3:
                     default:
@@ -37,23 +52,37 @@ public class SessieBeheren {
                         sessieBeherenAlsHoofdVerantwoordelijke(false);
                         break;
                 }
-
-                break;
-            case "VERANTWOORDELIJKE":
-                switch(toonSessies){
-                    case 1: sessieBeherenAlsVerantwoordelijke(gebruikersCode, true);
-                        break;
-                    case 2: sessieBeherenAlsVerantwoordelijke(gebruikersCode, false);
-                        break;
-                    case 3:
-                    default:
-                        sessieBeherenAlsVerantwoordelijke(gebruikersCode, true);
-                        sessieBeherenAlsVerantwoordelijke(gebruikersCode, false);
-                        break;
                 }
 
                 break;
-            default: System.out.println("Er zijn geen sessies");
+            case "VERANTWOORDELIJKE":
+                if (dc.geefAantalSessies(gebruikersCode) == 0) {
+                    System.out.println("Er zijn geen sessies");
+                } else {
+                switch(toonSessies) {
+                        case 1:
+                            if (dc.geefAantalOpenSessies(gebruikersCode) == 0) {
+                                System.out.println("Er zijn geen open sessies");
+                            } else {
+                                sessieBeherenAlsVerantwoordelijke(gebruikersCode, true);//open
+                            }
+                            break;
+                        case 2:
+                            if (dc.geefAantalSessies(gebruikersCode) - dc.geefAantalOpenSessies(gebruikersCode) == 0) {
+                                System.out.println("Er zijn geen gesloten sessies");
+                            } else {
+                                sessieBeherenAlsVerantwoordelijke(gebruikersCode, false);//closed
+                            }
+                            break;
+                        case 3:
+                        default:
+                            sessieBeherenAlsVerantwoordelijke(gebruikersCode, true);
+                            sessieBeherenAlsVerantwoordelijke(gebruikersCode, false);
+                            break;
+                    }
+                }
+
+                break;
         }
         kiesSessieNr();
     }

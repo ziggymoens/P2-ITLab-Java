@@ -120,10 +120,19 @@ public class DomeinController {
         return pc.geefSessieMetId(sessieId).aantalAanwezigenNaSessie();
     }
 
+    //aantal sessies
     public int geefAantalSessies(){
         return pc.getSessies().size();
     }
-
+    public int geefAantalSessies(String gebruikersCode){
+        return (int)pc.getSessies().stream().filter(e -> e.getVerantwoordelijke().getGebruikersnaam().equals(gebruikersCode)).count();
+    }
+    public int geefAantalOpenSessies(){
+        return (int)pc.getSessies().stream().map(Sessie::isGeopend).count();
+    }
+    public int geefAantalOpenSessies(String gebruikersCode){
+        return (int)pc.getSessies().stream().filter(e -> e.getVerantwoordelijke().getGebruikersnaam().equals(gebruikersCode)).map(Sessie::isGeopend).count();
+    }
     //Sessie feedback
     public List<String> geefAlleFeedbackVanSessie(String sessieId){
         Sessie sessie = pc.geefSessieMetId(sessieId);
