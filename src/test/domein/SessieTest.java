@@ -33,7 +33,6 @@ class SessieTest {
     }
 
 
-    //Test gooit exception op starttijdstip, iets mis met controle denk ik
     @ParameterizedTest
     @MethodSource("opsommingGeldigeWaarden")
     public void maakSessieGeldigeWaarden_Slaagt(String titel, LocalDateTime startSessie, LocalDateTime eindSessie, Lokaal lokaal, Gebruiker gebruiker){
