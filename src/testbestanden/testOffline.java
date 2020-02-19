@@ -3,6 +3,7 @@ package testbestanden;
 import domein.*;
 import persistentie.PersistentieController;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -69,6 +70,11 @@ public class testOffline {
         List<Media> mediaList = pc.getMedia();
         String out7 = mediaList.stream().map(Media::toString).collect(Collectors.joining("\n"));
         System.out.println(out7);
+        System.out.println();
+
+        List<Inschrijving> inschrijvingList = pc.getinschrijvingen();
+        String out8 = inschrijvingList.stream().map(Inschrijving::toString).collect(Collectors.joining("\n"));
+        System.out.println(out8);
         System.out.println();
 
         pc.schrijfAllesWeg();

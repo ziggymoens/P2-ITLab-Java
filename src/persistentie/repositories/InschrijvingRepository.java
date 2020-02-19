@@ -1,5 +1,5 @@
 package persistentie.repositories;
-/*
+
 import domein.Inschrijving;
 import exceptions.persistentie.repositories.SessieRepositoryException;
 import persistentie.PersistentieController;
@@ -57,4 +57,3 @@ public class InschrijvingRepository {
         mapper.initData();
     }
 }
-*/

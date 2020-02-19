@@ -3,6 +3,7 @@ package domein;
 import exceptions.domein.InschrijvingException;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
@@ -14,14 +15,18 @@ public class Inschrijving implements Serializable {
     private String inschrijvingsId;
 
     private Gebruiker gebruiker;
-    private Date inschrijvingsdatum;
+    private Sessie sessie;
+    private LocalDateTime inschrijvingsdatum;
     private boolean statusAanwezigheid = false;
     //endregion
 
     //region Constructor
-    public Inschrijving(Gebruiker gebruiker, Date inschrijvingsdatum) {
+    public Inschrijving(String inschrijvingsId, Gebruiker gebruiker, Sessie sessie,LocalDateTime inschrijvingsdatum, boolean statusAanwezigheid) {
+        setInschrijvingsId(inschrijvingsId);
         setGebruiker(gebruiker);
+        setSessie(sessie);
         setInschrijvingsdatum(inschrijvingsdatum);
+        setStatusAanwezigheid(statusAanwezigheid);
     }
     //endregion
 
@@ -33,7 +38,7 @@ public class Inschrijving implements Serializable {
         this.gebruiker = gebruiker;
     }
 
-    private void setInschrijvingsdatum(Date inschrijvingsdatum) {
+    private void setInschrijvingsdatum(LocalDateTime inschrijvingsdatum) {
         if (inschrijvingsdatum == null) {
             throw new InschrijvingException();
         }
@@ -48,6 +53,10 @@ public class Inschrijving implements Serializable {
         this.inschrijvingsId = inschrijvingsId;
     }
 
+    public void setSessie(Sessie sessie) {
+        this.sessie = sessie;
+    }
+
     //endregion
 
     //region Getters
@@ -55,12 +64,20 @@ public class Inschrijving implements Serializable {
         return gebruiker;
     }
 
-    public Date getInschrijvingsdatum() {
+    public LocalDateTime getInschrijvingsdatum() {
         return inschrijvingsdatum;
     }
 
     public boolean isStatusAanwezigheid() {
         return statusAanwezigheid;
+    }
+
+    public String getInschrijvingsId() {
+        return inschrijvingsId;
+    }
+
+    public Sessie getSessie() {
+        return sessie;
     }
     //endregion
 
@@ -77,5 +94,20 @@ public class Inschrijving implements Serializable {
     public int hashCode() {
         return Objects.hash(inschrijvingsId);
     }
+    //endregion
+
+    //region toString
+
+    @Override
+    public String toString() {
+        return "Inschrijving{" +
+                "inschrijvingsId='" + inschrijvingsId + '\'' +
+                ", gebruiker=" + gebruiker.getNaam() +
+                ", sessie=" + sessie.getSessieId() +
+                ", inschrijvingsdatum=" + inschrijvingsdatum.toString() +
+                ", statusAanwezigheid=" + statusAanwezigheid +
+                '}';
+    }
+
     //endregion
 }

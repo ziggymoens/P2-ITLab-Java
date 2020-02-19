@@ -3,6 +3,7 @@ package persistentie;
 import domein.*;
 import persistentie.repositories.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.Set;
 
@@ -15,6 +16,7 @@ public class PersistentieController {
     private FeedbackRepository feedbackRepository;
     private HerinneringRepository herinneringRepository;
     private MediaRepository mediaRepository;
+    private InschrijvingRepository inschrijvingRepository;
     //endregion
 
     //region Constructor
@@ -32,11 +34,13 @@ public class PersistentieController {
         feedbackRepository = new FeedbackRepository();
         herinneringRepository = new HerinneringRepository();
         mediaRepository = new MediaRepository();
+        inschrijvingRepository = new InschrijvingRepository();
         sessieRepository.setPersistenieController(this);
         aankondigingRepository.setPersistenieController(this);
         feedbackRepository.setPersistenieController(this);
         herinneringRepository.setPersistenieController(this);
         mediaRepository.setPersistenieController(this);
+        inschrijvingRepository.setPersistenieController(this);
         initData();
     }
 
@@ -48,6 +52,7 @@ public class PersistentieController {
         feedbackRepository.initData();
         herinneringRepository.initData();
         mediaRepository.initData();
+        inschrijvingRepository.initData();
     }
 
     //region Getters
@@ -75,7 +80,12 @@ public class PersistentieController {
         return herinneringRepository.getHerinneringen();
     }
 
-    public List<Media> getMedia() { return mediaRepository.getMedia();
+    public List<Media> getMedia() {
+        return mediaRepository.getMedia();
+    }
+
+    public List<Inschrijving> getinschrijvingen() {
+        return inschrijvingRepository.getInschrijvingen();
     }
     //endregion
 
