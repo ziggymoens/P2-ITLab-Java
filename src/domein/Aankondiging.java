@@ -3,34 +3,35 @@ package domein;
 import domein.interfacesDomein.IAankondiging;
 import exceptions.domein.AankondigingException;
 
-import java.io.Serializable;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Entity
+@Table(name = "aankondiging")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Aankondiging implements IAankondiging {
     //region Variabelen
     //Primairy key
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //A toevoegen --> generated value
     private String aankondigingsId;
 
     private LocalDateTime publicatiedatum;
-    private Gebruiker publicist;
-    private Sessie sessie;
     private String inhoud;
+    private boolean automatischeHerinnering;
+    //mapping
+    private Herinnering herinnering;
     //endregion
 
     //region Constructor
-    public Aankondiging(String aankondigingsId, Sessie sessie, LocalDateTime publicatiedatum, Gebruiker publicist, String inhoud) {
-        setAankondigingsId(aankondigingsId);
+    protected Aankondiging() {
+    }
+
+    public Aankondiging(LocalDateTime publicatiedatum, String inhoud) {
         setPublicatiedatum(publicatiedatum);
-        setSessie(sessie);
-        setPublicist(publicist);
         setInhoud(inhoud);
     }
-
-    public Aankondiging(Gebruiker gebruiker, Sessie sessie, LocalDateTime aangemaakt, String inhoud) {
-        this("Aankondiging", sessie, aangemaakt, gebruiker, inhoud);
-    }
-
     //endregion
 
     //region Setters
@@ -41,13 +42,6 @@ public class Aankondiging implements IAankondiging {
         this.publicatiedatum = publicatiedatum;
     }
 
-    private void setPublicist(Gebruiker publicist) {
-        if (publicist == null) {
-            throw new AankondigingException();
-        }
-        this.publicist = publicist;
-    }
-
     private void setInhoud(String inhoud) {
         if (inhoud == null || inhoud.isBlank()) {
             throw new AankondigingException();
@@ -56,16 +50,11 @@ public class Aankondiging implements IAankondiging {
     }
 
     protected void setAankondigingsId(String aankondigingsId) {
-        if(aankondigingsId == null || aankondigingsId.isBlank())
+        if (aankondigingsId == null || aankondigingsId.isBlank())
             throw new AankondigingException();
         this.aankondigingsId = aankondigingsId;
     }
 
-    private void setSessie(Sessie sessie) {
-        if(sessie == null)
-            throw new AankondigingException();
-        this.sessie = sessie;
-    }
     //endregion
 
     //region Getters
@@ -74,7 +63,7 @@ public class Aankondiging implements IAankondiging {
     }
 
     public Gebruiker getPublicist() {
-        return publicist;
+        throw new UnsupportedOperationException();
     }
 
     public String getInhoud() {
@@ -86,7 +75,7 @@ public class Aankondiging implements IAankondiging {
     }
 
     public Sessie getSessie() {
-        return sessie;
+        throw new UnsupportedOperationException();
     }
 
 //endregion
@@ -113,11 +102,8 @@ public class Aankondiging implements IAankondiging {
         return "Aankondiging{" +
                 "aankondigingsId='" + aankondigingsId + '\'' +
                 ", publicatiedatum=" + publicatiedatum +
-                ", publicist=" + publicist.getNaam() +
-                ", sessie=" + sessie.getSessieId() +
                 ", inhoud='" + inhoud + '\'' +
                 '}';
     }
-
     //endregion
 }

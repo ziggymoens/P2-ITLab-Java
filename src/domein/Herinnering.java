@@ -3,24 +3,34 @@ package domein;
 import domein.interfacesDomein.IHerinnering;
 import exceptions.domein.HerinneringException;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Objects;
 
-public class Herinnering extends Aankondiging implements IHerinnering {
+@Entity
+@Table(name = "herinnering")
+public class Herinnering implements IHerinnering {
     //region Variabelen
     //Primairy key
     private String herinneringsId;
 
     private int dagenVooraf;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    private Aankondiging aankondiging;
+
+
     //endregion
 
     //region Constructor
-    public Herinnering(String herinneringsId, int dagenVooraf, Gebruiker gebruiker, Sessie sessie, LocalDateTime aangemaakt, String inhoud) {
-        super(gebruiker, sessie, aangemaakt, inhoud);
+    protected Herinnering(){ }
+
+    public Herinnering(String herinneringsId, int dagenVooraf) {
         setHerinneringsId(herinneringsId);
         setDagenVooraf(dagenVooraf);
-        super.setAankondigingsId(herinneringsId);
     }
     //endregion
 
@@ -32,7 +42,7 @@ public class Herinnering extends Aankondiging implements IHerinnering {
     }
 
     private void setDagenVooraf(int dagenVooraf) {
-        if (dagenVooraf < 0)
+        if (Arrays.stream(HerinneringTijdstippen.values()).filter(e -> e.getDagen() == dagenVooraf).findFirst().orElse(null) == null)
             throw new HerinneringException();
         this.dagenVooraf = dagenVooraf;
     }
@@ -41,10 +51,6 @@ public class Herinnering extends Aankondiging implements IHerinnering {
     //region Getters
     public int getDagenVooraf() {
         return dagenVooraf;
-    }
-
-    public String getInhoud() {
-        return super.getInhoud();
     }
 
     public String getHerinneringsId() {
@@ -73,7 +79,7 @@ public class Herinnering extends Aankondiging implements IHerinnering {
 
     @Override
     public String toString() {
-        return String.format("Herinnering: %s%nDagen vooraf: %d%nGebruiker: %s%nGeplaatst op: %s%nTekst: %s%n", herinneringsId, dagenVooraf, getPublicist().getNaam(), getPublicatiedatum().toString(), getInhoud() );
+        return String.format("Herinnering: %s%nDagen vooraf: %d%nGebruiker: %s%nGeplaatst op: %s%nTekst: %s%n", herinneringsId, dagenVooraf);
     }
     //endregion
 }

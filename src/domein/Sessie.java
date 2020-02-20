@@ -3,14 +3,19 @@ package domein;
 import domein.interfacesDomein.ISessie;
 import exceptions.domein.SessieException;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
 
+@Entity
+@Table(name = "sessie")
 public class Sessie implements ISessie {
     //region variabelen
     //Primairy key
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String sessieId;
 
     private String titel;
@@ -18,14 +23,20 @@ public class Sessie implements ISessie {
     private LocalDateTime startSessie;
     private LocalDateTime eindeSessie;
     private int maximumAantalPlaatsen;
-    private boolean automatischeHerinnering;
-    private Herinnering herinnering;
+
+    @OneToMany
     private List<Media> mediaBijSessie;
+    @OneToMany
     private List<Inschrijving> ingeschrevenGebruikers;
+    @OneToMany
     private List<Aankondiging> aankondigingenSessie;
+    @OneToMany
     private List<Feedback> feedbackSessie;
+    @OneToOne
     private Lokaal lokaal;
+    @OneToOne
     private Gebruiker verantwoordelijke;
+
     private boolean geopend;
     //endregion
 
@@ -87,17 +98,6 @@ public class Sessie implements ISessie {
         this.maximumAantalPlaatsen = maximumAantalPlaatsen;
     }
 
-    private void setAutomatischeHerinnering(boolean automatischeHerinnering) {
-        this.automatischeHerinnering = automatischeHerinnering;
-    }
-
-    private void setHerinnering(Herinnering herinnering) {
-        if (!automatischeHerinnering) {
-            throw new SessieException();
-        }
-        this.herinnering = herinnering;
-    }
-
     private void setVerantwoordelijke(Gebruiker verantwoordelijke) {
         this.verantwoordelijke = verantwoordelijke;
     }
@@ -138,14 +138,6 @@ public class Sessie implements ISessie {
 
     public int getMaximumAantalPlaatsen() {
         return maximumAantalPlaatsen;
-    }
-
-    public boolean isAutomatischeHerinnering() {
-        return automatischeHerinnering;
-    }
-
-    public Herinnering getHerinnering() {
-        return herinnering;
     }
 
     public List<Media> getMediaBijSessie() {

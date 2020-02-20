@@ -2,12 +2,11 @@ package domein;
 
 import exceptions.domein.SessieKalenderException;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class SessieKalender{
+public class SessieKalenderController {
     //region Variabelen
     //Primairy key
     private String sessieKalenderId;
@@ -17,7 +16,7 @@ public class SessieKalender{
     //endregion
 
     //region Constructor
-    public SessieKalender(String sessieKalenderId, String naamKalender) {
+    public SessieKalenderController(String sessieKalenderId, String naamKalender) {
         setSessieKalenderId(sessieKalenderId);
         setNaamKalender(naamKalender);
         sessieList = new ArrayList<>();
@@ -80,7 +79,7 @@ public class SessieKalender{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SessieKalender that = (SessieKalender) o;
+        SessieKalenderController that = (SessieKalenderController) o;
         return Objects.equals(sessieKalenderId, that.sessieKalenderId);
     }
 

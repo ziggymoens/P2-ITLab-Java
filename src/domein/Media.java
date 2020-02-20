@@ -3,26 +3,27 @@ package domein;
 import domein.interfacesDomein.IMedia;
 import exceptions.domein.MediaException;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Objects;
-
+@Entity
+@Table(name = "media")
 public class Media implements IMedia {
 
     //region Variabelen
     //Primairy key
     private String mediaId;
 
-    private Sessie sessie;
-    private Gebruiker gebruiker;
     private String locatie;
     private String type;
 //endregion
 
     //region Constructor
-    public Media(String mediaId, Sessie sessie, Gebruiker gebruiker, String locatie, String type) {
+    protected  Media(){}
+
+    public Media(String mediaId, String locatie, String type) {
         setMediaId(mediaId);
-        setSessie(sessie);
-        setGebruiker(gebruiker);
         setLocatie(locatie);
         setType(type);
     }
@@ -33,18 +34,6 @@ public class Media implements IMedia {
         if(mediaId == null || mediaId.isBlank())
             throw new MediaException();
         this.mediaId = mediaId;
-    }
-
-    private void setSessie(Sessie sessie) {
-        if(sessie == null)
-            throw new MediaException();
-        this.sessie = sessie;
-    }
-
-    private void setGebruiker(Gebruiker gebruiker) {
-        if(gebruiker == null)
-            throw new MediaException();
-        this.gebruiker = gebruiker;
     }
 
     private void setLocatie(String locatie) {
@@ -67,11 +56,11 @@ public class Media implements IMedia {
     }
 
     public Sessie getSessie() {
-        return sessie;
+        throw new UnsupportedOperationException();
     }
 
     public Gebruiker getGebruiker() {
-        return gebruiker;
+        throw new UnsupportedOperationException();
     }
 
     public String getLocatie() {
@@ -104,8 +93,6 @@ public class Media implements IMedia {
     public String toString() {
         return "Media{" +
                 "mediaId='" + mediaId + '\'' +
-                ", sessie=" + sessie.getSessieId() +
-                ", gebruiker=" + gebruiker.getNaam() +
                 ", locatie='" + locatie + '\'' +
                 ", type='" + type + '\'' +
                 '}';

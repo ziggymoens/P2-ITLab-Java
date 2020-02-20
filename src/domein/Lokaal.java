@@ -3,19 +3,28 @@ package domein;
 import domein.interfacesDomein.ILokaal;
 import exceptions.domein.LokaalException;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Entity
+@Table(name = "lokaal")
 public class Lokaal implements ILokaal {
 
     //region Variabelen
     //Primairy key
+    @Id
     private String lokaalCode;
 
     private int aantalPlaatsen;
     //endregion
 
     //region Constructor
+    protected Lokaal(){}
+
     public Lokaal(String lokaalCode, int aantalPlaatsen) {
         setLokaalCode(lokaalCode);
         setAantalPlaatsen(aantalPlaatsen);

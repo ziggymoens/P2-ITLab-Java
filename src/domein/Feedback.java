@@ -3,57 +3,39 @@ package domein;
 import domein.interfacesDomein.IFeedback;
 import exceptions.domein.FeedbackException;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
+@Table(name = "feedback")
 public class Feedback implements IFeedback {
 
     //region Variabelen
     //Primairy key
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String feedbackId;
 
-    private Gebruiker gebruiker;
-    private Sessie sessie;
     private String tekst;
     //endregion
 
     //region Constructor
-    //constructor injectie
-    public Feedback(String feedbackId, Sessie sessie, Gebruiker gebruiker, String tekst) {
-        setGebruiker(gebruiker);
+    protected Feedback(){}
+
+    public Feedback(String feedbackId, String tekst) {
         setFeedbackId(feedbackId);
-        setSessie(sessie);
-        setTekst(tekst);
-    }
-/*
-    public Feedback(Gebruiker gebruiker, String tekst) {
-        setGebruiker(gebruiker);
         setTekst(tekst);
     }
 
- */
     //endregion
 
     //region Setters
-    private void setGebruiker(Gebruiker gebruiker) {
-        if (gebruiker == null) {
-            throw new FeedbackException();
-        }
-        this.gebruiker = gebruiker;
-    }
-
     private void setTekst(String tekst) {
         if (tekst == null || tekst.isBlank()) {
             throw new FeedbackException();
         }
         this.tekst = tekst;
-    }
-
-    private void setSessie(Sessie sessie) {
-        if (sessie == null){
-            throw new FeedbackException();
-        }
-        this.sessie = sessie;
     }
 
     private void setFeedbackId(String feedbackId) {
@@ -66,7 +48,7 @@ public class Feedback implements IFeedback {
 
     //region Getters
     public Gebruiker getGebruiker() {
-        return gebruiker;
+        throw new UnsupportedOperationException();
     }
 
     public String getTekst() {
@@ -78,7 +60,7 @@ public class Feedback implements IFeedback {
     }
 
     public Sessie getSessie() {
-        return sessie;
+        throw new UnsupportedOperationException();
     }
 
     //endregion
@@ -103,8 +85,6 @@ public class Feedback implements IFeedback {
     public String toString() {
         return "Feedback{" +
                 "feedbackId='" + feedbackId + '\'' +
-                ", gebruiker=" + gebruiker.getNaam() +
-                ", sessie=" + sessie.getSessieId() +
                 ", tekst='" + tekst + '\'' +
                 '}';
     }

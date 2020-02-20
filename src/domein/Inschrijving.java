@@ -3,39 +3,35 @@ package domein;
 import domein.interfacesDomein.IInschrijving;
 import exceptions.domein.InschrijvingException;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Entity
+@Table(name = "inschijving")
 public class Inschrijving implements IInschrijving {
     //region Variabelen
     //Primairy key
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String inschrijvingsId;
 
-    private Gebruiker gebruiker;
-    private Sessie sessie;
     private LocalDateTime inschrijvingsdatum;
     private boolean statusAanwezigheid = false;
     //endregione
 
     //region Constructor
-    public Inschrijving(String inschrijvingsId, Gebruiker gebruiker, Sessie sessie,LocalDateTime inschrijvingsdatum, boolean statusAanwezigheid) {
+    protected Inschrijving(){}
+
+    public Inschrijving(String inschrijvingsId,LocalDateTime inschrijvingsdatum, boolean statusAanwezigheid) {
         setInschrijvingsId(inschrijvingsId);
-        setGebruiker(gebruiker);
-        setSessie(sessie);
         setInschrijvingsdatum(inschrijvingsdatum);
         setStatusAanwezigheid(statusAanwezigheid);
     }
     //endregion
 
     //region Setters
-    private void setGebruiker(Gebruiker gebruiker) {
-        if (gebruiker == null) {
-            throw new InschrijvingException();
-        }
-        this.gebruiker = gebruiker;
-    }
-
     private void setInschrijvingsdatum(LocalDateTime inschrijvingsdatum) {
         if (inschrijvingsdatum == null) {
             throw new InschrijvingException();
@@ -53,17 +49,11 @@ public class Inschrijving implements IInschrijving {
         this.inschrijvingsId = inschrijvingsId;
     }
 
-    private void setSessie(Sessie sessie) {
-        if(sessie == null)
-            throw new InschrijvingException();
-        this.sessie = sessie;
-    }
-
     //endregion
 
     //region Getters
     public Gebruiker getGebruiker() {
-        return gebruiker;
+        throw new UnsupportedOperationException();
     }
 
     public LocalDateTime getInschrijvingsdatum() {
@@ -79,7 +69,7 @@ public class Inschrijving implements IInschrijving {
     }
 
     public Sessie getSessie() {
-        return sessie;
+        throw new UnsupportedOperationException();
     }
     //endregion
 
@@ -104,8 +94,6 @@ public class Inschrijving implements IInschrijving {
     public String toString() {
         return "Inschrijving{" +
                 "inschrijvingsId='" + inschrijvingsId + '\'' +
-                ", gebruiker=" + gebruiker.getNaam() +
-                ", sessie=" + sessie.getSessieId() +
                 ", inschrijvingsdatum=" + inschrijvingsdatum.toString() +
                 ", statusAanwezigheid=" + statusAanwezigheid +
                 '}';

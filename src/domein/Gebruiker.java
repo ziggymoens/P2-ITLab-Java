@@ -4,33 +4,48 @@ import domein.interfacesDomein.IGebruiker;
 import exceptions.domein.GebruikerException;
 import language.Talen;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Table(name = "gebruiker")
 public class Gebruiker implements IGebruiker {
 
     //region Variabelen
     //Primairy key
+    @Id
     private String gebruikersnaam;
 
     private String profielfoto;
     private String naam;
     private Gebruikersprofielen gebruikersprofiel;
     private Gebruikersstatus status;
+    @OneToMany
+    private List<Feedback> feedbackList;
+    @OneToMany
+    private List<Aankondiging> aankondigingList;
+    @OneToMany
+    private List<Inschrijving> inschrijvingList;
+    @OneToMany
+    private List<Media> mediaList;
+    //@OneToMany
+    //private List<Sessie> sessieVerantwoordlijkList;
     //endregion
 
     //region Constructor
-    public Gebruiker(String naam, String gebruikersnaam, Gebruikersprofielen gebruikersprofiel, Gebruikersstatus status) {
-        this(naam, gebruikersnaam, gebruikersprofiel, status, null);
-    }
-
     public Gebruiker(String naam, String gebruikersnaam, Gebruikersprofielen gebruikersprofiel, Gebruikersstatus status, String profielfoto) {
         setNaam(naam);
         setGebruikersnaam(gebruikersnaam);
         setGebruikersprofielen(gebruikersprofiel);
         setStatus(status);
         setProfielfoto(profielfoto);
+    }
+
+    public Gebruiker(String naam, String gebruikersnaam, Gebruikersprofielen gebruikersprofiel, Gebruikersstatus status) {
+        this(naam, gebruikersnaam, gebruikersprofiel, status, null);
     }
 
     public Gebruiker(String naam, String gebruikersnaam, String gebruikersprofiel, String gebruikersstatus) {
