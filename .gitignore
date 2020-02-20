@@ -31,4 +31,4 @@ hs_err_pid*
 .idea
 
 #package ongebruikt
-src/ongebruikt
+/src/ongebruikt/
