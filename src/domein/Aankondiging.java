@@ -7,9 +7,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Aankondiging implements Serializable, IAankondiging {
-    private static final long serialVersionUID = -5032924408446952572L;
-
+public class Aankondiging implements IAankondiging {
     //region Variabelen
     //Primairy key
     private String aankondigingsId;

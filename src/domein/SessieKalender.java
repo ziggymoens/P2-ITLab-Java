@@ -7,9 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class SessieKalender implements Serializable {
-    private static final long serialVersionUID = -6861574744672315162L;
-
+public class SessieKalender{
     //region Variabelen
     //Primairy key
     private String sessieKalenderId;

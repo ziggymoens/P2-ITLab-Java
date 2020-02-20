@@ -7,9 +7,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Herinnering extends Aankondiging implements Serializable, IHerinnering {
-    private static final long serialVersionUID = 6099128486423253923L;
-
+public class Herinnering extends Aankondiging implements IHerinnering {
     //region Variabelen
     //Primairy key
     private String herinneringsId;

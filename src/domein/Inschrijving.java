@@ -7,9 +7,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Inschrijving implements Serializable, IInschrijving {
-    private static final long serialVersionUID = -1014695231389775883L;
-
+public class Inschrijving implements IInschrijving {
     //region Variabelen
     //Primairy key
     private String inschrijvingsId;

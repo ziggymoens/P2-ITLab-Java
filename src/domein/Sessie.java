@@ -8,9 +8,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
 
-public class Sessie implements Serializable, ISessie {
-    private static final long serialVersionUID = 6484163469782688241L;
-
+public class Sessie implements ISessie {
     //region variabelen
     //Primairy key
     private String sessieId;

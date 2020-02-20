@@ -1,6 +1,5 @@
 package domein;
 
-import ongebruikt.persistentie.PersistentieController;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -9,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class DomeinController {
     //region Variabelen
-    private PersistentieController pc;
+
     //endregion
 
     //region Constructor
@@ -19,9 +18,7 @@ public class DomeinController {
     //endregion
 
     //region Init
-    private void initData() {
-        pc = new PersistentieController();
-    }
+
     //endregion
 
     //region Overzicht

@@ -8,8 +8,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Gebruiker implements Serializable, IGebruiker {
-    private static final long serialVersionUID = -5444941573344748602L;
+public class Gebruiker implements IGebruiker {
 
     //region Variabelen
     //Primairy key

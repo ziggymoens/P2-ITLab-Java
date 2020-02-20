@@ -6,8 +6,7 @@ import exceptions.domein.FeedbackException;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Feedback implements Serializable, IFeedback {
-    private static final long serialVersionUID = -7572591287217890928L;
+public class Feedback implements IFeedback {
 
     //region Variabelen
     //Primairy key

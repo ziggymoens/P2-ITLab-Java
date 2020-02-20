@@ -1,13 +1,12 @@
 package domein;
 
 import domein.interfacesDomein.ISessie;
+import domein.interfacesDomein.IStatistiek;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Statistiek implements Serializable, ISessie {
-    private static final long serialVersionUID = 6464019936069166219L;
-
+public class Statistiek implements IStatistiek {
     //region Variabelen
     //Primairy key
     private String statistiekId;
