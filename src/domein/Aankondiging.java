@@ -15,14 +15,14 @@ public class Aankondiging implements IAankondiging {
     //Primairy key
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //A toevoegen --> generated value
-    private String aankondigingsId;
+    private int aankondigingsId;
 
     private LocalDateTime publicatiedatum;
     private String inhoud;
     private boolean automatischeHerinnering;
     //mapping
-    @OneToOne
-    private Herinnering herinnering;
+
+    //private Herinnering herinnering;
     //endregion
 
     //region Constructor
@@ -50,11 +50,11 @@ public class Aankondiging implements IAankondiging {
         this.inhoud = inhoud;
     }
 
-    protected void setAankondigingsId(String aankondigingsId) {
+    /*protected void setAankondigingsId(String aankondigingsId) {
         if (aankondigingsId == null || aankondigingsId.isBlank())
             throw new AankondigingException();
         this.aankondigingsId = aankondigingsId;
-    }
+    }*/
 
     //endregion
 
@@ -71,7 +71,7 @@ public class Aankondiging implements IAankondiging {
         return inhoud;
     }
 
-    public String getAankondigingsId() {
+    public int getAankondigingsId() {
         return aankondigingsId;
     }
 

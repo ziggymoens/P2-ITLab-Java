@@ -64,8 +64,8 @@ public class SessieKalenderController {
         sessieList.add(s);
     }
 
-    public Sessie geefSessieVanKalender(String sId){
-        return sessieList.stream().filter(s -> s.getSessieId().equals(s)).findFirst().orElse(null);
+    public Sessie geefSessieVanKalender(int sId){
+        return sessieList.stream().filter(s -> s.getSessieId() == sId).findFirst().orElse(null);
     }
 
     public void verwijderSessieVanKalender(Sessie s){

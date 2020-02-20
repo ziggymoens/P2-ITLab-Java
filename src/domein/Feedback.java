@@ -15,15 +15,12 @@ public class Feedback implements IFeedback {
     //Primairy key
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String feedbackId;
-
+    private int feedbackId;
     private String tekst;
     //endregion
 
     //region Constructor
     protected Feedback(){}
-
-
 
     public Feedback(String tekst) {
        // setFeedbackId(feedbackId);
@@ -40,12 +37,12 @@ public class Feedback implements IFeedback {
         this.tekst = tekst;
     }
 
-    private void setFeedbackId(String feedbackId) {
+    /*private void setFeedbackId(String feedbackId) {
         if(feedbackId == null || feedbackId.isBlank()){
             throw new FeedbackException();
         }
         this.feedbackId = feedbackId;
-    }
+    }*/
     //endregion
 
     //region Getters
@@ -57,7 +54,7 @@ public class Feedback implements IFeedback {
         return tekst;
     }
 
-    public String getFeedbackId() {
+    public int getFeedbackId() {
         return feedbackId;
     }
 

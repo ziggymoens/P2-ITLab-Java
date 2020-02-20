@@ -24,8 +24,8 @@ public class DatabankVerbinding {
     private static void initializePersistentie() {
         openPersistentie();
 
-        SessieKalenderData od = new SessieKalenderData();
-        od.populeerData();
+        //SessieKalenderData od = new SessieKalenderData();
+        //od.populeerData();
     }
 
     private static void openPersistentie() {

@@ -17,5 +17,6 @@ public class Test {
     }
 
     public void setNaam(String naam) {
+        this.naam = naam;
     }
 }

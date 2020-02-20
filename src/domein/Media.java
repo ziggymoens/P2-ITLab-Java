@@ -3,10 +3,7 @@ package domein;
 import domein.interfacesDomein.IMedia;
 import exceptions.domein.MediaException;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 @Entity
@@ -16,7 +13,8 @@ public class Media implements IMedia {
     //region Variabelen
     //Primairy key
     @Id
-    private String mediaId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int mediaId;
 
     private String locatie;
     private String type;
@@ -25,19 +23,18 @@ public class Media implements IMedia {
     //region Constructor
     protected  Media(){}
 
-    public Media(String mediaId, String locatie, String type) {
-        setMediaId(mediaId);
+    public Media(String locatie, String type) {
         setLocatie(locatie);
         setType(type);
     }
     //endregion
 
     //region Setters
-    private void setMediaId(String mediaId) {
+    /*private void setMediaId(String mediaId) {
         if(mediaId == null || mediaId.isBlank())
             throw new MediaException();
         this.mediaId = mediaId;
-    }
+    }*/
 
     private void setLocatie(String locatie) {
         if(locatie == null || locatie.isBlank())
@@ -54,7 +51,7 @@ public class Media implements IMedia {
 
     //region Getters
 
-    public String getMediaId() {
+    public int getMediaId() {
         return mediaId;
     }
 

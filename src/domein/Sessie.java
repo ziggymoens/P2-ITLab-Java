@@ -16,7 +16,7 @@ public class Sessie implements ISessie {
     //Primairy key
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String sessieId;
+    private int sessieId;
 
     private String titel;
     private String naamGastspreker;
@@ -43,8 +43,7 @@ public class Sessie implements ISessie {
     //region Constructors
     protected  Sessie(){ }
 
-    public Sessie(String sessieId, String titel, LocalDateTime startSessie, LocalDateTime eindeSessie, Lokaal lokaal, Gebruiker verantwoordelijke) {
-        setSessieId(sessieId);
+    public Sessie(String titel, LocalDateTime startSessie, LocalDateTime eindeSessie, Lokaal lokaal, Gebruiker verantwoordelijke) {
         setVerantwoordelijke(verantwoordelijke);
         setTitel(titel);
         setStartSessie(startSessie);
@@ -56,9 +55,9 @@ public class Sessie implements ISessie {
         initLijsten();
     }
 
-    public Sessie(String titel, LocalDateTime startSessie, LocalDateTime eindeSessie, Lokaal lokaal, Gebruiker verantwoordelijke) {
+    /*public Sessie(String titel, LocalDateTime startSessie, LocalDateTime eindeSessie, Lokaal lokaal, Gebruiker verantwoordelijke) {
         this("onbekend", titel, startSessie, eindeSessie, lokaal, verantwoordelijke);
-    }
+    }*/
     //endregion
 
     //region Init
@@ -115,9 +114,9 @@ public class Sessie implements ISessie {
         this.lokaal = lokaal;
     }
 
-    public void setSessieId(String sessieId) {
+    /*public void setSessieId(String sessieId) {
         this.sessieId = sessieId;
-    }
+    }*/
 
     //endregion
 
@@ -170,7 +169,7 @@ public class Sessie implements ISessie {
         return geopend;
     }
 
-    public String getSessieId() {
+    public int getSessieId() {
         return sessieId;
     }
 

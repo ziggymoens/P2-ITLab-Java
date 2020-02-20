@@ -15,7 +15,7 @@ public class Inschrijving implements IInschrijving {
     //Primairy key
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String inschrijvingsId;
+    private int inschrijvingsId;
 
     private LocalDateTime inschrijvingsdatum;
     private boolean statusAanwezigheid = false;
@@ -43,11 +43,11 @@ public class Inschrijving implements IInschrijving {
         this.statusAanwezigheid = statusAanwezigheid;
     }
 
-    private void setInschrijvingsId(String inschrijvingsId) {
+    /*private void setInschrijvingsId(String inschrijvingsId) {
         if(inschrijvingsId == null || inschrijvingsId.isBlank())
             throw new InschrijvingException();
         this.inschrijvingsId = inschrijvingsId;
-    }
+    }*/
 
     //endregion
 
@@ -64,7 +64,7 @@ public class Inschrijving implements IInschrijving {
         return statusAanwezigheid;
     }
 
-    public String getInschrijvingsId() {
+    public int getInschrijvingsId() {
         return inschrijvingsId;
     }
 

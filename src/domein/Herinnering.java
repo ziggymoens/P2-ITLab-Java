@@ -15,11 +15,11 @@ public class Herinnering implements IHerinnering {
     //region Variabelen
     //Primairy key
     @Id
-    private String herinneringsId;
+    private int herinneringsId;
 
     private int dagenVooraf;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, optional = true)
     @MapsId
     private Aankondiging aankondiging;
 
@@ -36,11 +36,11 @@ public class Herinnering implements IHerinnering {
     //endregion
 
     //region Setters
-    public void setHerinneringsId(String herinneringsId) {
+    /*public void setHerinneringsId(String herinneringsId) {
         if(herinneringsId == null || herinneringsId.isBlank())
             throw new HerinneringException();
         this.herinneringsId = herinneringsId;
-    }
+    }*/
 
     private void setDagenVooraf(int dagenVooraf) {
         if (Arrays.stream(HerinneringTijdstippen.values()).filter(e -> e.getDagen() == dagenVooraf).findFirst().orElse(null) == null)
@@ -54,7 +54,7 @@ public class Herinnering implements IHerinnering {
         return dagenVooraf;
     }
 
-    public String getHerinneringsId() {
+    public int getHerinneringsId() {
         return herinneringsId;
     }
     //endregion
