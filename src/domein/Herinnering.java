@@ -1,12 +1,13 @@
 package domein;
 
+import domein.interfacesDomein.IHerinnering;
 import exceptions.domein.HerinneringException;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Herinnering extends Aankondiging implements Serializable {
+public class Herinnering extends Aankondiging implements Serializable, IHerinnering {
     private static final long serialVersionUID = 6099128486423253923L;
 
     //region Variabelen

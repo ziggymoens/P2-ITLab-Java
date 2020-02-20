@@ -1,12 +1,13 @@
 package domein;
 
+import domein.interfacesDomein.IAankondiging;
 import exceptions.domein.AankondigingException;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Aankondiging implements Serializable {
+public class Aankondiging implements Serializable, IAankondiging {
     private static final long serialVersionUID = -5032924408446952572L;
 
     //region Variabelen

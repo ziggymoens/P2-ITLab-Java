@@ -1,11 +1,12 @@
 package domein;
 
+import domein.interfacesDomein.IMedia;
 import exceptions.domein.MediaException;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Media implements Serializable {
+public class Media implements Serializable, IMedia {
     private static final long serialVersionUID = 6488538626159580748L;
 
     //region Variabelen

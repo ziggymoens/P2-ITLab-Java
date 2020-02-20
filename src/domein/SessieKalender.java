@@ -61,7 +61,7 @@ public class SessieKalender implements Serializable {
     //region sessies toevoegen, verwijderen, opvragen
 
     public void voegSessieToe(Sessie s){
-        if (Sessie == null){
+        if (s == null){
             throw new SessieKalenderException();
         }
         sessieList.add(s);

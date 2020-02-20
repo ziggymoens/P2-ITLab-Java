@@ -1,12 +1,13 @@
 package domein;
 
+import domein.interfacesDomein.IInschrijving;
 import exceptions.domein.InschrijvingException;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Inschrijving implements Serializable {
+public class Inschrijving implements Serializable, IInschrijving {
     private static final long serialVersionUID = -1014695231389775883L;
 
     //region Variabelen

@@ -1,11 +1,12 @@
 package domein;
 
+import domein.interfacesDomein.ILokaal;
 import exceptions.domein.LokaalException;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Lokaal implements Serializable {
+public class Lokaal implements Serializable, ILokaal {
     private static final long serialVersionUID = 4560547008363911138L;
 
     //region Variabelen

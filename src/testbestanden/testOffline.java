@@ -1,7 +1,7 @@
 package testbestanden;
 
 import domein.*;
-import persistentie.PersistentieController;
+import ongebruikt.persistentie.PersistentieController;
 
 import java.util.List;
 import java.util.Set;

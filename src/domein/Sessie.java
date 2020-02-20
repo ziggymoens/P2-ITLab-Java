@@ -1,5 +1,6 @@
 package domein;
 
+import domein.interfacesDomein.ISessie;
 import exceptions.domein.SessieException;
 
 import java.io.Serializable;
@@ -7,7 +8,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
 
-public class Sessie implements Serializable {
+public class Sessie implements Serializable, ISessie {
     private static final long serialVersionUID = 6484163469782688241L;
 
     //region variabelen
