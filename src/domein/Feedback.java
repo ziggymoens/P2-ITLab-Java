@@ -25,11 +25,13 @@ public class Feedback implements Serializable {
         setSessie(sessie);
         setTekst(tekst);
     }
-
+/*
     public Feedback(Gebruiker gebruiker, String tekst) {
         setGebruiker(gebruiker);
         setTekst(tekst);
     }
+
+ */
     //endregion
 
     //region Setters
@@ -47,11 +49,17 @@ public class Feedback implements Serializable {
         this.tekst = tekst;
     }
 
-    public void setSessie(Sessie sessie) {
+    private void setSessie(Sessie sessie) {
+        if (sessie == null){
+            throw new FeedbackException();
+        }
         this.sessie = sessie;
     }
 
-    public void setFeedbackId(String feedbackId) {
+    private void setFeedbackId(String feedbackId) {
+        if(feedbackId == null || feedbackId.isBlank()){
+            throw new FeedbackException();
+        }
         this.feedbackId = feedbackId;
     }
     //endregion

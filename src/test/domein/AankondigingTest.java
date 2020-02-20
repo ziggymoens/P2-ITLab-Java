@@ -29,9 +29,9 @@ public class AankondigingTest {
     }
 
     private static Stream<Arguments> opsommingGeldigeWaarden(){
-        return Stream.of(Arguments.of("001", sessie, LocalDateTime.now(), gebruiker, "AankondigingTest"),
-                Arguments.of("1245", sessie, LocalDateTime.now().minusDays(4), gebruiker, "Test aankondiging"),
-                Arguments.of("5", sessie, LocalDateTime.now().minusHours(2), gebruiker, "tekst"));
+        return Stream.of(Arguments.of("A001", sessie, LocalDateTime.now(), gebruiker, "AankondigingTest"),
+                Arguments.of("A1245", sessie, LocalDateTime.now().minusDays(4), gebruiker, "Test aankondiging"),
+                Arguments.of("A005", sessie, LocalDateTime.now().minusHours(2), gebruiker, "tekst"));
     }
 
     @ParameterizedTest
@@ -54,23 +54,23 @@ public class AankondigingTest {
 
     @Test
     public void maakAankondigingOngeldigeGegevensSessie_GooitException(){
-        Assertions.assertThrows(AankondigingException.class, () ->  new Aankondiging("001", null, LocalDateTime.now(), gebruiker, "AankondigingTest"));
+        Assertions.assertThrows(AankondigingException.class, () ->  new Aankondiging("A001", null, LocalDateTime.now(), gebruiker, "AankondigingTest"));
     }
 
     @Test
     public void maakAankondigingOngeldigeGegevensLocalDateTime_GooitException(){
-        Assertions.assertThrows(AankondigingException.class, () ->  new Aankondiging("001", sessie, null, gebruiker, "AankondigingTest"));
+        Assertions.assertThrows(AankondigingException.class, () ->  new Aankondiging("A001", sessie, null, gebruiker, "AankondigingTest"));
     }
 
     @Test
     public void maakAankondigingOngeldigeGegevensPublicist_GooitException(){
-        Assertions.assertThrows(AankondigingException.class, () ->  new Aankondiging("001", sessie, LocalDateTime.now(), null, "AankondigingTest"));
+        Assertions.assertThrows(AankondigingException.class, () ->  new Aankondiging("A001", sessie, LocalDateTime.now(), null, "AankondigingTest"));
     }
 
     @ParameterizedTest
     @NullAndEmptySource
     @ValueSource(strings = " ")
     public void maakAankondigingOngeldigeGegevensInhoud_GooitException(String inhoud){
-        Assertions.assertThrows(AankondigingException.class, () ->  new Aankondiging("001", sessie, LocalDateTime.now(), gebruiker, inhoud));
+        Assertions.assertThrows(AankondigingException.class, () ->  new Aankondiging("A001", sessie, LocalDateTime.now(), gebruiker, inhoud));
     }
 }

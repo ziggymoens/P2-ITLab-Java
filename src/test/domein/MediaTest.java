@@ -31,7 +31,7 @@ public class MediaTest {
 
     private static Stream<Arguments> opsommingGeldigeWaarden(){
         return Stream.of(Arguments.of("001", sessie, gebruiker, "https://www.Youtube.com/", "URL"),
-                Arguments.of("001", sessie, gebruiker, "test.png", "PICTURE"),
+                Arguments.of("001", sessie, gebruiker, "test.png", "FOTO"),
                 Arguments.of("45", sessie, gebruiker, "test.mp3", "AUDIO"));
     }
 
@@ -50,24 +50,24 @@ public class MediaTest {
     @NullAndEmptySource
     @ValueSource(strings = " ")
     public void maakMediaOngeldigeGegevensId_GooitException(String id){
-        Assertions.assertThrows(MediaException.class, () ->  new Media(id, sessie, gebruiker, "test.png", "PICTURE"));
+        Assertions.assertThrows(MediaException.class, () ->  new Media(id, sessie, gebruiker, "test.png", "FOTO"));
     }
 
     @Test
     public void maakMediaOngeldigeGegevensSessie_GooitException(){
-        Assertions.assertThrows(MediaException.class, () ->  new Media("001", null, gebruiker, "test.png", "PICTURE"));
+        Assertions.assertThrows(MediaException.class, () ->  new Media("001", null, gebruiker, "test.png", "FOTO"));
     }
 
     @Test
     public void maakMediaOngeldigeGegevensGebruiker_GooitException(){
-        Assertions.assertThrows(MediaException.class, () ->  new Media("001", sessie, null, "test.png", "PICTURE"));
+        Assertions.assertThrows(MediaException.class, () ->  new Media("001", sessie, null, "test.png", "FOTO"));
     }
 
     @ParameterizedTest
     @NullAndEmptySource
     @ValueSource(strings = " ")
     public void maakMediaOngeldigeGegevensLocatie_GooitException(String locatie){
-        Assertions.assertThrows(MediaException.class, () ->  new Media("001", sessie, gebruiker, locatie, "PICTURE"));
+        Assertions.assertThrows(MediaException.class, () ->  new Media("001", sessie, gebruiker, locatie, "FOTO"));
     }
 
     @ParameterizedTest
