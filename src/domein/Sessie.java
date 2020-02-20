@@ -41,6 +41,8 @@ public class Sessie implements ISessie {
     //endregion
 
     //region Constructors
+    protected  Sessie(){ }
+
     public Sessie(String sessieId, String titel, LocalDateTime startSessie, LocalDateTime eindeSessie, Lokaal lokaal, Gebruiker verantwoordelijke) {
         setSessieId(sessieId);
         setVerantwoordelijke(verantwoordelijke);

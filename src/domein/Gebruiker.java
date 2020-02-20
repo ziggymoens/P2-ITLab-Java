@@ -36,6 +36,8 @@ public class Gebruiker implements IGebruiker {
     //endregion
 
     //region Constructor
+    protected Gebruiker(){}
+
     public Gebruiker(String naam, String gebruikersnaam, Gebruikersprofielen gebruikersprofiel, Gebruikersstatus status, String profielfoto) {
         setNaam(naam);
         setGebruikersnaam(gebruikersnaam);
