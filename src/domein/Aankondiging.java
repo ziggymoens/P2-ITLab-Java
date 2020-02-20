@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-@Table(name = "aankondiging")
+//@Table(name = "aankondiging")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Aankondiging implements IAankondiging {
     //region Variabelen
@@ -21,6 +21,7 @@ public class Aankondiging implements IAankondiging {
     private String inhoud;
     private boolean automatischeHerinnering;
     //mapping
+    @OneToOne
     private Herinnering herinnering;
     //endregion
 
@@ -106,4 +107,14 @@ public class Aankondiging implements IAankondiging {
                 '}';
     }
     //endregion
+    @ManyToOne(optional = false)
+    private Sessie aankondiging;
+
+    public Sessie getAankondiging() {
+        return aankondiging;
+    }
+
+    public void setAankondiging(Sessie aankondiging) {
+        this.aankondiging = aankondiging;
+    }
 }

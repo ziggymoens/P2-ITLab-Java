@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-@Table(name = "lokaal")
+//@Table(name = "lokaal")
 public class Lokaal implements ILokaal {
 
     //region Variabelen

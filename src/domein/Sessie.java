@@ -10,7 +10,7 @@ import java.time.ZoneId;
 import java.util.*;
 
 @Entity
-@Table(name = "sessie")
+//@Table(name = "sessie")
 public class Sessie implements ISessie {
     //region variabelen
     //Primairy key
@@ -24,17 +24,17 @@ public class Sessie implements ISessie {
     private LocalDateTime eindeSessie;
     private int maximumAantalPlaatsen;
 
-    @OneToMany
+    @OneToMany(mappedBy = "media")
     private List<Media> mediaBijSessie;
-    @OneToMany
+    @OneToMany(mappedBy = "inschrijving")
     private List<Inschrijving> ingeschrevenGebruikers;
-    @OneToMany
+    @OneToMany(mappedBy = "aankondiging")
     private List<Aankondiging> aankondigingenSessie;
-    @OneToMany
+    @OneToMany(mappedBy = "feedback")
     private List<Feedback> feedbackSessie;
     @OneToOne
     private Lokaal lokaal;
-    @OneToOne
+    @OneToOne()
     private Gebruiker verantwoordelijke;
 
     private boolean geopend;

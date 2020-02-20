@@ -31,7 +31,7 @@ public class StartUpInterface {
             dc.setGebruiker(dc.geefGebruikerMetGebruikersnaam(gebruikersnaam));
         }
 */
-        geefOpties(gebruikersCode);
+        //geefOpties(gebruikersCode);
 
     }
 
@@ -50,7 +50,7 @@ public class StartUpInterface {
         System.out.println("3. Aankondiging plaatsen");
         System.out.println("4. Raadplegen statistieken");
     }
-
+/*
     public void geefOpties(String gebruikersCode){
         int keuze = 0;
         switch(dc.geefGebruikerProfiel(gebruikersCode)){
@@ -79,6 +79,7 @@ public class StartUpInterface {
                 break;
         }
 
+
         switch (keuze){
             case 1: new SessieBeheren(dc, this, gebruikersCode); break;
             case 2: new SessiekalenderBeheren(dc); break;
@@ -89,4 +90,6 @@ public class StartUpInterface {
 
     }
 
+
+ */
 }

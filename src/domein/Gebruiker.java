@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "gebruiker")
+//@Table(name = "gebruiker")
 public class Gebruiker implements IGebruiker {
 
     //region Variabelen

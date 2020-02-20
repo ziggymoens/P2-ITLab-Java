@@ -19,7 +19,7 @@ public class DomeinController {
     //region Init
 
     //endregion
-
+/*
     //region Overzicht
     public List<String> geefOverzichtVerantwoordelijke(String gebruikersCode, boolean open) {
         //if(open) is voor als geruiker alleen geopende sessies wilt zien
@@ -74,7 +74,7 @@ public class DomeinController {
      * @param eindeSessie           ==> vb. "2007-12-03T10:15:30"
      * @param lokaalCode            ==> de code van het lokaal
      * @param verantwoordelijkeCode ==> code van de veranwoordelijke
-     */
+     *
     public void maakNieuweSessieAan(String titel, CharSequence startSessie, CharSequence eindeSessie, String lokaalCode, String verantwoordelijkeCode) {
         Sessie s = new Sessie(titel, LocalDateTime.parse(startSessie), LocalDateTime.parse(eindeSessie), pc.geefLokaalMetCode(lokaalCode), pc.geefGebruikerMetCode(verantwoordelijkeCode));
         pc.beheerSessie("CREATE", s);
@@ -83,7 +83,7 @@ public class DomeinController {
     /**
      * Voegt sessie toe
      * @param sessie ==> sessie object
-     */
+     *
     public void voegSessieToe(Sessie sessie) {
         pc.beheerSessie("CREATE", sessie);
     }
@@ -145,5 +145,7 @@ public class DomeinController {
         return sessie.getFeedbackSessie().size();
     }
 
+
+ */
     //endregion
 }

@@ -15,9 +15,9 @@ public class SessieBeheren {
         this.dc = dc;
         this.startUpInterface = s;
         this.gebruikersCode = gebruikersCode;
-        sessieBeheren();
+        //sessieBeheren();
     }
-
+/*
     private void sessieBeheren() {
         System.out.println("1. Toon alle open sessies");
         System.out.println("2. Toon alle gesloten sessies");
@@ -297,4 +297,6 @@ public class SessieBeheren {
     }
 
 
+
+ */
 }

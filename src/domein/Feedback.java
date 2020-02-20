@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "feedback")
+//@Table(name = "feedback")
 public class Feedback implements IFeedback {
 
     //region Variabelen
@@ -23,8 +23,10 @@ public class Feedback implements IFeedback {
     //region Constructor
     protected Feedback(){}
 
-    public Feedback(String feedbackId, String tekst) {
-        setFeedbackId(feedbackId);
+
+
+    public Feedback(String tekst) {
+       // setFeedbackId(feedbackId);
         setTekst(tekst);
     }
 
@@ -89,4 +91,14 @@ public class Feedback implements IFeedback {
                 '}';
     }
     //endregion
+    @ManyToOne(optional = false)
+    private Sessie feedback;
+
+    public Sessie getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(Sessie feedback) {
+        this.feedback = feedback;
+    }
 }

@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-@Table(name = "inschijving")
+//@Table(name = "inschijving")
 public class Inschrijving implements IInschrijving {
     //region Variabelen
     //Primairy key
@@ -24,8 +24,8 @@ public class Inschrijving implements IInschrijving {
     //region Constructor
     protected Inschrijving(){}
 
-    public Inschrijving(String inschrijvingsId,LocalDateTime inschrijvingsdatum, boolean statusAanwezigheid) {
-        setInschrijvingsId(inschrijvingsId);
+    public Inschrijving(LocalDateTime inschrijvingsdatum, boolean statusAanwezigheid) {
+        //setInschrijvingsId(inschrijvingsId);
         setInschrijvingsdatum(inschrijvingsdatum);
         setStatusAanwezigheid(statusAanwezigheid);
     }
@@ -100,4 +100,14 @@ public class Inschrijving implements IInschrijving {
     }
 
     //endregion
+    @ManyToOne(optional = false)
+    private Sessie inschrijving;
+
+    public Sessie getInschrijving() {
+        return inschrijving;
+    }
+
+    public void setInschrijving(Sessie inschrijving) {
+        this.inschrijving = inschrijving;
+    }
 }

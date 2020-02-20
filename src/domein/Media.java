@@ -4,15 +4,18 @@ import domein.interfacesDomein.IMedia;
 import exceptions.domein.MediaException;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Objects;
 @Entity
-@Table(name = "media")
+//@Table(name = "media")
 public class Media implements IMedia {
 
     //region Variabelen
     //Primairy key
+    @Id
     private String mediaId;
 
     private String locatie;
@@ -98,4 +101,14 @@ public class Media implements IMedia {
                 '}';
     }
     //endregion
+    @ManyToOne(optional = false)
+    private Sessie media;
+
+    public Sessie getMedia() {
+        return media;
+    }
+
+    public void setMedia(Sessie media) {
+        this.media = media;
+    }
 }

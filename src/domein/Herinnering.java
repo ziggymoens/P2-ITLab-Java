@@ -10,10 +10,11 @@ import java.util.Arrays;
 import java.util.Objects;
 
 @Entity
-@Table(name = "herinnering")
+//@Table(name = "herinnering")
 public class Herinnering implements IHerinnering {
     //region Variabelen
     //Primairy key
+    @Id
     private String herinneringsId;
 
     private int dagenVooraf;
@@ -28,8 +29,8 @@ public class Herinnering implements IHerinnering {
     //region Constructor
     protected Herinnering(){ }
 
-    public Herinnering(String herinneringsId, int dagenVooraf) {
-        setHerinneringsId(herinneringsId);
+    public Herinnering( int dagenVooraf) {
+        //setHerinneringsId(herinneringsId);
         setDagenVooraf(dagenVooraf);
     }
     //endregion
