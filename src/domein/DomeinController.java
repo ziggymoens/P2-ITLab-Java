@@ -13,7 +13,6 @@ public class DomeinController {
 
     //region Constructor
     public DomeinController() {
-        initData();
     }
     //endregion
 
