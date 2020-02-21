@@ -88,14 +88,4 @@ public class Feedback implements IFeedback {
                 '}';
     }
     //endregion
-    @ManyToOne(optional = false)
-    private Sessie feedback;
-
-    public Sessie getFeedback() {
-        return feedback;
-    }
-
-    public void setFeedback(Sessie feedback) {
-        this.feedback = feedback;
-    }
 }

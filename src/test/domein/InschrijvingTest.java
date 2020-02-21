@@ -1,4 +1,4 @@
-package test.domein;
+package domein;
 
 import domein.*;
 import exceptions.domein.AankondigingException;
@@ -37,7 +37,7 @@ public class InschrijvingTest {
     @ParameterizedTest
     @MethodSource("opsommingGeldigeWaarden")
     public void maakInschrijvingGeldigeGegevens_Slaagt(String id,  Gebruiker gebruiker, Sessie sessie, LocalDateTime inschrijvingsdatum, boolean statusAanwezigheid){
-        Inschrijving inschrijving = new Inschrijving(id, gebruiker, sessie, inschrijvingsdatum, statusAanwezigheid);
+        Inschrijving inschrijving = new Inschrijving(inschrijvingsdatum, statusAanwezigheid);
         Assertions.assertEquals(id, inschrijving.getInschrijvingsId());
         Assertions.assertEquals(gebruiker, inschrijving.getGebruiker());
         Assertions.assertEquals(sessie, inschrijving.getSessie());
@@ -49,21 +49,21 @@ public class InschrijvingTest {
     @NullAndEmptySource
     @ValueSource(strings = " ")
     public void maakInschrijvingOngeldigeGegevensId_GooitException(String id){
-        Assertions.assertThrows(InschrijvingException.class, () ->  new Inschrijving(id, gebruiker, sessie, LocalDateTime.now(), true));
+        Assertions.assertThrows(InschrijvingException.class, () ->  new Inschrijving(LocalDateTime.now(), true));
     }
 
     @Test
     public void maakInschrijvingOngeldigeGegevensGebruiker_GooitException(){
-        Assertions.assertThrows(InschrijvingException.class, () ->  new Inschrijving("001", null, sessie, LocalDateTime.now(), true));
+        Assertions.assertThrows(InschrijvingException.class, () ->  new Inschrijving(LocalDateTime.now(), true));
     }
 
     @Test
     public void maakInschrijvingOngeldigeGegevensSessie_GooitException(){
-        Assertions.assertThrows(InschrijvingException.class, () ->  new Inschrijving("001", gebruiker, null, LocalDateTime.now(), true));
+        Assertions.assertThrows(InschrijvingException.class, () ->  new Inschrijving(LocalDateTime.now(), true));
     }
 
     @Test
     public void maakInschrijvingOngeldigeGegevensLocalDateTime_GooitException(){
-        Assertions.assertThrows(InschrijvingException.class, () ->  new Inschrijving("001", gebruiker, sessie, null, true));
+        Assertions.assertThrows(InschrijvingException.class, () ->  new Inschrijving(null, true));
     }
 }

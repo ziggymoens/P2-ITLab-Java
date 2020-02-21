@@ -107,14 +107,4 @@ public class Aankondiging implements IAankondiging {
                 '}';
     }
     //endregion
-    @ManyToOne(optional = false)
-    private Sessie aankondiging;
-
-    public Sessie getAankondiging() {
-        return aankondiging;
-    }
-
-    public void setAankondiging(Sessie aankondiging) {
-        this.aankondiging = aankondiging;
-    }
 }

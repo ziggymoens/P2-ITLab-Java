@@ -1,4 +1,4 @@
-package test.domein;
+package domein;
 
 import domein.Gebruiker;
 import domein.Lokaal;

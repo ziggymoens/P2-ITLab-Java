@@ -24,13 +24,13 @@ public class Sessie implements ISessie {
     private LocalDateTime eindeSessie;
     private int maximumAantalPlaatsen;
 
-    @OneToMany(mappedBy = "media")
+    @OneToMany
     private List<Media> mediaBijSessie;
-    @OneToMany(mappedBy = "inschrijving")
+    @OneToMany
     private List<Inschrijving> ingeschrevenGebruikers;
-    @OneToMany(mappedBy = "aankondiging")
+    @OneToMany
     private List<Aankondiging> aankondigingenSessie;
-    @OneToMany(mappedBy = "feedback")
+    @OneToMany
     private List<Feedback> feedbackSessie;
     @OneToOne
     private Lokaal lokaal;

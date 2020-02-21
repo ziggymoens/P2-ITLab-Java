@@ -100,14 +100,4 @@ public class Inschrijving implements IInschrijving {
     }
 
     //endregion
-    @ManyToOne(optional = false)
-    private Sessie inschrijving;
-
-    public Sessie getInschrijving() {
-        return inschrijving;
-    }
-
-    public void setInschrijving(Sessie inschrijving) {
-        this.inschrijving = inschrijving;
-    }
 }

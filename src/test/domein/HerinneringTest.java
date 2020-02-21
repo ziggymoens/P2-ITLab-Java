@@ -1,4 +1,4 @@
-package test.domein;
+package domein;
 
 import domein.Gebruiker;
 import domein.Herinnering;
@@ -38,12 +38,8 @@ public class HerinneringTest {
     @ParameterizedTest
     @MethodSource("opsommingGeldigeWaarden")
     public void maakHerinneringGeldigeGegevens_Slaagt(String herinneringsId, int dagenVooraf, Gebruiker gebruiker, Sessie sessie, LocalDateTime aangemaakt, String inhoud){
-        Herinnering herinnering = new Herinnering(herinneringsId, dagenVooraf, gebruiker, sessie, aangemaakt, inhoud);
-        Assertions.assertEquals(herinneringsId, herinnering.getHerinneringsId());
-        Assertions.assertEquals(inhoud, herinnering.getInhoud());
+        Herinnering herinnering = new Herinnering(dagenVooraf);
         Assertions.assertEquals(dagenVooraf, herinnering.getDagenVooraf());
-        Assertions.assertEquals(aangemaakt, herinnering.getPublicatiedatum());
-        Assertions.assertEquals(sessie, herinnering.getSessie());
     }
     //endregion
 
@@ -58,7 +54,7 @@ public class HerinneringTest {
     @MethodSource("opsommingOngeldigeWaarden")
     public void maakHerinneringOngeldigeGegevens_GooitException(String herinneringsId, int dagenVooraf, Gebruiker gebruiker, Sessie sessie, LocalDateTime aangemaakt, String inhoud){
         Assertions.assertThrows(HerinneringException.class, () -> {
-            new Herinnering(herinneringsId, dagenVooraf, gebruiker, sessie, aangemaakt, inhoud);
+            new Herinnering(dagenVooraf);
         });
     }
 
@@ -71,7 +67,7 @@ public class HerinneringTest {
     @MethodSource("ongeldigeInhoud")
     public void maakHerinneringZonderInhoud_GooitException(String herinneringsId, int dagenVooraf, Gebruiker gebruiker, Sessie sessie, LocalDateTime aangemaakt, String inhoud){
         Assertions.assertThrows(AankondigingException.class, () -> {
-            new Herinnering(herinneringsId, dagenVooraf, gebruiker, sessie, aangemaakt, inhoud);
+            new Herinnering( dagenVooraf);
         });
     }
 }

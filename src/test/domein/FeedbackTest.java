@@ -1,4 +1,4 @@
-package test.domein;
+package domein;
 
 import domein.*;
 import exceptions.domein.AankondigingException;
@@ -36,7 +36,7 @@ public class FeedbackTest {
     //region maakFeedbackMetJuisteWaardenTestenOpGebruiker
     @Test
     public void maakFeedbackMetJuisteWaardenTestenOpGebruiker(){
-        Feedback feedback = new Feedback("F001", sessie, gebruiker,"teskt");
+        Feedback feedback = new Feedback("teskt");
         assertEquals(feedback.getGebruiker(), gebruiker);
     }
     //endregion
@@ -44,7 +44,7 @@ public class FeedbackTest {
     //region maakFeedbackMetJuisteWaardenTestenOpTekst
     @Test
     public void maakFeedbackMetJuisteWaardenTestenOpTekst(){
-        Feedback feedback = new Feedback("F0001", sessie, gebruiker, "tekst");
+        Feedback feedback = new Feedback( "tekst");
         assertEquals("tekst", feedback.getTekst());
     }
     //endregion
@@ -54,7 +54,7 @@ public class FeedbackTest {
     @NullAndEmptySource
     @ValueSource(strings = {" "})
     public void maakFeedbackFouteWaardenTekst_werptException(String tekst){
-        assertThrows(FeedbackException.class, () -> new Feedback("F001", sessie, gebruiker, tekst));
+        assertThrows(FeedbackException.class, () -> new Feedback(tekst));
     }
     //endregion
 
@@ -62,11 +62,11 @@ public class FeedbackTest {
     @NullAndEmptySource
     @ValueSource(strings = " ")
     public void maakAankondigingOngeldigeGegevensId_GooitException(String id){
-        Assertions.assertThrows(AankondigingException.class, () ->  new Feedback(id, sessie,gebruiker, "Tekst"));
+        Assertions.assertThrows(AankondigingException.class, () ->  new Feedback("Tekst"));
     }
 
     @Test
     public void maakAankondigingOngeldigeGegevensSessie_GooitException(){
-        Assertions.assertThrows(AankondigingException.class, () ->  new Feedback("F001", null, gebruiker, "Tekst"));
+        Assertions.assertThrows(AankondigingException.class, () ->  new Feedback("Tekst"));
     }
 }

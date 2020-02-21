@@ -98,14 +98,4 @@ public class Media implements IMedia {
                 '}';
     }
     //endregion
-    @ManyToOne(optional = false)
-    private Sessie media;
-
-    public Sessie getMedia() {
-        return media;
-    }
-
-    public void setMedia(Sessie media) {
-        this.media = media;
-    }
 }

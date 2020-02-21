@@ -1,4 +1,4 @@
-package test.domein;
+package domein;
 
 import domein.Lokaal;
 import exceptions.domein.LokaalException;
