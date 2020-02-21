@@ -4,8 +4,6 @@ import domein.interfacesDomein.IHerinnering;
 import exceptions.domein.HerinneringException;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -82,7 +80,7 @@ public class Herinnering implements IHerinnering {
 
     @Override
     public String toString() {
-        return String.format("Herinnering: %s%nDagen vooraf: %d%nGebruiker: %s%nGeplaatst op: %s%nTekst: %s%n", herinneringsId, dagenVooraf);
+        return String.format("Herinnering: %s%nDagen vooraf: %d%n", herinneringsId, dagenVooraf);
     }
     //endregion
 }

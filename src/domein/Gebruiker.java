@@ -5,7 +5,6 @@ import exceptions.domein.GebruikerException;
 import language.Talen;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;

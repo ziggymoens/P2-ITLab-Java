@@ -4,7 +4,6 @@ import domein.interfacesDomein.IFeedback;
 import exceptions.domein.FeedbackException;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Objects;
 
 @Entity

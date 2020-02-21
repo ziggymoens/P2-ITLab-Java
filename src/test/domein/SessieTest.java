@@ -50,9 +50,7 @@ class SessieTest {
     @ParameterizedTest
     @MethodSource("opsommingOngeldigeWaarden")
     public void maakSessieOngeldigeWaarden_GooitException(String titel, LocalDateTime startSessie, LocalDateTime eindSessie, Lokaal lokaal, Gebruiker gebruiker){
-        Assertions.assertThrows(SessieException.class, () -> {
-            new Sessie(titel, startSessie, eindSessie, lokaal, gebruiker);
-        });
+        Assertions.assertThrows(SessieException.class, () -> new Sessie(titel, startSessie, eindSessie, lokaal, gebruiker));
     }
 
 }

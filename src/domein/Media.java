@@ -4,7 +4,6 @@ import domein.interfacesDomein.IMedia;
 import exceptions.domein.MediaException;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Objects;
 @Entity
 //@Table(name = "media")

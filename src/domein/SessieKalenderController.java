@@ -11,7 +11,7 @@ public class SessieKalenderController {
     //Primairy key
     private String sessieKalenderId;
 
-    private List<Sessie> sessieList;
+    private final List<Sessie> sessieList;
     private String naamKalender;
     //endregion
 

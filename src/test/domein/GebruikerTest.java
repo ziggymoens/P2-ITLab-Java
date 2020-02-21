@@ -34,9 +34,7 @@ public class GebruikerTest {
     @ParameterizedTest
     @MethodSource("opsommingOngeldigeWaarden")
     public void maakGebruikerAanZonderProfielFotoFouteWaarden_GooitException(String naam, String gebruikersnaam, String type, String status){
-        Assertions.assertThrows(GebruikerException.class, () -> {
-            new Gebruiker(naam, gebruikersnaam, type, status);
-        });
+        Assertions.assertThrows(GebruikerException.class, () -> new Gebruiker(naam, gebruikersnaam, type, status));
     }
 
     @ParameterizedTest

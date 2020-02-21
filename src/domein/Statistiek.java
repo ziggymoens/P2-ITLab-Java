@@ -1,9 +1,7 @@
 package domein;
 
-import domein.interfacesDomein.ISessie;
 import domein.interfacesDomein.IStatistiek;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 public class Statistiek implements IStatistiek {

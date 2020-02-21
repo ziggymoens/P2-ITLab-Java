@@ -53,9 +53,7 @@ public class HerinneringTest {
     @ParameterizedTest
     @MethodSource("opsommingOngeldigeWaarden")
     public void maakHerinneringOngeldigeGegevens_GooitException(String herinneringsId, int dagenVooraf, Gebruiker gebruiker, Sessie sessie, LocalDateTime aangemaakt, String inhoud){
-        Assertions.assertThrows(HerinneringException.class, () -> {
-            new Herinnering(dagenVooraf);
-        });
+        Assertions.assertThrows(HerinneringException.class, () -> new Herinnering(dagenVooraf));
     }
 
     private static Stream<Arguments> ongeldigeInhoud(){
@@ -66,8 +64,6 @@ public class HerinneringTest {
     @ParameterizedTest
     @MethodSource("ongeldigeInhoud")
     public void maakHerinneringZonderInhoud_GooitException(String herinneringsId, int dagenVooraf, Gebruiker gebruiker, Sessie sessie, LocalDateTime aangemaakt, String inhoud){
-        Assertions.assertThrows(AankondigingException.class, () -> {
-            new Herinnering( dagenVooraf);
-        });
+        Assertions.assertThrows(AankondigingException.class, () -> new Herinnering( dagenVooraf));
     }
 }

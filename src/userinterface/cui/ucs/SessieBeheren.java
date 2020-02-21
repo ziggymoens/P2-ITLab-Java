@@ -7,9 +7,9 @@ import java.util.Scanner;
 
 public class SessieBeheren {
     private Scanner in = new Scanner(System.in);
-    private DomeinController dc;
-    private StartUpInterface startUpInterface;
-    private String gebruikersCode;
+    private final DomeinController dc;
+    private final StartUpInterface startUpInterface;
+    private final String gebruikersCode;
 
     public SessieBeheren(DomeinController dc, StartUpInterface s, String gebruikersCode){
         this.dc = dc;
