@@ -19,9 +19,11 @@ public class Herinnering implements IHerinnering {
 
     private int dagenVooraf;
 
+    /*
     @OneToOne(fetch = FetchType.LAZY, optional = true)
     @MapsId
     private Aankondiging aankondiging;
+     */
 
 
     //endregion

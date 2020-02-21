@@ -17,6 +17,9 @@ public class Aankondiging implements IAankondiging {
     @GeneratedValue(strategy = GenerationType.IDENTITY) //A toevoegen --> generated value
     private int aankondigingsId;
 
+    @OneToOne
+    private Herinnering herinnering;
+
     private LocalDateTime publicatiedatum;
     private String inhoud;
     private boolean automatischeHerinnering;
