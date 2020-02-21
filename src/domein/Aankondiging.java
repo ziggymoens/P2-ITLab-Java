@@ -9,7 +9,6 @@ import java.util.Objects;
 
 @Entity
 //@Table(name = "aankondiging")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Aankondiging implements IAankondiging {
     //region Variabelen
     //Primairy key
