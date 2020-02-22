@@ -1,9 +1,9 @@
 package main;
 
-import domein.GebruikerController;
+import domein.SessieKalenderController;
 
 public class StartUpDatabank {
     public static void main(String[] args) {
-        GebruikerController gebruikerController = new GebruikerController();
+        SessieKalenderController gebruikerController = new SessieKalenderController();
     }
 }
