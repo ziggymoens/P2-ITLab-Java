@@ -1,7 +1,7 @@
-package domein;
+package domein.enums;
 
 public enum HerinneringTijdstippen {
-    EEN(1), TWEE(2), DRIE(3), WEEK(7);
+    NUL(0), EEN(1), TWEE(2), DRIE(3), WEEK(7);
 
     private final int dagen;
 

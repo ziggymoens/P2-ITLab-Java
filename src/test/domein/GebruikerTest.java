@@ -1,6 +1,6 @@
 package domein;
 
-import domein.Gebruiker;
+import domein.domeinklassen.Gebruiker;
 import exceptions.domein.GebruikerException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -43,7 +43,7 @@ public class GebruikerTest {
         Gebruiker gebruiker = new Gebruiker(naam, gebruikersnaam, type, status);
         Assertions.assertEquals(naam, gebruiker.getNaam());
         Assertions.assertEquals(gebruikersnaam, gebruiker.getGebruikersnaam());
-        Assertions.assertEquals(type, gebruiker.getGebruikersprofielen().toString());
+        Assertions.assertEquals(type, gebruiker.getGebruikersprofiel().toString());
         Assertions.assertEquals(status, gebruiker.getStatus().toString());
     }
 }

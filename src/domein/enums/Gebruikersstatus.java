@@ -1,4 +1,4 @@
-package domein;
+package domein.enums;
 
 /**
  * Deze enum bevat de gebruiksersstatussen die de gebruikers kunnen aannemen

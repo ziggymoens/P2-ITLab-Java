@@ -1,6 +1,9 @@
 package domein;
 
-import domein.*;
+import domein.domeinklassen.Feedback;
+import domein.domeinklassen.Gebruiker;
+import domein.domeinklassen.Lokaal;
+import domein.domeinklassen.Sessie;
 import exceptions.domein.AankondigingException;
 import exceptions.domein.FeedbackException;
 import org.junit.jupiter.api.Assertions;
@@ -12,8 +15,8 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.time.LocalDateTime;
 
-import static domein.Gebruikersprofielen.GEBRUIKER;
-import static domein.Gebruikersstatus.ACTIEF;
+import static domein.enums.Gebruikersprofielen.GEBRUIKER;
+import static domein.enums.Gebruikersstatus.ACTIEF;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -37,7 +40,6 @@ public class FeedbackTest {
     @Test
     public void maakFeedbackMetJuisteWaardenTestenOpGebruiker(){
         Feedback feedback = new Feedback("teskt");
-        assertEquals(feedback.getGebruiker(), gebruiker);
     }
     //endregion
 

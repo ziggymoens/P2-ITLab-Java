@@ -1,6 +1,7 @@
-package domein;
+package domein.domeinklassen;
 
 import domein.interfacesDomein.IAankondiging;
+import domein.interfacesDomein.IHerinnering;
 import exceptions.domein.AankondigingException;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-//@Table(name = "aankondiging")
+@Table(name = "aankondiging")
 public class Aankondiging implements IAankondiging {
     //region Variabelen
     //Primairy key
@@ -25,15 +26,32 @@ public class Aankondiging implements IAankondiging {
     //mapping
 
     //private Herinnering herinnering;
+
     //endregion
 
     //region Constructor
+
+    /**
+     * Constructor voor JPA
+     */
     protected Aankondiging() {
     }
 
-    public Aankondiging(LocalDateTime publicatiedatum, String inhoud) {
-        setPublicatiedatum(publicatiedatum);
+    public Aankondiging(LocalDateTime publicatiedatum, String inhoud, boolean automatischeHerinnering, int dagenVooraf) {
+        if (automatischeHerinnering) {
+            setHerinnering(new Herinnering(dagenVooraf));
+        }
         setInhoud(inhoud);
+        setPublicatiedatum(publicatiedatum);
+        setAutomatischeHerinnering(automatischeHerinnering);
+    }
+
+    /**
+     * @param publicatiedatum ==> De datum dat de aankondiging gemaakt is
+     * @param inhoud          ==> inhoud van de aankondiging
+     */
+    public Aankondiging(LocalDateTime publicatiedatum, String inhoud) {
+        this(publicatiedatum, inhoud, false, 0);
     }
     //endregion
 
@@ -52,36 +70,54 @@ public class Aankondiging implements IAankondiging {
         this.inhoud = inhoud;
     }
 
-    /*protected void setAankondigingsId(String aankondigingsId) {
-        if (aankondigingsId == null || aankondigingsId.isBlank())
+    public void setHerinnering(Herinnering herinnering) {
+        if (automatischeHerinnering && herinnering == null) {
             throw new AankondigingException();
-        this.aankondigingsId = aankondigingsId;
-    }*/
+        }
+        this.herinnering = herinnering;
+    }
+
+    public void setAutomatischeHerinnering(boolean automatischeHerinnering) {
+        this.automatischeHerinnering = automatischeHerinnering;
+    }
 
     //endregion
 
     //region Getters
+    @Override
     public LocalDateTime getPublicatiedatum() {
         return publicatiedatum;
     }
 
+    @Override
     public Gebruiker getPublicist() {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public String getInhoud() {
         return inhoud;
     }
 
+    @Override
     public int getAankondigingsId() {
         return aankondigingsId;
     }
 
-    public Sessie getSessie() {
-        throw new UnsupportedOperationException();
+    @Override
+    public IHerinnering getIHerinnering() {
+        return (IHerinnering) herinnering;
     }
 
-//endregion
+    @Override
+    public boolean isAutomatischeHerinnering() {
+        return automatischeHerinnering;
+    }
+
+    public Herinnering getHerinnering() {
+        return herinnering;
+    }
+    //endregion
 
     //region Equals & Hashcode
     @Override

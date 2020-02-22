@@ -1,6 +1,9 @@
 package domein;
 
-import domein.*;
+import domein.domeinklassen.Gebruiker;
+import domein.domeinklassen.Inschrijving;
+import domein.domeinklassen.Lokaal;
+import domein.domeinklassen.Sessie;
 import exceptions.domein.InschrijvingException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -38,8 +41,6 @@ public class InschrijvingTest {
     public void maakInschrijvingGeldigeGegevens_Slaagt(String id,  Gebruiker gebruiker, Sessie sessie, LocalDateTime inschrijvingsdatum, boolean statusAanwezigheid){
         Inschrijving inschrijving = new Inschrijving(inschrijvingsdatum, statusAanwezigheid);
         Assertions.assertEquals(id, inschrijving.getInschrijvingsId());
-        Assertions.assertEquals(gebruiker, inschrijving.getGebruiker());
-        Assertions.assertEquals(sessie, inschrijving.getSessie());
         Assertions.assertEquals(inschrijvingsdatum, inschrijving.getInschrijvingsdatum());
         Assertions.assertEquals(statusAanwezigheid, inschrijving.isStatusAanwezigheid());
     }

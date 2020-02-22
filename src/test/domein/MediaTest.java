@@ -1,9 +1,9 @@
 package domein;
 
-import domein.Gebruiker;
-import domein.Lokaal;
-import domein.Media;
-import domein.Sessie;
+import domein.domeinklassen.Gebruiker;
+import domein.domeinklassen.Lokaal;
+import domein.domeinklassen.Media;
+import domein.domeinklassen.Sessie;
 import exceptions.domein.MediaException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

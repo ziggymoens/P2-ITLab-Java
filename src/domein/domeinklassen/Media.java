@@ -1,12 +1,15 @@
-package domein;
+package domein.domeinklassen;
 
+import domein.enums.MediaTypes;
 import domein.interfacesDomein.IMedia;
 import exceptions.domein.MediaException;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.Objects;
+
 @Entity
-//@Table(name = "media")
+@Table(name = "media")
 public class Media implements IMedia {
 
     //region Variabelen
@@ -16,34 +19,59 @@ public class Media implements IMedia {
     private int mediaId;
 
     private String locatie;
-    private String type;
+    private MediaTypes type;
 //endregion
 
     //region Constructor
-    protected  Media(){}
 
-    public Media(String locatie, String type) {
+    /**
+     * Constructor voor JPA
+     */
+    protected Media() {
+    }
+
+    /**
+     * Default constructor voor Media
+     *
+     * @param locatie (String) ==> locatie van het mediaobject in het project
+     * @param type    (MediaType) ==> type van media
+     */
+    public Media(String locatie, MediaTypes type) {
         setLocatie(locatie);
         setType(type);
+    }
+
+    /**
+     * Constructor voor aanmaken Media met onbekend type
+     *
+     * @param locatie (String) ==> locatie van het mediaobject in het project
+     */
+    public Media(String locatie) {
+        this(locatie, MediaTypes.ONBEKEND);
+    }
+
+    /**
+     * Constructor voor aanmaken Media met String type
+     *
+     * @param locatie (String) ==> locatie van het mediaobject in het project
+     * @param type    (String) ==> type van media
+     */
+    public Media(String locatie, String type) {
+        this(locatie, Arrays.stream(MediaTypes.values()).filter(t -> t.toString().equals(type)).findFirst().orElse(MediaTypes.ONBEKEND));
     }
     //endregion
 
     //region Setters
-    /*private void setMediaId(String mediaId) {
-        if(mediaId == null || mediaId.isBlank())
-            throw new MediaException();
-        this.mediaId = mediaId;
-    }*/
-
     private void setLocatie(String locatie) {
-        if(locatie == null || locatie.isBlank())
+        if (locatie == null || locatie.isBlank())
             throw new MediaException();
         this.locatie = locatie;
     }
 
-    private void setType(String type) {
-        if(type == null || type.isBlank())
+    private void setType(MediaTypes type) {
+        if (type == null) {
             throw new MediaException();
+        }
         this.type = type;
     }
     //endregion
@@ -54,19 +82,15 @@ public class Media implements IMedia {
         return mediaId;
     }
 
-    public Sessie getSessie() {
-        throw new UnsupportedOperationException();
-    }
-
-    public Gebruiker getGebruiker() {
-        throw new UnsupportedOperationException();
-    }
-
     public String getLocatie() {
         return locatie;
     }
 
-    public String getType() {
+    public String getTypeString() {
+        return type.toString();
+    }
+
+    public MediaTypes getType() {
         return type;
     }
 

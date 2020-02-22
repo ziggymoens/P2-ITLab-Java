@@ -1,4 +1,4 @@
-package domein;
+package domein.domeinklassen;
 
 import domein.interfacesDomein.IInschrijving;
 import exceptions.domein.InschrijvingException;
@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-//@Table(name = "inschijving")
+@Table(name = "inschijving")
 public class Inschrijving implements IInschrijving {
     //region Variabelen
     //Primairy key
@@ -18,16 +18,36 @@ public class Inschrijving implements IInschrijving {
 
     private LocalDateTime inschrijvingsdatum;
     private boolean statusAanwezigheid = false;
-    //endregione
+    //endregion
 
     //region Constructor
-    protected Inschrijving(){}
 
+    /**
+     * Constructor voor JPA
+     */
+    protected Inschrijving() {
+    }
+
+    /**
+     * Default constructor voor Inschrijving
+     *
+     * @param inschrijvingsdatum (LocalDateTime) ==> Datum van inschrijven
+     * @param statusAanwezigheid (boolean) ==> status aanwezigheid van de gebruiker
+     */
     public Inschrijving(LocalDateTime inschrijvingsdatum, boolean statusAanwezigheid) {
-        //setInschrijvingsId(inschrijvingsId);
         setInschrijvingsdatum(inschrijvingsdatum);
         setStatusAanwezigheid(statusAanwezigheid);
     }
+
+    /**
+     * Constructor voor aanmaken inschrijving zonder boolean
+     *
+     * @param inschrijvingsdatum (LocalDateTime) ==> Datum van inschrijven
+     */
+    public Inschrijving(LocalDateTime inschrijvingsdatum) {
+        this(inschrijvingsdatum, false);
+    }
+
     //endregion
 
     //region Setters
@@ -41,34 +61,22 @@ public class Inschrijving implements IInschrijving {
     private void setStatusAanwezigheid(boolean statusAanwezigheid) {
         this.statusAanwezigheid = statusAanwezigheid;
     }
-
-    /*private void setInschrijvingsId(String inschrijvingsId) {
-        if(inschrijvingsId == null || inschrijvingsId.isBlank())
-            throw new InschrijvingException();
-        this.inschrijvingsId = inschrijvingsId;
-    }*/
-
     //endregion
 
     //region Getters
-    public Gebruiker getGebruiker() {
-        throw new UnsupportedOperationException();
-    }
-
+    @Override
     public LocalDateTime getInschrijvingsdatum() {
         return inschrijvingsdatum;
     }
 
+    @Override
     public boolean isStatusAanwezigheid() {
         return statusAanwezigheid;
     }
 
+    @Override
     public int getInschrijvingsId() {
         return inschrijvingsId;
-    }
-
-    public Sessie getSessie() {
-        throw new UnsupportedOperationException();
     }
     //endregion
 

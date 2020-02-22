@@ -1,9 +1,9 @@
 package domein;
 
-import domein.Aankondiging;
-import domein.Gebruiker;
-import domein.Lokaal;
-import domein.Sessie;
+import domein.domeinklassen.Aankondiging;
+import domein.domeinklassen.Gebruiker;
+import domein.domeinklassen.Lokaal;
+import domein.domeinklassen.Sessie;
 import exceptions.domein.AankondigingException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -39,7 +39,6 @@ public class AankondigingTest {
     public void maakAankondigingGeldigeGegevens_Slaagt(String id, Sessie sessie, LocalDateTime publicatiedatum, Gebruiker publicist, String inhoud){
         Aankondiging aankondiging = new Aankondiging(publicatiedatum,inhoud);
         Assertions.assertEquals(id, aankondiging.getAankondigingsId());
-        Assertions.assertEquals(sessie, aankondiging.getSessie());
         Assertions.assertEquals(publicatiedatum, aankondiging.getPublicatiedatum());
         Assertions.assertEquals(publicist, aankondiging.getPublicist());
         Assertions.assertEquals(inhoud, aankondiging.getInhoud());

@@ -1,14 +1,15 @@
-package domein;
+package domein.domeinklassen;
 
 import domein.interfacesDomein.ILokaal;
 import exceptions.domein.LokaalException;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 
 @Entity
-//@Table(name = "lokaal")
+@Table(name = "lokaal")
 public class Lokaal implements ILokaal {
 
     //region Variabelen
@@ -20,8 +21,19 @@ public class Lokaal implements ILokaal {
     //endregion
 
     //region Constructor
-    protected Lokaal(){}
 
+    /**
+     * Constructor voor JPA
+     */
+    protected Lokaal() {
+    }
+
+    /**
+     * Default constructor voor Lokaal
+     *
+     * @param lokaalCode     (String) ==> de code van het lokaal
+     * @param aantalPlaatsen (int) ==> de maximale capaciteit van het lokaal
+     */
     public Lokaal(String lokaalCode, int aantalPlaatsen) {
         setLokaalCode(lokaalCode);
         setAantalPlaatsen(aantalPlaatsen);
@@ -30,14 +42,14 @@ public class Lokaal implements ILokaal {
 
     //region Setters
     private void setLokaalCode(String lokaalCode) {
-        if (lokaalCode == null || lokaalCode.isBlank()){
+        if (lokaalCode == null || lokaalCode.isBlank()) {
             throw new LokaalException("LokaalException.lokaalCode");
         }
         this.lokaalCode = lokaalCode;
     }
 
     private void setAantalPlaatsen(int aantalPlaatsen) {
-        if(aantalPlaatsen < 0){
+        if (aantalPlaatsen < 0) {
             throw new LokaalException("LokaalException.aantalPlaatsen");
         }
         this.aantalPlaatsen = aantalPlaatsen;
@@ -57,7 +69,7 @@ public class Lokaal implements ILokaal {
     //region toString
     @Override
     public String toString() {
-        return String.format("%s, %dp", this.lokaalCode, this.aantalPlaatsen);
+        return String.format("%s, %dp.", this.lokaalCode, this.aantalPlaatsen);
     }
     //endregion
 

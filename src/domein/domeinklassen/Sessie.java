@@ -1,16 +1,15 @@
-package domein;
+package domein.domeinklassen;
 
-import domein.interfacesDomein.ISessie;
+import domein.interfacesDomein.*;
 import exceptions.domein.SessieException;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
 
 @Entity
-//@Table(name = "sessie")
+@Table(name = "sessie")
 public class Sessie implements ISessie {
     //region variabelen
     //Primairy key
@@ -23,6 +22,7 @@ public class Sessie implements ISessie {
     private LocalDateTime startSessie;
     private LocalDateTime eindeSessie;
     private int maximumAantalPlaatsen;
+    private boolean geopend;
 
     @OneToMany
     private List<Media> mediaBijSessie;
@@ -37,12 +37,25 @@ public class Sessie implements ISessie {
     @OneToOne()
     private Gebruiker verantwoordelijke;
 
-    private boolean geopend;
     //endregion
 
     //region Constructors
-    protected  Sessie(){ }
 
+    /**
+     * Constructor voor JPA
+     */
+    protected Sessie() {
+    }
+
+    /**
+     * Default constructor voor een Sessie
+     *
+     * @param titel             (String) ==> De titel van de sessie
+     * @param startSessie       (LocalDateTime) ==> het startmoment van de sessie
+     * @param eindeSessie       (LocalDateTime) ==> het eindmoment van de sessie
+     * @param lokaal            (Lokaal) ==> lokaal waar de sessie plaats vind
+     * @param verantwoordelijke ==> de gebruiker die de sessie organiseert
+     */
     public Sessie(String titel, LocalDateTime startSessie, LocalDateTime eindeSessie, Lokaal lokaal, Gebruiker verantwoordelijke) {
         setVerantwoordelijke(verantwoordelijke);
         setTitel(titel);
@@ -54,10 +67,6 @@ public class Sessie implements ISessie {
         setNaamGastspreker("Onbekend");
         initLijsten();
     }
-
-    /*public Sessie(String titel, LocalDateTime startSessie, LocalDateTime eindeSessie, Lokaal lokaal, Gebruiker verantwoordelijke) {
-        this("onbekend", titel, startSessie, eindeSessie, lokaal, verantwoordelijke);
-    }*/
     //endregion
 
     //region Init
@@ -113,32 +122,72 @@ public class Sessie implements ISessie {
         }
         this.lokaal = lokaal;
     }
-
-    /*public void setSessieId(String sessieId) {
-        this.sessieId = sessieId;
-    }*/
-
     //endregion
 
     //region Getters
+    @Override
     public String getTitel() {
         return titel;
     }
 
+    @Override
     public String getNaamGastspreker() {
         return naamGastspreker;
     }
 
+    @Override
     public LocalDateTime getStartSessie() {
         return startSessie;
     }
 
+    @Override
     public LocalDateTime getEindeSessie() {
         return eindeSessie;
     }
 
+    @Override
     public int getMaximumAantalPlaatsen() {
         return maximumAantalPlaatsen;
+    }
+
+    @Override
+    public List<IMedia> getIMediaBijSessie() {
+        return (List<IMedia>) ((Object) mediaBijSessie);
+    }
+
+    @Override
+    public List<IInschrijving> getIIngeschrevenGebruikers() {
+        return (List<IInschrijving>) ((Object) ingeschrevenGebruikers);
+    }
+
+    @Override
+    public List<IAankondiging> getIAankondigingenSessie() {
+        return (List<IAankondiging>) ((Object) aankondigingenSessie);
+    }
+
+    @Override
+    public List<IFeedback> getIFeedbackSessie() {
+        return (List<IFeedback>) ((Object) feedbackSessie);
+    }
+
+    @Override
+    public Lokaal getLokaal() {
+        return lokaal;
+    }
+
+    @Override
+    public Gebruiker getVerantwoordelijke() {
+        return verantwoordelijke;
+    }
+
+    @Override
+    public boolean isGeopend() {
+        return geopend;
+    }
+
+    @Override
+    public int getSessieId() {
+        return sessieId;
     }
 
     public List<Media> getMediaBijSessie() {
@@ -157,40 +206,24 @@ public class Sessie implements ISessie {
         return feedbackSessie;
     }
 
-    public Lokaal getLokaal() {
-        return lokaal;
-    }
-
-    public Gebruiker getVerantwoordelijke() {
-        return verantwoordelijke;
-    }
-
-    public boolean isGeopend() {
-        return geopend;
-    }
-
-    public int getSessieId() {
-        return sessieId;
-    }
-
     //endregion
 
     //region toString
 
     @Override
     public String toString() {
-        return String.format("SessieId: %s%nVerantwoordelijke: %s%nTitel: %s%nNaam gastspreker: %s%nLokaal: %s%nStart- & einduur: %s - %s%nMaximum plaatsten: %d",sessieId,verantwoordelijke.getNaam(), titel, naamGastspreker, lokaal.getLokaalCode(), startSessie.toString(), eindeSessie.toString(), lokaal.getAantalPlaatsen());
+        return String.format("SessieId: %s%nVerantwoordelijke: %s%nTitel: %s%nNaam gastspreker: %s%nLokaal: %s%nStart- & einduur: %s - %s%nMaximum plaatsten: %d", sessieId, verantwoordelijke.getNaam(), titel, naamGastspreker, lokaal.getLokaalCode(), startSessie.toString(), eindeSessie.toString(), lokaal.getAantalPlaatsen());
     }
 
-    public String toString_Overzicht(){
+    public String toString_Overzicht() {
         return String.format("%s. %s - %s - %s -> %s - %s", sessieId, verantwoordelijke.getNaam(), titel, startSessie.toString(),
-                eindeSessie.toString(), isGeopend() ? String.format("%s%d", "aantal vrije plaatsen: ",aantalVrijePlaatsen()) : String.format("%s%d", "aantal aanwezigheden: ",aantalAanwezigenNaSessie()));
+                eindeSessie.toString(), isGeopend() ? String.format("%s%d", "aantal vrije plaatsen: ", aantalVrijePlaatsen()) : String.format("%s%d", "aantal aanwezigheden: ", aantalAanwezigenNaSessie()));
     }
 
     public String toString_OverzichtInschrijvingenNietGeopend() {
         StringBuilder sb = new StringBuilder();
         for (Inschrijving i : ingeschrevenGebruikers) {
-            sb.append(String.format("%s: %s%n", i.getGebruiker().getNaam(), i.getInschrijvingsdatum().toString()));
+            sb.append(String.format("%s: %s%n",/* i.getGebruiker().getNaam(), */i.getInschrijvingsdatum().toString()));
         }
         return sb.toString();
     }
@@ -206,7 +239,7 @@ public class Sessie implements ISessie {
     public String toString_OverzichtInschrijvingenGeopend() {
         StringBuilder sb = new StringBuilder();
         for (Inschrijving i : ingeschrevenGebruikers) {
-            sb.append(String.format("%s: %s%n", i.getGebruiker().getNaam(), i.isStatusAanwezigheid() ? "aanwezig" : "afwezig"));
+            sb.append(String.format("%s: %s%n",/* i.getGebruiker().getNaam(),*/ i.isStatusAanwezigheid() ? "aanwezig" : "afwezig"));
         }
         return sb.toString();
     }
@@ -214,7 +247,7 @@ public class Sessie implements ISessie {
     public String toString_OverzichtFeedback() {
         StringBuilder sb = new StringBuilder();
         for (Feedback f : feedbackSessie) {
-            sb.append(String.format("%s%n\t%s%n", f.getGebruiker().getNaam(), f.getTekst()));
+            sb.append(String.format("%s%n\t%s%n",/* f.getGebruiker().getNaam(),*/ f.getTekst()));
         }
         return sb.toString();
     }

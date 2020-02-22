@@ -4,14 +4,14 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence_2_1.xsd">
 
     <persistence-unit name="ITLab" transaction-type="RESOURCE_LOCAL">
-        <class>domein.Aankondiging</class>
-        <class>domein.Feedback</class>
-        <class>domein.Gebruiker</class>
-        <class>domein.Herinnering</class>
-        <class>domein.Inschrijving</class>
-        <class>domein.Lokaal</class>
-        <class>domein.Media</class>
-        <class>domein.Sessie</class>
+        <class>domein.domeinklassen.Aankondiging</class>
+        <class>domein.domeinklassen.Feedback</class>
+        <class>domein.domeinklassen.Gebruiker</class>
+        <class>domein.domeinklassen.Herinnering</class>
+        <class>domein.domeinklassen.Inschrijving</class>
+        <class>domein.domeinklassen.Lokaal</class>
+        <class>domein.domeinklassen.Media</class>
+        <class>domein.domeinklassen.Sessie</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
         <properties>
@@ -19,7 +19,7 @@
             <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=ITLab" />
             <property name="javax.persistence.jdbc.user" value="sa" />
             <property name="javax.persistence.jdbc.password" value="myPassw0rd" />
-            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <property name="javax.persistence.schema-generation.database.action" value="create"/>
 
             <property name="hibernate.format_sql" value="true" />
             <property name="hibernate.use_sql_comments" value="true" />
