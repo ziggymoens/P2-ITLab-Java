@@ -1,5 +1,6 @@
 package domein.domeinklassen;
 
+import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.IInschrijving;
 import exceptions.domein.InschrijvingException;
 
@@ -15,6 +16,9 @@ public class Inschrijving implements IInschrijving {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int inschrijvingsId;
+
+    @ManyToOne
+    private Gebruiker gebruiker;
 
     private LocalDateTime inschrijvingsdatum;
     private boolean statusAanwezigheid = false;
@@ -34,7 +38,8 @@ public class Inschrijving implements IInschrijving {
      * @param inschrijvingsdatum (LocalDateTime) ==> Datum van inschrijven
      * @param statusAanwezigheid (boolean) ==> status aanwezigheid van de gebruiker
      */
-    public Inschrijving(LocalDateTime inschrijvingsdatum, boolean statusAanwezigheid) {
+    public Inschrijving(Gebruiker gebruiker, LocalDateTime inschrijvingsdatum, boolean statusAanwezigheid) {
+        setGebruiker(gebruiker);
         setInschrijvingsdatum(inschrijvingsdatum);
         setStatusAanwezigheid(statusAanwezigheid);
     }
@@ -44,8 +49,8 @@ public class Inschrijving implements IInschrijving {
      *
      * @param inschrijvingsdatum (LocalDateTime) ==> Datum van inschrijven
      */
-    public Inschrijving(LocalDateTime inschrijvingsdatum) {
-        this(inschrijvingsdatum, false);
+    public Inschrijving(Gebruiker gebruiker, LocalDateTime inschrijvingsdatum) {
+        this(gebruiker, inschrijvingsdatum, false);
     }
 
     //endregion
@@ -61,6 +66,14 @@ public class Inschrijving implements IInschrijving {
     private void setStatusAanwezigheid(boolean statusAanwezigheid) {
         this.statusAanwezigheid = statusAanwezigheid;
     }
+
+    public void setGebruiker(Gebruiker gebruiker) {
+        if (gebruiker == null) {
+            throw new InschrijvingException();
+        }
+        this.gebruiker = gebruiker;
+    }
+
     //endregion
 
     //region Getters
@@ -77,6 +90,15 @@ public class Inschrijving implements IInschrijving {
     @Override
     public int getInschrijvingsId() {
         return inschrijvingsId;
+    }
+
+    @Override
+    public IGebruiker getIGebruiker() {
+        return (IGebruiker) gebruiker;
+    }
+
+    public Gebruiker getGebruiker() {
+        return gebruiker;
     }
     //endregion
 

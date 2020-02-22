@@ -269,22 +269,31 @@ public class Sessie implements ISessie {
     //endregion
 
     //region andere methoden
-    public void mediaToevoegenAanSessie(Media media) {
+    public void addMedia(Media media) {
         if (media == null) {
             throw new SessieException();
         }
         this.mediaBijSessie.add(media);
     }
 
-    public void inschrijvingAanSessieToevoegen(Inschrijving inschrijving) {
+    public void addInschrijving(Inschrijving inschrijving) {
+        if (inschrijving == null) {
+            throw new SessieException();
+        }
         this.ingeschrevenGebruikers.add(inschrijving);
     }
 
-    private void aankondigingToevoegenAanSessie(Aankondiging aankondiging) {
+    public void addAankondiging(Aankondiging aankondiging) {
+        if (aankondiging == null) {
+            throw new SessieException();
+        }
         this.aankondigingenSessie.add(aankondiging);
     }
 
-    private void feedbackToevoegenAanSessie(Feedback feedback) {
+    public void addFeedback(Feedback feedback) {
+        if (feedback == null) {
+            throw new SessieException();
+        }
         this.feedbackSessie.add(feedback);
     }
 

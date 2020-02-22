@@ -6,4 +6,6 @@ public interface IMedia {
     String getLocatie();
 
     String getTypeString();
+
+    IGebruiker getIGebruiker();
 }

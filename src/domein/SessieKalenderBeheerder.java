@@ -1,12 +1,12 @@
 package domein;
 
-import domein.domeinklassen.Gebruiker;
-import domein.domeinklassen.Lokaal;
-import domein.domeinklassen.Sessie;
+import domein.domeinklassen.*;
+import domein.enums.HerinneringTijdstippen;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -30,6 +30,11 @@ public class SessieKalenderBeheerder {
         sessieKalenderData.populeerDataGebruikers();
         sessieKalenderData.populeerDataLokalen();
         sessieKalenderData.populeerDataSessie();
+        sessieKalenderData.populeerDataAankondigingen();
+        sessieKalenderData.populeerDataFeedback();
+        sessieKalenderData.populeerDataInschrijvingen();
+        sessieKalenderData.populeerDataMedia();
+        sessieKalenderData.populeerDataHerinneringen();
     }
 
     private void openPersistentie() {
@@ -53,6 +58,64 @@ public class SessieKalenderBeheerder {
         em.persist(sessie);
         em.getTransaction().commit();
     }
+
+    //region add Object to sessie
+    public void addMediaSessie(int sessieid, String gebruikersnaam, String locatie) {
+        Gebruiker gebruiker = gebruikers.stream().filter(g -> g.getGebruikersnaam().equals(gebruikersnaam)).findFirst().orElse(null);
+        Sessie s = sessies.get(sessieid - 1);
+        Media m = new Media(gebruiker, locatie);
+        s.addMedia(m);
+        em.getTransaction().begin();
+        em.persist(m);
+        em.persist(s);
+        em.getTransaction().commit();
+    }
+
+    public void addFeedbackSessie(int sessieid, String gebruikersnaam, String tekst) {
+        Gebruiker gebruiker = gebruikers.stream().filter(g -> g.getGebruikersnaam().equals(gebruikersnaam)).findFirst().orElse(null);
+        Sessie s = sessies.get(sessieid - 1);
+        Feedback f = new Feedback(gebruiker, tekst);
+        s.addFeedback(f);
+        em.getTransaction().begin();
+        em.persist(f);
+        em.persist(s);
+        em.getTransaction().commit();
+    }
+
+    public void addAankondigingSessie(int sessieid, String gebruikersnaam, String tekst) {
+        Gebruiker gebruiker = gebruikers.stream().filter(g -> g.getGebruikersnaam().equals(gebruikersnaam)).findFirst().orElse(null);
+        Sessie s = sessies.get(sessieid - 1);
+        Aankondiging a = new Aankondiging(gebruiker, LocalDateTime.now(), tekst);
+        s.addAankondiging(a);
+        em.getTransaction().begin();
+        em.persist(a);
+        em.persist(s);
+        em.getTransaction().commit();
+    }
+
+    public void addAankondigingHerhalingSessie(int sessieid, String gebruikersnaam, String tekst, int dagen){
+        Gebruiker gebruiker = gebruikers.stream().filter(g -> g.getGebruikersnaam().equals(gebruikersnaam)).findFirst().orElse(null);
+        Sessie s = sessies.get(sessieid - 1);
+        Aankondiging a = new Aankondiging(gebruiker, LocalDateTime.now(), tekst, true, dagen);
+        s.addAankondiging(a);
+        em.getTransaction().begin();
+        em.persist(a);
+        em.persist(s);
+        em.getTransaction().commit();
+    }
+
+    public void addInschrijvingSessie(int sessieid, String gebruikersnaam, LocalDateTime inschrijving) {
+        Gebruiker gebruiker = gebruikers.stream().filter(g -> g.getGebruikersnaam().equals(gebruikersnaam)).findFirst().orElse(null);
+        Sessie s = sessies.get(sessieid - 1);
+        Inschrijving i = new Inschrijving(gebruiker, inschrijving);
+        s.addInschrijving(i);
+        em.getTransaction().begin();
+        em.persist(i);
+        em.persist(s);
+        em.getTransaction().commit();
+    }
+
+    //endregion
     //endregion
 
     //region Gebruiker
@@ -66,9 +129,12 @@ public class SessieKalenderBeheerder {
         em.persist(gebruiker);
         em.getTransaction().commit();
     }
+
     //endregion
     //region Lokaal
-    public Set<Lokaal> geefAlleLokalen(){return lokalen;}
+    public Set<Lokaal> geefAlleLokalen() {
+        return lokalen;
+    }
 
     public void addLokaal(Lokaal lokaal) {
         lokalen.add(lokaal);

@@ -1,6 +1,7 @@
 package domein.domeinklassen;
 
 import domein.interfacesDomein.IFeedback;
+import domein.interfacesDomein.IGebruiker;
 import exceptions.domein.FeedbackException;
 
 import javax.persistence.*;
@@ -16,18 +17,28 @@ public class Feedback implements IFeedback {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int feedbackId;
 
+    @OneToOne
+    private Gebruiker gebruiker;
     private String tekst;
     //endregion
 
     //region Constructor
+
     /**
      * Constructor voor JPA
      */
     protected Feedback() {
     }
 
-    public Feedback(String tekst) {
+    /**
+     * Default constructor voor feedback
+     *
+     * @param gebruiker (Gebruiker) ==> de gebruiker die de feedback plaatst
+     * @param tekst     (String) ==> de boodschap van de feedback
+     */
+    public Feedback(Gebruiker gebruiker, String tekst) {
         setTekst(tekst);
+        setGebruiker(gebruiker);
     }
     //endregion
 
@@ -38,12 +49,28 @@ public class Feedback implements IFeedback {
         }
         this.tekst = tekst;
     }
+
+    public void setGebruiker(Gebruiker gebruiker) {
+        if (gebruiker == null) {
+            throw new FeedbackException();
+        }
+        this.gebruiker = gebruiker;
+    }
     //endregion
 
     //region Getters
     @Override
     public String getTekst() {
         return tekst;
+    }
+
+    public Gebruiker getGebruiker() {
+        return gebruiker;
+    }
+
+    @Override
+    public IGebruiker getIGebruiker() {
+        return (IGebruiker) gebruiker;
     }
 
     @Override

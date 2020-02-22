@@ -39,7 +39,7 @@ public class InschrijvingTest {
     @ParameterizedTest
     @MethodSource("opsommingGeldigeWaarden")
     public void maakInschrijvingGeldigeGegevens_Slaagt(String id,  Gebruiker gebruiker, Sessie sessie, LocalDateTime inschrijvingsdatum, boolean statusAanwezigheid){
-        Inschrijving inschrijving = new Inschrijving(inschrijvingsdatum, statusAanwezigheid);
+        Inschrijving inschrijving = new Inschrijving(gebruiker, inschrijvingsdatum, statusAanwezigheid);
         Assertions.assertEquals(id, inschrijving.getInschrijvingsId());
         Assertions.assertEquals(inschrijvingsdatum, inschrijving.getInschrijvingsdatum());
         Assertions.assertEquals(statusAanwezigheid, inschrijving.isStatusAanwezigheid());
@@ -49,21 +49,22 @@ public class InschrijvingTest {
     @NullAndEmptySource
     @ValueSource(strings = " ")
     public void maakInschrijvingOngeldigeGegevensId_GooitException(String id){
-        Assertions.assertThrows(InschrijvingException.class, () ->  new Inschrijving(LocalDateTime.now(), true));
+        Assertions.assertThrows(InschrijvingException.class, () ->  new Inschrijving(gebruiker, LocalDateTime.now(), true));
     }
 
     @Test
     public void maakInschrijvingOngeldigeGegevensGebruiker_GooitException(){
-        Assertions.assertThrows(InschrijvingException.class, () ->  new Inschrijving(LocalDateTime.now(), true));
+        Assertions.assertThrows(InschrijvingException.class, () ->  new Inschrijving(gebruiker, LocalDateTime.now(), true));
     }
 
     @Test
     public void maakInschrijvingOngeldigeGegevensSessie_GooitException(){
-        Assertions.assertThrows(InschrijvingException.class, () ->  new Inschrijving(LocalDateTime.now(), true));
+        Assertions.assertThrows(InschrijvingException.class, () ->  new Inschrijving(gebruiker, LocalDateTime.now(), true));
     }
 
     @Test
     public void maakInschrijvingOngeldigeGegevensLocalDateTime_GooitException(){
-        Assertions.assertThrows(InschrijvingException.class, () ->  new Inschrijving(null, true));
+        Assertions.assertThrows(InschrijvingException.class, () ->  new Inschrijving(gebruiker, null, true));
     }
+
 }

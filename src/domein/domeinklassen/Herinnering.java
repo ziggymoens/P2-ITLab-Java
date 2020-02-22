@@ -14,6 +14,7 @@ public class Herinnering implements IHerinnering {
     //region Variabelen
     //Primairy key
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int herinneringsId;
 
     private HerinneringTijdstippen dagenVooraf;

@@ -29,7 +29,7 @@ public class MediaTest {
     @ParameterizedTest
     @MethodSource("opsommingGeldigeWaarden")
     public void maakMediaGeldigeGegevens_Slaagt(String mediaId, Sessie sessie, Gebruiker gebruiker, String locatie, String type){
-        Media media = new Media(locatie, type);
+        Media media = new Media(gebruiker,locatie, type);
         Assertions.assertEquals(locatie, media.getLocatie());
         Assertions.assertEquals(type, media.getType());
     }
@@ -38,31 +38,31 @@ public class MediaTest {
     @NullAndEmptySource
     @ValueSource(strings = " ")
     public void maakMediaOngeldigeGegevensId_GooitException(String id){
-        Assertions.assertThrows(MediaException.class, () ->  new Media("test.png", "FOTO"));
+        Assertions.assertThrows(MediaException.class, () ->  new Media(gebruiker, "test.png", "FOTO"));
     }
 
     @Test
     public void maakMediaOngeldigeGegevensSessie_GooitException(){
-        Assertions.assertThrows(MediaException.class, () ->  new Media( "test.png", "FOTO"));
+        Assertions.assertThrows(MediaException.class, () ->  new Media(gebruiker, "test.png", "FOTO"));
     }
 
     @Test
     public void maakMediaOngeldigeGegevensGebruiker_GooitException(){
-        Assertions.assertThrows(MediaException.class, () ->  new Media("test.png", "FOTO"));
+        Assertions.assertThrows(MediaException.class, () ->  new Media(gebruiker, "test.png", "FOTO"));
     }
 
     @ParameterizedTest
     @NullAndEmptySource
     @ValueSource(strings = " ")
     public void maakMediaOngeldigeGegevensLocatie_GooitException(String locatie){
-        Assertions.assertThrows(MediaException.class, () ->  new Media( locatie, "FOTO"));
+        Assertions.assertThrows(MediaException.class, () ->  new Media( gebruiker, locatie, "FOTO"));
     }
 
     @ParameterizedTest
     @NullAndEmptySource
     @ValueSource(strings = " ")
     public void maakMediaOngeldigeGegevensType_GooitException(String type){
-        Assertions.assertThrows(MediaException.class, () ->  new Media("test.png", type));
+        Assertions.assertThrows(MediaException.class, () ->  new Media(gebruiker,"test.png", type));
     }
 
 }

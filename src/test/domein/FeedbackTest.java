@@ -39,14 +39,14 @@ public class FeedbackTest {
     //region maakFeedbackMetJuisteWaardenTestenOpGebruiker
     @Test
     public void maakFeedbackMetJuisteWaardenTestenOpGebruiker(){
-        Feedback feedback = new Feedback("teskt");
+        Feedback feedback = new Feedback(gebruiker, "teskt");
     }
     //endregion
 
     //region maakFeedbackMetJuisteWaardenTestenOpTekst
     @Test
     public void maakFeedbackMetJuisteWaardenTestenOpTekst(){
-        Feedback feedback = new Feedback( "tekst");
+        Feedback feedback = new Feedback(gebruiker, "tekst");
         assertEquals("tekst", feedback.getTekst());
     }
     //endregion
@@ -56,7 +56,7 @@ public class FeedbackTest {
     @NullAndEmptySource
     @ValueSource(strings = {" "})
     public void maakFeedbackFouteWaardenTekst_werptException(String tekst){
-        assertThrows(FeedbackException.class, () -> new Feedback(tekst));
+        assertThrows(FeedbackException.class, () -> new Feedback(gebruiker, tekst));
     }
     //endregion
 
@@ -64,11 +64,11 @@ public class FeedbackTest {
     @NullAndEmptySource
     @ValueSource(strings = " ")
     public void maakAankondigingOngeldigeGegevensId_GooitException(String id){
-        Assertions.assertThrows(AankondigingException.class, () ->  new Feedback("Tekst"));
+        Assertions.assertThrows(AankondigingException.class, () ->  new Feedback(gebruiker, "Tekst"));
     }
 
     @Test
     public void maakAankondigingOngeldigeGegevensSessie_GooitException(){
-        Assertions.assertThrows(AankondigingException.class, () ->  new Feedback("Tekst"));
+        Assertions.assertThrows(AankondigingException.class, () ->  new Feedback(gebruiker, "Tekst"));
     }
 }

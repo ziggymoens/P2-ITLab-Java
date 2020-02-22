@@ -1,6 +1,7 @@
 package domein.domeinklassen;
 
 import domein.interfacesDomein.IAankondiging;
+import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.IHerinnering;
 import exceptions.domein.AankondigingException;
 
@@ -17,8 +18,10 @@ public class Aankondiging implements IAankondiging {
     @GeneratedValue(strategy = GenerationType.IDENTITY) //A toevoegen --> generated value
     private int aankondigingsId;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Herinnering herinnering;
+    @ManyToOne
+    private Gebruiker gebruiker;
 
     private LocalDateTime publicatiedatum;
     private String inhoud;
@@ -37,25 +40,39 @@ public class Aankondiging implements IAankondiging {
     protected Aankondiging() {
     }
 
-    public Aankondiging(LocalDateTime publicatiedatum, String inhoud, boolean automatischeHerinnering, int dagenVooraf) {
+    public Aankondiging(Gebruiker gebruiker, LocalDateTime publicatiedatum, String inhoud, boolean automatischeHerinnering, int dagenVooraf) {
         if (automatischeHerinnering) {
             setHerinnering(new Herinnering(dagenVooraf));
         }
         setInhoud(inhoud);
         setPublicatiedatum(publicatiedatum);
         setAutomatischeHerinnering(automatischeHerinnering);
+        setGebruiker(gebruiker);
     }
 
     /**
      * @param publicatiedatum ==> De datum dat de aankondiging gemaakt is
      * @param inhoud          ==> inhoud van de aankondiging
      */
-    public Aankondiging(LocalDateTime publicatiedatum, String inhoud) {
-        this(publicatiedatum, inhoud, false, 0);
+    public Aankondiging(Gebruiker gebruiker, LocalDateTime publicatiedatum, String inhoud) {
+        this(gebruiker, publicatiedatum, inhoud, false, 0);
+    }
+
+    public Aankondiging(Gebruiker gebruiker, LocalDateTime publicatiedatum, String tekst, boolean automatischeHerinnering, Herinnering h) {
+        this(gebruiker, publicatiedatum, tekst, automatischeHerinnering, h.getDagenVoorafInt());
+        setHerinnering(h);
     }
     //endregion
 
     //region Setters
+
+    public void setGebruiker(Gebruiker gebruiker) {
+        if(gebruiker == null){
+            throw new AankondigingException();
+        }
+        this.gebruiker = gebruiker;
+    }
+
     private void setPublicatiedatum(LocalDateTime publicatiedatum) {
         if (publicatiedatum == null) {
             throw new AankondigingException();
@@ -112,6 +129,13 @@ public class Aankondiging implements IAankondiging {
     @Override
     public boolean isAutomatischeHerinnering() {
         return automatischeHerinnering;
+    }
+
+    @Override
+    public IGebruiker getIGebruiker(){ return (IGebruiker) gebruiker;}
+
+    public Gebruiker getGebruiker() {
+        return gebruiker;
     }
 
     public Herinnering getHerinnering() {

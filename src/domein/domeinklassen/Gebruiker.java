@@ -8,7 +8,6 @@ import language.Talen;
 
 import javax.persistence.*;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -24,8 +23,8 @@ public class Gebruiker implements IGebruiker {
     private Gebruikersprofielen gebruikersprofiel;
     private Gebruikersstatus status;
 
-    @OneToOne
-    private Media profielfoto;
+    private String profielfoto;
+    /*
     @OneToMany
     private List<Feedback> feedbackList;
     @OneToMany
@@ -34,6 +33,7 @@ public class Gebruiker implements IGebruiker {
     private List<Inschrijving> inschrijvingList;
     @OneToMany
     private List<Media> mediaList;
+     */
 
 
     //region Constructor
@@ -53,7 +53,7 @@ public class Gebruiker implements IGebruiker {
      * @param gebruikersstatus  (Gebruikersprofiel) ==> Inlogstatus van de gebruiker
      * @param profielfoto       (Media) ==> profielfoto van de gebruiker
      */
-    public Gebruiker(String naam, String gebruikersnaam, Gebruikersprofielen gebruikersprofiel, Gebruikersstatus gebruikersstatus, Media profielfoto) {
+    public Gebruiker(String naam, String gebruikersnaam, Gebruikersprofielen gebruikersprofiel, Gebruikersstatus gebruikersstatus, String profielfoto) {
         setNaam(naam);
         setGebruikersnaam(gebruikersnaam);
         setGebruikersprofielen(gebruikersprofiel);
@@ -101,12 +101,12 @@ public class Gebruiker implements IGebruiker {
         this(naam, gebruikersnaam,
                 Arrays.stream(Gebruikersprofielen.values()).filter(g -> g.toString().equals(gebruikersprofiel)).findFirst().orElse(null),
                 Arrays.stream(Gebruikersstatus.values()).filter(g -> g.toString().equals(gebruikersstatus)).findFirst().orElse(null),
-                new Media(profielfoto));
+                profielfoto);
     }
     //endregion
 
     //region Setters
-    private void setProfielfoto(Media profielfoto) {
+    private void setProfielfoto(String profielfoto) {
         this.profielfoto = profielfoto;
     }
 
@@ -145,11 +145,6 @@ public class Gebruiker implements IGebruiker {
 
     //region Getters
     @Override
-    public IMedia getIProfielfoto() {
-        return (IMedia) profielfoto;
-    }
-
-    @Override
     public String getNaam() {
         return naam;
     }
@@ -169,10 +164,11 @@ public class Gebruiker implements IGebruiker {
         return gebruikersprofiel;
     }
 
-    public Media getProfielfoto() {
+    @Override
+    public String getProfielfoto() {
         return profielfoto;
     }
-
+/*
     public List<Feedback> getFeedbackList() {
         return feedbackList;
     }
@@ -189,10 +185,14 @@ public class Gebruiker implements IGebruiker {
         return mediaList;
     }
 
+
+
     @Override
     public List<IFeedback> getIFeedbackList() {
         return (List<IFeedback>) ((Object) feedbackList);
     }
+
+
 
     @Override
     public List<IAankondiging> getIAankondigingList() {
@@ -208,6 +208,7 @@ public class Gebruiker implements IGebruiker {
     public List<IMedia> getIMediaList() {
         return (List<IMedia>) ((Object) mediaList);
     }
+    */
     //endregion
 
     //region toString

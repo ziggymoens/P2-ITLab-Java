@@ -1,17 +1,9 @@
 package domein.interfacesDomein;
 
-import domein.domeinklassen.Aankondiging;
-import domein.domeinklassen.Feedback;
-import domein.domeinklassen.Inschrijving;
-import domein.domeinklassen.Media;
 import domein.enums.Gebruikersprofielen;
 import domein.enums.Gebruikersstatus;
 
-import java.util.List;
-
 public interface IGebruiker {
-    IMedia getIProfielfoto();
-
     String getNaam();
 
     String getGebruikersnaam();
@@ -20,11 +12,13 @@ public interface IGebruiker {
 
     Gebruikersprofielen getGebruikersprofiel();
 
-    List<IFeedback> getIFeedbackList();
+    String getProfielfoto();
 
-    List<IAankondiging> getIAankondigingList();
+    //List<IFeedback> getIFeedbackList();
 
-    List<IInschrijving> getIInschrijvingList();
+    //List<IAankondiging> getIAankondigingList();
 
-    List<IMedia> getIMediaList();
+    //List<IInschrijving> getIInschrijvingList();
+
+    //List<IMedia> getIMediaList();
 }

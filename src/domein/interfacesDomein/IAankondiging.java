@@ -16,4 +16,6 @@ public interface IAankondiging {
     IHerinnering getIHerinnering();
 
     boolean isAutomatischeHerinnering();
+
+    IGebruiker getIGebruiker();
 }

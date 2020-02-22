@@ -1,8 +1,10 @@
 package domein.domeinklassen;
 
 import domein.enums.MediaTypes;
+import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.IMedia;
 import exceptions.domein.MediaException;
+import net.bytebuddy.asm.Advice;
 
 import javax.persistence.*;
 import java.util.Arrays;
@@ -18,6 +20,8 @@ public class Media implements IMedia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int mediaId;
 
+    @ManyToOne
+    private Gebruiker gebruiker;
     private String locatie;
     private MediaTypes type;
 //endregion
@@ -36,7 +40,8 @@ public class Media implements IMedia {
      * @param locatie (String) ==> locatie van het mediaobject in het project
      * @param type    (MediaType) ==> type van media
      */
-    public Media(String locatie, MediaTypes type) {
+    public Media(Gebruiker gebruiker, String locatie, MediaTypes type) {
+        setGebruiker(gebruiker);
         setLocatie(locatie);
         setType(type);
     }
@@ -46,8 +51,8 @@ public class Media implements IMedia {
      *
      * @param locatie (String) ==> locatie van het mediaobject in het project
      */
-    public Media(String locatie) {
-        this(locatie, MediaTypes.ONBEKEND);
+    public Media(Gebruiker gebruiker, String locatie) {
+        this(gebruiker, locatie, MediaTypes.ONBEKEND);
     }
 
     /**
@@ -56,8 +61,8 @@ public class Media implements IMedia {
      * @param locatie (String) ==> locatie van het mediaobject in het project
      * @param type    (String) ==> type van media
      */
-    public Media(String locatie, String type) {
-        this(locatie, Arrays.stream(MediaTypes.values()).filter(t -> t.toString().equals(type)).findFirst().orElse(MediaTypes.ONBEKEND));
+    public Media(Gebruiker gebruiker, String locatie, String type) {
+        this(gebruiker, locatie, Arrays.stream(MediaTypes.values()).filter(t -> t.toString().equals(type)).findFirst().orElse(MediaTypes.ONBEKEND));
     }
     //endregion
 
@@ -73,6 +78,13 @@ public class Media implements IMedia {
             throw new MediaException();
         }
         this.type = type;
+    }
+
+    public void setGebruiker(Gebruiker gebruiker) {
+        if (gebruiker == null) {
+            throw new MediaException();
+        }
+        this.gebruiker = gebruiker;
     }
     //endregion
 
@@ -92,6 +104,15 @@ public class Media implements IMedia {
 
     public MediaTypes getType() {
         return type;
+    }
+
+    @Override
+    public IGebruiker getIGebruiker() {
+        return (IGebruiker) gebruiker;
+    }
+
+    public Gebruiker getGebruiker() {
+        return gebruiker;
     }
 
     //endregion
