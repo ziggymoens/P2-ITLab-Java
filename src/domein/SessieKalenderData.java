@@ -13,7 +13,7 @@ public class SessieKalenderData {
         this.sessieKalenderBeheerder = sessieKalenderBeheerder;
     }
 
-    public void populeerDataLokalen(){
+    public void populeerDataLokalen() {
         sessieKalenderBeheerder.addLokaal(new Lokaal("GSCHB1.017", 50));
         sessieKalenderBeheerder.addLokaal(new Lokaal("GSCHB3.019", 35));
         sessieKalenderBeheerder.addLokaal(new Lokaal("GSCHB4.036", 24));
@@ -36,36 +36,36 @@ public class SessieKalenderData {
         sessieKalenderBeheerder.addSessie(new Sessie("Sessie 4", LocalDateTime.now().plusMinutes(12500), LocalDateTime.now().plusMinutes(12590), sessieKalenderBeheerder.geefAlleLokalen().stream().filter(l -> l.getLokaalCode().equals("GSCHB1.017")).findFirst().orElse(null), sessieKalenderBeheerder.geefAlleGebruikers().stream().filter(g -> g.getGebruikersnaam().equals("755223sd")).findFirst().orElse(null)));
     }
 
-    public void populeerDataAankondigingen(){
-        sessieKalenderBeheerder.addAankondigingSessie(1, "758095zm", "Aankondiging 1" );
-        sessieKalenderBeheerder.addAankondigingSessie(2, "862361jv", "Aankondiging 2" );
-        sessieKalenderBeheerder.addAankondigingSessie(1, "860570ea", "Aankondiging 3" );
-        sessieKalenderBeheerder.addAankondigingSessie(4, "862361jv", "Aankondiging 4" );
+    public void populeerDataAankondigingen() {
+        sessieKalenderBeheerder.addAankondigingSessie(1, "758095zm", "Aankondiging 1", false, 0);
+        sessieKalenderBeheerder.addAankondigingSessie(2, "862361jv", "Aankondiging 2", false, 0);
+        sessieKalenderBeheerder.addAankondigingSessie(1, "860570ea", "Aankondiging 3", false, 0);
+        sessieKalenderBeheerder.addAankondigingSessie(4, "862361jv", "Aankondiging 4", false, 0);
     }
 
-    public void populeerDataHerinneringen(){
-        sessieKalenderBeheerder.addAankondigingHerhalingSessie(1, "758095zm", "Herinnering 1", 1);
-        sessieKalenderBeheerder.addAankondigingHerhalingSessie(4, "860570ea", "Herinnering 2", 7);
+    public void populeerDataHerinneringen() {
+        sessieKalenderBeheerder.addAankondigingSessie(1, "758095zm", "Herinnering 1", true, 1);
+        sessieKalenderBeheerder.addAankondigingSessie(4, "860570ea", "Herinnering 2", true, 7);
     }
 
-    public void populeerDataFeedback(){
-        sessieKalenderBeheerder.addFeedbackSessie(1, "758095zm", "Feedback 1" );
-        sessieKalenderBeheerder.addFeedbackSessie(2, "862361jv", "Feedback 2" );
-        sessieKalenderBeheerder.addFeedbackSessie(1, "860570ea", "Feedback 3" );
-        sessieKalenderBeheerder.addFeedbackSessie(4, "862361jv", "Feedback 4" );
+    public void populeerDataFeedback() {
+        sessieKalenderBeheerder.addFeedbackSessie(1, "758095zm", "Feedback 1");
+        sessieKalenderBeheerder.addFeedbackSessie(2, "862361jv", "Feedback 2");
+        sessieKalenderBeheerder.addFeedbackSessie(1, "860570ea", "Feedback 3");
+        sessieKalenderBeheerder.addFeedbackSessie(4, "862361jv", "Feedback 4");
     }
 
-    public void populeerDataInschrijvingen(){
-        sessieKalenderBeheerder.addInschrijvingSessie(1, "758095zm", LocalDateTime.now() );
+    public void populeerDataInschrijvingen() {
+        sessieKalenderBeheerder.addInschrijvingSessie(1, "758095zm", LocalDateTime.now());
         sessieKalenderBeheerder.addInschrijvingSessie(2, "862361jv", LocalDateTime.now().plusMinutes(50));
         sessieKalenderBeheerder.addInschrijvingSessie(1, "860570ea", LocalDateTime.now().plusMinutes(345));
         sessieKalenderBeheerder.addInschrijvingSessie(4, "862361jv", LocalDateTime.now().plusMinutes(527));
     }
 
-    public void populeerDataMedia(){
-        sessieKalenderBeheerder.addMediaSessie(1, "758095zm", "Media 1" );
-        sessieKalenderBeheerder.addMediaSessie(2, "862361jv", "Media 2" );
-        sessieKalenderBeheerder.addMediaSessie(1, "860570ea", "Media 3" );
-        sessieKalenderBeheerder.addMediaSessie(4, "862361jv", "Media 4" );
+    public void populeerDataMedia() {
+        sessieKalenderBeheerder.addMediaSessie(1, "758095zm", "Media 1");
+        sessieKalenderBeheerder.addMediaSessie(2, "862361jv", "Media 2");
+        sessieKalenderBeheerder.addMediaSessie(1, "860570ea", "Media 3");
+        sessieKalenderBeheerder.addMediaSessie(4, "862361jv", "Media 4");
     }
 }

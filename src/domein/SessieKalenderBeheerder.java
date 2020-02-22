@@ -82,21 +82,10 @@ public class SessieKalenderBeheerder {
         em.getTransaction().commit();
     }
 
-    public void addAankondigingSessie(int sessieid, String gebruikersnaam, String tekst) {
+    public void addAankondigingSessie(int sessieid, String gebruikersnaam, String tekst, boolean herinnering ,int dagen) {
         Gebruiker gebruiker = gebruikers.stream().filter(g -> g.getGebruikersnaam().equals(gebruikersnaam)).findFirst().orElse(null);
         Sessie s = sessies.get(sessieid - 1);
-        Aankondiging a = new Aankondiging(gebruiker, LocalDateTime.now(), tekst);
-        s.addAankondiging(a);
-        em.getTransaction().begin();
-        em.persist(a);
-        em.persist(s);
-        em.getTransaction().commit();
-    }
-
-    public void addAankondigingHerhalingSessie(int sessieid, String gebruikersnaam, String tekst, int dagen){
-        Gebruiker gebruiker = gebruikers.stream().filter(g -> g.getGebruikersnaam().equals(gebruikersnaam)).findFirst().orElse(null);
-        Sessie s = sessies.get(sessieid - 1);
-        Aankondiging a = new Aankondiging(gebruiker, LocalDateTime.now(), tekst, true, dagen);
+        Aankondiging a = new Aankondiging(gebruiker, LocalDateTime.now(), tekst, herinnering, dagen);
         s.addAankondiging(a);
         em.getTransaction().begin();
         em.persist(a);
