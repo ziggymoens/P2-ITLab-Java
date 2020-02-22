@@ -1,19 +1,42 @@
 package domein;
 
 
-public class DomeinController {
-    //region Variabelen
+import domein.domeinklassen.Sessie;
+import domein.interfacesDomein.ISessie;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 
+import java.util.List;
+
+public class DomeinController {
+    private ObservableList<Sessie> sessieObservableList;
+    //region Variabelen
+    private SessieKalenderController sessieKalenderController;
     //endregion
 
     //region Constructor
     public DomeinController() {
+        sessieKalenderController = new SessieKalenderController();
+        sessieObservableList = FXCollections.observableArrayList(sessieKalenderController.geefAlleSessies());
     }
-    //endregion
 
-    //region Init
+    public List<ISessie> getISessies() {
+        return sessieKalenderController.getISessies();
+    }
 
-    //endregion
+    public ObservableList<Sessie> getSessieObservableList() {
+        return sessieObservableList;
+    }
+
+
+}
+
+//endregion
+
+//region Init
+
+//endregion
 /*
     //region Overzicht
     public List<String> geefOverzichtVerantwoordelijke(String gebruikersCode, boolean open) {
@@ -142,5 +165,4 @@ public class DomeinController {
 
 
  */
-    //endregion
-}
+//endregion
