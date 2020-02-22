@@ -123,7 +123,7 @@ public class Aankondiging implements IAankondiging {
 
     @Override
     public IHerinnering getIHerinnering() {
-        return (IHerinnering) herinnering;
+        return herinnering;
     }
 
     @Override
@@ -132,7 +132,7 @@ public class Aankondiging implements IAankondiging {
     }
 
     @Override
-    public IGebruiker getIGebruiker(){ return (IGebruiker) gebruiker;}
+    public IGebruiker getIGebruiker(){ return gebruiker;}
 
     public Gebruiker getGebruiker() {
         return gebruiker;

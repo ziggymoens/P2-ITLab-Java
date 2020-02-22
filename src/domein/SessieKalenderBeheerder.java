@@ -1,7 +1,6 @@
 package domein;
 
 import domein.domeinklassen.*;
-import domein.enums.HerinneringTijdstippen;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -16,9 +15,9 @@ public class SessieKalenderBeheerder {
     public final String PERSISTENCE_UNIT_NAME = "ITLab";
     private EntityManager em;
     private EntityManagerFactory emf;
-    private List<Sessie> sessies = new ArrayList<>();
-    private Set<Gebruiker> gebruikers = new HashSet<>();
-    private Set<Lokaal> lokalen = new HashSet<>();
+    private final List<Sessie> sessies = new ArrayList<>();
+    private final Set<Gebruiker> gebruikers = new HashSet<>();
+    private final Set<Lokaal> lokalen = new HashSet<>();
 
     public SessieKalenderBeheerder() {
         initializePersistentie();

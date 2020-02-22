@@ -2,7 +2,6 @@ package domein.domeinklassen;
 
 import domein.enums.HerinneringTijdstippen;
 import domein.interfacesDomein.IHerinnering;
-import exceptions.domein.HerinneringException;
 
 import javax.persistence.*;
 import java.util.Arrays;

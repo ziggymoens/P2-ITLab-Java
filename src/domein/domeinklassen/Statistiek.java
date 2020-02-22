@@ -2,8 +2,6 @@ package domein.domeinklassen;
 
 import domein.interfacesDomein.IStatistiek;
 
-import java.util.Objects;
-
 public class Statistiek implements IStatistiek {
     //region Variabelen
     //Primairy key

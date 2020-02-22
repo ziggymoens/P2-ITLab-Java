@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
 
+@SuppressWarnings("unchecked")
 @Entity
 @Table(name = "sessie")
 public class Sessie implements ISessie {

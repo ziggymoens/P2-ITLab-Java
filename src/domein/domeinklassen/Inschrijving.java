@@ -94,7 +94,7 @@ public class Inschrijving implements IInschrijving {
 
     @Override
     public IGebruiker getIGebruiker() {
-        return (IGebruiker) gebruiker;
+        return gebruiker;
     }
 
     public Gebruiker getGebruiker() {

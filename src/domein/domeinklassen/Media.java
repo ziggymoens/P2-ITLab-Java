@@ -4,7 +4,6 @@ import domein.enums.MediaTypes;
 import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.IMedia;
 import exceptions.domein.MediaException;
-import net.bytebuddy.asm.Advice;
 
 import javax.persistence.*;
 import java.util.Arrays;
@@ -108,7 +107,7 @@ public class Media implements IMedia {
 
     @Override
     public IGebruiker getIGebruiker() {
-        return (IGebruiker) gebruiker;
+        return gebruiker;
     }
 
     public Gebruiker getGebruiker() {

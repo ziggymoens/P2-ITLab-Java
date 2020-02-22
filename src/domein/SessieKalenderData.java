@@ -7,7 +7,7 @@ import domein.enums.Gebruikersstatus;
 import java.time.LocalDateTime;
 
 public class SessieKalenderData {
-    private SessieKalenderBeheerder sessieKalenderBeheerder;
+    private final SessieKalenderBeheerder sessieKalenderBeheerder;
 
     public SessieKalenderData(SessieKalenderBeheerder sessieKalenderBeheerder) {
         this.sessieKalenderBeheerder = sessieKalenderBeheerder;

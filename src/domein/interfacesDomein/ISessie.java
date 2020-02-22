@@ -1,7 +1,5 @@
 package domein.interfacesDomein;
 
-import domein.domeinklassen.*;
-
 import java.time.LocalDateTime;
 import java.util.List;
 

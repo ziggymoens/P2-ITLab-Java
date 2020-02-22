@@ -70,7 +70,7 @@ public class Feedback implements IFeedback {
 
     @Override
     public IGebruiker getIGebruiker() {
-        return (IGebruiker) gebruiker;
+        return gebruiker;
     }
 
     @Override
