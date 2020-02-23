@@ -24,18 +24,6 @@ public class Gebruiker implements IGebruiker {
     private Gebruikersstatus status;
 
     private String profielfoto;
-    /*
-    @OneToMany
-    private List<Feedback> feedbackList;
-    @OneToMany
-    private List<Aankondiging> aankondigingList;
-    @OneToMany
-    private List<Inschrijving> inschrijvingList;
-    @OneToMany
-    private List<Media> mediaList;
-     */
-
-
     //region Constructor
 
     /**
@@ -168,47 +156,6 @@ public class Gebruiker implements IGebruiker {
     public String getProfielfoto() {
         return profielfoto;
     }
-/*
-    public List<Feedback> getFeedbackList() {
-        return feedbackList;
-    }
-
-    public List<Aankondiging> getAankondigingList() {
-        return aankondigingList;
-    }
-
-    public List<Inschrijving> getInschrijvingList() {
-        return inschrijvingList;
-    }
-
-    public List<Media> getMediaList() {
-        return mediaList;
-    }
-
-
-
-    @Override
-    public List<IFeedback> getIFeedbackList() {
-        return (List<IFeedback>) ((Object) feedbackList);
-    }
-
-
-
-    @Override
-    public List<IAankondiging> getIAankondigingList() {
-        return (List<IAankondiging>) ((Object) aankondigingList);
-    }
-
-    @Override
-    public List<IInschrijving> getIInschrijvingList() {
-        return (List<IInschrijving>) ((Object) inschrijvingList);
-    }
-
-    @Override
-    public List<IMedia> getIMediaList() {
-        return (List<IMedia>) ((Object) mediaList);
-    }
-    */
     //endregion
 
     //region toString

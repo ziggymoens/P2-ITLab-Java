@@ -11,7 +11,7 @@ public interface IAankondiging {
 
     String getInhoud();
 
-    int getAankondigingsId();
+    String getAankondigingsId();
 
     IHerinnering getIHerinnering();
 

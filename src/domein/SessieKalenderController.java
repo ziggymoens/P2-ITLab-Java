@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SessieKalenderController {
     private final SessieKalenderBeheerder sessieKalenderBeheerder = new SessieKalenderBeheerder();
@@ -14,8 +15,12 @@ public class SessieKalenderController {
 
     }
 
-    public List<ISessie> getISessies() {
-        return ((List<ISessie>) (Object) sessieKalenderBeheerder.geefAlleSessies());
+    public List<Sessie> getSessies() {
+        return sessieKalenderBeheerder.geefAlleSessies();
+    }
+
+    public List<Sessie> geefSessiesVanJaar(int jaar){
+        return sessieKalenderBeheerder.geefAlleSessies().stream().filter(s -> s.getSessieId().matches(String.format("S%d-.*", jaar-2000))).collect(Collectors.toList());
     }
 
     public void close() {

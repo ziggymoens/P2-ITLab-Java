@@ -4,6 +4,7 @@ import domein.enums.MediaTypes;
 import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.IMedia;
 import exceptions.domein.MediaException;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Arrays;
@@ -16,8 +17,15 @@ public class Media implements IMedia {
     //region Variabelen
     //Primairy key
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int mediaId;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mediaKey")
+    @GenericGenerator(
+            name = "mediaKey",
+            strategy = "domein.domeinklassen.JPAIdGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = JPAIdGenerator.INCREMENT_PARAM, value = "1"),
+                    @org.hibernate.annotations.Parameter(name = JPAIdGenerator.VALUE_PREFIX_PARAMETER, value = "M20-"),
+                    @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d")})
+    private String mediaId;
 
     @ManyToOne
     private Gebruiker gebruiker;
@@ -89,7 +97,7 @@ public class Media implements IMedia {
 
     //region Getters
 
-    public int getMediaId() {
+    public String getMediaId() {
         return mediaId;
     }
 

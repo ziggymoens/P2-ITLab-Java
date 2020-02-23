@@ -7,7 +7,7 @@ public interface IInschrijving {
 
     boolean isStatusAanwezigheid();
 
-    int getInschrijvingsId();
+    String getInschrijvingsId();
 
     IGebruiker getIGebruiker();
 }

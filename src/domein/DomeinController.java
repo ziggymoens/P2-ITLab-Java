@@ -22,7 +22,7 @@ public class DomeinController {
     }
 
     public List<ISessie> getISessies() {
-        return sessieKalenderController.getISessies();
+        return ((List<ISessie>)(Object)sessieKalenderController.getSessies());
     }
 
     public ObservableList<Sessie> getSessieObservableList() {

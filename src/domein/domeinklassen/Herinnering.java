@@ -2,6 +2,7 @@ package domein.domeinklassen;
 
 import domein.enums.HerinneringTijdstippen;
 import domein.interfacesDomein.IHerinnering;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Arrays;
@@ -13,8 +14,15 @@ public class Herinnering implements IHerinnering {
     //region Variabelen
     //Primairy key
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int herinneringsId;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "herinneringKey")
+    @GenericGenerator(
+            name = "herinneringKey",
+            strategy = "domein.domeinklassen.JPAIdGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = JPAIdGenerator.INCREMENT_PARAM, value = "1"),
+                    @org.hibernate.annotations.Parameter(name = JPAIdGenerator.VALUE_PREFIX_PARAMETER, value = "H20-"),
+                    @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d")})
+    private String herinneringsId;
 
     private HerinneringTijdstippen dagenVooraf;
     //endregion
@@ -63,7 +71,7 @@ public class Herinnering implements IHerinnering {
     }
 
     @Override
-    public int getHerinneringsId() {
+    public String getHerinneringsId() {
         return herinneringsId;
     }
     //endregion

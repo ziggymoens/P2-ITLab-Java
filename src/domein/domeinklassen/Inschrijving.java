@@ -3,6 +3,7 @@ package domein.domeinklassen;
 import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.IInschrijving;
 import exceptions.domein.InschrijvingException;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,8 +15,15 @@ public class Inschrijving implements IInschrijving {
     //region Variabelen
     //Primairy key
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int inschrijvingsId;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "inschrijvingKey")
+    @GenericGenerator(
+            name = "inschrijvingKey",
+            strategy = "domein.domeinklassen.JPAIdGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = JPAIdGenerator.INCREMENT_PARAM, value = "1"),
+                    @org.hibernate.annotations.Parameter(name = JPAIdGenerator.VALUE_PREFIX_PARAMETER, value = "I20-"),
+                    @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d")})
+    private String inschrijvingsId;
 
     @ManyToOne
     private Gebruiker gebruiker;
@@ -88,7 +96,7 @@ public class Inschrijving implements IInschrijving {
     }
 
     @Override
-    public int getInschrijvingsId() {
+    public String getInschrijvingsId() {
         return inschrijvingsId;
     }
 

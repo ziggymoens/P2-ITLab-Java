@@ -3,6 +3,7 @@ package domein.domeinklassen;
 import domein.interfacesDomein.IFeedback;
 import domein.interfacesDomein.IGebruiker;
 import exceptions.domein.FeedbackException;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -14,8 +15,15 @@ public class Feedback implements IFeedback {
     //region Variabelen
     //Primairy key
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int feedbackId;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "feedbackKey")
+    @GenericGenerator(
+            name = "feedbackKey",
+            strategy = "domein.domeinklassen.JPAIdGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = JPAIdGenerator.INCREMENT_PARAM, value = "1"),
+                    @org.hibernate.annotations.Parameter(name = JPAIdGenerator.VALUE_PREFIX_PARAMETER, value = "F20-"),
+                    @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d")})
+    private String feedbackId;
 
     @OneToOne
     private Gebruiker gebruiker;
@@ -74,7 +82,7 @@ public class Feedback implements IFeedback {
     }
 
     @Override
-    public int getFeedbackId() {
+    public String getFeedbackId() {
         return feedbackId;
     }
     //endregion

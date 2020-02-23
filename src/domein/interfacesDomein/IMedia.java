@@ -1,7 +1,7 @@
 package domein.interfacesDomein;
 
 public interface IMedia {
-    int getMediaId();
+    String getMediaId();
 
     String getLocatie();
 

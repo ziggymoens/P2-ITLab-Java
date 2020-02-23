@@ -2,6 +2,7 @@ package domein.domeinklassen;
 
 import domein.interfacesDomein.*;
 import exceptions.domein.SessieException;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,8 +16,15 @@ public class Sessie implements ISessie {
     //region variabelen
     //Primairy key
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int sessieId;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sessieKey")
+    @GenericGenerator(
+            name = "sessieKey",
+            strategy = "domein.domeinklassen.JPAIdGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = JPAIdGenerator.INCREMENT_PARAM, value = "1"),
+                    @org.hibernate.annotations.Parameter(name = JPAIdGenerator.VALUE_PREFIX_PARAMETER, value = "S20-"),
+                    @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d")})
+    private String sessieId;
 
     private String titel;
     private String naamGastspreker;
@@ -37,7 +45,6 @@ public class Sessie implements ISessie {
     private Lokaal lokaal;
     @OneToOne()
     private Gebruiker verantwoordelijke;
-
     //endregion
 
     //region Constructors
@@ -187,7 +194,7 @@ public class Sessie implements ISessie {
     }
 
     @Override
-    public int getSessieId() {
+    public String getSessieId() {
         return sessieId;
     }
 
@@ -213,6 +220,11 @@ public class Sessie implements ISessie {
 
     @Override
     public String toString() {
+        return String.format("%s - %s", sessieId, titel);
+    }
+
+
+    public String toStringCompleet() {
         return String.format("SessieId: %s%nVerantwoordelijke: %s%nTitel: %s%nNaam gastspreker: %s%nLokaal: %s%nStart- & einduur: %s - %s%nMaximum plaatsten: %d", sessieId, verantwoordelijke.getNaam(), titel, naamGastspreker, lokaal.getLokaalCode(), startSessie.toString(), eindeSessie.toString(), lokaal.getAantalPlaatsen());
     }
 

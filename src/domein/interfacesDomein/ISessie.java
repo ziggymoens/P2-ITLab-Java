@@ -28,5 +28,5 @@ public interface ISessie {
 
     boolean isGeopend();
 
-    int getSessieId();
+    String getSessieId();
 }
