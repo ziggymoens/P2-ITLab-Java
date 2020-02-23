@@ -7,7 +7,5 @@ public class StartUpDatabank {
         SessieKalenderController gebruikerController = new SessieKalenderController();
 
         System.out.println(gebruikerController.geefSessiesVanJaar(2020));
-
-
     }
 }

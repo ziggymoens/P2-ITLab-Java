@@ -1,8 +1,6 @@
 package userinterface.gui.screens;
 
-import com.sun.javafx.binding.StringFormatter;
 import domein.DomeinController;
-import domein.domeinklassen.Feedback;
 import domein.domeinklassen.Sessie;
 import domein.interfacesDomein.*;
 import javafx.collections.FXCollections;
@@ -12,18 +10,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import userinterface.gui.components.DateTimePicker;
 
-import java.awt.*;
 import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class SessieFrameController extends AnchorPane {
     private final DomeinController domeinController;
@@ -71,9 +63,6 @@ public class SessieFrameController extends AnchorPane {
     private ListView<Sessie> sessieList;
     @FXML
     private Button button;
-
-    @FXML
-    private Label barcode;
 
     private ISessie currentSessie;
 
