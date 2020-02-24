@@ -1,6 +1,7 @@
 package domein;
 
 import domein.domeinklassen.*;
+import domein.interfacesDomein.IMedia;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -58,10 +59,26 @@ public class SessieKalenderBeheerder {
         em.getTransaction().commit();
     }
 
-    //region add Object to sessie
-    public void addMediaSessie(int sessieid, String gebruikersnaam, String locatie) {
+    public void updateSessie(Sessie sessieOud, Sessie sessieNieuw){
+        sessies.remove(sessieOud);
+        sessies.add(sessieNieuw);
+        em.getTransaction().begin();
+        em.merge(sessieNieuw);
+        em.getTransaction().commit();
+    }
+
+    public void verwijderSessie(Sessie sessie){
+        sessies.remove(sessie);
+        em.getTransaction().begin();
+        em.remove(sessie);
+        em.getTransaction().commit();
+    }
+    //endregion
+
+    //region Media
+    public void addMediaSessie(String sessieid, String gebruikersnaam, String locatie) {
         Gebruiker gebruiker = gebruikers.stream().filter(g -> g.getGebruikersnaam().equals(gebruikersnaam)).findFirst().orElse(null);
-        Sessie s = sessies.get(sessieid - 1);
+        Sessie s = sessies.stream().filter(ss -> ss.getSessieId().equals(sessieid)).findFirst().orElse(null);
         Media m = new Media(gebruiker, locatie);
         s.addMedia(m);
         em.getTransaction().begin();
@@ -70,6 +87,27 @@ public class SessieKalenderBeheerder {
         em.getTransaction().commit();
     }
 
+    public void updateMedia(Media mediaOud, Media mediaNieuw){
+        Sessie sessie = sessies.stream().filter(s -> s.getMedia().contains(mediaOud)).findFirst().orElse(null);
+        sessie.verwijderMedia(mediaOud);
+        sessie.addMedia(mediaNieuw);
+        em.getTransaction().begin();
+        em.merge(mediaNieuw);
+        em.merge(sessie);
+        em.getTransaction().commit();
+    }
+
+    public void verwijderMedia(Media media){
+        Sessie sessie = sessies.stream().filter(s -> s.getMedia().contains(media)).findFirst().orElse(null);
+        sessie.verwijderMedia(media);
+        em.getTransaction().begin();
+        em.remove(media);
+        em.merge(sessie);
+        em.getTransaction().commit();
+    }
+    //endregion
+
+    //region Feedback
     public void addFeedbackSessie(int sessieid, String gebruikersnaam, String tekst) {
         Gebruiker gebruiker = gebruikers.stream().filter(g -> g.getGebruikersnaam().equals(gebruikersnaam)).findFirst().orElse(null);
         Sessie s = sessies.get(sessieid - 1);
@@ -81,6 +119,27 @@ public class SessieKalenderBeheerder {
         em.getTransaction().commit();
     }
 
+    public void updateFeedback(Feedback feedbackOud, Feedback feedbackNieuw){
+        Sessie sessie = sessies.stream().filter(s -> s.getFeedback().contains(feedbackOud)).findFirst().orElse(null);
+        sessie.verwijderFeedback(feedbackOud);
+        sessie.addFeedback(feedbackNieuw);
+        em.getTransaction().begin();
+        em.merge(feedbackNieuw);
+        em.merge(sessie);
+        em.getTransaction().commit();
+    }
+
+    public void verwijderFeedback(Feedback feedback){
+        Sessie sessie = sessies.stream().filter(s -> s.getFeedback().contains(feedback)).findFirst().orElse(null);
+        sessie.verwijderFeedback(feedback);
+        em.getTransaction().begin();
+        em.remove(feedback);
+        em.merge(sessie);
+        em.getTransaction().commit();
+    }
+    //endregion
+
+    //region Aankondiging
     public void addAankondigingSessie(int sessieid, String gebruikersnaam, String tekst, boolean herinnering ,int dagen) {
         Gebruiker gebruiker = gebruikers.stream().filter(g -> g.getGebruikersnaam().equals(gebruikersnaam)).findFirst().orElse(null);
         Sessie s = sessies.get(sessieid - 1);
@@ -92,6 +151,27 @@ public class SessieKalenderBeheerder {
         em.getTransaction().commit();
     }
 
+    public void updateAankondiging(Aankondiging aankondigingOud, Aankondiging aankondigingNieuw){
+        Sessie sessie = sessies.stream().filter(s -> s.getAankondigingen().contains(aankondigingOud)).findFirst().orElse(null);
+        sessie.verwijderAankondiging(aankondigingOud);
+        sessie.addAankondiging(aankondigingNieuw);
+        em.getTransaction().begin();
+        em.merge(aankondigingNieuw);
+        em.merge(sessie);
+        em.getTransaction().commit();
+    }
+
+    public void verwijderAankondiging(Aankondiging aankondiging){
+    Sessie sessie = sessies.stream().filter(s -> s.getAankondigingen().contains(aankondiging)).findFirst().orElse(null);
+        sessie.verwijderAankondiging(aankondiging);
+        em.getTransaction().begin();
+        em.remove(aankondiging);
+        em.merge(sessie);
+        em.getTransaction().commit();
+    }
+    //endregion
+
+    //region Inschrijving
     public void addInschrijvingSessie(int sessieid, String gebruikersnaam, LocalDateTime inschrijving) {
         Gebruiker gebruiker = gebruikers.stream().filter(g -> g.getGebruikersnaam().equals(gebruikersnaam)).findFirst().orElse(null);
         Sessie s = sessies.get(sessieid - 1);
@@ -103,7 +183,24 @@ public class SessieKalenderBeheerder {
         em.getTransaction().commit();
     }
 
-    //endregion
+    public void updateInschrijving(Inschrijving inschrijvingOud, Inschrijving InschrijvingNieuw){
+        Sessie sessie = sessies.stream().filter(s -> s.getFeedback().contains(inschrijvingOud)).findFirst().orElse(null);
+        sessie.verwijderInschrijving(inschrijvingOud);
+        sessie.addInschrijving(InschrijvingNieuw);
+        em.getTransaction().begin();
+        em.merge(InschrijvingNieuw);
+        em.merge(sessie);
+        em.getTransaction().commit();
+    }
+
+    public void verwijderInschrijving(Inschrijving inschrijving){
+        Sessie sessie = sessies.stream().filter(s -> s.getInschrijvingen().contains(inschrijving)).findFirst().orElse(null);
+        sessie.verwijderInschrijving(inschrijving);
+        em.getTransaction().begin();
+        em.remove(inschrijving);
+        em.merge(sessie);
+        em.getTransaction().commit();
+    }
     //endregion
 
     //region Gebruiker
@@ -125,7 +222,12 @@ public class SessieKalenderBeheerder {
         em.merge(gebruikerNieuw);
         em.getTransaction().commit();
     }
-
+    public void verwijderGebruiker(Gebruiker gebruiker){
+        gebruikers.remove(gebruiker);
+        em.getTransaction().begin();
+        em.remove(gebruiker);
+        em.getTransaction().commit();
+    }
     //endregion
     //region Lokaal
     public Set<Lokaal> geefAlleLokalen() {
@@ -136,6 +238,21 @@ public class SessieKalenderBeheerder {
         lokalen.add(lokaal);
         em.getTransaction().begin();
         em.persist(lokaal);
+        em.getTransaction().commit();
+    }
+
+    public void updateLokaal(Lokaal lokaalOud, Lokaal lokaalNieuw){
+        lokalen.remove(lokaalOud);
+        lokalen.add(lokaalNieuw);
+        em.getTransaction().begin();
+        em.merge(lokaalNieuw);
+        em.getTransaction().commit();
+    }
+
+    public void verwijderLokaal(Lokaal lokaal){
+        lokalen.remove(lokaal);
+        em.getTransaction().begin();
+        em.remove(lokaal);
         em.getTransaction().commit();
     }
     //endregion

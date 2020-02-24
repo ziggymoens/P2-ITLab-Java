@@ -34,13 +34,13 @@ public class Sessie implements ISessie {
     private boolean geopend;
 
     @OneToMany
-    private List<Media> mediaBijSessie;
+    private List<Media> media;
     @OneToMany
-    private List<Inschrijving> ingeschrevenGebruikers;
+    private List<Inschrijving> inschrijvingen;
     @OneToMany
-    private List<Aankondiging> aankondigingenSessie;
+    private List<Aankondiging> aankondigingen;
     @OneToMany
-    private List<Feedback> feedbackSessie;
+    private List<Feedback> feedback;
     @OneToOne
     private Lokaal lokaal;
     @OneToOne()
@@ -79,10 +79,10 @@ public class Sessie implements ISessie {
 
     //region Init
     private void initLijsten() {
-        this.mediaBijSessie = new ArrayList<>();
-        this.ingeschrevenGebruikers = new ArrayList<>();
-        this.aankondigingenSessie = new ArrayList<>();
-        this.feedbackSessie = new ArrayList<>();
+        this.media = new ArrayList<>();
+        this.inschrijvingen = new ArrayList<>();
+        this.aankondigingen = new ArrayList<>();
+        this.feedback = new ArrayList<>();
     }
     //endregion
 
@@ -160,22 +160,22 @@ public class Sessie implements ISessie {
 
     @Override
     public List<IMedia> getIMediaBijSessie() {
-        return (List<IMedia>) ((Object) mediaBijSessie);
+        return (List<IMedia>) ((Object) media);
     }
 
     @Override
     public List<IInschrijving> getIIngeschrevenGebruikers() {
-        return (List<IInschrijving>) ((Object) ingeschrevenGebruikers);
+        return (List<IInschrijving>) ((Object) inschrijvingen);
     }
 
     @Override
     public List<IAankondiging> getIAankondigingenSessie() {
-        return (List<IAankondiging>) ((Object) aankondigingenSessie);
+        return (List<IAankondiging>) ((Object) aankondigingen);
     }
 
     @Override
     public List<IFeedback> getIFeedbackSessie() {
-        return (List<IFeedback>) ((Object) feedbackSessie);
+        return (List<IFeedback>) ((Object) feedback);
     }
 
     @Override
@@ -198,20 +198,20 @@ public class Sessie implements ISessie {
         return sessieId;
     }
 
-    public List<Media> getMediaBijSessie() {
-        return mediaBijSessie;
+    public List<Media> getMedia() {
+        return media;
     }
 
-    public List<Inschrijving> getIngeschrevenGebruikers() {
-        return ingeschrevenGebruikers;
+    public List<Inschrijving> getInschrijvingen() {
+        return inschrijvingen;
     }
 
-    public List<Aankondiging> getAankondigingenSessie() {
-        return aankondigingenSessie;
+    public List<Aankondiging> getAankondigingen() {
+        return aankondigingen;
     }
 
-    public List<Feedback> getFeedbackSessie() {
-        return feedbackSessie;
+    public List<Feedback> getFeedback() {
+        return feedback;
     }
 
     //endregion
@@ -235,7 +235,7 @@ public class Sessie implements ISessie {
 
     public String toString_OverzichtInschrijvingenNietGeopend() {
         StringBuilder sb = new StringBuilder();
-        for (Inschrijving i : ingeschrevenGebruikers) {
+        for (Inschrijving i : inschrijvingen) {
             sb.append(String.format("%s: %s%n",/* i.getGebruiker().getNaam(), */i.getInschrijvingsdatum().toString()));
         }
         return sb.toString();
@@ -243,7 +243,7 @@ public class Sessie implements ISessie {
 
     public String toString_OverzichtAankondigingen() {
         StringBuilder sb = new StringBuilder();
-        for (Aankondiging a : aankondigingenSessie) {
+        for (Aankondiging a : aankondigingen) {
             sb.append(String.format("%s - %s%n\t%s%n", a.getPublicatiedatum().toString(), a.getPublicist().getNaam(), a.getInhoud()));
         }
         return sb.toString();
@@ -251,7 +251,7 @@ public class Sessie implements ISessie {
 
     public String toString_OverzichtInschrijvingenGeopend() {
         StringBuilder sb = new StringBuilder();
-        for (Inschrijving i : ingeschrevenGebruikers) {
+        for (Inschrijving i : inschrijvingen) {
             sb.append(String.format("%s: %s%n",/* i.getGebruiker().getNaam(),*/ i.isStatusAanwezigheid() ? "aanwezig" : "afwezig"));
         }
         return sb.toString();
@@ -259,7 +259,7 @@ public class Sessie implements ISessie {
 
     public String toString_OverzichtFeedback() {
         StringBuilder sb = new StringBuilder();
-        for (Feedback f : feedbackSessie) {
+        for (Feedback f : feedback) {
             sb.append(String.format("%s%n\t%s%n",/* f.getGebruiker().getNaam(),*/ f.getTekst()));
         }
         return sb.toString();
@@ -286,37 +286,37 @@ public class Sessie implements ISessie {
         if (media == null) {
             throw new SessieException();
         }
-        this.mediaBijSessie.add(media);
+        this.media.add(media);
     }
 
     public void addInschrijving(Inschrijving inschrijving) {
         if (inschrijving == null) {
             throw new SessieException();
         }
-        this.ingeschrevenGebruikers.add(inschrijving);
+        this.inschrijvingen.add(inschrijving);
     }
 
     public void addAankondiging(Aankondiging aankondiging) {
         if (aankondiging == null) {
             throw new SessieException();
         }
-        this.aankondigingenSessie.add(aankondiging);
+        this.aankondigingen.add(aankondiging);
     }
 
     public void addFeedback(Feedback feedback) {
         if (feedback == null) {
             throw new SessieException();
         }
-        this.feedbackSessie.add(feedback);
+        this.feedback.add(feedback);
     }
 
     public int aantalVrijePlaatsen() {
-        return maximumAantalPlaatsen - ingeschrevenGebruikers.size();
+        return maximumAantalPlaatsen - inschrijvingen.size();
     }
 
     public int aantalAanwezigenNaSessie() {
         int aantal = 0;
-        for (Inschrijving i : ingeschrevenGebruikers) {
+        for (Inschrijving i : inschrijvingen) {
             if (i.isStatusAanwezigheid()) {
                 aantal++;
             }
@@ -353,5 +353,21 @@ public class Sessie implements ISessie {
         gegevens.put("Feedback", (List<IFeedback>)getIFeedbackSessie());
         gegevens.put("Inschrijvingen", (List<IInschrijving>) getIIngeschrevenGebruikers());*/
         return gegevens;
+    }
+
+    public void verwijderMedia(Media mediaOud) {
+        media.remove(mediaOud);
+    }
+
+    public void verwijderFeedback(Feedback feedbackOud) {
+        feedback.remove(feedbackOud);
+    }
+
+    public void verwijderAankondiging(Aankondiging aankondigingOud) {
+        aankondigingen.remove(aankondigingOud);
+    }
+
+    public void verwijderInschrijving(Inschrijving inschrijvingOud) {
+        inschrijvingen.remove(inschrijvingOud);
     }
 }
