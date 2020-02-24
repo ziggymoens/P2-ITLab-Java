@@ -60,7 +60,7 @@ public class SessieFrameController extends AnchorPane {
     @FXML
     private Button openFeedback;
     @FXML
-    private ListView<Sessie> sessieList;
+    private ListView<ISessie> sessieList;
     @FXML
     private Button button;
 
@@ -97,12 +97,12 @@ public class SessieFrameController extends AnchorPane {
 
     @FXML
     private void geefDetails(ActionEvent event) {
-        ObservableList<Sessie> observableList = sessieList.getSelectionModel().getSelectedItems();
+        ObservableList<ISessie> observableList = sessieList.getSelectionModel().getSelectedItems();
         vulDetailsIn(observableList);
         sessieList.getSelectionModel().clearSelection();
     }
 
-    private void vulDetailsIn(ObservableList<Sessie> observableList) {
+    private void vulDetailsIn(ObservableList<ISessie> observableList) {
         currentSessie = observableList.get(0);
         sessieTitel.setText("Titel");
         sessieTitelVeld.setText(currentSessie.getTitel());

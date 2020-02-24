@@ -347,11 +347,11 @@ public class Sessie implements ISessie {
         gegevens.put("Einde sessie", getEindeSessie());
         gegevens.put("Maximaal aantal plaatsen", getMaximumAantalPlaatsen());
         gegevens.put("Sessie open?", isGeopend());
-        gegevens.put("Verantwoordelijke", (IGebruiker)getVerantwoordelijke());
-        gegevens.put("Aankondigingen", (List<IAankondiging>) getIAankondigingenSessie());
+        gegevens.put("Verantwoordelijke", getVerantwoordelijke().getGebruikersnaam());
+        /*gegevens.put("Aankondigingen", (List<IAankondiging>) getIAankondigingenSessie());
         gegevens.put("Media", (List<IMedia>) getIMediaBijSessie());
         gegevens.put("Feedback", (List<IFeedback>)getIFeedbackSessie());
-        gegevens.put("Inschrijvingen", (List<IInschrijving>) getIIngeschrevenGebruikers());
+        gegevens.put("Inschrijvingen", (List<IInschrijving>) getIIngeschrevenGebruikers());*/
         return gegevens;
     }
 }

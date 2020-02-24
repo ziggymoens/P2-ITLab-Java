@@ -1,26 +1,27 @@
 package userinterface.gui.details;
 
 import domein.DomeinController;
+import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.layout.BorderPane;
 import userinterface.gui.main.MainScreenController;
 
 import java.io.IOException;
 
-public class ListController<T> {
-    private final DomeinController domeinController;
-    private final MainScreenController mainScreenController;
+public class ListController<T> extends BorderPane {
+    private DetailsController detailsController;
 
     @FXML
-    ListView<T> listView;
+    private ListView<T> listView;
 
-    private ListController(MainScreenController mainScreenController) {
-        this.mainScreenController = mainScreenController;
-        this.domeinController = mainScreenController.getDomeinController();
+    public ListController(MainScreenController mainScreenController) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("List.fxml"));
-        loader.setRoot(this);
+        //loader.setRoot(this);
         loader.setController(this);
         try {
             loader.load();
@@ -28,9 +29,19 @@ public class ListController<T> {
             e.printStackTrace();
             throw new RuntimeException();
         }
+        detailsController = new DetailsController();
+        this.setRight(detailsController);
     }
 
-    public void setItems(ObservableList<T> observableList){
-        listView.setItems(observableList);
+    public void setItems(ObservableList<?> observableList){
+        listView.setItems((ObservableList<T>)observableList);
+        listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        listView.setOnMouseClicked(e -> detailsController.geefDetails(listView));
+
+    }
+
+    @Override
+    public Node getStyleableNode() {
+        return null;
     }
 }

@@ -25,8 +25,8 @@ public class DomeinController {
         return ((List<ISessie>)(Object)sessieKalenderController.getSessies());
     }
 
-    public ObservableList<Sessie> getSessieObservableList() {
-        return sessieObservableList;
+    public ObservableList<ISessie> getSessieObservableList() {
+        return (ObservableList<ISessie>)(Object)sessieObservableList;
     }
 
 }

@@ -3,14 +3,16 @@ package userinterface.gui.login;
 import domein.DomeinController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import userinterface.gui.main.MainScreenController;
 
-import java.awt.*;
 import java.io.IOException;
 
-public class LoginController {
+public class LoginController extends BorderPane {
 
-    private final MainScreenController mainScreenController;
+    //private final MainScreenController mainScreenController;
     private final DomeinController domeinController;
 
     @FXML
@@ -18,11 +20,11 @@ public class LoginController {
     @FXML
     private TextField loginVeld, wachtwoordVeld;
 
-    private LoginController(MainScreenController mainScreenController) {
-        this.mainScreenController = mainScreenController;
-        this.domeinController = mainScreenController.getDomeinController();
+    public LoginController(DomeinController domeinController) {
+        //this.mainScreenController = mainScreenController;
+        this.domeinController = domeinController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
-        loader.setRoot(this);
+        //loader.setRoot(this);
         loader.setController(this);
         try {
             loader.load();
