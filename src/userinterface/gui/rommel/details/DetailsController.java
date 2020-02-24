@@ -1,22 +1,15 @@
-package userinterface.gui.details;
+package userinterface.gui.rommel.details;
 
-import domein.DomeinController;
-import domein.domeinklassen.Sessie;
 import domein.interfacesDomein.ISessie;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.BorderRepeat;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import userinterface.gui.main.MainScreenController;
 
 import java.io.IOException;
 
@@ -29,8 +22,8 @@ public class DetailsController<T> extends BorderPane {
 
     public DetailsController() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Details.fxml"));
-        //loader.setRoot(this);
-        loader.setController(this);
+        loader.setRoot(this);
+        //loader.setController(this);
         try {
             loader.load();
         } catch (IOException e) {

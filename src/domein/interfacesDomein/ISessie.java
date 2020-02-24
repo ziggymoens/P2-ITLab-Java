@@ -33,4 +33,8 @@ public interface ISessie {
 
     //endregion
     Map<String, Object> gegevensDetails();
+
+    int getAantalAanwezigen();
+
+    int getBeschikbarePlaatsen();
 }

@@ -1,7 +1,5 @@
-package userinterface.gui.details;
+package userinterface.gui.rommel.details;
 
-import domein.DomeinController;
-import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.BorderPane;
-import userinterface.gui.main.MainScreenController;
+import userinterface.gui.rommel.main.MainScreenController;
 
 import java.io.IOException;
 
@@ -21,8 +19,8 @@ public class ListController<T> extends BorderPane {
 
     public ListController(MainScreenController mainScreenController) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("List.fxml"));
-        //loader.setRoot(this);
-        loader.setController(this);
+        loader.setRoot(this);
+        //loader.setController(this);
         try {
             loader.load();
         } catch (IOException e) {

@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("unchecked")
 @Entity
@@ -352,6 +353,16 @@ public class Sessie implements ISessie {
         gegevens.put("Feedback", (List<IFeedback>)getIFeedbackSessie());
         gegevens.put("Inschrijvingen", (List<IInschrijving>) getIIngeschrevenGebruikers());*/
         return gegevens;
+    }
+
+    @Override
+    public int getAantalAanwezigen() {
+        return (int) inschrijvingen.stream().filter(i -> i.isStatusAanwezigheid()).collect(Collectors.toList()).size();
+    }
+
+    @Override
+    public int getBeschikbarePlaatsen() {
+        return maximumAantalPlaatsen-inschrijvingen.size();
     }
 
     public void verwijderMedia(Media mediaOud) {

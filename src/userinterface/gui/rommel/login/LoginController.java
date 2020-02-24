@@ -1,4 +1,4 @@
-package userinterface.gui.login;
+package userinterface.gui.rommel.login;
 
 import domein.DomeinController;
 import javafx.fxml.FXML;
@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import userinterface.gui.main.MainScreenController;
 
 import java.io.IOException;
 

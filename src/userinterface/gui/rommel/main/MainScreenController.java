@@ -1,4 +1,4 @@
-package userinterface.gui.main;
+package userinterface.gui.rommel.main;
 
 import domein.DomeinController;
 import domein.domeinklassen.Sessie;
@@ -11,8 +11,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import userinterface.gui.details.DetailsController;
-import userinterface.gui.details.ListController;
+import userinterface.gui.rommel.details.ListController;
 
 import java.io.IOException;
 
@@ -32,8 +31,8 @@ public class MainScreenController extends BorderPane {
     public MainScreenController(DomeinController domeinController) {
         this.domeinController = domeinController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainScreen.fxml"));
-        //loader.setRoot(this);
-        loader.setController(this);
+        loader.setRoot(this);
+        //loader.setController(this);
         try {
             loader.load();
         } catch (IOException e) {

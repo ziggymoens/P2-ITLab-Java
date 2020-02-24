@@ -1,7 +1,6 @@
-package userinterface.gui.screens;
+package userinterface.gui.rommel.screens;
 
 import domein.DomeinController;
-import domein.domeinklassen.Sessie;
 import domein.interfacesDomein.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
