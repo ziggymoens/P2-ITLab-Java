@@ -65,9 +65,9 @@ public class SessieKalenderData {
     }
 
     public void populeerDataMedia() {
-        sessieKalenderBeheerder.addMediaSessie(1, "758095zm", "Media 1");
-        sessieKalenderBeheerder.addMediaSessie(2, "862361jv", "Media 2");
-        sessieKalenderBeheerder.addMediaSessie(1, "860570ea", "Media 3");
-        sessieKalenderBeheerder.addMediaSessie(4, "862361jv", "Media 4");
+        sessieKalenderBeheerder.addMediaSessie("S20-000001", "758095zm", "Media 1");
+        sessieKalenderBeheerder.addMediaSessie("S20-000002", "862361jv", "Media 2");
+        sessieKalenderBeheerder.addMediaSessie("S20-000001", "860570ea", "Media 3");
+        sessieKalenderBeheerder.addMediaSessie("S20-000004", "862361jv", "Media 4");
     }
 }
