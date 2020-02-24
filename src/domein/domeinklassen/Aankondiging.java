@@ -23,7 +23,7 @@ public class Aankondiging implements IAankondiging {
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.INCREMENT_PARAM, value = "1"),
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.VALUE_PREFIX_PARAMETER, value = "A20-"),
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d") })
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "aankondigingKey")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "aankondigingKey")
     //A toevoegen --> generated value
     private String aankondigingsId;
 
