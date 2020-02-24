@@ -22,6 +22,8 @@ public class JPAIdGenerator extends SequenceStyleGenerator {
     public static final String NUMBER_FORMAT_DEFAULT = "%d";
     private String numberFormat;
 
+
+
     @Override
     public Serializable generate(SharedSessionContractImplementor session,
                                  Object object) throws HibernateException {

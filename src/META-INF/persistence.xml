@@ -20,7 +20,7 @@
             <property name="javax.persistence.jdbc.user" value="sa" />
             <property name="javax.persistence.jdbc.password" value="myPassw0rd" />
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
-
+            <property name="hibernate.id.new_generator_mappings" value="true" />
             <property name="hibernate.format_sql" value="true" />
             <property name="hibernate.use_sql_comments" value="true" />
         </properties>
