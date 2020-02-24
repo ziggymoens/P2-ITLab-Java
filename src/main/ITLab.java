@@ -7,7 +7,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import userinterface.gui.main.MainScreenController;
-import userinterface.gui.screens.SessieFrameController;
 
 public class ITLab extends Application {
 
@@ -18,9 +17,9 @@ public class ITLab extends Application {
     @Override
     public void start(Stage primaryStage) {
         DomeinController domeinController = new DomeinController();
-        //BorderPane borderPane = new MainScreenController(domeinController);
-        AnchorPane anchorPane = new SessieFrameController(domeinController);
-        Scene scene = new Scene(anchorPane);
+        BorderPane borderPane = new MainScreenController(domeinController);
+        //AnchorPane anchorPane = new SessieFrameController(domeinController);
+        Scene scene = new Scene(borderPane);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

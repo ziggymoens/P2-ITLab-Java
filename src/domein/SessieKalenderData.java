@@ -25,8 +25,10 @@ public class SessieKalenderData {
         sessieKalenderBeheerder.addGebruiker(new Gebruiker("Kilian Hoefman", "757932kh", Gebruikersprofielen.GEBRUIKER, Gebruikersstatus.ACTIEF));
         sessieKalenderBeheerder.addGebruiker(new Gebruiker("Jonathan Vanden Eynden", "862361jv", Gebruikersprofielen.GEBRUIKER, Gebruikersstatus.ACTIEF));
         sessieKalenderBeheerder.addGebruiker(new Gebruiker("Sébastien De Pauw", "755223sd", Gebruikersprofielen.VERANTWOORDELIJKE, Gebruikersstatus.ACTIEF));
-        sessieKalenderBeheerder.addGebruiker(new Gebruiker("Sven Wyseur", "860570ea", Gebruikersprofielen.GEBRUIKER, Gebruikersstatus.NIET_ACTIEF));
-        sessieKalenderBeheerder.addGebruiker(new Gebruiker("Elias Ameye", "751158sw", Gebruikersprofielen.GEBRUIKER, Gebruikersstatus.GEBLOKKEERD));
+        sessieKalenderBeheerder.addGebruiker(new Gebruiker("Sven Wyseur", "751158sw", Gebruikersprofielen.GEBRUIKER, Gebruikersstatus.NIET_ACTIEF));
+        Gebruiker elias = new Gebruiker("Elias Ameye", "860570ea", Gebruikersprofielen.GEBRUIKER, Gebruikersstatus.GEBLOKKEERD);
+        sessieKalenderBeheerder.addGebruiker(elias);
+        sessieKalenderBeheerder.updateGebruiker(elias, new Gebruiker("Elias Ameye", "860570ea", Gebruikersprofielen.VERANTWOORDELIJKE, Gebruikersstatus.GEBLOKKEERD));
     }
 
     public void populeerDataSessie() {

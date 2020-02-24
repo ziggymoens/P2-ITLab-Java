@@ -118,6 +118,14 @@ public class SessieKalenderBeheerder {
         em.getTransaction().commit();
     }
 
+    public void updateGebruiker(Gebruiker gebruikerOud, Gebruiker gebruikerNieuw){
+        gebruikers.remove(gebruikerOud);
+        gebruikers.add(gebruikerNieuw);
+        em.getTransaction().begin();
+        em.merge(gebruikerNieuw);
+        em.getTransaction().commit();
+    }
+
     //endregion
     //region Lokaal
     public Set<Lokaal> geefAlleLokalen() {
