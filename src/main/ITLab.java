@@ -4,7 +4,7 @@ import domein.DomeinController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import userinterface.gui.screens.SessieFrameController;
+import userinterface.gui.main.MainScreenController;
 
 public class ITLab extends Application {
 
@@ -15,9 +15,8 @@ public class ITLab extends Application {
     @Override
     public void start(Stage primaryStage) {
         DomeinController domeinController = new DomeinController();
-        Scene scene = new Scene(new SessieFrameController(domeinController));
+        Scene scene = new Scene(new MainScreenController(domeinController));
         primaryStage.setScene(scene);
-
         primaryStage.show();
     }
 }

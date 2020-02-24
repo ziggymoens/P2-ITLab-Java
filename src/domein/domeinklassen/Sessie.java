@@ -338,4 +338,20 @@ public class Sessie implements ISessie {
         }
     }
     //endregion
+    @Override
+    public Map<String, Object> gegevensDetails(){
+        Map<String, Object> gegevens = new HashMap<>();
+        gegevens.put("Titel", getTitel());
+        gegevens.put("Gasspreker", getNaamGastspreker());
+        gegevens.put("Start sessie", getStartSessie());
+        gegevens.put("Einde sessie", getEindeSessie());
+        gegevens.put("Maximaal aantal plaatsen", getMaximumAantalPlaatsen());
+        gegevens.put("Sessie open?", isGeopend());
+        gegevens.put("Verantwoordelijke", (IGebruiker)getVerantwoordelijke());
+        gegevens.put("Aankondigingen", (List<IAankondiging>) getIAankondigingenSessie());
+        gegevens.put("Media", (List<IMedia>) getIMediaBijSessie());
+        gegevens.put("Feedback", (List<IFeedback>)getIFeedbackSessie());
+        gegevens.put("Inschrijvingen", (List<IInschrijving>) getIIngeschrevenGebruikers());
+        return gegevens;
+    }
 }

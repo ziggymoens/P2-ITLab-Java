@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu fx:id="menuGebruiker" mnemonicParsing="false" text="User">
+            <items>
+              <MenuItem fx:id="menuGebruikerSettings" mnemonicParsing="false" text="Settings" />
+            </items>
+          </Menu>
+          <Menu fx:id="menuSessie" mnemonicParsing="false" text="Session">
+            <items>
+              <MenuItem fx:id="menuSessieNew" mnemonicParsing="false" text="New..." />
+                  <MenuItem fx:id="menuSessieOpen" mnemonicParsing="false" text="Open..." />
+            </items>
+          </Menu>
+          <Menu fx:id="menuHelp" mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem fx:id="menuHelpAbout" mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <BorderPane fx:id="mainBorderPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

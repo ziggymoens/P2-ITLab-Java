@@ -2,6 +2,7 @@ package domein.interfacesDomein;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 public interface ISessie {
     String getTitel();
@@ -29,4 +30,7 @@ public interface ISessie {
     boolean isGeopend();
 
     String getSessieId();
+
+    //endregion
+    Map<String, Object> gegevensDetails();
 }

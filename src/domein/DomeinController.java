@@ -29,7 +29,6 @@ public class DomeinController {
         return sessieObservableList;
     }
 
-
 }
 
 //endregion
