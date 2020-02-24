@@ -2,6 +2,7 @@ package domein.domeinklassen;
 
 import domein.enums.HerinneringTijdstippen;
 import domein.interfacesDomein.IHerinnering;
+import exceptions.domein.HerinneringException;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -50,12 +51,15 @@ public class Herinnering implements IHerinnering {
      * @param dagenVooraf (int) ==> aantal dagen voordien dat de herinnering moet verstuurd worden
      */
     public Herinnering(int dagenVooraf) {
-        this(Arrays.stream(HerinneringTijdstippen.values()).filter(t -> t.getDagen() == dagenVooraf).findFirst().orElse(null));
+        this(Arrays.stream(HerinneringTijdstippen.values()).filter(t -> t.getDagen() == dagenVooraf).findFirst().orElse(null ));
     }
     //endregion
 
     //region Setters
     private void setDagenVooraf(HerinneringTijdstippen dagenVooraf) {
+        if (dagenVooraf == null) {
+            throw new HerinneringException();
+        }
         this.dagenVooraf = dagenVooraf;
     }
     //endregion
