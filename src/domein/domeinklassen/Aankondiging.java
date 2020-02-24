@@ -5,6 +5,7 @@ import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.IHerinnering;
 import exceptions.domein.AankondigingException;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -20,9 +21,8 @@ public class Aankondiging implements IAankondiging {
             name = "aankondigingKey",
             strategy = "domein.domeinklassen.JPAIdGenerator",
             parameters = {
-                    @org.hibernate.annotations.Parameter(name = JPAIdGenerator.INCREMENT_PARAM, value = "1"),
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.VALUE_PREFIX_PARAMETER, value = "A20-"),
-                    @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d") })
+                    @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d")})
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "aankondigingKey")
     //A toevoegen --> generated value
     private String aankondigingsId;

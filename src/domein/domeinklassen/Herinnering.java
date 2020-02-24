@@ -20,7 +20,6 @@ public class Herinnering implements IHerinnering {
             name = "herinneringKey",
             strategy = "domein.domeinklassen.JPAIdGenerator",
             parameters = {
-                    @org.hibernate.annotations.Parameter(name = JPAIdGenerator.INCREMENT_PARAM, value = "1"),
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.VALUE_PREFIX_PARAMETER, value = "H20-"),
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d")})
     private String herinneringsId;

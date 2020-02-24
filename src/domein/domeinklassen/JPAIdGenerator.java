@@ -22,8 +22,6 @@ public class JPAIdGenerator extends SequenceStyleGenerator {
     public static final String NUMBER_FORMAT_DEFAULT = "%d";
     private String numberFormat;
 
-
-
     @Override
     public Serializable generate(SharedSessionContractImplementor session,
                                  Object object) throws HibernateException {
@@ -33,6 +31,9 @@ public class JPAIdGenerator extends SequenceStyleGenerator {
     @Override
     public void configure(Type type, Properties params,
                           ServiceRegistry serviceRegistry) throws MappingException {
+
+        //PARAMETER AANPASSEN NAAR 50 OF 1
+        params.put(SequenceStyleGenerator.INCREMENT_PARAM, "50");
         super.configure(LongType.INSTANCE, params, serviceRegistry);
         valuePrefix = ConfigurationHelper.getString(VALUE_PREFIX_PARAMETER,
                 params, VALUE_PREFIX_DEFAULT);
