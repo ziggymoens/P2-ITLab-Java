@@ -117,7 +117,7 @@ public class Aankondiging implements IAankondiging {
 
     @Override
     public Gebruiker getPublicist() {
-        throw new UnsupportedOperationException();
+        return gebruiker;
     }
 
     @Override
