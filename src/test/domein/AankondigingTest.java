@@ -1,4 +1,4 @@
-package domein;
+package test.domein;
 
 import domein.domeinklassen.*;
 import exceptions.domein.AankondigingException;

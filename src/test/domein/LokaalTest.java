@@ -1,5 +1,4 @@
-package domein;
-
+package test.domein;
 import domein.domeinklassen.Lokaal;
 import exceptions.domein.LokaalException;
 import org.junit.jupiter.params.ParameterizedTest;

@@ -1,5 +1,4 @@
-package domein;
-
+package test.domein;
 class SessieKalenderTest {
 
 }

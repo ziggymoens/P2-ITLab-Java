@@ -1,4 +1,4 @@
-package domein;
+package test.domein;
 
 import domein.domeinklassen.Feedback;
 import domein.domeinklassen.Gebruiker;

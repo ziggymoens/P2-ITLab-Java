@@ -1,5 +1,4 @@
-package domein;
-
+package test.domein;
 import domein.domeinklassen.Gebruiker;
 import domein.domeinklassen.Lokaal;
 import domein.domeinklassen.Sessie;
