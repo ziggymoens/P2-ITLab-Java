@@ -4,8 +4,7 @@ import domein.DomeinController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import userinterface.gui.rommel.main.MainScreenController;
-import userinterface.gui.startUp.StartUpController;
+import userinterface.startUp.StartUpController;
 
 public class ITLab extends Application {
 
