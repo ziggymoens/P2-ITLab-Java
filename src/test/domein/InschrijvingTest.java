@@ -15,7 +15,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.time.LocalDateTime;
 import java.util.stream.Stream;
-
+//TODO
 public class InschrijvingTest {
     private static Gebruiker gebruiker;
     private static Lokaal lokaal;
