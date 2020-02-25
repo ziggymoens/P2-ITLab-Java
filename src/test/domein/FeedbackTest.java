@@ -7,13 +7,17 @@ import domein.domeinklassen.Sessie;
 import exceptions.domein.AankondigingException;
 import exceptions.domein.FeedbackException;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.time.LocalDateTime;
+import java.util.stream.Stream;
 
 import static domein.enums.Gebruikersprofielen.GEBRUIKER;
 import static domein.enums.Gebruikersstatus.ACTIEF;
@@ -23,52 +27,42 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class FeedbackTest {
 
-    Gebruiker gebruiker;
-    Sessie sessie;
-    Lokaal lokaal;
+    private static Gebruiker gebruiker;
+    private static Sessie sessie;
+    private static Lokaal lokaal;
 
-    //region beforeEach
-    @BeforeEach
-    public void before(){
+    //region beforeAll
+    @BeforeAll
+    public static void before(){
         gebruiker = new Gebruiker("862361jv", "Jonathan Vanden Eynden", GEBRUIKER, ACTIEF);
         lokaal = new Lokaal("GSCB.3.049", 50);
         sessie = new Sessie("Titel sessie", LocalDateTime.now().plusSeconds(1), LocalDateTime.now().plusMinutes(30), lokaal, gebruiker);
     }
     //endregion
 
-    //region maakFeedbackMetJuisteWaardenTestenOpGebruiker
-    @Test
-    public void maakFeedbackMetJuisteWaardenTestenOpGebruiker(){
-        Feedback feedback = new Feedback(gebruiker, "teskt");
+    private static Stream<Arguments> opsommingGeldigeWaarden(){
+        return Stream.of(Arguments.of(gebruiker, "inhoud"),
+                Arguments.of(gebruiker, "geldige inhoud"));
     }
-    //endregion
 
-    //region maakFeedbackMetJuisteWaardenTestenOpTekst
-    @Test
-    public void maakFeedbackMetJuisteWaardenTestenOpTekst(){
-        Feedback feedback = new Feedback(gebruiker, "tekst");
-        assertEquals("tekst", feedback.getTekst());
+    private static Stream<Arguments> opsommingOngeldigeWaarden(){
+        return Stream.of(Arguments.of(gebruiker, ""),
+                Arguments.of(gebruiker, null));
     }
-    //endregion
-
-    //region maakFeedbackFouteWaardenTekst_werptException
-    @ParameterizedTest
-    @NullAndEmptySource
-    @ValueSource(strings = {" "})
-    public void maakFeedbackFouteWaardenTekst_werptException(String tekst){
-        assertThrows(FeedbackException.class, () -> new Feedback(gebruiker, tekst));
-    }
-    //endregion
 
     @ParameterizedTest
-    @NullAndEmptySource
-    @ValueSource(strings = " ")
-    public void maakAankondigingOngeldigeGegevensId_GooitException(String id){
-        Assertions.assertThrows(AankondigingException.class, () ->  new Feedback(gebruiker, "Tekst"));
+    @MethodSource("opsommingGeldigeWaarden")
+    public void maakFeedbackGeldigeWaarden_Slaagt(Gebruiker gebruiker, String tekst){
+        Feedback feedback = new Feedback(gebruiker, tekst);
+        assertEquals(gebruiker, feedback.getGebruiker());
+        assertEquals(tekst, feedback.getTekst());
     }
 
-    @Test
-    public void maakAankondigingOngeldigeGegevensSessie_GooitException(){
-        Assertions.assertThrows(AankondigingException.class, () ->  new Feedback(gebruiker, "Tekst"));
+    @ParameterizedTest
+    @MethodSource("opsommingOngeldigeWaarden")
+    public void maakFeedbackOngeldigeWaarden_GooitException(Gebruiker gebruiker, String tekst){
+        Assertions.assertThrows(FeedbackException.class, () -> {
+           new Feedback(gebruiker, tekst);
+        });
     }
 }
