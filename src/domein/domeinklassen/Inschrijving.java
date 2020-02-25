@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 @Entity
@@ -132,7 +133,11 @@ public class Inschrijving implements IInschrijving {
     }
     @Override
     public String toString_Compleet() {
-        return String.format("Inschrijving: %s%nIngeschreven gebruiker: %s%nIngeschreven op: %s%n", inschrijvingsId, gebruiker.getNaam(), inschrijvingsdatum.toString());
+        return String.format("Inschrijving: %s%nIngeschreven gebruiker: %s%nIngeschreven op: %s%n", inschrijvingsId, gebruiker.getNaam(), toString_inschrijvingsDatum());
+    }
+    public String toString_inschrijvingsDatum(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return String.format("%s", inschrijvingsdatum.format(formatter));
     }
 
     //endregion
