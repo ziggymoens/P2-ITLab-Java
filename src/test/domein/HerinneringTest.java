@@ -16,10 +16,9 @@ import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
 
-//TODO
 public class HerinneringTest {
 
-
+    //region opsommingGeldigeWaarden
     private static Stream<Arguments> opsommingGeldigeWaarden(){
         return Stream.of(Arguments.of(0),
                 Arguments.of(1),
@@ -27,6 +26,7 @@ public class HerinneringTest {
                 Arguments.of(3),
                 Arguments.of(7));
     }
+    //endregion
 
     //region maakHerinneringGeldigeGegevens
     @ParameterizedTest
@@ -37,6 +37,7 @@ public class HerinneringTest {
     }
     //endregion
 
+    //region opsommingOngeldigeWaarden
     private static Stream<Arguments> opsommingOngeldigeWaarden(){
         return Stream.of(Arguments.of(-3),
                 Arguments.of(5),
@@ -45,11 +46,14 @@ public class HerinneringTest {
                 Arguments.of(Integer.MAX_VALUE),
                 Arguments.of(Integer.MIN_VALUE));
     }
+    //endregion
 
+    //region maak herinnering ongeldige gegevens
     @ParameterizedTest
     @MethodSource("opsommingOngeldigeWaarden")
     public void maakHerinneringOngeldigeGegevens_GooitException(int dagenVooraf){
         Assertions.assertThrows(HerinneringException.class, () -> new Herinnering(dagenVooraf));
     }
+    //endregion
 
 }
