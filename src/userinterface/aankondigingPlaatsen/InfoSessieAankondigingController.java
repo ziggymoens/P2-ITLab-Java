@@ -7,43 +7,38 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 import userinterface.MAIN.MainScreenController;
-import userinterface.sessieBeheren.InfoSessieController;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
-public class AankondigingPlaatsenController extends BorderPane {
+public class InfoSessieAankondigingController extends BorderPane {
+    private ISessie sessie;
     private DomeinController domeinController;
-    private MainScreenController mainScreenController;
+    @FXML
+    private TextField naamverantwoordelijke, titel, gastspreker, lokaal, start, eind, maxPlaatsen;
 
     @FXML
-    private TextField naamverantwoordelijke, titel, start, eind, plaatsen;
+    private Button voegAankondigingToe;
 
     @FXML
-    private Button nieuw;
-
-    @FXML
-    private ListView<ISessie> listView;
+    private TextArea tekstAankondiging;
 
     @FXML
     private ChoiceBox<ISessieKalender> choiceBoxSessie;
 
+    @FXML
+    private ListView<ISessie> listView;
+
     private ObservableList<ISessie> sessies;
 
-    private ISessie sessie;
-
-    public AankondigingPlaatsenController(DomeinController domeinController, MainScreenController mainScreenController){
+    public InfoSessieAankondigingController(DomeinController domeinController, MainScreenController mainScreenController, ISessie sessie){
         this.domeinController = domeinController;
-        this.mainScreenController = mainScreenController;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("AankondigingPlaatsen.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("InfoSessieAankondiging.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try {
@@ -52,6 +47,7 @@ public class AankondigingPlaatsenController extends BorderPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
+        this.sessie = sessie;
         choiceBoxSessie.setItems(FXCollections.observableArrayList(domeinController.getISessieKalenders()));
         choiceBoxSessie.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessieKalender>() {
             @Override
@@ -62,27 +58,25 @@ public class AankondigingPlaatsenController extends BorderPane {
                 listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessie>() {
                     @Override
                     public void changed(ObservableValue<? extends ISessie> observableValue, ISessie iSessie, ISessie t1) {
-                        sessie = t1;
                         geefDetails(t1);
                     }
                 });
             }
         });
+        tekstAankondiging.setPromptText("Schrijf hier je aankondiging");
         choiceBoxSessie.setValue(choiceBoxSessie.getItems().get(0));
-        nieuw.setOnAction(this::nieuw);
+        listView.getSelectionModel().select(sessies.indexOf(sessie));
         mainScreenController.vulSchermIn(this);
     }
 
     private void geefDetails(ISessie sessie) {
         naamverantwoordelijke.setText(sessie.getVerantwoordelijke().getNaam());
         titel.setText(sessie.getTitel());
+        gastspreker.setText(sessie.getNaamGastspreker());
+        lokaal.setText(sessie.getLokaal().getLokaalCode());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         start.setText(sessie.getStartSessie().format(formatter));
         eind.setText(sessie.getEindeSessie().format(formatter));
-        plaatsen.setText(String.valueOf(sessie.isGeopend()?sessie.getAantalAanwezigen():sessie.getBeschikbarePlaatsen()));
-    }
-
-    private void nieuw(ActionEvent actionEvent){
-        new InfoSessieAankondigingController(domeinController,mainScreenController, sessie);
+        maxPlaatsen.setText("" + sessie.getMaximumAantalPlaatsen());
     }
 }
