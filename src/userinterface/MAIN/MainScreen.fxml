@@ -16,21 +16,19 @@
          <children>
             <MenuBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="1080.0">
               <menus>
-                <Menu mnemonicParsing="false" text="Nieuw...">
-                  <items>
-                    <MenuItem fx:id="nSessie" mnemonicParsing="false" text="Nieuwe sessie..." />
-                        <MenuItem fx:id="nGebruiker" mnemonicParsing="false" text="Nieuwe gebruiker..." />
-                        <MenuItem fx:id="nAankondiging" mnemonicParsing="false" text="Nieuwe aankondiging..." />
-                        <MenuItem fx:id="nFeedback" mnemonicParsing="false" text="Nieuwe Feedback..." />
-                        <MenuItem fx:id="nInschrijving" mnemonicParsing="false" text="Nieuwe Inschrijven..." />
-                        <MenuItem fx:id="nMedia" mnemonicParsing="false" text="Nieuwe Media..." />
-                  </items>
-                </Menu>
                 <Menu mnemonicParsing="false" text="Sessie">
                   <items>
-                    <MenuItem fx:id="sessieNSessie" mnemonicParsing="false" text="Nieuwe sessie..." />
-                        <MenuItem fx:id="sessieOpenSessie" mnemonicParsing="false" text="Open sessie..." />
-                        <MenuItem fx:id="sessieVerwijderSessie" mnemonicParsing="false" text="Verwijder sessie..." />
+                    <MenuItem fx:id="newSessie" mnemonicParsing="false" text="Nieuwe sessie..." />
+                        <MenuItem fx:id="openSessie" mnemonicParsing="false" text="Open sessie..." />
+                        <Menu mnemonicParsing="false" text="Voeg toe aan sessie...">
+                          <items>
+                            <MenuItem fx:id="addAankondiging" mnemonicParsing="false" text="Aankondiging" />
+                              <MenuItem fx:id="addFeedback" mnemonicParsing="false" text="Feedback" />
+                              <MenuItem fx:id="addInschrijving" mnemonicParsing="false" text="Inschrijving" />
+                              <MenuItem fx:id="addMedia" mnemonicParsing="false" text="Media" />
+                          </items>
+                        </Menu>
+                        <MenuItem fx:id="deleteSessie" mnemonicParsing="false" text="Verwijder sessie..." />
                   </items>
                 </Menu>
                 <Menu fx:id="menuGebruiker" mnemonicParsing="false" text="Gebruiker">

@@ -21,7 +21,7 @@ import java.io.IOException;
 
 public class MainScreenController extends BorderPane {
     @FXML
-    private MenuItem nSessie, nGebruiker, nAankondiging, nFeedback, nInschrijving, nMedia, sessieNSessie, sessieOpenSessie, sessieVerwijderSessie, gebruikerNieuwegebruiker, gebruikerOpenGebruiker, gebruikerVerwijderGebruiker, about, help, gebruikerGegevens, gebruikerInstellingen, gebruikerUitloggen, gebruikerAfsluiten;
+    private MenuItem newSessie, openSessie, deleteSessie,addAankondiging, addFeedback, addInschrijving, addMedia, gebruikerNieuwegebruiker, gebruikerOpenGebruiker, gebruikerVerwijderGebruiker, about, help, gebruikerGegevens, gebruikerInstellingen, gebruikerUitloggen, gebruikerAfsluiten;
     @FXML
     private ImageView profielFoto;
     @FXML
@@ -45,7 +45,7 @@ public class MainScreenController extends BorderPane {
         gebruikersnaam.setText(gebruiker.getNaam());
         Image image = new Image("storage/profielfotos/profielfoto.png");
         this.profielFoto.setImage(image);
-        sessieOpenSessie.setOnAction(this::openSessie);
+        openSessie.setOnAction(this::openSessie);
     }
 
     private void openSessie(ActionEvent actionEvent) {
