@@ -1,12 +1,16 @@
 package domein.domeinklassen;
 
+import domein.interfacesDomein.IFeedback;
+import domein.interfacesDomein.ISessie;
+import domein.interfacesDomein.ISessieKalender;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "sessieKalender")
-public class SessieKalender {
+public class SessieKalender implements ISessieKalender {
 
     @Id
     private int academiajaar;
@@ -30,8 +34,14 @@ public class SessieKalender {
         sessieList.add(sessie);
     }
 
+    @Override
     public int getAcademiajaar() {
         return academiajaar;
+    }
+
+    @Override
+    public List<ISessie> getISessieList(){
+        return (List<ISessie>)(Object) sessieList;
     }
 
     public List<Sessie> getSessieList() {
