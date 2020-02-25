@@ -16,7 +16,6 @@ public interface IGebruiker {
 
     String getProfielfoto();
 
-    //List<IGebruiker> getIGebruikerList();
 
     //List<IFeedback> getIFeedbackList();
 

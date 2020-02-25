@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.List;
+import java.util.Set;
 
 public class DomeinController {
     private ObservableList<Sessie> sessieObservableList;
@@ -48,6 +49,10 @@ public class DomeinController {
     public void pasSessieAan(){
 
     }
+
+//    public Set<IGebruiker> getIGebruikers() {
+//        return (Set<IGebruiker>) (Object)
+//    }
 }
 
 //endregion
