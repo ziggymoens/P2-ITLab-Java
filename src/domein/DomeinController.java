@@ -44,6 +44,10 @@ public class DomeinController {
     public List<ISessieKalender> getISessieKalenders() {
         return (List<ISessieKalender>) (Object) sessieKalenderController.getSessieKalenders();
     }
+
+    public void pasSessieAan(){
+
+    }
 }
 
 //endregion

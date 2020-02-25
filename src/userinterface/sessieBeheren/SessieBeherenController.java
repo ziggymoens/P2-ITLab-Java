@@ -90,7 +90,10 @@ public class SessieBeherenController extends BorderPane {
     }
 
     private void bewerken(ActionEvent actionEvent) {
-
+        Scene scene = new Scene (new SessieBewerkenController(sessie, domeinController));
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
 
     }
 
