@@ -96,7 +96,7 @@ public class Sessie implements ISessie {
         this.titel = titel;
     }
 
-    private void setNaamGastspreker(String naamGastspreker) {
+    public void setNaamGastspreker(String naamGastspreker) {
         if (naamGastspreker == null || naamGastspreker.isBlank()) {
             throw new SessieException();
         }

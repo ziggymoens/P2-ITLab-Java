@@ -120,9 +120,9 @@ public class SessieKalenderBeheerder {
     //endregion
 
     //region Feedback
-    public void addFeedbackSessie(int sessieid, String gebruikersnaam, String tekst) {
+    public void addFeedbackSessie(String sessieid, String gebruikersnaam, String tekst) {
         Gebruiker gebruiker = gebruikers.stream().filter(g -> g.getGebruikersnaam().equals(gebruikersnaam)).findFirst().orElse(null);
-        Sessie s = sessies.get(sessieid - 1);
+        Sessie s = sessies.stream().filter(ss -> ss.getSessieId().equals(sessieid)).findFirst().orElse(null);
         Feedback f = new Feedback(gebruiker, tekst);
         s.addFeedback(f);
         em.getTransaction().begin();
@@ -152,9 +152,9 @@ public class SessieKalenderBeheerder {
     //endregion
 
     //region Aankondiging
-    public void addAankondigingSessie(int sessieid, String gebruikersnaam, String tekst, boolean herinnering, int dagen) {
+    public void addAankondigingSessie(String sessieid, String gebruikersnaam, String tekst, boolean herinnering, int dagen) {
         Gebruiker gebruiker = gebruikers.stream().filter(g -> g.getGebruikersnaam().equals(gebruikersnaam)).findFirst().orElse(null);
-        Sessie s = sessies.get(sessieid - 1);
+        Sessie s = sessies.stream().filter(ss -> ss.getSessieId().equals(sessieid)).findFirst().orElse(null);
         Aankondiging a = new Aankondiging(gebruiker, LocalDateTime.now(), tekst, herinnering, dagen);
         s.addAankondiging(a);
         em.getTransaction().begin();
@@ -184,9 +184,9 @@ public class SessieKalenderBeheerder {
     //endregion
 
     //region Inschrijving
-    public void addInschrijvingSessie(int sessieid, String gebruikersnaam, LocalDateTime inschrijving) {
+    public void addInschrijvingSessie(String sessieid, String gebruikersnaam, LocalDateTime inschrijving) {
         Gebruiker gebruiker = gebruikers.stream().filter(g -> g.getGebruikersnaam().equals(gebruikersnaam)).findFirst().orElse(null);
-        Sessie s = sessies.get(sessieid - 1);
+        Sessie s = sessies.stream().filter(ss -> ss.getSessieId().equals(sessieid)).findFirst().orElse(null);
         Inschrijving i = new Inschrijving(gebruiker, inschrijving);
         s.addInschrijving(i);
         em.getTransaction().begin();
