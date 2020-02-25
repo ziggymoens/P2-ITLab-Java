@@ -33,8 +33,17 @@ public class JPAIdGenerator extends SequenceStyleGenerator {
                           ServiceRegistry serviceRegistry) throws MappingException {
 
         //PARAMETER AANPASSEN NAAR 50 OF 1
-        params.put(SequenceStyleGenerator.INCREMENT_PARAM, "1");
-        super.configure(LongType.INSTANCE, params, serviceRegistry);
+        try{
+            params.put(SequenceStyleGenerator.INCREMENT_PARAM, "50");
+            super.configure(LongType.INSTANCE, params, serviceRegistry);
+        }catch(Exception e){
+            try {
+                params.put(SequenceStyleGenerator.INCREMENT_PARAM, "1");
+                super.configure(LongType.INSTANCE, params, serviceRegistry);
+            } catch (Exception ex) {
+            }
+        }
+
         valuePrefix = ConfigurationHelper.getString(VALUE_PREFIX_PARAMETER,
                 params, VALUE_PREFIX_DEFAULT);
         numberFormat = ConfigurationHelper.getString(NUMBER_FORMAT_PARAMETER,
