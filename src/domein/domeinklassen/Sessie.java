@@ -222,7 +222,7 @@ public class Sessie implements ISessie {
 
     @Override
     public String toString() {
-        return String.format("%s - %s", sessieId, titel);
+        return String.format("%s - %s", startSessie.toLocalDate(), titel);
     }
 
 
