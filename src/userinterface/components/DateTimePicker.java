@@ -1,4 +1,4 @@
-package userinterface.gui.components;
+package userinterface.components;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;

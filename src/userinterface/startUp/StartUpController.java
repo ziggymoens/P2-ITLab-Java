@@ -1,4 +1,4 @@
-package userinterface.gui.startUp;
+package userinterface.startUp;
 
 import domein.DomeinController;
 import javafx.event.ActionEvent;
@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import main.ITLab;
-import userinterface.gui.sessieBeheren.SessieBeherenController;
+import userinterface.sessieBeheren.SessieBeherenController;
 
 import java.io.IOException;
 

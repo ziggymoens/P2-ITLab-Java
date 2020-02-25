@@ -1,19 +1,17 @@
-package userinterface.gui.aanmelden;
+package userinterface.inloggen;
 
 import domein.DomeinController;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 
-public class AanmeldenController extends BorderPane {
+public class InloggenController extends BorderPane {
     private DomeinController domeinController;
 
-    public AanmeldenController(DomeinController domeinController) {
+    public InloggenController(DomeinController domeinController) {
         this.domeinController = domeinController;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Aanmelden.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Inloggen.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try {
@@ -24,7 +22,7 @@ public class AanmeldenController extends BorderPane {
         }
     }
 
-    public void aanmelden(){
-
+    public void inloggen(){
+        //doorsturen naar Sessies bekijken
     }
 }
