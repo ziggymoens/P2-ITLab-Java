@@ -55,7 +55,7 @@ public class SessieKalender implements ISessieKalender {
 
     public List<Sessie> getSessieList() {
         return sessieList;
-    }
+    } //waarom deze methode? we hebben getISessieList toch al?
 
     public Sessie geefSessie(String sessieId){
         return sessieList.stream().filter(s -> s.getSessieId().equals(sessieId)).findFirst().orElse(null);
