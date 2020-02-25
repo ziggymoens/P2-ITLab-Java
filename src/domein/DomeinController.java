@@ -5,6 +5,7 @@ import domein.domeinklassen.Gebruiker;
 import domein.domeinklassen.Sessie;
 import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.ISessie;
+import domein.interfacesDomein.ISessieKalender;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -28,8 +29,8 @@ public class DomeinController {
         return ((List<ISessie>)(Object)sessieKalenderController.getSessies());
     }
 
-    public ObservableList<ISessie> getSessieObservableList() {
-        return (ObservableList<ISessie>)(Object)sessieObservableList;
+    public List<ISessie> getSessieObservableList(ISessieKalender selectedItem) {
+        return (List<ISessie>)(Object)sessieKalenderController.geefSessiesVanJaar(selectedItem.getAcademiajaar());
     }
 
     public void setActieveGebruiker(String username){
@@ -39,6 +40,10 @@ public class DomeinController {
     public IGebruiker geefIGebruiker(){
         setActieveGebruiker("758095zm");
         return (IGebruiker) gebruiker;
+    }
+
+    public List<ISessieKalender> getISessieKalenders() {
+        return (List<ISessieKalender>) (Object) sessieKalenderController.getSessieKalenders();
     }
 }
 

@@ -2,17 +2,16 @@ package userinterface.sessieBeheren;
 
 import domein.DomeinController;
 import domein.interfacesDomein.ISessie;
+import domein.interfacesDomein.ISessieKalender;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import userinterface.MAIN.MainScreenController;
@@ -28,6 +27,8 @@ public class SessieBeherenController extends BorderPane {
     private Button meer, bewerken, verwijderen, nieuw;
     @FXML
     private ListView<ISessie> listView;
+    @FXML
+    private ChoiceBox<ISessieKalender> choiceBoxSessie;
 
     private ObservableList<ISessie> sessies;
 
@@ -44,17 +45,26 @@ public class SessieBeherenController extends BorderPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
-        sessies = domeinController.getSessieObservableList();
-        listView.setItems(sessies);
-        listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessie>() {
 
+
+        choiceBoxSessie.setItems(FXCollections.observableArrayList(domeinController.getISessieKalenders()));
+        choiceBoxSessie.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessieKalender>() {
             @Override
-            public void changed(ObservableValue<? extends ISessie> observableValue, ISessie iSessie, ISessie t1) {
-                sessie = t1;
-                geefDetails(t1);
+            public void changed(ObservableValue<? extends ISessieKalender> observableValue, ISessieKalender iSessieKalender, ISessieKalender t1) {
+                sessies = FXCollections.observableArrayList(t1.getISessieList());
+                listView.setItems(sessies);
+                listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+                listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessie>() {
+                    @Override
+                    public void changed(ObservableValue<? extends ISessie> observableValue, ISessie iSessie, ISessie t1) {
+                        sessie = t1;
+                        geefDetails(t1);
+                    }
+                });
             }
         });
+
+
         meer.setOnAction(this::meer);
         bewerken.setOnAction(this::bewerken);
         verwijderen.setOnAction(this::verwijderen);

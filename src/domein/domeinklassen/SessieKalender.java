@@ -55,4 +55,9 @@ public class SessieKalender implements ISessieKalender {
     public void addSessies(List<Sessie> sessies) {
         this.sessieList.addAll(sessies);
     }
+
+    @Override
+    public String toString() {
+        return String.format("Academiejaar %s - %s", String.valueOf(getAcademiajaar()).substring(0,2), String.valueOf(getAcademiajaar()).substring(2,4));
+    }
 }

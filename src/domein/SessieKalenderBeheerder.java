@@ -278,6 +278,10 @@ public class SessieKalenderBeheerder {
         em.persist(sessieKalender);
         em.getTransaction().commit();
     }
+
+    public List<SessieKalender> geefAlleSessieKalenders() {
+        return sessieKalenders;
+    }
     //endregion
 
 }
