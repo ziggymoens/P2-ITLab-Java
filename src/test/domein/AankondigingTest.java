@@ -44,32 +44,19 @@ public class AankondigingTest {
         Assertions.assertEquals(herinnering, aankondiging.getHerinnering());
     }
 
-    @ParameterizedTest
-    @NullAndEmptySource
-    @ValueSource(strings = " ")
-    public void maakAankondigingOngeldigeGegevensId_GooitException(String id){
-        Assertions.assertThrows(AankondigingException.class, () ->  new Aankondiging(gebruiker, LocalDateTime.now(), "AankondigingTest"));
-    }
-
-    @Test
-    public void maakAankondigingOngeldigeGegevensSessie_GooitException(){
-        Assertions.assertThrows(AankondigingException.class, () ->  new Aankondiging(gebruiker, LocalDateTime.now(), "AankondigingTest"));
-    }
-
-    @Test
-    public void maakAankondigingOngeldigeGegevensLocalDateTime_GooitException(){
-        Assertions.assertThrows(AankondigingException.class, () ->  new Aankondiging(gebruiker,  null, "AankondigingTest"));
-    }
-
-    @Test
-    public void maakAankondigingOngeldigeGegevensPublicist_GooitException(){
-        Assertions.assertThrows(AankondigingException.class, () ->  new Aankondiging(gebruiker, LocalDateTime.now(), "AankondigingTest"));
+    private static Stream<Arguments> opsommingOngeldigeWaarden(){
+        return Stream.of(Arguments.of(null, LocalDateTime.now().minusDays(2), "AankondigingTest", true, 1),
+                Arguments.of(gebruiker, null, "AankondigingTest", true, 1),
+                Arguments.of(gebruiker, LocalDateTime.now().minusDays(2), null, true, 1),
+                Arguments.of(gebruiker, LocalDateTime.now().minusDays(2), "", true, 1),
+                Arguments.of(gebruiker, LocalDateTime.now().minusDays(2), "inhoud", true, -2));
     }
 
     @ParameterizedTest
-    @NullAndEmptySource
-    @ValueSource(strings = " ")
-    public void maakAankondigingOngeldigeGegevensInhoud_GooitException(String inhoud){
-        Assertions.assertThrows(AankondigingException.class, () ->  new Aankondiging(gebruiker,LocalDateTime.now(), inhoud));
+    @MethodSource("opsommingOngeldigeWaarden")
+    public void maakAankondigingOngeldigeGegevens_GooitException(Gebruiker gebruiker, LocalDateTime publicatiedatum, String inhoud, boolean automatischeHerinnering, int dagenVooraf){
+        Assertions.assertThrows(AankondigingException.class, () -> {
+            new Aankondiging(gebruiker, publicatiedatum, inhoud, automatischeHerinnering, dagenVooraf);
+        });
     }
 }
