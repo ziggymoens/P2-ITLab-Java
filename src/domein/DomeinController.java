@@ -1,7 +1,9 @@
 package domein;
 
 
+import domein.domeinklassen.Gebruiker;
 import domein.domeinklassen.Sessie;
+import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.ISessie;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -13,6 +15,7 @@ public class DomeinController {
     private ObservableList<Sessie> sessieObservableList;
     //region Variabelen
     private SessieKalenderController sessieKalenderController;
+    private Gebruiker gebruiker;
     //endregion
 
     //region Constructor
@@ -29,6 +32,13 @@ public class DomeinController {
         return (ObservableList<ISessie>)(Object)sessieObservableList;
     }
 
+    public void setActieveGebruiker(String username){
+        gebruiker = sessieKalenderController.getGebruikerByID(username);
+    }
+
+    public IGebruiker geefIGebruiker(){
+        return (IGebruiker) gebruiker;
+    }
 }
 
 //endregion

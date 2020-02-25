@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+
+<fx:root prefHeight="720.0" prefWidth="1280.0" type="BorderPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="1080.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="Nieuw...">
+                  <items>
+                    <MenuItem fx:id="nSessie" mnemonicParsing="false" text="Nieuwe sessie..." />
+                        <MenuItem fx:id="nGebruiker" mnemonicParsing="false" text="Nieuwe gebruiker..." />
+                        <MenuItem fx:id="nAankondiging" mnemonicParsing="false" text="Nieuwe aankondiging..." />
+                        <MenuItem fx:id="nFeedback" mnemonicParsing="false" text="Nieuwe Feedback..." />
+                        <MenuItem fx:id="nInschrijving" mnemonicParsing="false" text="Nieuwe Inschrijven..." />
+                        <MenuItem fx:id="nMedia" mnemonicParsing="false" text="Nieuwe Media..." />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Sessie">
+                  <items>
+                    <MenuItem fx:id="sessieNSessie" mnemonicParsing="false" text="Nieuwe sessie..." />
+                        <MenuItem fx:id="sessieOpenSessie" mnemonicParsing="false" text="Open sessie..." />
+                        <MenuItem fx:id="sessieVerwijderSessie" mnemonicParsing="false" text="Verwijder sessie..." />
+                  </items>
+                </Menu>
+                <Menu fx:id="menuGebruiker" mnemonicParsing="false" text="Gebruiker">
+                  <items>
+                    <MenuItem fx:id="gebruikerNieuweGebruiker" mnemonicParsing="false" text="Nieuwe gebruiker..." />
+                        <MenuItem fx:id="gebruikerOpenGebruiker" mnemonicParsing="false" text="Open gebruiker..." />
+                        <MenuItem fx:id="gebruikerVerwijderGebruiker" mnemonicParsing="false" text="Verwijder gebruiker..." />
+                  </items>
+                </Menu>
+                  <Menu mnemonicParsing="false" text="Help">
+                     <items>
+                        <MenuItem fx:id="about" mnemonicParsing="false" text="About" />
+                        <MenuItem fx:id="help" mnemonicParsing="false" text="Help" />
+                     </items>
+                  </Menu>
+              </menus>
+            </MenuBar>
+            <MenuBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" prefWidth="200.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="Account">
+                  <items>
+                        <MenuItem mnemonicParsing="false">
+                           <graphic>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <ImageView fx:id="profielFoto" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                    <Label fx:id="gebruikersnaam" text="Label" />
+                                 </children>
+                              </HBox>
+                           </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="gebruikerGegevens" mnemonicParsing="false" text="Gegevens..." />
+                    <MenuItem fx:id="gebruikerInstellingen" mnemonicParsing="false" text="Instellingen..." />
+                        <MenuItem fx:id="gebruikerUitloggen" mnemonicParsing="false" text="Uitloggen..." />
+                        <MenuItem fx:id="gebruikerAfsluiten" mnemonicParsing="false" text="Afsluiten" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </children>
+      </HBox>
+   </top>
+</fx:root>
