@@ -81,9 +81,6 @@ public class AankondigingPlaatsenController extends BorderPane {
     }
 
     private void nieuw(ActionEvent actionEvent){
-        Scene scene = new Scene(new InfoSessieController(sessie));
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
+
     }
 }
