@@ -63,7 +63,7 @@ public class SessieBeherenController extends BorderPane {
                 });
             }
         });
-
+        choiceBoxSessie.setValue(choiceBoxSessie.getItems().get(0));
 
         meer.setOnAction(this::meer);
         bewerken.setOnAction(this::bewerken);
