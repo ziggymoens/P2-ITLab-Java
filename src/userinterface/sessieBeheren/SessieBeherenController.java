@@ -15,6 +15,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import userinterface.MAIN.MainScreenController;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
@@ -32,7 +33,7 @@ public class SessieBeherenController extends BorderPane {
 
     private ISessie sessie;
 
-    public SessieBeherenController(DomeinController domeinController) {
+    public SessieBeherenController(DomeinController domeinController, MainScreenController mainScreenController) {
         this.domeinController = domeinController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("SessieBeheren.fxml"));
         loader.setRoot(this);
@@ -58,6 +59,7 @@ public class SessieBeherenController extends BorderPane {
         bewerken.setOnAction(this::bewerken);
         verwijderen.setOnAction(this::verwijderen);
         nieuw.setOnAction(this::nieuw);
+        mainScreenController.vulSchermIn(this);
     }
 
     private void geefDetails(ISessie sessie) {

@@ -24,7 +24,7 @@ public class Sessie implements ISessie {
             name = "sessieKey",
             strategy = "domein.domeinklassen.JPAIdGenerator",
             parameters = {
-                    @org.hibernate.annotations.Parameter(name = JPAIdGenerator.VALUE_PREFIX_PARAMETER, value = "S20-"),
+                    @org.hibernate.annotations.Parameter(name = JPAIdGenerator.VALUE_PREFIX_PARAMETER, value = "S1920-"),
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d")})
     private String sessieId;
 

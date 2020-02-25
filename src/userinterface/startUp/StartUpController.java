@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import main.ITLab;
+import userinterface.MAIN.MainScreenController;
 import userinterface.sessieBeheren.SessieBeherenController;
 
 import java.io.IOException;
@@ -37,7 +38,7 @@ public class StartUpController extends BorderPane {
 
     private void inloggen(ActionEvent actionEvent) {
         ITLab.primaryStage.close();
-        Scene scene = new Scene(new SessieBeherenController(domeinController));
+        Scene scene = new Scene(new MainScreenController(domeinController));
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();

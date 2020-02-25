@@ -38,12 +38,12 @@ public class SessieKalenderBeheerder {
         sessieKalenderData.populeerDataMedia();
         sessieKalenderData.populeerDataHerinneringen();
         sessieKalenderData.populeerDataSessieKalender();
-        populeer2020Agenda();
+        populeer1920Agenda();
     }
 
-    public void populeer2020Agenda() {
-        SessieKalender sessieKalender = sessieKalenders.stream().filter(s -> s.getAcademiajaar() == 2020).findFirst().orElse(null);
-        sessieKalender.addSessies(sessies.stream().filter(sessie -> sessie.getSessieId().matches("^S20-.*$")).collect(Collectors.toList()));
+    public void populeer1920Agenda() {
+        SessieKalender sessieKalender = sessieKalenders.stream().filter(s -> s.getAcademiajaar() == 1920).findFirst().orElse(null);
+        sessieKalender.addSessies(sessies.stream().filter(sessie -> sessie.getSessieId().matches("^S1920-.*$")).collect(Collectors.toList()));
         em.getTransaction().begin();
         em.merge(sessieKalender);
         em.getTransaction().commit();

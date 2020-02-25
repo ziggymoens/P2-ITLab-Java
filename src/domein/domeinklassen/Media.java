@@ -22,7 +22,7 @@ public class Media implements IMedia {
             name = "mediaKey",
             strategy = "domein.domeinklassen.JPAIdGenerator",
             parameters = {
-                    @org.hibernate.annotations.Parameter(name = JPAIdGenerator.VALUE_PREFIX_PARAMETER, value = "M20-"),
+                    @org.hibernate.annotations.Parameter(name = JPAIdGenerator.VALUE_PREFIX_PARAMETER, value = "M1920-"),
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d")})
     private String mediaId;
 
