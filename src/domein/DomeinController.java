@@ -7,7 +7,6 @@ import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.ISessie;
 import domein.interfacesDomein.ISessieKalender;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
 import java.util.List;
