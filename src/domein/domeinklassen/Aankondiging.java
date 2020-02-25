@@ -51,7 +51,7 @@ public class Aankondiging implements IAankondiging {
 
     public Aankondiging(Gebruiker gebruiker, LocalDateTime publicatiedatum, String inhoud, boolean automatischeHerinnering, int dagenVooraf) {
         if (automatischeHerinnering) {
-            setHerinnering(new Herinnering(dagenVooraf));
+            setHerinnering(dagenVooraf);
         }
         setInhoud(inhoud);
         setPublicatiedatum(publicatiedatum);
@@ -69,7 +69,7 @@ public class Aankondiging implements IAankondiging {
 
     public Aankondiging(Gebruiker gebruiker, LocalDateTime publicatiedatum, String tekst, boolean automatischeHerinnering, Herinnering h) {
         this(gebruiker, publicatiedatum, tekst, automatischeHerinnering, h.getDagenVoorafInt());
-        setHerinnering(h);
+        setHerinnering(h.getDagenVoorafInt());
     }
     //endregion
 
@@ -96,7 +96,10 @@ public class Aankondiging implements IAankondiging {
         this.inhoud = inhoud;
     }
 
-    public void setHerinnering(Herinnering herinnering) {
+    public void setHerinnering(int dagenVooraf) {
+        if(dagenVooraf < 0)
+            throw new AankondigingException();
+        Herinnering herinnering = new Herinnering(dagenVooraf);
         if (automatischeHerinnering && herinnering == null) {
             throw new AankondigingException();
         }
