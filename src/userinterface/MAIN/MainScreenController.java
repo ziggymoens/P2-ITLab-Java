@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import userinterface.GebruikerBeheren.InfoGebruikerController;
 import userinterface.sessieBeheren.SessieBeherenController;
 
 import java.io.File;
@@ -46,10 +47,15 @@ public class MainScreenController extends BorderPane {
         Image image = new Image("storage/profielfotos/profielfoto.png");
         this.profielFoto.setImage(image);
         openSessie.setOnAction(this::openSessie);
+        gebruikerOpenGebruiker.setOnAction(this::gebruikerOpenGebruiker);
     }
 
     private void openSessie(ActionEvent actionEvent) {
         new SessieBeherenController(domeinController, this);
+    }
+
+    private void gebruikerOpenGebruiker(ActionEvent actionEvent){
+        new InfoGebruikerController(domeinController, this);
     }
 
     public void vulSchermIn(Node node){

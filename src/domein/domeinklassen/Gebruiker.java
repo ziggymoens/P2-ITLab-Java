@@ -8,6 +8,7 @@ import language.Talen;
 
 import javax.persistence.*;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -156,6 +157,7 @@ public class Gebruiker implements IGebruiker {
     public String getProfielfoto() {
         return profielfoto;
     }
+
     //endregion
 
     //region toString
