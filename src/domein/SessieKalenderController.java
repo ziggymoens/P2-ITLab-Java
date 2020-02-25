@@ -2,11 +2,13 @@ package domein;
 
 import domein.domeinklassen.Gebruiker;
 import domein.domeinklassen.Sessie;
+import domein.domeinklassen.SessieKalender;
 import domein.interfacesDomein.ISessie;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class SessieKalenderController {
@@ -34,5 +36,9 @@ public class SessieKalenderController {
 
     public List<Sessie> geefAlleSessies() {
         return sessieKalenderBeheerder.geefAlleSessies();
+    }
+
+    public List<SessieKalender> getSessieKalenders() {
+        return sessieKalenderBeheerder.geefAlleSessieKalenders();
     }
 }
