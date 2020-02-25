@@ -54,10 +54,10 @@ public class SessieKalenderData {
     }
 
     public void populeerDataAankondigingen() {
-        sessieKalenderBeheerder.addAankondigingSessie("S20-000001", "758095zm", "Aankondiging 1", false, 0);
-        sessieKalenderBeheerder.addAankondigingSessie("S20-000002", "862361jv", "Aankondiging 2", false, 0);
-        sessieKalenderBeheerder.addAankondigingSessie("S20-000001", "860570ea", "Aankondiging 3", false, 0);
-        sessieKalenderBeheerder.addAankondigingSessie("S20-000004", "862361jv", "Aankondiging 4", false, 0);
+        sessieKalenderBeheerder.addAankondigingSessie("S20-000001", "758095zm", "Vergeet niet dat dit een plenaire sessie is!", false, 0);
+        sessieKalenderBeheerder.addAankondigingSessie("S20-000002", "862361jv", "Vergeet jullie studentenkaarten niet, deze zullen gescant worden bij het binnenkomen", false, 0);
+        sessieKalenderBeheerder.addAankondigingSessie("S20-000001", "860570ea", "Deze les zal doorgaan in lokaal B0.010 in plaats van B1.017", false, 0);
+        sessieKalenderBeheerder.addAankondigingSessie("S20-000004", "862361jv", "De les is afgelast aangezien de gastspreker niet aanwezig zal kunnen zijn", false, 0);
     }
 
     public void populeerDataHerinneringen() {
@@ -66,10 +66,13 @@ public class SessieKalenderData {
     }
 
     public void populeerDataFeedback() {
-        sessieKalenderBeheerder.addFeedbackSessie("S20-000001", "758095zm", "Feedback 1");
-        sessieKalenderBeheerder.addFeedbackSessie("S20-000002", "862361jv", "Feedback 2");
-        sessieKalenderBeheerder.addFeedbackSessie("S20-000001", "860570ea", "Feedback 3");
-        sessieKalenderBeheerder.addFeedbackSessie("S20-000004", "862361jv", "Feedback 4");
+        sessieKalenderBeheerder.addFeedbackSessie("S20-000001", "758095zm", "De sessie was echt een succes!");
+        sessieKalenderBeheerder.addFeedbackSessie("S20-000002", "862361jv", "Ik vond de sessie persoonlijk niet zo interessant, het was moeilijk om de aandacht erbij te houden");
+        sessieKalenderBeheerder.addFeedbackSessie("S20-000001", "860570ea", "Super!");
+        sessieKalenderBeheerder.addFeedbackSessie("S20-000001", "862361jv", "Zonder microfoon was het nogal moelijk te horen");
+        sessieKalenderBeheerder.addFeedbackSessie("S20-000004", "862361jv", "Het was iets te langdradig voor mij");
+        sessieKalenderBeheerder.addFeedbackSessie("S20-000005", "758095zm", "Het was niet zo duidelijk");
+        sessieKalenderBeheerder.addFeedbackSessie("S20-000006", "862361jv", "Het ging iets te snel voor mij");
     }
 
     public void populeerDataInschrijvingen() {
@@ -77,7 +80,11 @@ public class SessieKalenderData {
         sessieKalenderBeheerder.addInschrijvingSessie("S20-000002", "862361jv", LocalDateTime.now().plusMinutes(50));
         sessieKalenderBeheerder.addInschrijvingSessie("S20-000001", "860570ea", LocalDateTime.now().plusMinutes(345));
         sessieKalenderBeheerder.addInschrijvingSessie("S20-000004", "862361jv", LocalDateTime.now().plusMinutes(527));
+        sessieKalenderBeheerder.addInschrijvingSessie("S20-000005", "862361jv", LocalDateTime.now());
         sessieKalenderBeheerder.addInschrijvingSessie("S20-000005", "757932kh", LocalDateTime.now().plusMinutes(28));
+        sessieKalenderBeheerder.addInschrijvingSessie("S20-000006", "862361jv", LocalDateTime.now().plusMinutes(185));
+        sessieKalenderBeheerder.addInschrijvingSessie("S20-000006", "757932kh", LocalDateTime.now().plusMinutes(212));
+        sessieKalenderBeheerder.addInschrijvingSessie("S20-000006", "860570ea", LocalDateTime.now().plusMinutes(324));
     }
 
     public void populeerDataMedia() {
@@ -85,6 +92,7 @@ public class SessieKalenderData {
         sessieKalenderBeheerder.addMediaSessie("S20-000002", "862361jv", "Media 2");
         sessieKalenderBeheerder.addMediaSessie("S20-000001", "860570ea", "Media 3");
         sessieKalenderBeheerder.addMediaSessie("S20-000004", "862361jv", "Media 4");
+        sessieKalenderBeheerder.addMediaSessie("S20-000005", "758095zm", "Media 5");
     }
 
     public void populeerDataSessieKalender(){
