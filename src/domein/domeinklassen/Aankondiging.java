@@ -58,7 +58,6 @@ public class Aankondiging implements IAankondiging {
         setAutomatischeHerinnering(automatischeHerinnering);
         setGebruiker(gebruiker);
     }
-
     /**
      * @param publicatiedatum ==> De datum dat de aankondiging gemaakt is
      * @param inhoud          ==> inhoud van de aankondiging

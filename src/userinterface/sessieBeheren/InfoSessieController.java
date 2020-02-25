@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class InfoSessieController extends BorderPane {
+public class  InfoSessieController extends BorderPane {
     private ISessie sessie;
 
     @FXML

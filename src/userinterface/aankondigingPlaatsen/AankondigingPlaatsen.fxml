@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<fx:root prefHeight="400.0" prefWidth="600.0" type="BorderPane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER">
+               <children>
+                  <Label text="Selecteer een kalenderjaar:" />
+                  <ChoiceBox fx:id="choiceBoxSessie" prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ChoiceBox>
+                  <ListView fx:id="listView" />
+                  <Button fx:id="nieuw" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Nieuwe Aankondiging">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="20.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox alignment="CENTER">
+               <children>
+                  <Label text="Details Sessie">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Label text="Naam verantwoordelijke">
+                           <VBox.margin>
+                              <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextField fx:id="naamverantwoordelijke" editable="false" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="10.0" layoutY="104.0">
+                     <children>
+                        <Label text="Titel">
+                           <VBox.margin>
+                              <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextField fx:id="titel" editable="false" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="10.0" layoutY="204.0">
+                     <children>
+                        <Label text="Startdatum en uur">
+                           <VBox.margin>
+                              <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextField fx:id="start" editable="false" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="10.0" layoutY="263.0">
+                     <children>
+                        <Label text="Einddatum en uur">
+                           <VBox.margin>
+                              <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextField fx:id="eind" editable="false" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="10.0" layoutY="292.0">
+                     <children>
+                        <Label text="Vrije plaatsten/aanwezigen">
+                           <VBox.margin>
+                              <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextField fx:id="plaatsen" editable="false" />
+                     </children>
+                  </VBox>
+               </children>
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </VBox>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
+      </HBox>
+   </center>
+</fx:root>

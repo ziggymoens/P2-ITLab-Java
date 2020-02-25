@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import userinterface.aankondigingPlaatsen.AankondigingPlaatsenController;
 import userinterface.GebruikerBeheren.InfoGebruikerController;
 import userinterface.sessieBeheren.SessieBeherenController;
 
@@ -48,6 +49,7 @@ public class MainScreenController extends BorderPane {
         this.profielFoto.setImage(image);
         openSessie.setOnAction(this::openSessie);
         gebruikerOpenGebruiker.setOnAction(this::gebruikerOpenGebruiker);
+        addAankondiging.setOnAction(this::openAankondiging);
     }
 
     private void openSessie(ActionEvent actionEvent) {
@@ -61,4 +63,6 @@ public class MainScreenController extends BorderPane {
     public void vulSchermIn(Node node){
         this.setCenter(node);
     }
+
+    private void openAankondiging(ActionEvent actionEvent){new AankondigingPlaatsenController(domeinController, this); }
 }

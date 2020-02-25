@@ -44,7 +44,6 @@ public class SessieKalenderData {
         sessie2.setNaamGastspreker("Hilde Janssens");
         sessie4.setNaamGastspreker("Johannes Verstraeten");
 
-
         sessieKalenderBeheerder.addSessie(sessie1);
         sessieKalenderBeheerder.addSessie(sessie2);
         sessieKalenderBeheerder.addSessie(sessie3);
@@ -90,6 +89,4 @@ public class SessieKalenderData {
     public void populeerDataSessieKalender(){
         sessieKalenderBeheerder.addSessieKalender(new SessieKalender(1920));
     }
-
-
 }
