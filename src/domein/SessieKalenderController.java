@@ -1,5 +1,6 @@
 package domein;
 
+import domein.domeinklassen.Gebruiker;
 import domein.domeinklassen.Sessie;
 import domein.interfacesDomein.ISessie;
 import javafx.collections.FXCollections;
@@ -13,6 +14,10 @@ public class SessieKalenderController {
 
     public SessieKalenderController() {
 
+    }
+
+    public Gebruiker getGebruikerByID(String username) {
+        return sessieKalenderBeheerder.geefAlleGebruikers().stream().filter(g -> g.getGebruikersnaam().equals(username)).findFirst().orElse(null);
     }
 
     public List<Sessie> getSessies() {
