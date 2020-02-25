@@ -1,14 +1,20 @@
 package domein.domeinklassen;
 
+import domein.enums.Gebruikersprofielen;
+import domein.enums.Gebruikersstatus;
 import domein.enums.MediaTypes;
 import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.IMedia;
+import exceptions.domein.GebruikerException;
 import exceptions.domein.MediaException;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Entity
 @Table(name = "media")
@@ -80,7 +86,9 @@ public class Media implements IMedia {
     }
 
     private void setType(MediaTypes type) {
-        if (type == null) {
+        if (type == null)
+            throw new MediaException();
+        if(Arrays.stream(MediaTypes.values()).filter(g -> g.toString().equals(type.toString())).findFirst().orElse(null) == null){
             throw new MediaException();
         }
         this.type = type;
