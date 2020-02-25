@@ -12,6 +12,7 @@
         <class>domein.domeinklassen.Lokaal</class>
         <class>domein.domeinklassen.Media</class>
         <class>domein.domeinklassen.Sessie</class>
+        <class>domein.domeinklassen.SessieKalender</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
         <properties>

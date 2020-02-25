@@ -10,4 +10,6 @@ public interface IInschrijving {
     String getInschrijvingsId();
 
     IGebruiker getIGebruiker();
+
+    String toString_Compleet();
 }

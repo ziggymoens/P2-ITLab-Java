@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <fx:root prefHeight="400.0" prefWidth="600.0" type="BorderPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -85,7 +84,7 @@
                               <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="plaasten" editable="false" />
+                        <TextField fx:id="plaatsen" editable="false" />
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Button fx:id="meer" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Meer ...">

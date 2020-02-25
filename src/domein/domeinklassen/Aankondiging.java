@@ -171,11 +171,11 @@ public class Aankondiging implements IAankondiging {
 
     @Override
     public String toString() {
-        return "Aankondiging{" +
-                "aankondigingsId='" + aankondigingsId + '\'' +
-                ", publicatiedatum=" + publicatiedatum +
-                ", inhoud='" + inhoud + '\'' +
-                '}';
+        return String.format("%s - %s", aankondigingsId, gebruiker.getNaam());
+    }
+    @Override
+    public String toString_Compleet() {
+        return String.format("Aankondiging: %s%nGeplaatst door: %s%nGeplaats op: %s%nAutomatische herinnering? %s%nInhoud: %s%n - %s", aankondigingsId, gebruiker.getNaam(), publicatiedatum.toString(), automatischeHerinnering? String.format("ja%nAantal dagen voor de sessie: %d%n", herinnering.getDagenVoorafInt()):"nee", inhoud);
     }
     //endregion
 }

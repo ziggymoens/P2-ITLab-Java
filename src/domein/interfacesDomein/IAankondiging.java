@@ -18,4 +18,6 @@ public interface IAankondiging {
     boolean isAutomatischeHerinnering();
 
     IGebruiker getIGebruiker();
+
+    String toString_Compleet();
 }

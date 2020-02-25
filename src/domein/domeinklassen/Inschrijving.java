@@ -128,11 +128,11 @@ public class Inschrijving implements IInschrijving {
 
     @Override
     public String toString() {
-        return "Inschrijving{" +
-                "inschrijvingsId='" + inschrijvingsId + '\'' +
-                ", inschrijvingsdatum=" + inschrijvingsdatum.toString() +
-                ", statusAanwezigheid=" + statusAanwezigheid +
-                '}';
+        return String.format("%s - %s", inschrijvingsId, gebruiker.getNaam());
+    }
+    @Override
+    public String toString_Compleet() {
+        return String.format("Inschrijving: %s%nIngeschreven gebruiker: %s%nIngeschreven op: %s%n", inschrijvingsId, gebruiker.getNaam(), inschrijvingsdatum.toString());
     }
 
     //endregion

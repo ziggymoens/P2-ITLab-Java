@@ -12,7 +12,7 @@ import userinterface.gui.rommel.main.MainScreenController;
 import java.io.IOException;
 
 public class ListController<T> extends BorderPane {
-    private DetailsController detailsController;
+    private DetailsController<T> detailsController;
 
     @FXML
     private ListView<T> listView;
@@ -20,14 +20,14 @@ public class ListController<T> extends BorderPane {
     public ListController(MainScreenController mainScreenController) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("List.fxml"));
         loader.setRoot(this);
-        //loader.setController(this);
+        loader.setController(this);
         try {
             loader.load();
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException();
         }
-        detailsController = new DetailsController();
+        detailsController = new DetailsController<>();
         this.setRight(detailsController);
     }
 

@@ -7,4 +7,5 @@ public interface IFeedback {
 
     IGebruiker getIGebruiker();
 
+    String toString_Compleet();
 }

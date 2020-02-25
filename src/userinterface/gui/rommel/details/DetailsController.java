@@ -23,7 +23,7 @@ public class DetailsController<T> extends BorderPane {
     public DetailsController() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Details.fxml"));
         loader.setRoot(this);
-        //loader.setController(this);
+        loader.setController(this);
         try {
             loader.load();
         } catch (IOException e) {

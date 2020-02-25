@@ -141,11 +141,11 @@ public class Media implements IMedia {
     //region toString
     @Override
     public String toString() {
-        return "Media{" +
-                "mediaId='" + mediaId + '\'' +
-                ", locatie='" + locatie + '\'' +
-                ", type='" + type + '\'' +
-                '}';
+        return String.format("%s - %s", mediaId, gebruiker.getNaam());
+    }
+    @Override
+    public String toString_Compleet() {
+        return String.format("Media: %s%nGeupload door: %s%nMediatype: %s%n", mediaId, gebruiker.getNaam(), type);
     }
     //endregion
 }

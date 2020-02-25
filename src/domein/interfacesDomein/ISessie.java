@@ -1,5 +1,7 @@
 package domein.interfacesDomein;
 
+import javafx.collections.ObservableList;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -15,13 +17,13 @@ public interface ISessie {
 
     int getMaximumAantalPlaatsen();
 
-    List<IMedia> getIMediaBijSessie();
+    ObservableList<IMedia> getIMediaBijSessie();
 
-    List<IInschrijving> getIIngeschrevenGebruikers();
+    ObservableList<IInschrijving> getIIngeschrevenGebruikers();
 
-    List<IAankondiging> getIAankondigingenSessie();
+    ObservableList<IAankondiging> getIAankondigingenSessie();
 
-    List<IFeedback> getIFeedbackSessie();
+    ObservableList<IFeedback> getIFeedbackSessie();
 
     ILokaal getLokaal();
 

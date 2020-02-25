@@ -8,11 +8,13 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
@@ -20,13 +22,15 @@ import java.time.format.DateTimeFormatter;
 public class SessieBeherenController extends BorderPane {
     private DomeinController domeinController;
     @FXML
-    private TextField naamverantwoordelijke, titel, start, eind, plaasten;
+    private TextField naamverantwoordelijke, titel, start, eind, plaatsen;
     @FXML
     private Button meer, bewerken, verwijderen, nieuw;
     @FXML
     private ListView<ISessie> listView;
 
     private ObservableList<ISessie> sessies;
+
+    private ISessie sessie;
 
     public SessieBeherenController(DomeinController domeinController) {
         this.domeinController = domeinController;
@@ -46,6 +50,7 @@ public class SessieBeherenController extends BorderPane {
 
             @Override
             public void changed(ObservableValue<? extends ISessie> observableValue, ISessie iSessie, ISessie t1) {
+                sessie = t1;
                 geefDetails(t1);
             }
         });
@@ -61,7 +66,7 @@ public class SessieBeherenController extends BorderPane {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         start.setText(sessie.getStartSessie().format(formatter));
         eind.setText(sessie.getEindeSessie().format(formatter));
-        plaasten.setText(String.valueOf(sessie.isGeopend()?sessie.getAantalAanwezigen():sessie.getBeschikbarePlaatsen()));
+        plaatsen.setText(String.valueOf(sessie.isGeopend()?sessie.getAantalAanwezigen():sessie.getBeschikbarePlaatsen()));
     }
 
     private void nieuw(ActionEvent actionEvent) {
@@ -78,6 +83,9 @@ public class SessieBeherenController extends BorderPane {
     }
 
     private void meer(ActionEvent actionEvent) {
-
+        Scene scene = new Scene(new InfoSessieController(sessie));
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
     }
 }

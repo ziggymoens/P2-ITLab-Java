@@ -32,7 +32,7 @@ public class MainScreenController extends BorderPane {
         this.domeinController = domeinController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainScreen.fxml"));
         loader.setRoot(this);
-        //loader.setController(this);
+        loader.setController(this);
         try {
             loader.load();
         } catch (IOException e) {
@@ -40,11 +40,11 @@ public class MainScreenController extends BorderPane {
             throw new RuntimeException();
         }
         HBox centerSessie = new HBox();
-        ListController<Sessie> listControllerSessie = new ListController<Sessie>(this);
+        ListController<Sessie> listControllerSessie = new ListController<>(this);
         this.observableListSessie = domeinController.getSessieObservableList();
         listControllerSessie.setItems(observableListSessie);
         centerSessie.getChildren().add(listControllerSessie);
-        mainBorderPane.setCenter(centerSessie);
+        this.setCenter(centerSessie);
     }
 
     public BorderPane getMainBorderPane() {

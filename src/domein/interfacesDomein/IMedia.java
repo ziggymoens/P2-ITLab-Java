@@ -8,4 +8,6 @@ public interface IMedia {
     String getTypeString();
 
     IGebruiker getIGebruiker();
+
+    String toString_Compleet();
 }

@@ -104,10 +104,11 @@ public class Feedback implements IFeedback {
     //region toString
     @Override
     public String toString() {
-        return "Feedback{" +
-                "feedbackId='" + feedbackId + '\'' +
-                ", tekst='" + tekst + '\'' +
-                '}';
+        return String.format("%s - %s", feedbackId, gebruiker.getNaam());
+    }
+    @Override
+    public String toString_Compleet() {
+        return String.format("Feedback: %s%nGeplaatst door: %s%nInhoud: %s%n", feedbackId, gebruiker.getNaam(), tekst);
     }
     //endregion
 }

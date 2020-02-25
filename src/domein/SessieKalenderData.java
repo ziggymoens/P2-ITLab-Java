@@ -70,4 +70,10 @@ public class SessieKalenderData {
         sessieKalenderBeheerder.addMediaSessie("S20-000001", "860570ea", "Media 3");
         sessieKalenderBeheerder.addMediaSessie("S20-000004", "862361jv", "Media 4");
     }
+
+    public void populeerDataSessieKalender(){
+        sessieKalenderBeheerder.addSessieKalender(new SessieKalender(2020));
+    }
+
+
 }

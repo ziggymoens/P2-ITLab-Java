@@ -4,6 +4,7 @@ import domein.DomeinController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import userinterface.gui.rommel.main.MainScreenController;
 import userinterface.gui.startUp.StartUpController;
 
 public class ITLab extends Application {
@@ -18,8 +19,6 @@ public class ITLab extends Application {
     public void start(Stage primaryStage) {
         ITLab.primaryStage = primaryStage;
         DomeinController domeinController = new DomeinController();
-        //BorderPane borderPane = new MainScreenController(domeinController);
-        //AnchorPane anchorPane = new SessieFrameController(domeinController);
         Scene scene = new Scene(new StartUpController(domeinController));
         ITLab.primaryStage.setScene(scene);
         ITLab.primaryStage.show();
