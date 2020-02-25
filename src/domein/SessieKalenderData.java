@@ -54,41 +54,41 @@ public class SessieKalenderData {
     }
 
     public void populeerDataAankondigingen() {
-        sessieKalenderBeheerder.addAankondigingSessie("S20-000001", "758095zm", "Aankondiging 1", false, 0);
-        sessieKalenderBeheerder.addAankondigingSessie("S20-000002", "862361jv", "Aankondiging 2", false, 0);
-        sessieKalenderBeheerder.addAankondigingSessie("S20-000001", "860570ea", "Aankondiging 3", false, 0);
-        sessieKalenderBeheerder.addAankondigingSessie("S20-000004", "862361jv", "Aankondiging 4", false, 0);
+        sessieKalenderBeheerder.addAankondigingSessie("S1920-000001", "758095zm", "Aankondiging 1", false, 0);
+        sessieKalenderBeheerder.addAankondigingSessie("S1920-000002", "862361jv", "Aankondiging 2", false, 0);
+        sessieKalenderBeheerder.addAankondigingSessie("S1920-000001", "860570ea", "Aankondiging 3", false, 0);
+        sessieKalenderBeheerder.addAankondigingSessie("S1920-000004", "862361jv", "Aankondiging 4", false, 0);
     }
 
     public void populeerDataHerinneringen() {
-        sessieKalenderBeheerder.addAankondigingSessie("S20-000001", "758095zm", "Herinnering 1", true, 1);
-        sessieKalenderBeheerder.addAankondigingSessie("S20-000004", "860570ea", "Herinnering 2", true, 7);
+        sessieKalenderBeheerder.addAankondigingSessie("S1920-000001", "758095zm", "Herinnering 1", true, 1);
+        sessieKalenderBeheerder.addAankondigingSessie("S1920-000004", "860570ea", "Herinnering 2", true, 7);
     }
 
     public void populeerDataFeedback() {
-        sessieKalenderBeheerder.addFeedbackSessie("S20-000001", "758095zm", "Feedback 1");
-        sessieKalenderBeheerder.addFeedbackSessie("S20-000002", "862361jv", "Feedback 2");
-        sessieKalenderBeheerder.addFeedbackSessie("S20-000001", "860570ea", "Feedback 3");
-        sessieKalenderBeheerder.addFeedbackSessie("S20-000004", "862361jv", "Feedback 4");
+        sessieKalenderBeheerder.addFeedbackSessie("S1920-000001", "758095zm", "Feedback 1");
+        sessieKalenderBeheerder.addFeedbackSessie("S1920-000002", "862361jv", "Feedback 2");
+        sessieKalenderBeheerder.addFeedbackSessie("S1920-000001", "860570ea", "Feedback 3");
+        sessieKalenderBeheerder.addFeedbackSessie("S1920-000004", "862361jv", "Feedback 4");
     }
 
     public void populeerDataInschrijvingen() {
-        sessieKalenderBeheerder.addInschrijvingSessie("S20-000001", "758095zm", LocalDateTime.now());
-        sessieKalenderBeheerder.addInschrijvingSessie("S20-000002", "862361jv", LocalDateTime.now().plusMinutes(50));
-        sessieKalenderBeheerder.addInschrijvingSessie("S20-000001", "860570ea", LocalDateTime.now().plusMinutes(345));
-        sessieKalenderBeheerder.addInschrijvingSessie("S20-000004", "862361jv", LocalDateTime.now().plusMinutes(527));
-        sessieKalenderBeheerder.addInschrijvingSessie("S20-000005", "757932kh", LocalDateTime.now().plusMinutes(28));
+        sessieKalenderBeheerder.addInschrijvingSessie("S1920-000001", "758095zm", LocalDateTime.now());
+        sessieKalenderBeheerder.addInschrijvingSessie("S1920-000002", "862361jv", LocalDateTime.now().plusMinutes(50));
+        sessieKalenderBeheerder.addInschrijvingSessie("S1920-000001", "860570ea", LocalDateTime.now().plusMinutes(345));
+        sessieKalenderBeheerder.addInschrijvingSessie("S1920-000004", "862361jv", LocalDateTime.now().plusMinutes(527));
+        sessieKalenderBeheerder.addInschrijvingSessie("S1920-000005", "757932kh", LocalDateTime.now().plusMinutes(28));
     }
 
     public void populeerDataMedia() {
-        sessieKalenderBeheerder.addMediaSessie("S20-000001", "758095zm", "Media 1");
-        sessieKalenderBeheerder.addMediaSessie("S20-000002", "862361jv", "Media 2");
-        sessieKalenderBeheerder.addMediaSessie("S20-000001", "860570ea", "Media 3");
-        sessieKalenderBeheerder.addMediaSessie("S20-000004", "862361jv", "Media 4");
+        sessieKalenderBeheerder.addMediaSessie("S1920-000001", "758095zm", "Media 1");
+        sessieKalenderBeheerder.addMediaSessie("S1920-000002", "862361jv", "Media 2");
+        sessieKalenderBeheerder.addMediaSessie("S1920-000001", "860570ea", "Media 3");
+        sessieKalenderBeheerder.addMediaSessie("S1920-000004", "862361jv", "Media 4");
     }
 
     public void populeerDataSessieKalender(){
-        sessieKalenderBeheerder.addSessieKalender(new SessieKalender(2020));
+        sessieKalenderBeheerder.addSessieKalender(new SessieKalender(1920));
     }
 
 

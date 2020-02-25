@@ -37,6 +37,7 @@ public class DomeinController {
     }
 
     public IGebruiker geefIGebruiker(){
+        setActieveGebruiker("758095zm");
         return (IGebruiker) gebruiker;
     }
 }

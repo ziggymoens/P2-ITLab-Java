@@ -21,7 +21,7 @@ public class Aankondiging implements IAankondiging {
             name = "aankondigingKey",
             strategy = "domein.domeinklassen.JPAIdGenerator",
             parameters = {
-                    @org.hibernate.annotations.Parameter(name = JPAIdGenerator.VALUE_PREFIX_PARAMETER, value = "A20-"),
+                    @org.hibernate.annotations.Parameter(name = JPAIdGenerator.VALUE_PREFIX_PARAMETER, value = "A1920-"),
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d")})
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "aankondigingKey")
     //A toevoegen --> generated value
