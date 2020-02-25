@@ -9,7 +9,6 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-//TODO extra testen schrijven!
 class LokaalTest {
 
     //region maakLokaalAanMetJuisteWaardenTest
