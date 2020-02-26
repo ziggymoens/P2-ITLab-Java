@@ -55,19 +55,6 @@ public class InfoGebruikerController extends BorderPane{
 
         listView.setItems(FXCollections.observableArrayList(domeinController.geefIGebruikers()));
 
-//        @Override
-//        public void changed(ObservableValue<? extends IGebruiker > observableValue) {
-//            gebruikers = FXCollections.observableArrayList(t1.getISessieList());
-//            listView.setItems(gebruikers);
-//            listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-//            listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessie>() {
-//                @Override
-//                public void changed(ObservableValue<? extends ISessie> observableValue, ISessie iSessie, ISessie t1) {
-//                    sessie = t1;
-//                    geefDetails(t1);
-//                }
-//            });
-//        }
 
 
         mainScreenController.vulSchermIn(this);
