@@ -57,4 +57,8 @@ public class SessieKalenderController {
     private Sessie getSessieById(String sessieId) {
         return sessieKalenderBeheerder.geefAlleSessies().stream().filter(e -> e.getSessieId().equals(sessieId)).findFirst().orElse(null);
     }
+
+    public void addAankondigingSessie(String sessieid, String gebruikersnaam, String tekst, boolean herinnering, int dagen){
+        sessieKalenderBeheerder.addAankondigingSessie(sessieid, gebruikersnaam, tekst, herinnering, dagen);
+    }
 }

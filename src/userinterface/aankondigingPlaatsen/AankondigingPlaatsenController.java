@@ -21,28 +21,20 @@ import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
 public class AankondigingPlaatsenController extends BorderPane {
-    private DomeinController domeinController;
-    private MainScreenController mainScreenController;
+    //private DomeinController domeinController;
 
     @FXML
-    private TextField naamverantwoordelijke, titel, start, eind, plaatsen;
+    private TextArea aankondigingTekst;
 
     @FXML
-    private Button nieuw;
+    private ChoiceBox herinneringKeuze;
 
     @FXML
-    private ListView<ISessie> listView;
+    private Button voegToe;
 
-    @FXML
-    private ChoiceBox<ISessieKalender> choiceBoxSessie;
+    public AankondigingPlaatsenController(){
+        //this.domeinController = domeinController;
 
-    private ObservableList<ISessie> sessies;
-
-    private ISessie sessie;
-
-    public AankondigingPlaatsenController(DomeinController domeinController, MainScreenController mainScreenController){
-        this.domeinController = domeinController;
-        this.mainScreenController = mainScreenController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AankondigingPlaatsen.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -52,37 +44,13 @@ public class AankondigingPlaatsenController extends BorderPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
-        choiceBoxSessie.setItems(FXCollections.observableArrayList(domeinController.getISessieKalenders()));
-        choiceBoxSessie.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessieKalender>() {
-            @Override
-            public void changed(ObservableValue<? extends ISessieKalender> observableValue, ISessieKalender iSessieKalender, ISessieKalender t1) {
-                sessies = FXCollections.observableArrayList(t1.getISessieList());
-                listView.setItems(sessies);
-                listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-                listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessie>() {
-                    @Override
-                    public void changed(ObservableValue<? extends ISessie> observableValue, ISessie iSessie, ISessie t1) {
-                        sessie = t1;
-                        geefDetails(t1);
-                    }
-                });
-            }
-        });
-        choiceBoxSessie.setValue(choiceBoxSessie.getItems().get(0));
-        nieuw.setOnAction(this::nieuw);
-        mainScreenController.vulSchermIn(this);
+        aankondigingTekst.setPromptText("Schrijf hier je aankondiging");
+        voegToe.setOnAction(this::voegAankondigingToe);
     }
 
-    private void geefDetails(ISessie sessie) {
-        naamverantwoordelijke.setText(sessie.getVerantwoordelijke().getNaam());
-        titel.setText(sessie.getTitel());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        start.setText(sessie.getStartSessie().format(formatter));
-        eind.setText(sessie.getEindeSessie().format(formatter));
-        plaatsen.setText(String.valueOf(sessie.isGeopend()?sessie.getAantalAanwezigen():sessie.getBeschikbarePlaatsen()));
+    public void voegAankondigingToe(ActionEvent actionEvent){
+
     }
 
-    private void nieuw(ActionEvent actionEvent){
-        new InfoSessieAankondigingController(domeinController,mainScreenController, sessie);
-    }
+
 }

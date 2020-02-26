@@ -61,6 +61,10 @@ public class DomeinController {
     public void verwijderSessie (ISessie sessie){
         sessieKalenderController.verwijderSessie(sessie);
     }
+
+    public void addAankondigingSessie(String sessieid, String gebruikersnaam, String tekst, boolean herinnering, int dagen){
+        sessieKalenderController.addAankondigingSessie(sessieid, gebruikersnaam, tekst, herinnering, dagen);
+    }
 }
 
 //endregion

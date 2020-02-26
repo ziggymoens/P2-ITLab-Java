@@ -51,7 +51,6 @@ public class MainScreenController extends BorderPane {
         openSessie.setOnAction(this::openSessie);
         openKalender.setOnAction(this::kalenderTonen);
         gebruikerOpenGebruiker.setOnAction(this::gebruikerOpenGebruiker);
-        addAankondiging.setOnAction(this::openAankondiging);
     }
 
     private void openSessie(ActionEvent actionEvent) {
@@ -69,7 +68,4 @@ public class MainScreenController extends BorderPane {
     public void kalenderTonen(ActionEvent event){
         this.setCenter(new KalenderController(domeinController, this));
     }
-
-
-    private void openAankondiging(ActionEvent actionEvent){new AankondigingPlaatsenController(domeinController, this); }
 }

@@ -11,6 +11,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import userinterface.aankondigingPlaatsen.AankondigingPlaatsenController;
 
 import java.io.IOException;
 
@@ -26,7 +27,7 @@ public class  InfoSessieController extends BorderPane {
     @FXML
     private ListView<IAankondiging> listViewAankondigingen;
     @FXML
-    private Button infoMedia, infoFeedback, infoInschrijving, infoAankondiging;
+    private Button infoMedia, infoFeedback, infoInschrijving, infoAankondiging, voegAankondigingToe;
 
     public InfoSessieController(ISessie sessie) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("InfoSessie.fxml"));
@@ -51,7 +52,7 @@ public class  InfoSessieController extends BorderPane {
         infoMedia.setOnAction(this::infoMedia);
         infoInschrijving.setOnAction(this::infoInschrijving);
         infoAankondiging.setOnAction(this::infoAankondiging);
-
+        voegAankondigingToe.setOnAction(this::voegAankondigingToe);
 
     }
 
@@ -98,6 +99,13 @@ public class  InfoSessieController extends BorderPane {
         borderPane.setMinHeight(100);
         borderPane.setMinWidth(200);
         Scene scene = new Scene(borderPane);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private void voegAankondigingToe(ActionEvent actionEvent){
+        Scene scene = new Scene(new AankondigingPlaatsenController());
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
