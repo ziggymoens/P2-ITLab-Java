@@ -142,6 +142,8 @@ public class Sessie implements ISessie {
 
     @Override
     public String getNaamGastspreker() {
+
+        if(naamGastspreker == null || naamGastspreker.isBlank()) return "Geen gastspreker";
         return naamGastspreker;
     }
 
