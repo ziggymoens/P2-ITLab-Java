@@ -69,7 +69,10 @@ public class SessieBeherenController extends BorderPane {
     }
 
     private void nieuw(ActionEvent actionEvent) {
-
+        Scene scene = new Scene (new SessieBewerkenController(domeinController/*,this*/));
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
     }
 
     private void verwijderen(ActionEvent actionEvent) {
@@ -78,7 +81,7 @@ public class SessieBeherenController extends BorderPane {
     }
 
     private void bewerken(ActionEvent actionEvent) {
-        Scene scene = new Scene (new SessieBewerkenController(sessie, domeinController,this));
+        Scene scene = new Scene (new SessieBewerkenController(sessie, domeinController/*,this*/));
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();

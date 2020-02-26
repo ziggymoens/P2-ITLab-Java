@@ -11,16 +11,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import userinterface.GebruikerBeheren.InfoGebruikerController;
-import userinterface.aankondigingPlaatsen.AankondigingPlaatsenController;
 import userinterface.kalender.KalenderController;
 import userinterface.media.NieuweMediaController;
 import userinterface.sessieBeheren.SessieBeherenController;
+import userinterface.sessieBeheren.SessieBewerkenController;
 
-import java.io.File;
 import java.io.IOException;
 
 public class MainScreenController extends BorderPane {
@@ -53,6 +51,9 @@ public class MainScreenController extends BorderPane {
         openKalender.setOnAction(this::kalenderTonen);
         gebruikerOpenGebruiker.setOnAction(this::gebruikerOpenGebruiker);
         addMedia.setOnAction(this::addMedia);
+        newSessie.setOnAction(this::nieuweSessie);
+        deleteSessie.setOnAction(this::verwijderSessie);
+
     }
 
     private void addMedia(ActionEvent event) {
@@ -62,6 +63,16 @@ public class MainScreenController extends BorderPane {
     }
 
     private void openSessie(ActionEvent actionEvent) {
+        new SessieBeherenController(domeinController, this);
+    }
+
+    private void nieuweSessie(ActionEvent actionEvent){
+        new SessieBewerkenController(domeinController);
+        new SessieBeherenController(domeinController, this);
+
+    }
+
+    private void verwijderSessie(ActionEvent actionEvent){
         new SessieBeherenController(domeinController, this);
     }
 

@@ -21,7 +21,10 @@ public class SessieBewerkenController extends BorderPane {
     private ISessie sessie;
     private DomeinController domeinController;
     private HashMap<String, String> veranderingenMap;
-    SessieBeherenController sessieBeherenController;
+    //SessieBeherenController sessieBeherenController;
+
+    @FXML
+    private Label aanmakenBewerken;
 
     @FXML
     private TextField naamverantwoordelijke, titel, naamGastspreker, start, eind, maxPlaatsen;
@@ -32,9 +35,11 @@ public class SessieBewerkenController extends BorderPane {
     @FXML
     private Button aankondigingen, media, gebruikers, feedback, toepassen, cancel;
 
-    public SessieBewerkenController(ISessie sessie, DomeinController domeinController, SessieBeherenController sbc) {
+    public SessieBewerkenController(ISessie sessie, DomeinController domeinController/*, SessieBeherenController sbc*/) {
+        this.sessie = sessie;
+
         this.domeinController = domeinController;
-        this.sessieBeherenController = sbc;
+        //this.sessieBeherenController = sbc;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("SessieBewerken.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -44,9 +49,10 @@ public class SessieBewerkenController extends BorderPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
-       this.sessie = sessie;
 
-        geefDetails(sessie);
+        if(sessie == null) {aanmakenBewerken.setText("Aanmaken");}
+        else {geefDetails(sessie);}
+
         veranderingenMap = new HashMap<String, String>();
         naamverantwoordelijke.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -123,10 +129,15 @@ public class SessieBewerkenController extends BorderPane {
         aankondigingen.setOnAction(this::aankondigingen);
         gebruikers.setOnAction(this::gerbuikers);
         feedback.setDisable(true);
-        if(sessie.isGeopend()){
+        if(sessie != null && sessie.isGeopend()){
             feedback.setDisable(false);
             feedback.setOnAction(this::feedback);
         }
+
+    }
+
+    public SessieBewerkenController(DomeinController domeinController/*, SessieBeherenController sbc*/) {
+        this(null, domeinController/*, sbc*/);
 
     }
 
@@ -154,7 +165,7 @@ public class SessieBewerkenController extends BorderPane {
         domeinController.pasSessieAan(sessie, veranderingenMap);
         Stage stage = (Stage) this.getScene().getWindow();
         stage.close();
-        sessieBeherenController.vulSchermOp();
+        //sessieBeherenController.vulSchermOp();
     }
 
     private void media(ActionEvent actionEvent) {

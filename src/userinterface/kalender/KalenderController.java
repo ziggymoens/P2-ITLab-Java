@@ -2,30 +2,21 @@ package userinterface.kalender;
 
 import domein.DomeinController;
 import domein.interfacesDomein.ISessie;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import net.bytebuddy.asm.Advice;
-import org.w3c.dom.DOMError;
 import userinterface.MAIN.MainScreenController;
-import userinterface.sessieBeheren.InfoSessieController;
-import userinterface.sessieBeheren.SessieBeherenController;
 import userinterface.sessieBeheren.SessieBewerkenController;
 
-import java.io.DataOutput;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -123,7 +114,7 @@ public class KalenderController extends AnchorPane {
                             Button button = new Button(sessie.toString());
                             button.setOnAction(e -> {
                                 Stage stage = new Stage();
-                                Scene scene = new Scene(new SessieBewerkenController(sessie, domeinController, new SessieBeherenController(domeinController, mainScreenController)));
+                                Scene scene = new Scene(new SessieBewerkenController(sessie, domeinController/*, new SessieBeherenController(domeinController, mainScreenController)*/));
                                 stage.setScene(scene);
                                 stage.show();
                             });
@@ -146,7 +137,7 @@ public class KalenderController extends AnchorPane {
                             Button button = new Button(sessie.toString_Kalender());
                             button.setOnAction(e -> {
                                 Stage stage = new Stage();
-                                Scene scene = new Scene(new SessieBewerkenController(sessie, domeinController, new SessieBeherenController(domeinController, mainScreenController)));
+                                Scene scene = new Scene(new SessieBewerkenController(sessie, domeinController/*, new SessieBeherenController(domeinController, mainScreenController)*/));
                                 stage.setScene(scene);
                                 stage.show();
                             });

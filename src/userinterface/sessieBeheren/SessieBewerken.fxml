@@ -154,7 +154,7 @@
    <top>
       <HBox alignment="CENTER" prefHeight="62.0" prefWidth="601.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" text="Bewerken" textAlignment="CENTER">
+            <Label fx:id="aanmakenBewerken" alignment="CENTER" text="Bewerken" textAlignment="CENTER">
                <font>
                   <Font size="24.0" />
                </font>
