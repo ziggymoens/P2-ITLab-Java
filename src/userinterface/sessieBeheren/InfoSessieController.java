@@ -7,12 +7,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -25,8 +23,9 @@ import userinterface.aankondigingPlaatsen.AankondigingPlaatsenController;
 import userinterface.media.NieuweMediaController;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 
-public class  InfoSessieController extends BorderPane {
+public class  InfoSessieController extends AnchorPane {
     private ISessie sessie;
     private DomeinController domeinController;
 
@@ -39,7 +38,11 @@ public class  InfoSessieController extends BorderPane {
     @FXML
     private ListView<IAankondiging> listViewAankondigingen;
     @FXML
-    private Button infoMedia,nieuwMedia, bewerkenMedia, infoFeedback, infoInschrijving, infoAankondiging, voegAankondigingToe;
+    private Button infoMedia,nieuwMedia, bewerkenMedia, infoFeedback,nieuwFeedback,bewerkenFeedback, infoInschrijving, nieuwInschrijving,bewerkenInschrijving, infoAankondiging, voegAankondigingToe, bewerkenAankondiging;
+    @FXML
+    private TextField sessieId, naamGast, maxPlaatsen, lokaal, start, eind, verantwoordelijke, titel;
+    @FXML
+    private CheckBox geopend;
 
     public InfoSessieController(ISessie sessie, DomeinController domeinController) {
         this.domeinController = domeinController;
@@ -76,6 +79,21 @@ public class  InfoSessieController extends BorderPane {
 
         voegAankondigingToe.setOnAction(this::voegAankondigingToe);
 
+        invullenGegevens();
+
+    }
+
+    private void invullenGegevens() {
+        sessieId.setText(sessie.getSessieId());
+        titel.setText(sessie.getTitel());
+        naamGast.setText(sessie.getNaamGastspreker());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        start.setText(sessie.getStartSessie().format(formatter));
+        eind.setText(sessie.getEindeSessie().format(formatter));
+        maxPlaatsen.setText(String.valueOf(sessie.getMaximumAantalPlaatsen()));
+        lokaal.setText(sessie.getLokaal().getLokaalCode());
+        verantwoordelijke.setText(sessie.getVerantwoordelijke().getNaam());
+        geopend.setSelected(sessie.isGeopend());
     }
 
     private void nieuwMedia(ActionEvent event) {

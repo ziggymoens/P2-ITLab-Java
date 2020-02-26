@@ -66,7 +66,7 @@ public class NieuweMediaController extends AnchorPane {
 
     private void initButtons() {
         openFile.setOnAction(this::FileExplorer);
-        openFile.setOnAction(this::save);
+        save.setOnAction(this::save);
         fileURL.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
