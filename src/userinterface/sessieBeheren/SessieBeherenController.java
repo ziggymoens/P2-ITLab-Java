@@ -73,11 +73,10 @@ public class SessieBeherenController extends BorderPane {
     }
 
     private void bewerken(ActionEvent actionEvent) {
-        Scene scene = new Scene (new SessieBewerkenController(sessie, domeinController));
+        Scene scene = new Scene (new SessieBewerkenController(sessie, domeinController, this));
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
-
     }
 
     private void meer(ActionEvent actionEvent) {
@@ -87,7 +86,7 @@ public class SessieBeherenController extends BorderPane {
         stage.show();
     }
 
-    private void listView (){
+    public void listView (){
         choiceBoxSessie.setItems(FXCollections.observableArrayList(domeinController.getISessieKalenders()));
         choiceBoxSessie.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessieKalender>() {
             @Override

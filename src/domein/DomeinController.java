@@ -12,8 +12,8 @@ import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class DomeinController {
@@ -80,6 +80,33 @@ public class DomeinController {
 
     public List<ISessie> geefSessiesVanGebruiker() {
         return (List<ISessie>)(Object)sessieKalenderController.geefSessiesVanGebruiker(gebruiker);
+    }
+
+
+    public void pasSessieAan(ISessie sessie, HashMap veranderingenMap){
+        Sessie s = sessieKalenderController.getSessies().stream().filter(e -> e.getSessieId().equals(sessie.getSessieId())).findFirst().orElse(null);
+//        veranderingenMap.entrySet().stream().forEach( (k,v) -> {
+//            switch(k){
+//                case "naamverantwoordelijke":
+//
+//                    break;
+//                case "titel":
+//                    break;
+//                case "naamGastspreker":
+//                    s.setNaamGastspreker(v);
+//                    break;
+//                case "lokaal":
+//                    break;
+//                case "start":
+//                    break;
+//                case "eind":
+//                    break;
+//                case "maxPlaatsen":
+//                    break;
+//            }
+//
+//        });
+
     }
 }
 
