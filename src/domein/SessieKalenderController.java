@@ -1,14 +1,12 @@
 package domein;
 
-import domein.domeinklassen.Gebruiker;
-import domein.domeinklassen.Media;
-import domein.domeinklassen.Sessie;
-import domein.domeinklassen.SessieKalender;
+import domein.domeinklassen.*;
 import domein.interfacesDomein.ISessie;
 
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class SessieKalenderController {
@@ -22,6 +20,8 @@ public class SessieKalenderController {
         return sessieKalenderBeheerder.geefAlleGebruikers().stream().filter(g -> g.getGebruikersnaam().equals(username)).findFirst().orElse(null);
     }
 
+
+    //Sessie
     public List<Sessie> getSessies() {
         return sessieKalenderBeheerder.geefAlleSessies();
     }
@@ -29,6 +29,12 @@ public class SessieKalenderController {
     public List<Sessie> geefSessiesVanJaar(int jaar){
         return sessieKalenderBeheerder.geefAlleSessies().stream().filter(s -> s.getSessieId().matches(String.format("S%d-.*", jaar))).collect(Collectors.toList());
     }
+
+    public void updateSessie(Sessie sessieOud, Sessie sessieNieuw){
+        sessieKalenderBeheerder.updateSessie(sessieOud,sessieNieuw);
+    }
+
+    //Einde Sessie
 
     public void close() {
         sessieKalenderBeheerder.closePersistentie();
@@ -69,5 +75,9 @@ public class SessieKalenderController {
 
     public void addMediaSessie(Sessie s, Media m) {
         sessieKalenderBeheerder.addMediaSessie(s, m);
+    }
+
+    public Set<Lokaal> getLokalen (){
+        return sessieKalenderBeheerder.geefAlleLokalen();
     }
 }

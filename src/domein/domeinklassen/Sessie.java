@@ -89,7 +89,7 @@ public class Sessie implements ISessie {
     //endregion
 
     //region Setters
-    private void setTitel(String titel) {
+    public void setTitel(String titel) {
         if (titel.isBlank()) {
             throw new SessieException("SessieException.titel");
         }
@@ -103,22 +103,22 @@ public class Sessie implements ISessie {
         this.naamGastspreker = naamGastspreker;
     }
 
-    private void setStartSessie(LocalDateTime startSessie) {
+    public void setStartSessie(LocalDateTime startSessie) {
         this.startSessie = startSessie;
     }
 
-    private void setEindeSessie(LocalDateTime eindeSessie) {
+    public void setEindeSessie(LocalDateTime eindeSessie) {
         this.eindeSessie = eindeSessie;
     }
 
-    private void setMaximumAantalPlaatsen(int maximumAantalPlaatsen) {
+    public void setMaximumAantalPlaatsen(int maximumAantalPlaatsen) {
         if (lokaal.getAantalPlaatsen() < maximumAantalPlaatsen) {
             throw new SessieException("SessieException.aantalPlaatsenTeVeel");
         }
         this.maximumAantalPlaatsen = maximumAantalPlaatsen;
     }
 
-    private void setVerantwoordelijke(Gebruiker verantwoordelijke) {
+    public void setVerantwoordelijke(Gebruiker verantwoordelijke) {
         this.verantwoordelijke = verantwoordelijke;
     }
 
@@ -126,7 +126,7 @@ public class Sessie implements ISessie {
         this.geopend = geopend;
     }
 
-    private void setLokaal(Lokaal lokaal) {
+    public void setLokaal(Lokaal lokaal) {
         if (lokaal == null) {
             throw new SessieException("SessieException.lokaalNull");
         }
@@ -390,4 +390,5 @@ public class Sessie implements ISessie {
     public void verwijderInschrijving(Inschrijving inschrijvingOud) {
         inschrijvingen.remove(inschrijvingOud);
     }
+
 }

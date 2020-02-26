@@ -15,7 +15,6 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class DomeinController {
@@ -88,13 +87,41 @@ public class DomeinController {
     public void pasSessieAan(ISessie sessie, Map<String, String> veranderingenMap){
         Sessie s = sessieKalenderController.getSessies().stream().filter(e -> e.getSessieId().equals(sessie.getSessieId())).findFirst().orElse(null);
         veranderingenMap.forEach((key, value) -> {
-            switch(key.toString()){
+            switch(key){
                 case "naamverantwoordelijke":
+                    s.setNaamGastspreker(value);
+                    break;
+                case "titel":
+                    s.setTitel(value);
+                    break;
+                case "naamGastspreker":
+                    s.setNaamGastspreker(value);
+                    break;
+                case "lokaal":
+                    s.setLokaal(sessieKalenderController.getLokalen().stream().filter(e -> e.getLokaalCode().equals(value)).findFirst().orElse(null));
+                    break;
+                case "start":
+                    //s.setStartSessie(LocalDateTime.parse(value));
+                    break;
+                case "eind":
+                    //s.setEindeSessie(LocalDateTime.parse(value));
+                    break;
+                case "maxPlaatsen":
+                    s.setMaximumAantalPlaatsen(Integer.parseInt(value));
+                    break;
+            }
+
+        });
+            sessieKalenderController.updateSessie((Sessie)sessie, s);
+/*         veranderingenMap.entrySet().stream().forEach( (k,v) -> {
+            switch(k){
+                case "naamverantwoordelijke":
+
                     break;
                 case "titel":
                     break;
                 case "naamGastspreker":
-                    s.setNaamGastspreker(value.toString());
+                    s.setNaamGastspreker(v);
                     break;
                 case "lokaal":
                     break;
@@ -107,28 +134,26 @@ public class DomeinController {
             }
 
         });
-//        veranderingenMap.entrySet().stream().forEach( (k,v) -> {
-//            switch(k){
-//                case "naamverantwoordelijke":
-//
-//                    break;
-//                case "titel":
-//                    break;
-//                case "naamGastspreker":
-//                    s.setNaamGastspreker(v);
-//                    break;
-//                case "lokaal":
-//                    break;
-//                case "start":
-//                    break;
-//                case "eind":
-//                    break;
-//                case "maxPlaatsen":
-//                    break;
-//            }
-//
-//        });
-
+       HashMap<String, String> map = veranderingenMap;
+        for (HashMap.Entry<String,String> entry : map.entrySet()) {
+            switch (entry.getKey()){
+                case "naamverantwoordelijke":
+                    break;
+                case "titel":
+                    break;
+                case "naamGastspreker":
+                    s.setNaamGastspreker(entry.getValue());
+                    break;
+                case "lokaal":
+                    break;
+                case "start":
+                    break;
+                case "eind":
+                    break;
+                case "maxPlaatsen":
+                    break;
+            }
+        }*/
     }
 
     public void maakNieuweMedia(ISessie sessie, IGebruiker gebruiker, String type, String name) {
