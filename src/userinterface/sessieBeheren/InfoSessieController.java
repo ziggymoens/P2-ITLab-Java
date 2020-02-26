@@ -178,9 +178,11 @@ public class  InfoSessieController extends AnchorPane {
     }
 
     private void voegAankondigingToe(ActionEvent actionEvent){
-        Scene scene = new Scene(new AankondigingPlaatsenController());
+        AankondigingPlaatsenController aankondigingPlaatsenController = new AankondigingPlaatsenController(domeinController, sessie);
+        Scene scene = new Scene(aankondigingPlaatsenController);
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
+        aankondigingPlaatsenController.setStage(stage);
     }
 }

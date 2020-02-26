@@ -1,6 +1,7 @@
 package userinterface.aankondigingPlaatsen;
 
 import domein.DomeinController;
+import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.ISessie;
 import domein.interfacesDomein.ISessieKalender;
 import javafx.beans.value.ChangeListener;
@@ -17,12 +18,14 @@ import javafx.stage.Stage;
 import userinterface.MAIN.MainScreenController;
 import userinterface.sessieBeheren.InfoSessieController;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
 public class AankondigingPlaatsenController extends BorderPane {
-    //private DomeinController domeinController;
-
+    private DomeinController domeinController;
+    private ISessie sessie;
+    private Stage stage;
     @FXML
     private TextArea aankondigingTekst;
 
@@ -32,9 +35,9 @@ public class AankondigingPlaatsenController extends BorderPane {
     @FXML
     private Button voegToe;
 
-    public AankondigingPlaatsenController(){
-        //this.domeinController = domeinController;
-
+    public AankondigingPlaatsenController(DomeinController domeinController, ISessie sessie){
+        this.domeinController = domeinController;
+        this.sessie = sessie;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AankondigingPlaatsen.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -49,8 +52,36 @@ public class AankondigingPlaatsenController extends BorderPane {
     }
 
     public void voegAankondigingToe(ActionEvent actionEvent){
-
+        String keuze = herinneringKeuze.getSelectionModel().selectedItemProperty().getValue().toString();
+        int keuze2 = 0;
+        boolean automatischeHerinnering = false;
+        switch (keuze){
+            case "geen":
+                keuze2 = 0;
+                automatischeHerinnering = false;
+                break;
+            case "1 dag":
+                keuze2 = 1;
+                automatischeHerinnering = true;
+                break;
+            case "2 dagen":
+                keuze2 = 2;
+                automatischeHerinnering = true;
+                break;
+            case "3 dagen":
+                keuze2 = 3;
+                automatischeHerinnering = true;
+                break;
+            case "7 dagen":
+                keuze2 = 7;
+                automatischeHerinnering = true;
+        }
+        IGebruiker gebruiker = domeinController.geefIGebruiker();
+        domeinController.addAankondigingSessie(sessie.getSessieId(), gebruiker.getGebruikersnaam(), aankondigingTekst.getText(), automatischeHerinnering, keuze2);
+        stage.close();
     }
 
-
+    public void setStage(Stage stage){
+        this.stage = stage;
+    }
 }
