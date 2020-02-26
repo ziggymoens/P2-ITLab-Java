@@ -5,6 +5,8 @@ import domein.DomeinController;
 import domein.domeinklassen.Sessie;
 import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.ISessie;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,10 +38,14 @@ public class NieuweMediaController extends AnchorPane {
     private TextField filePath, fileURL;
 
 
-    private NieuweMediaController(DomeinController domeinController) {
+    public NieuweMediaController(DomeinController domeinController) {
         this.domeinController = domeinController;
         startFXML();
         initChoiceboxes();
+        gebruiker.setValue(domeinController.geefIGebruiker());
+        if (!domeinController.geefProfielGebruiker().equals("HOOFDVERANTWOORDELIJKE")) {
+            gebruiker.setDisable(true);
+        }
         initButtons();
 
     }
@@ -60,6 +66,23 @@ public class NieuweMediaController extends AnchorPane {
 
     private void initButtons() {
         openFile.setOnAction(this::FileExplorer);
+        openFile.setOnAction(this::save);
+    }
+
+    private void save(ActionEvent event) {
+        if (!openFile.isDisable()) {
+            try {
+                java.nio.file.Files.copy(
+                        file.toPath(),
+                        new File(file.getName()).toPath(),
+                        java.nio.file.StandardCopyOption.REPLACE_EXISTING,
+                        java.nio.file.StandardCopyOption.COPY_ATTRIBUTES,
+                        java.nio.file.LinkOption.NOFOLLOW_LINKS);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            domeinController.maakNieuweMedia(sessie.getSelectionModel().getSelectedItem(), gebruiker.getSelectionModel().getSelectedItem(),type.getSelectionModel().getSelectedItem(), file.getName());
+        }
     }
 
     private void FileExplorer(ActionEvent event){
@@ -70,16 +93,6 @@ public class NieuweMediaController extends AnchorPane {
         file = fileChooser.showOpenDialog(stage);
         if (file != null) {
             filePath.setText(file.getAbsolutePath());
-            try {
-                java.nio.file.Files.copy(
-                        file.toPath(),
-                        new File(file.getName()).toPath(),
-                        java.nio.file.StandardCopyOption.REPLACE_EXISTING,
-                        java.nio.file.StandardCopyOption.COPY_ATTRIBUTES,
-                        java.nio.file.LinkOption.NOFOLLOW_LINKS );
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -93,6 +106,8 @@ public class NieuweMediaController extends AnchorPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
+        fileURL.setDisable(true);
+        openFile.setDisable(true);
     }
 
     private void initChoiceboxes() {
@@ -103,5 +118,22 @@ public class NieuweMediaController extends AnchorPane {
         }
         gebruiker.setItems(FXCollections.observableArrayList(domeinController.geefIGebruikers()));
         type.setItems(FXCollections.observableArrayList(domeinController.geefMediaTypes()));
+        type.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                switch (t1){
+                    case "URL":
+                        fileURL.setDisable(false);
+                        openFile.setDisable(true);
+                        break;
+                    case "FOTO":
+                        openFile.setDisable(false);
+                        fileURL.setDisable(true);
+                        break;
+                    case "ONBEKEND":
+                        break;
+                }
+            }
+        });
     }
 }

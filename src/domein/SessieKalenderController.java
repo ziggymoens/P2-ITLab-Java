@@ -1,6 +1,7 @@
 package domein;
 
 import domein.domeinklassen.Gebruiker;
+import domein.domeinklassen.Media;
 import domein.domeinklassen.Sessie;
 import domein.domeinklassen.SessieKalender;
 import domein.interfacesDomein.ISessie;
@@ -54,7 +55,7 @@ public class SessieKalenderController {
         sessieKalenderBeheerder.verwijderSessie(s);
     }
 
-    private Sessie getSessieById(String sessieId) {
+    public Sessie getSessieById(String sessieId) {
         return sessieKalenderBeheerder.geefAlleSessies().stream().filter(e -> e.getSessieId().equals(sessieId)).findFirst().orElse(null);
     }
 
@@ -64,5 +65,9 @@ public class SessieKalenderController {
 
     public List<Sessie> geefSessiesVanGebruiker(Gebruiker gebruiker) {
         return sessieKalenderBeheerder.geefAlleSessies().stream().filter(s -> s.getVerantwoordelijke().equals(gebruiker)).collect(Collectors.toList());
+    }
+
+    public void addMediaSessie(Sessie s, Media m) {
+        sessieKalenderBeheerder.addMediaSessie(s, m);
     }
 }

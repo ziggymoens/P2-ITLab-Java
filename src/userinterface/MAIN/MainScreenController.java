@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import userinterface.GebruikerBeheren.InfoGebruikerController;
 import userinterface.aankondigingPlaatsen.AankondigingPlaatsenController;
 import userinterface.kalender.KalenderController;
+import userinterface.media.NieuweMediaController;
 import userinterface.sessieBeheren.SessieBeherenController;
 
 import java.io.File;
@@ -51,6 +52,13 @@ public class MainScreenController extends BorderPane {
         openSessie.setOnAction(this::openSessie);
         openKalender.setOnAction(this::kalenderTonen);
         gebruikerOpenGebruiker.setOnAction(this::gebruikerOpenGebruiker);
+        addMedia.setOnAction(this::addMedia);
+    }
+
+    private void addMedia(ActionEvent event) {
+        Stage stage = new Stage();
+        stage.setScene(new Scene(new NieuweMediaController(domeinController)));
+        stage.show();
     }
 
     private void openSessie(ActionEvent actionEvent) {

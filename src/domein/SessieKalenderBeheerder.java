@@ -99,6 +99,14 @@ public class SessieKalenderBeheerder {
         em.getTransaction().commit();
     }
 
+    public void addMediaSessie(Sessie s, Media m) {
+        s.addMedia(m);
+        em.getTransaction().begin();
+        em.persist(m);
+        em.persist(s);
+        em.getTransaction().commit();
+    }
+
     public void updateMedia(Media mediaOud, Media mediaNieuw) {
         Sessie sessie = sessies.stream().filter(s -> s.getMedia().contains(mediaOud)).findFirst().orElse(null);
         sessie.verwijderMedia(mediaOud);
@@ -286,6 +294,8 @@ public class SessieKalenderBeheerder {
     public List<SessieKalender> geefAlleSessieKalenders() {
         return sessieKalenders;
     }
+
+
     //endregion
 
 }
