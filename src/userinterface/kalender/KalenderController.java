@@ -18,6 +18,8 @@ import javafx.stage.Stage;
 import net.bytebuddy.asm.Advice;
 import org.w3c.dom.DOMError;
 import userinterface.MAIN.MainScreenController;
+import userinterface.sessieBeheren.InfoSessieController;
+import userinterface.sessieBeheren.SessieBewerkenController;
 
 import java.io.DataOutput;
 import java.io.IOException;
@@ -108,25 +110,6 @@ public class KalenderController extends AnchorPane {
         VBox vBox;
         int t = 1;
         for (int i = 1; i < GRIDPANE_ROW; i++) {
-                /*hBox = new HBox();
-
-                CharSequence cs = String.format("%d-%02d-%02d", LocalDate.now().getYear(), maand.getNummer(), t);
-                LocalDate date = LocalDate.parse(cs);
-                List<ISessie> sessies = domeinController.geefSessiesOpDag(date);
-                ListView<ISessie> listView = new ListView<>();
-                listView.setItems(FXCollections.observableArrayList(sessies));
-                listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessie>() {
-                    @Override
-                    public void changed(ObservableValue<? extends ISessie> observableValue, ISessie sessie, ISessie t1) {
-                        Scene scene = new Scene(new BorderPane(new Label(t1.toString())));
-                        Stage stage = new Stage();
-                        stage.setScene(scene);
-                        stage.show();
-                    }
-                });
-
-                 */
-            //hBox.getChildren().addAll(new Label(String.format("%d %s", t, maand.afkorting())), listView);
             if (i == 1) {
                 for (int j = maand.startDag(); j < GRIDPANE_COL; j++) {
                     if (t <= maand.aantalDagen()) {
@@ -136,7 +119,14 @@ public class KalenderController extends AnchorPane {
                         LocalDate date = LocalDate.parse(cs);
                         List<ISessie> sessies = domeinController.geefSessiesOpDag(date);
                         for (ISessie sessie : sessies) {
-                            vBox.getChildren().add(new Label(sessie.toString()));
+                            Button button = new Button(sessie.toString());
+                            button.setOnAction(e -> {
+                                Stage stage = new Stage();
+                                Scene scene = new Scene(new InfoSessieController(sessie));
+                                stage.setScene(scene);
+                                stage.show();
+                            });
+                            vBox.getChildren().add(button);
                         }
                         gridpane.add(vBox, j, i + 1);
                         t++;
@@ -152,7 +142,14 @@ public class KalenderController extends AnchorPane {
                         LocalDate date = LocalDate.parse(cs);
                         List<ISessie> sessies = domeinController.geefSessiesOpDag(date);
                         for (ISessie sessie : sessies) {
-                            vBox.getChildren().add(new Label(String.format("%s%n%s", sessie.getSessieId(), sessie.getTitel())));
+                            Button button = new Button(sessie.toString_Kalender());
+                            button.setOnAction(e -> {
+                                Stage stage = new Stage();
+                                Scene scene = new Scene(new SessieBewerkenController(sessie, domeinController));
+                                stage.setScene(scene);
+                                stage.show();
+                            });
+                            vBox.getChildren().add(button);
                         }
                         gridpane.add(vBox, j, i + 1);
                         t++;

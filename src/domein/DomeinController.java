@@ -53,7 +53,7 @@ public class DomeinController {
     }
 
     public List<ISessie> geefSessiesOpDag(LocalDate date) {
-        return sessieKalenderController.geefSessiesVanJaar(1920).stream().filter(s -> s.getStartSessie().getDayOfYear() == date.getDayOfYear()).collect(Collectors.toList());
+        return sessieKalenderController.geefSessiesOpDag(date);
     }
 
     public List<IGebruiker> geefIGebruikers(){

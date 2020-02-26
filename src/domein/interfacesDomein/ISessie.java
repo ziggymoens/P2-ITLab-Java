@@ -39,4 +39,6 @@ public interface ISessie {
     int getAantalAanwezigen();
 
     int getBeschikbarePlaatsen();
+
+    String toString_Kalender();
 }

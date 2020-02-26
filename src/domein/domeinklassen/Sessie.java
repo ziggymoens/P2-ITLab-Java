@@ -368,6 +368,11 @@ public class Sessie implements ISessie {
         return maximumAantalPlaatsen-inschrijvingen.size();
     }
 
+    @Override
+    public String toString_Kalender() {
+        return String.format("%02d:%02d: %s", startSessie.getHour(), startSessie.getMinute(), getTitel());
+    }
+
     public void verwijderMedia(Media mediaOud) {
         media.remove(mediaOud);
     }

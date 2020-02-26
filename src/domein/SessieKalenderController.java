@@ -3,8 +3,11 @@ package domein;
 import domein.domeinklassen.Gebruiker;
 import domein.domeinklassen.Sessie;
 import domein.domeinklassen.SessieKalender;
+import domein.interfacesDomein.ISessie;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,5 +44,9 @@ public class SessieKalenderController {
 
     public List<Gebruiker> geefGebruikers(){
         return sessieKalenderBeheerder.geefAlleGebruikers().stream().map(e -> e ).collect(Collectors.toList());
+    }
+
+    public List<ISessie> geefSessiesOpDag(LocalDate date) {
+        return geefAlleSessies().stream().filter(s -> s.getStartSessie().getDayOfYear() == date.getDayOfYear() && s.getStartSessie().getYear() == date.getYear()).sorted(Comparator.comparing(Sessie::getStartSessie)).collect(Collectors.toList());
     }
 }
