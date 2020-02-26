@@ -1,5 +1,6 @@
 package domein.interfacesDomein;
 
+import domein.domeinklassen.Gebruiker;
 import domein.enums.Gebruikersprofielen;
 import domein.enums.Gebruikersstatus;
 
@@ -15,7 +16,6 @@ public interface IGebruiker {
     Gebruikersprofielen getGebruikersprofiel();
 
     String getProfielfoto();
-
 
     //List<IFeedback> getIFeedbackList();
 

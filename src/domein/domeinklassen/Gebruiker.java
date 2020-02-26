@@ -158,6 +158,7 @@ public class Gebruiker implements IGebruiker {
         return profielfoto;
     }
 
+
     //endregion
 
     //region toString

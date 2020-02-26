@@ -88,13 +88,13 @@ public class DomeinController {
     public void pasSessieAan(ISessie sessie, Map<String, String> veranderingenMap){
         Sessie s = sessieKalenderController.getSessies().stream().filter(e -> e.getSessieId().equals(sessie.getSessieId())).findFirst().orElse(null);
         veranderingenMap.forEach((key, value) -> {
-            switch(key.toString()){
+            switch(key){
                 case "naamverantwoordelijke":
                     break;
                 case "titel":
                     break;
                 case "naamGastspreker":
-                    s.setNaamGastspreker(value.toString());
+                    s.setNaamGastspreker(value);
                     break;
                 case "lokaal":
                     break;
@@ -137,6 +137,7 @@ public class DomeinController {
         Media m = new Media(g, name, type);
         sessieKalenderController.addMediaSessie(s, m);
     }
+
 }
 
 //endregion
