@@ -87,6 +87,26 @@ public class DomeinController {
 
     public void pasSessieAan(ISessie sessie, Map<String, String> veranderingenMap){
         Sessie s = sessieKalenderController.getSessies().stream().filter(e -> e.getSessieId().equals(sessie.getSessieId())).findFirst().orElse(null);
+        veranderingenMap.forEach((key, value) -> {
+            switch(key.toString()){
+                case "naamverantwoordelijke":
+                    break;
+                case "titel":
+                    break;
+                case "naamGastspreker":
+                    s.setNaamGastspreker(value.toString());
+                    break;
+                case "lokaal":
+                    break;
+                case "start":
+                    break;
+                case "eind":
+                    break;
+                case "maxPlaatsen":
+                    break;
+            }
+
+        });
 //        veranderingenMap.entrySet().stream().forEach( (k,v) -> {
 //            switch(k){
 //                case "naamverantwoordelijke":
