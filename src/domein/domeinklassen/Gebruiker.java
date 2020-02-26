@@ -161,8 +161,13 @@ public class Gebruiker implements IGebruiker {
     //endregion
 
     //region toString
+
     @Override
     public String toString() {
+        return getNaam();
+    }
+
+    public String toString_Compleet() {
         return String.format("%s: %s%n%s: %s%n%s: %s%n%s: %s%n",
                 Talen.getString("Gebruiker.naam"), naam, Talen.getString("Gebruiker.gebruikersnaam"), gebruikersnaam, Talen.getString("Gebruiker.type"), gebruikersprofiel, Talen.getString("Gebruiker.status"), status);
     }

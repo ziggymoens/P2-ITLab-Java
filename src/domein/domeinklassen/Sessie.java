@@ -268,19 +268,20 @@ public class Sessie implements ISessie {
     }
     //endregion
 
-    //region Equals & Hashcode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Sessie sessie = (Sessie) o;
-        return Objects.equals(sessieId, sessie.sessieId);
+        return sessieId.equals(sessie.sessieId) &&
+                Objects.equals(startSessie, sessie.startSessie);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(sessieId);
     }
+
     //endregion
 
     //region andere methoden

@@ -9,7 +9,9 @@ import domein.interfacesDomein.ISessieKalender;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.Set;
 
 public class DomeinController {
@@ -50,9 +52,13 @@ public class DomeinController {
 
     }
 
-//    public Set<IGebruiker> getIGebruikers() {
-//        return (Set<IGebruiker>) (Object)
-//    }
+    public List<ISessie> geefSessiesOpDag(LocalDate date) {
+        return sessieKalenderController.geefSessiesVanJaar(1920).stream().filter(s -> s.getStartSessie().getDayOfYear() == date.getDayOfYear()).collect(Collectors.toList());
+    }
+
+    public List<IGebruiker> geefIGebruikers(){
+        return (List<IGebruiker>) (Object)sessieKalenderController.geefGebruikers();
+    }
 }
 
 //endregion

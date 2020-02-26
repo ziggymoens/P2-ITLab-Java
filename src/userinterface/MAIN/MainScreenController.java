@@ -14,8 +14,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import userinterface.aankondigingPlaatsen.AankondigingPlaatsenController;
 import userinterface.GebruikerBeheren.InfoGebruikerController;
+import userinterface.aankondigingPlaatsen.AankondigingPlaatsenController;
+import userinterface.kalender.KalenderController;
 import userinterface.sessieBeheren.SessieBeherenController;
 
 import java.io.File;
@@ -23,7 +24,7 @@ import java.io.IOException;
 
 public class MainScreenController extends BorderPane {
     @FXML
-    private MenuItem newSessie, openSessie, deleteSessie,addAankondiging, addFeedback, addInschrijving, addMedia, gebruikerNieuwegebruiker, gebruikerOpenGebruiker, gebruikerVerwijderGebruiker, about, help, gebruikerGegevens, gebruikerInstellingen, gebruikerUitloggen, gebruikerAfsluiten;
+    private MenuItem newSessie, openSessie, deleteSessie,addAankondiging, addFeedback, addInschrijving, addMedia, gebruikerNieuwegebruiker, gebruikerOpenGebruiker, gebruikerVerwijderGebruiker, about, help, gebruikerGegevens, gebruikerInstellingen, gebruikerUitloggen, gebruikerAfsluiten, openKalender;
     @FXML
     private ImageView profielFoto;
     @FXML
@@ -48,6 +49,7 @@ public class MainScreenController extends BorderPane {
         Image image = new Image("storage/profielfotos/profielfoto.png");
         this.profielFoto.setImage(image);
         openSessie.setOnAction(this::openSessie);
+        openKalender.setOnAction(this::kalenderTonen);
         gebruikerOpenGebruiker.setOnAction(this::gebruikerOpenGebruiker);
         addAankondiging.setOnAction(this::openAankondiging);
     }
@@ -63,6 +65,11 @@ public class MainScreenController extends BorderPane {
     public void vulSchermIn(Node node){
         this.setCenter(node);
     }
+
+    public void kalenderTonen(ActionEvent event){
+        this.setCenter(new KalenderController(domeinController));
+    }
+
 
     private void openAankondiging(ActionEvent actionEvent){new AankondigingPlaatsenController(domeinController, this); }
 }

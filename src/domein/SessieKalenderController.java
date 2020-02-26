@@ -4,6 +4,7 @@ import domein.domeinklassen.Gebruiker;
 import domein.domeinklassen.Sessie;
 import domein.domeinklassen.SessieKalender;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,7 @@ public class SessieKalenderController {
     }
 
     public List<Sessie> geefSessiesVanJaar(int jaar){
-        return sessieKalenderBeheerder.geefAlleSessies().stream().filter(s -> s.getSessieId().matches(String.format("S%d-.*", jaar-2000))).collect(Collectors.toList());
+        return sessieKalenderBeheerder.geefAlleSessies().stream().filter(s -> s.getSessieId().matches(String.format("S%d-.*", jaar))).collect(Collectors.toList());
     }
 
     public void close() {
@@ -36,5 +37,9 @@ public class SessieKalenderController {
 
     public List<SessieKalender> getSessieKalenders() {
         return sessieKalenderBeheerder.geefAlleSessieKalenders();
+    }
+
+    public List<Gebruiker> geefGebruikers(){
+        return sessieKalenderBeheerder.geefAlleGebruikers().stream().map(e -> e ).collect(Collectors.toList());
     }
 }

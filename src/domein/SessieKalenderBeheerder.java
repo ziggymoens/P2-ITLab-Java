@@ -242,6 +242,10 @@ public class SessieKalenderBeheerder {
         em.getTransaction().commit();
     }
 
+    private Set<Gebruiker> getGebruikers() {
+        return gebruikers;
+    }
+
     //endregion
     //region Lokaal
     public Set<Lokaal> geefAlleLokalen() {

@@ -38,6 +38,11 @@
                         <MenuItem fx:id="gebruikerVerwijderGebruiker" mnemonicParsing="false" text="Verwijder gebruiker..." />
                   </items>
                 </Menu>
+                  <Menu mnemonicParsing="false" text="Sessiekalender">
+                    <items>
+                      <MenuItem fx:id="openKalender" mnemonicParsing="false" text="Open kalender..." />
+                    </items>
+                  </Menu>
                   <Menu mnemonicParsing="false" text="Help">
                      <items>
                         <MenuItem fx:id="about" mnemonicParsing="false" text="About" />

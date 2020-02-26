@@ -11,6 +11,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.Arrays;
 import java.util.stream.Stream;
 
 import static domein.enums.Gebruikersprofielen.GEBRUIKER;
@@ -34,10 +35,11 @@ public class MediaTest {
 
     @ParameterizedTest
     @MethodSource("opsommingGeldigeWaarden")
-    public void maakMediaGeldigeGegevens_Slaagt(Gebruiker gebruiker, String locatie, MediaTypes type){
+    public void maakMediaGeldigeGegevens_Slaagt(Gebruiker gebruiker, String locatie, String type){
         Media media = new Media(gebruiker,locatie, type);
         Assertions.assertEquals(locatie, media.getLocatie());
-        Assertions.assertEquals(type, media.getType());
+        String[] waarden = new String[]{type, "ONBEKEND"};
+        //ssertions.assertTrue();
     }
 
     private static Stream<Arguments> opsommingOngeldigeWaarden(){
