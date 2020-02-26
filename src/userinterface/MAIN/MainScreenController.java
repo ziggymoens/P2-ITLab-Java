@@ -67,7 +67,7 @@ public class MainScreenController extends BorderPane {
     }
 
     public void kalenderTonen(ActionEvent event){
-        this.setCenter(new KalenderController(domeinController));
+        this.setCenter(new KalenderController(domeinController, this));
     }
 
 

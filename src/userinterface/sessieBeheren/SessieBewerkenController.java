@@ -42,7 +42,7 @@ public class SessieBewerkenController extends BorderPane {
         plaatsen.setEditable(true);
         geefDetails(sessie);
 
-        toepassen.setOnAction(this::pasSessieAan);
+        //toepassen.setOnAction(this::pasSessieAan);
     }
 
     private void geefDetails(ISessie sessie) {

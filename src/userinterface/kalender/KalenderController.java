@@ -5,15 +5,21 @@ import domein.interfacesDomein.ISessie;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import net.bytebuddy.asm.Advice;
+import org.w3c.dom.DOMError;
+import userinterface.MAIN.MainScreenController;
 
+import java.io.DataOutput;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,16 +27,22 @@ import java.util.Arrays;
 import java.util.List;
 
 public class KalenderController extends AnchorPane {
-    private final DomeinController domeinController;
+    private DomeinController domeinController;
+    private MainScreenController mainScreenController;
     private int GRIDPANE_COL = 7;
     private int GRIDPANE_ROW = 7;
     @FXML
     private GridPane gridpane;
+    @FXML
+    private Label naam;
+    @FXML
+    private Button vorig, volgend;
     private String[] ms = {"januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"};
     private List<String> maanden;
     private Maand maand;
 
-    public KalenderController(DomeinController domeinController) {
+    public KalenderController(DomeinController domeinController, MainScreenController mainScreenController) {
+        this.mainScreenController = mainScreenController;
         this.domeinController = domeinController;
         maanden = Arrays.asList(ms);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Kalender.fxml"));
@@ -42,9 +54,55 @@ public class KalenderController extends AnchorPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
-        maand = new Maand(LocalDate.now().getMonthValue()+1);
+        maand = new Maand(LocalDate.now().getMonthValue());
+        startKal();
+    }
+
+    public KalenderController(DomeinController domeinController,MainScreenController mainScreenController, int m){
+        this.domeinController = domeinController;
+        this.mainScreenController = mainScreenController;
+        maanden = Arrays.asList(ms);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Kalender.fxml"));
+        loader.setRoot(this);
+        loader.setController(this);
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+        this.maand = new Maand(m);
+        startKal();
+    }
+
+    private void startKal(){
+        naam.setText(maanden.get(maand.getNummer() - 1));
+        vorig.setOnAction(this::vorigeMaand);
+        volgend.setOnAction(this::volgendeMaand);
         initKalender();
     }
+
+
+    private void vorigeMaand(ActionEvent event) {
+        int huidig = maand.getNummer();
+        if (huidig == 1) {
+            huidig = 12;
+        } else {
+            huidig --;
+        }
+        mainScreenController.setCenter(new KalenderController(domeinController, mainScreenController, huidig));
+    }
+
+    private void volgendeMaand(ActionEvent event) {
+        int huidig = maand.getNummer();
+        if (huidig == 12) {
+            huidig = 1;
+        } else {
+            huidig++;
+        }
+        mainScreenController.setCenter(new KalenderController(domeinController, mainScreenController, huidig));
+    }
+
 
     private void initKalender() {
         VBox vBox;
@@ -77,10 +135,10 @@ public class KalenderController extends AnchorPane {
                         CharSequence cs = String.format("%d-%02d-%02d", LocalDate.now().getYear(), maand.getNummer(), t);
                         LocalDate date = LocalDate.parse(cs);
                         List<ISessie> sessies = domeinController.geefSessiesOpDag(date);
-                        for (ISessie sessie: sessies){
+                        for (ISessie sessie : sessies) {
                             vBox.getChildren().add(new Label(sessie.toString()));
                         }
-                        gridpane.add(vBox, j, i+1);
+                        gridpane.add(vBox, j, i + 1);
                         t++;
                     }
                 }
@@ -93,10 +151,10 @@ public class KalenderController extends AnchorPane {
                         CharSequence cs = String.format("%d-%02d-%02d", LocalDate.now().getYear(), maand.getNummer(), t);
                         LocalDate date = LocalDate.parse(cs);
                         List<ISessie> sessies = domeinController.geefSessiesOpDag(date);
-                        for (ISessie sessie: sessies){
+                        for (ISessie sessie : sessies) {
                             vBox.getChildren().add(new Label(String.format("%s%n%s", sessie.getSessieId(), sessie.getTitel())));
                         }
-                        gridpane.add(vBox, j, i+1);
+                        gridpane.add(vBox, j, i + 1);
                         t++;
                     }
                 }
