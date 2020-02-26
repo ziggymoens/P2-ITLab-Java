@@ -7,10 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class SessieKalenderBeheerder {
@@ -224,8 +221,8 @@ public class SessieKalenderBeheerder {
     //endregion
 
     //region Gebruiker
-    public Set<Gebruiker> geefAlleGebruikers() {
-        return gebruikers;
+    public List<Gebruiker> geefAlleGebruikers() {
+        return gebruikers.stream().sorted(Comparator.comparing(Gebruiker::getNaam).thenComparing(Gebruiker::getGebruikersnaam)).collect(Collectors.toList());
     }
 
     public void addGebruiker(Gebruiker gebruiker) {
@@ -248,10 +245,6 @@ public class SessieKalenderBeheerder {
         em.getTransaction().begin();
         em.remove(gebruiker);
         em.getTransaction().commit();
-    }
-
-    private Set<Gebruiker> getGebruikers() {
-        return gebruikers;
     }
 
     //endregion

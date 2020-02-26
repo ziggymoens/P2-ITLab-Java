@@ -162,6 +162,7 @@ public class DomeinController {
         Media m = new Media(g, name, type);
         sessieKalenderController.addMediaSessie(s, m);
     }
+
 }
 
 //endregion

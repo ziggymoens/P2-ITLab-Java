@@ -23,6 +23,7 @@ import javafx.scene.layout.BorderPane;
 import userinterface.MAIN.MainScreenController;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 
 public class InfoGebruikerController extends BorderPane{
     private DomeinController domeinController;
@@ -52,15 +53,37 @@ public class InfoGebruikerController extends BorderPane{
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-
-        listView.setItems(FXCollections.observableArrayList(domeinController.geefIGebruikers()));
-
-
-
+        listView();
         mainScreenController.vulSchermIn(this);
     }
 
 
+
+    public void listView (){
+            listView.setItems(FXCollections.observableArrayList(domeinController.geefIGebruikers()));
+            listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<IGebruiker>() {
+                @Override
+                public void changed(ObservableValue<? extends IGebruiker> observableValue, IGebruiker gebruiker, IGebruiker t1) {
+                    gebruikers = FXCollections.observableArrayList(domeinController.geefIGebruikers());
+                    listView.setItems(gebruikers);
+                    listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+                    listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<IGebruiker>() {
+                        @Override
+                        public void changed(ObservableValue<? extends IGebruiker> observableValue, IGebruiker gebruiker, IGebruiker t1) {
+                            gebruiker = t1;
+                            geefDetails(t1);
+                        }
+                    });
+                }
+            });
     }
+
+    private void geefDetails(IGebruiker gebruiker) {
+        naamgebruiker.setText(gebruiker.getNaam());
+        gebruikersnaam.setText(gebruiker.getGebruikersnaam());
+        status.setText(gebruiker.getStatus().toString());
+        type.setText(gebruiker.getGebruikersprofiel().toString());
+    }
+}
 
 

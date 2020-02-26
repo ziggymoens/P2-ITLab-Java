@@ -49,7 +49,7 @@ public class SessieKalenderController {
     }
 
     public List<Gebruiker> geefGebruikers(){
-        return sessieKalenderBeheerder.geefAlleGebruikers().stream().map(e -> e ).collect(Collectors.toList());
+        return sessieKalenderBeheerder.geefAlleGebruikers();
     }
 
     public List<ISessie> geefSessiesOpDag(LocalDate date) {
