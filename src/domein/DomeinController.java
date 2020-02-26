@@ -6,6 +6,7 @@ import domein.domeinklassen.Media;
 import domein.domeinklassen.Sessie;
 import domein.enums.MediaTypes;
 import domein.interfacesDomein.IGebruiker;
+import domein.interfacesDomein.ILokaal;
 import domein.interfacesDomein.ISessie;
 import domein.interfacesDomein.ISessieKalender;
 import javafx.collections.FXCollections;
@@ -102,7 +103,8 @@ public class DomeinController {
                     s.setNaamGastspreker(value);
                     break;
                 case "lokaal":
-                    s.setLokaal(sessieKalenderController.getLokalen().stream().filter(e -> e.getLokaalCode().equals(value)).findFirst().orElse(null));
+                    String[] str = value.split(",");
+                    s.setLokaal(sessieKalenderController.getLokalen().stream().filter(e -> e.getLokaalCode().equals(str[0])).findFirst().orElse(null));
                     break;
                 case "start":
                     //s.setStartSessie(LocalDateTime.parse(value));
@@ -169,6 +171,9 @@ public class DomeinController {
 
     public void verwijderGebruiker(IGebruiker gebruiker) {
         sessieKalenderController.verwijderGebruiker(gebruiker);
+    }
+    public List<ILokaal> getLokalen() {
+        return (List<ILokaal>)(Object) sessieKalenderController.getLokalen().stream().collect(Collectors.toList());
     }
 }
 

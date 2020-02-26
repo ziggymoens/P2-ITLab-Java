@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
@@ -52,7 +53,7 @@
                               <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="lokaal" editable="false" />
+                        <ChoiceBox fx:id="lokaal" prefWidth="175.0" />
                      </children>
                   </VBox>
                </children>

@@ -47,11 +47,11 @@ public class SessieBeherenController extends BorderPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
+        listView();
         vulSchermOp();
     }
 
     public void vulSchermOp() {
-        listView();
         meer.setOnAction(this::meer);
         bewerken.setOnAction(this::bewerken);
         verwijderen.setOnAction(this::verwijderen);

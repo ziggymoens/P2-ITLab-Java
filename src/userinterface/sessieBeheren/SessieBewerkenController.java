@@ -4,11 +4,11 @@ import domein.DomeinController;
 import domein.interfacesDomein.ISessie;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -24,7 +24,10 @@ public class SessieBewerkenController extends BorderPane {
     SessieBeherenController sessieBeherenController;
 
     @FXML
-    private TextField naamverantwoordelijke, titel, naamGastspreker, lokaal, start, eind, maxPlaatsen;
+    private TextField naamverantwoordelijke, titel, naamGastspreker, start, eind, maxPlaatsen;
+
+    @FXML
+    private ChoiceBox lokaal;
 
     @FXML
     private Button aankondigingen, media, gebruikers, feedback, toepassen, cancel;
@@ -71,13 +74,22 @@ public class SessieBewerkenController extends BorderPane {
         titel.setEditable(true);
 
 
-        lokaal.textProperty().addListener(new ChangeListener<String>() {
+//        lokaal.textProperty().addListener(new ChangeListener<String>() {
+//            @Override
+//            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+//                kijkenVoorAanpassingen("lokaal", t1);
+//            }
+//        });
+//        lokaal.setEditable(true);
+
+        lokaal.setItems(FXCollections.observableArrayList(domeinController.getLokalen()));
+        lokaal.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                kijkenVoorAanpassingen("lokaal", t1);
+            public void changed(ObservableValue observableValue, Object o, Object t1) {
+                kijkenVoorAanpassingen("lokaal", t1.toString());
             }
         });
-        lokaal.setEditable(true);
+
 
 
         start.textProperty().addListener(new ChangeListener<String>() {
@@ -133,6 +145,12 @@ public class SessieBewerkenController extends BorderPane {
     }
 
     private void toepassen (ActionEvent actionEvent){
+
+        if(sessie.getLokaal().getAantalPlaatsen() - (sessie.getLokaal().getAantalPlaatsen() - sessie.getBeschikbarePlaatsen()) < 0){
+            Alert alert = new Alert(Alert.AlertType.ERROR, "DUS JIJ WILT MIJN KOEKJE STELEN? MAG NIET!!",ButtonType.CLOSE);
+            maxPlaatsen.setText(String.valueOf(sessie.getMaximumAantalPlaatsen()));
+            veranderingenMap.put("maxPlaatsen", String.valueOf(sessie.getMaximumAantalPlaatsen()));
+        }
         domeinController.pasSessieAan(sessie, veranderingenMap);
         Stage stage = (Stage) this.getScene().getWindow();
         stage.close();
