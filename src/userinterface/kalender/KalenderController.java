@@ -122,7 +122,7 @@ public class KalenderController extends AnchorPane {
                             Button button = new Button(sessie.toString());
                             button.setOnAction(e -> {
                                 Stage stage = new Stage();
-                                Scene scene = new Scene(new InfoSessieController(sessie));
+                                Scene scene = new Scene(new SessieBewerkenController(sessie, domeinController));
                                 stage.setScene(scene);
                                 stage.show();
                             });

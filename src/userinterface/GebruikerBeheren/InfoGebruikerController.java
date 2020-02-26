@@ -53,7 +53,7 @@ public class InfoGebruikerController extends BorderPane{
             throw new RuntimeException(ex);
         }
 
-        listView.setItems(FXCollections.observableArrayList(domeinController.geefIGebruiker()));
+        listView.setItems(FXCollections.observableArrayList(domeinController.geefIGebruikers()));
 
 //        @Override
 //        public void changed(ObservableValue<? extends IGebruiker > observableValue) {

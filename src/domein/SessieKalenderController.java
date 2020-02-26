@@ -61,4 +61,8 @@ public class SessieKalenderController {
     public void addAankondigingSessie(String sessieid, String gebruikersnaam, String tekst, boolean herinnering, int dagen){
         sessieKalenderBeheerder.addAankondigingSessie(sessieid, gebruikersnaam, tekst, herinnering, dagen);
     }
+
+    public List<Sessie> geefSessiesVanGebruiker(Gebruiker gebruiker) {
+        return sessieKalenderBeheerder.geefAlleSessies().stream().filter(s -> s.getVerantwoordelijke().equals(gebruiker)).collect(Collectors.toList());
+    }
 }

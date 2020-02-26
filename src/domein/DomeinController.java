@@ -3,6 +3,7 @@ package domein;
 
 import domein.domeinklassen.Gebruiker;
 import domein.domeinklassen.Sessie;
+import domein.enums.MediaTypes;
 import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.ISessie;
 import domein.interfacesDomein.ISessieKalender;
@@ -10,7 +11,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class DomeinController {
     private ObservableList<Sessie> sessieObservableList;
@@ -64,6 +68,18 @@ public class DomeinController {
 
     public void addAankondigingSessie(String sessieid, String gebruikersnaam, String tekst, boolean herinnering, int dagen){
         sessieKalenderController.addAankondigingSessie(sessieid, gebruikersnaam, tekst, herinnering, dagen);
+    }
+
+    public List<String> geefMediaTypes() {
+        return Arrays.stream(MediaTypes.values()).map(Enum::toString).collect(Collectors.toList());
+    }
+
+    public String geefProfielGebruiker() {
+        return gebruiker.getGebruikersprofiel().toString();
+    }
+
+    public List<ISessie> geefSessiesVanGebruiker() {
+        return (List<ISessie>)(Object)sessieKalenderController.geefSessiesVanGebruiker(gebruiker);
     }
 }
 

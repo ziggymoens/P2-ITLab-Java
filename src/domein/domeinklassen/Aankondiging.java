@@ -177,7 +177,7 @@ public class Aankondiging implements IAankondiging {
     }
     @Override
     public String toString_Compleet() {
-        return String.format("Aankondiging: %s%nGeplaatst door: %s%nGeplaats op: %s%nAutomatische herinnering? %s%nInhoud: %s%n - %s", aankondigingsId, gebruiker.getNaam(), publicatiedatum.toString(), automatischeHerinnering? String.format("ja%nAantal dagen voor de sessie: %d%n", herinnering.getDagenVoorafInt()):"nee", inhoud);
+        return String.format("Aankondiging: %s%nGeplaatst door: %s%nGeplaats op: %s%nAutomatische herinnering? %s%nInhoud: %s%n", aankondigingsId, gebruiker.getNaam(), publicatiedatum.toString(), automatischeHerinnering? String.format("ja%nAantal dagen voor de sessie: %d%n", herinnering.getDagenVoorafInt()):"nee", inhoud);
     }
     //endregion
 }

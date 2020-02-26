@@ -1,5 +1,6 @@
 package userinterface.sessieBeheren;
 
+import domein.DomeinController;
 import domein.interfacesDomein.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,11 +13,13 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import userinterface.aankondigingPlaatsen.AankondigingPlaatsenController;
+import userinterface.media.NieuweMediaController;
 
 import java.io.IOException;
 
 public class  InfoSessieController extends BorderPane {
     private ISessie sessie;
+    private DomeinController domeinController;
 
     @FXML
     private ListView<IMedia> listViewMedia;
@@ -27,9 +30,10 @@ public class  InfoSessieController extends BorderPane {
     @FXML
     private ListView<IAankondiging> listViewAankondigingen;
     @FXML
-    private Button infoMedia, infoFeedback, infoInschrijving, infoAankondiging, voegAankondigingToe;
+    private Button infoMedia,nieuwMedia, bewerkenMedia, infoFeedback, infoInschrijving, infoAankondiging, voegAankondigingToe;
 
-    public InfoSessieController(ISessie sessie) {
+    public InfoSessieController(ISessie sessie, DomeinController domeinController) {
+        this.domeinController = domeinController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("InfoSessie.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -42,18 +46,34 @@ public class  InfoSessieController extends BorderPane {
         this.sessie = sessie;
         listViewMedia.setItems(sessie.getIMediaBijSessie());
         listViewMedia.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
         listViewFeedback.setItems(sessie.getIFeedbackSessie());
         listViewFeedback.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
         listViewAankondigingen.setItems(sessie.getIAankondigingenSessie());
         listViewAankondigingen.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
         listViewInschrijvingen.setItems(sessie.getIIngeschrevenGebruikers());
         listViewInschrijvingen.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
         infoFeedback.setOnAction(this::infoFeedback);
+
         infoMedia.setOnAction(this::infoMedia);
+        nieuwMedia.setOnAction(this::nieuwMedia);
+
         infoInschrijving.setOnAction(this::infoInschrijving);
+
         infoAankondiging.setOnAction(this::infoAankondiging);
+
         voegAankondigingToe.setOnAction(this::voegAankondigingToe);
 
+    }
+
+    private void nieuwMedia(ActionEvent event) {
+        Scene scene = new Scene(new NieuweMediaController(domeinController, sessie));
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
     }
 
     private void infoAankondiging(ActionEvent actionEvent) {
