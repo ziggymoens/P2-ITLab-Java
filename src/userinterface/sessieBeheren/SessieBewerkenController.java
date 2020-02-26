@@ -18,7 +18,7 @@ public class SessieBewerkenController extends BorderPane {
     private DomeinController domeinController;
 
     @FXML
-    private TextField naamverantwoordelijke, titel, start, eind, plaatsen;
+    private TextField naamverantwoordelijke, titel, naamGastspreker, lokaal, start, eind, maxPlaatsen;
 
     @FXML
     Button toepassen, cancel;
@@ -34,15 +34,14 @@ public class SessieBewerkenController extends BorderPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
-        this.sessie = sessie;
+/*        this.sessie = sessie;
         naamverantwoordelijke.setEditable(true);
         titel.setEditable(true);
         start.setEditable(true);
         eind.setEditable(true);
-        plaatsen.setEditable(true);
+        maxPlaatsen.setEditable(true);
         geefDetails(sessie);
-
-        //toepassen.setOnAction(this::pasSessieAan);
+        toepassen.setOnAction(this::pasSessieAan);*/
     }
 
     private void geefDetails(ISessie sessie) {
@@ -51,11 +50,11 @@ public class SessieBewerkenController extends BorderPane {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         start.setText(sessie.getStartSessie().format(formatter));
         eind.setText(sessie.getEindeSessie().format(formatter));
-        plaatsen.setText(String.valueOf(sessie.isGeopend()?sessie.getAantalAanwezigen():sessie.getBeschikbarePlaatsen()));
+        maxPlaatsen.setText(String.valueOf(sessie.isGeopend()?sessie.getAantalAanwezigen():sessie.getBeschikbarePlaatsen()));
     }
 
     private void pasSessieAan(ActionEvent actionEvent){
-
+        domeinController.pasSessieAan();
     }
 
 }
