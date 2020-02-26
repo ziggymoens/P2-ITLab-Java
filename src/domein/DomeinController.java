@@ -2,6 +2,7 @@ package domein;
 
 
 import domein.domeinklassen.Gebruiker;
+import domein.domeinklassen.Media;
 import domein.domeinklassen.Sessie;
 import domein.enums.MediaTypes;
 import domein.interfacesDomein.IGebruiker;
@@ -12,8 +13,9 @@ import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class DomeinController {
@@ -83,7 +85,7 @@ public class DomeinController {
     }
 
 
-    public void pasSessieAan(ISessie sessie, HashMap veranderingenMap){
+    public void pasSessieAan(ISessie sessie, Map<String, String> veranderingenMap){
         Sessie s = sessieKalenderController.getSessies().stream().filter(e -> e.getSessieId().equals(sessie.getSessieId())).findFirst().orElse(null);
         veranderingenMap.forEach((key, value) -> {
             switch(key.toString()){
@@ -127,6 +129,13 @@ public class DomeinController {
 //
 //        });
 
+    }
+
+    public void maakNieuweMedia(ISessie sessie, IGebruiker gebruiker, String type, String name) {
+        Sessie s = sessieKalenderController.getSessieById(sessie.getSessieId());
+        Gebruiker g = sessieKalenderController.getGebruikerByID(gebruiker.getGebruikersnaam());
+        Media m = new Media(g, name, type);
+        sessieKalenderController.addMediaSessie(s, m);
     }
 }
 

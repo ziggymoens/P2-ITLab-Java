@@ -19,6 +19,7 @@ import net.bytebuddy.asm.Advice;
 import org.w3c.dom.DOMError;
 import userinterface.MAIN.MainScreenController;
 import userinterface.sessieBeheren.InfoSessieController;
+import userinterface.sessieBeheren.SessieBeherenController;
 import userinterface.sessieBeheren.SessieBewerkenController;
 
 import java.io.DataOutput;
@@ -122,7 +123,7 @@ public class KalenderController extends AnchorPane {
                             Button button = new Button(sessie.toString());
                             button.setOnAction(e -> {
                                 Stage stage = new Stage();
-                                Scene scene = new Scene(new SessieBewerkenController(sessie, domeinController));
+                                Scene scene = new Scene(new SessieBewerkenController(sessie, domeinController, new SessieBeherenController(domeinController, mainScreenController)));
                                 stage.setScene(scene);
                                 stage.show();
                             });
@@ -145,7 +146,7 @@ public class KalenderController extends AnchorPane {
                             Button button = new Button(sessie.toString_Kalender());
                             button.setOnAction(e -> {
                                 Stage stage = new Stage();
-                                Scene scene = new Scene(new SessieBewerkenController(sessie, domeinController));
+                                Scene scene = new Scene(new SessieBewerkenController(sessie, domeinController, new SessieBeherenController(domeinController, mainScreenController)));
                                 stage.setScene(scene);
                                 stage.show();
                             });
