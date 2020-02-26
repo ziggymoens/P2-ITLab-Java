@@ -11,8 +11,6 @@ import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.Set;
 
 public class DomeinController {
     private ObservableList<Sessie> sessieObservableList;
@@ -58,6 +56,10 @@ public class DomeinController {
 
     public List<IGebruiker> geefIGebruikers(){
         return (List<IGebruiker>) (Object)sessieKalenderController.geefGebruikers();
+    }
+
+    public void verwijderSessie (ISessie sessie){
+        sessieKalenderController.verwijderSessie(sessie);
     }
 }
 

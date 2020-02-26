@@ -46,25 +46,7 @@ public class SessieBeherenController extends BorderPane {
             throw new RuntimeException();
         }
 
-
-        choiceBoxSessie.setItems(FXCollections.observableArrayList(domeinController.getISessieKalenders()));
-        choiceBoxSessie.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessieKalender>() {
-            @Override
-            public void changed(ObservableValue<? extends ISessieKalender> observableValue, ISessieKalender iSessieKalender, ISessieKalender t1) {
-                sessies = FXCollections.observableArrayList(t1.getISessieList());
-                listView.setItems(sessies);
-                listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-                listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessie>() {
-                    @Override
-                    public void changed(ObservableValue<? extends ISessie> observableValue, ISessie iSessie, ISessie t1) {
-                        sessie = t1;
-                        geefDetails(t1);
-                    }
-                });
-            }
-        });
-        choiceBoxSessie.setValue(choiceBoxSessie.getItems().get(0));
-
+        listView();
         meer.setOnAction(this::meer);
         bewerken.setOnAction(this::bewerken);
         verwijderen.setOnAction(this::verwijderen);
@@ -86,7 +68,8 @@ public class SessieBeherenController extends BorderPane {
     }
 
     private void verwijderen(ActionEvent actionEvent) {
-
+        domeinController.verwijderSessie(sessie);
+        listView();
     }
 
     private void bewerken(ActionEvent actionEvent) {
@@ -102,5 +85,25 @@ public class SessieBeherenController extends BorderPane {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
+    }
+
+    private void listView (){
+        choiceBoxSessie.setItems(FXCollections.observableArrayList(domeinController.getISessieKalenders()));
+        choiceBoxSessie.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessieKalender>() {
+            @Override
+            public void changed(ObservableValue<? extends ISessieKalender> observableValue, ISessieKalender iSessieKalender, ISessieKalender t1) {
+                sessies = FXCollections.observableArrayList(t1.getISessieList());
+                listView.setItems(sessies);
+                listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+                listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessie>() {
+                    @Override
+                    public void changed(ObservableValue<? extends ISessie> observableValue, ISessie iSessie, ISessie t1) {
+                        sessie = t1;
+                        geefDetails(t1);
+                    }
+                });
+            }
+        });
+        choiceBoxSessie.setValue(choiceBoxSessie.getItems().get(0));
     }
 }

@@ -34,8 +34,8 @@ public class SessieBewerkenController extends BorderPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
-/*        this.sessie = sessie;
-        naamverantwoordelijke.setEditable(true);
+       this.sessie = sessie;
+ /*        naamverantwoordelijke.setEditable(true);
         titel.setEditable(true);
         start.setEditable(true);
         eind.setEditable(true);

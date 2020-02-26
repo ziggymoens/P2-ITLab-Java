@@ -35,17 +35,17 @@ public class Sessie implements ISessie {
     private int maximumAantalPlaatsen;
     private boolean geopend;
 
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL)
     private List<Media> media;
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL)
     private List<Inschrijving> inschrijvingen;
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL)
     private List<Aankondiging> aankondigingen;
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL)
     private List<Feedback> feedback;
-    @OneToOne
+    @OneToOne (cascade = CascadeType.ALL)
     private Lokaal lokaal;
-    @OneToOne()
+    @OneToOne(cascade = CascadeType.ALL)
     private Gebruiker verantwoordelijke;
     //endregion
 
