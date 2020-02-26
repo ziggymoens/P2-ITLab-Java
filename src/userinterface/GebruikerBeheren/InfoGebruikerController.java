@@ -18,13 +18,16 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import userinterface.MAIN.MainScreenController;
+import userinterface.sessieBeheren.SessieBewerkenController;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
@@ -83,16 +86,26 @@ public class InfoGebruikerController extends BorderPane{
                     geefDetails(t1);
                 }
             });
+        clearDetails();
     }
 
     private void geefDetails(IGebruiker gebruiker) {
-        naamgebruiker.setText(gebruiker.getNaam());
-        gebruikersnaam.setText(gebruiker.getGebruikersnaam());
-        status.setText(gebruiker.getStatus().toString());
-        type.setText(gebruiker.getGebruikersprofiel().toString());
+        if(gebruiker != null) {
+            naamgebruiker.setText(gebruiker.getNaam());
+            gebruikersnaam.setText(gebruiker.getGebruikersnaam());
+            status.setText(gebruiker.getStatus().toString());
+            type.setText(gebruiker.getGebruikersprofiel().toString());
+        }
     }
 
-    private void verwijderen(ActionEvent event){
+    private void clearDetails(){
+        naamgebruiker.clear();
+        gebruikersnaam.clear();;
+        status.clear();
+        type.clear();
+    }
+
+    public void verwijderen(ActionEvent event){
         System.out.println("klik");
         IGebruiker selected = listView.getSelectionModel().getSelectedItem();
         System.out.println(selected);
@@ -107,7 +120,10 @@ public class InfoGebruikerController extends BorderPane{
     }
 
     private void nieuw(ActionEvent actionEvent) {
-        System.out.println("nieuw");
+//        Scene scene = new Scene (new GebruikerBeherenController(domeinController, this));
+//        Stage stage = new Stage();
+//        stage.setScene(scene);
+//        stage.show();
     }
 
     private void bewerken(ActionEvent actionEvent) {
