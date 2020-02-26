@@ -55,7 +55,7 @@ public class NieuweMediaController extends AnchorPane {
         this.huidigeSessie = s;
         startFXML();
         initChoiceboxes();
-        sessie.setValue(sessie.getItems().stream().filter(ss -> ss.equals(s)).findFirst().orElse(null));
+        sessie.setValue(domeinController.getISessies().stream().filter(s1 -> s1.getSessieId().equals(s1.getSessieId())).findFirst().orElse(null));
         sessie.setDisable(true);
         gebruiker.setValue(domeinController.geefIGebruiker());
         if (!domeinController.geefProfielGebruiker().equals("HOOFDVERANTWOORDELIJKE")) {
@@ -67,21 +67,20 @@ public class NieuweMediaController extends AnchorPane {
     private void initButtons() {
         openFile.setOnAction(this::FileExplorer);
         openFile.setOnAction(this::save);
+        fileURL.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                url = t1;
+            }
+        });
     }
 
     private void save(ActionEvent event) {
         if (!openFile.isDisable()) {
-            try {
-                java.nio.file.Files.copy(
-                        file.toPath(),
-                        new File(file.getName()).toPath(),
-                        java.nio.file.StandardCopyOption.REPLACE_EXISTING,
-                        java.nio.file.StandardCopyOption.COPY_ATTRIBUTES,
-                        java.nio.file.LinkOption.NOFOLLOW_LINKS);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             domeinController.maakNieuweMedia(sessie.getSelectionModel().getSelectedItem(), gebruiker.getSelectionModel().getSelectedItem(),type.getSelectionModel().getSelectedItem(), file.getName());
+        }
+        if (!fileURL.isDisable()){
+            domeinController.maakNieuweMedia(sessie.getSelectionModel().getSelectedItem(), gebruiker.getSelectionModel().getSelectedItem(),type.getSelectionModel().getSelectedItem(), fileURL.getText());
         }
     }
 
@@ -93,6 +92,17 @@ public class NieuweMediaController extends AnchorPane {
         file = fileChooser.showOpenDialog(stage);
         if (file != null) {
             filePath.setText(file.getAbsolutePath());
+            try {
+                java.nio.file.Files.copy(
+                        file.toPath(),
+                        new File(file.getName()).toPath(),
+                        java.nio.file.StandardCopyOption.REPLACE_EXISTING,
+                        java.nio.file.StandardCopyOption.COPY_ATTRIBUTES,
+                        java.nio.file.LinkOption.NOFOLLOW_LINKS);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            openFile.setDisable(true);
         }
     }
 
