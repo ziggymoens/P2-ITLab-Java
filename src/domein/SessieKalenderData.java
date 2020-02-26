@@ -80,10 +80,10 @@ public class SessieKalenderData {
     }
 
     public void populeerDataMedia() {
-        sessieKalenderBeheerder.addMediaSessie("S1920-000001", "758095zm", "Media 1");
-        sessieKalenderBeheerder.addMediaSessie("S1920-000002", "862361jv", "Media 2");
-        sessieKalenderBeheerder.addMediaSessie("S1920-000001", "860570ea", "Media 3");
-        sessieKalenderBeheerder.addMediaSessie("S1920-000004", "862361jv", "Media 4");
+        sessieKalenderBeheerder.addMediaSessie("S1920-000001", "758095zm", "Media 1", "FOTO");
+        sessieKalenderBeheerder.addMediaSessie("S1920-000002", "862361jv", "Media 2", "FOTO");
+        sessieKalenderBeheerder.addMediaSessie("S1920-000001", "860570ea", "Media 3", "URL");
+        sessieKalenderBeheerder.addMediaSessie("S1920-000004", "862361jv", "Media 4", "FOTO");
     }
 
     public void populeerDataSessieKalender(){

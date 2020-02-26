@@ -88,10 +88,10 @@ public class SessieKalenderBeheerder {
     //endregion
 
     //region Media
-    public void addMediaSessie(String sessieid, String gebruikersnaam, String locatie) {
+    public void addMediaSessie(String sessieid, String gebruikersnaam, String locatie, String type) {
         Gebruiker gebruiker = gebruikers.stream().filter(g -> g.getGebruikersnaam().equals(gebruikersnaam)).findFirst().orElse(null);
         Sessie s = sessies.stream().filter(ss -> ss.getSessieId().equals(sessieid)).findFirst().orElse(null);
-        Media m = new Media(gebruiker, locatie);
+        Media m = new Media(gebruiker, locatie, type);
         s.addMedia(m);
         em.getTransaction().begin();
         em.persist(m);

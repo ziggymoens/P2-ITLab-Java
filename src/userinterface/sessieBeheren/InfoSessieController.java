@@ -5,12 +5,21 @@ import domein.interfacesDomein.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import userinterface.aankondigingPlaatsen.AankondigingPlaatsenController;
 import userinterface.media.NieuweMediaController;
@@ -102,8 +111,34 @@ public class  InfoSessieController extends BorderPane {
 
     private void infoMedia(ActionEvent actionEvent) {
         IMedia media = listViewMedia.getSelectionModel().getSelectedItem();
+        VBox vBox = new VBox(new Label(media.toString_Compleet()));
+        WebView webview = null;
+        ImageView imageView = null;
+        if (media.getTypeString().equals("URL")) {
+            /*MediaPlayer oracleVid = new MediaPlayer(
+                    new Media("http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv")
+            );
+           vBox.getChildren().add(new MediaView(oracleVid));
+
+             */
+            /*oracleVid.play();
+            webview = new WebView();
+            webview.getEngine().load(
+                    "https://www.youtube.com/embed/q7HkIwbj3CM"
+            );
+            webview.setPrefSize(640, 390);
+            vBox.getChildren().add(webview);
+
+             */
+        }
+        if(media.getTypeString().equals("FOTO")){
+            imageView = new ImageView();
+            Image image = new Image("storage/profielfotos/profielfoto.png");
+            imageView.setImage(image);
+            vBox.getChildren().add(imageView);
+        }
         BorderPane borderPane = new BorderPane();
-        borderPane.setCenter(new Label(media.toString_Compleet()));
+        borderPane.setCenter(vBox);
         borderPane.setMinHeight(100);
         borderPane.setMinWidth(200);
         Scene scene = new Scene(borderPane);
