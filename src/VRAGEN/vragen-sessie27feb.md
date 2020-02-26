@@ -2,5 +2,8 @@
 
 ##JAVA
 
+* ListView bij verwijderen
+* Databank bij verwijderen (cascading delete?)
+* Zoekbalk in listview
 
 ##Analyse
