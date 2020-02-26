@@ -113,7 +113,7 @@
                         <Insets bottom="10.0" top="15.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="gerbuikers" mnemonicParsing="false" prefWidth="120.0" text="Gebruikers">
+                  <Button fx:id="gebruikers" mnemonicParsing="false" prefWidth="120.0" text="Gebruikers">
                      <VBox.margin>
                         <Insets bottom="5.0" top="15.0" />
                      </VBox.margin>

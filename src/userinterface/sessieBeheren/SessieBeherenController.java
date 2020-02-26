@@ -33,9 +33,11 @@ public class SessieBeherenController extends BorderPane {
     private ObservableList<ISessie> sessies;
 
     private ISessie sessie;
+    private MainScreenController mainScreenController;
 
     public SessieBeherenController(DomeinController domeinController, MainScreenController mainScreenController) {
         this.domeinController = domeinController;
+        this.mainScreenController = mainScreenController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("SessieBeheren.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -45,7 +47,10 @@ public class SessieBeherenController extends BorderPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
+        vulSchermOp();
+    }
 
+    public void vulSchermOp() {
         listView();
         meer.setOnAction(this::meer);
         bewerken.setOnAction(this::bewerken);
@@ -69,11 +74,11 @@ public class SessieBeherenController extends BorderPane {
 
     private void verwijderen(ActionEvent actionEvent) {
         domeinController.verwijderSessie(sessie);
-        listView();
+        vulSchermOp();
     }
 
     private void bewerken(ActionEvent actionEvent) {
-        Scene scene = new Scene (new SessieBewerkenController(sessie, domeinController, this));
+        Scene scene = new Scene (new SessieBewerkenController(sessie, domeinController,this));
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
@@ -86,7 +91,7 @@ public class SessieBeherenController extends BorderPane {
         stage.show();
     }
 
-    public void listView (){
+    private void listView (){
         choiceBoxSessie.setItems(FXCollections.observableArrayList(domeinController.getISessieKalenders()));
         choiceBoxSessie.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessieKalender>() {
             @Override

@@ -27,7 +27,7 @@ public class SessieBewerkenController extends BorderPane {
     private TextField naamverantwoordelijke, titel, naamGastspreker, lokaal, start, eind, maxPlaatsen;
 
     @FXML
-    private Button aankondigingen, media, gerbuikers, feedback, toepassen, cancel;
+    private Button aankondigingen, media, gebruikers, feedback, toepassen, cancel;
 
     public SessieBewerkenController(ISessie sessie, DomeinController domeinController, SessieBeherenController sbc) {
         this.domeinController = domeinController;
@@ -109,7 +109,7 @@ public class SessieBewerkenController extends BorderPane {
         cancel.setOnAction(this::cancel);
         media.setOnAction(this::media);
         aankondigingen.setOnAction(this::aankondigingen);
-        gerbuikers.setOnAction(this::gerbuikers);
+        gebruikers.setOnAction(this::gerbuikers);
         feedback.setDisable(true);
         if(sessie.isGeopend()){
             feedback.setDisable(false);
@@ -136,7 +136,7 @@ public class SessieBewerkenController extends BorderPane {
         domeinController.pasSessieAan(sessie, veranderingenMap);
         Stage stage = (Stage) this.getScene().getWindow();
         stage.close();
-        sessieBeherenController.listView();
+        sessieBeherenController.vulSchermOp();
     }
 
     private void media(ActionEvent actionEvent) {
