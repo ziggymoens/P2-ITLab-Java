@@ -63,6 +63,10 @@ public class DomeinController {
         return (List<IGebruiker>) (Object)sessieKalenderController.geefGebruikers();
     }
 
+    public List<String> geefNamenGebruikers(){
+        return sessieKalenderController.geefNamenGebruikers();
+    }
+
     public void verwijderSessie (ISessie sessie){
         sessieKalenderController.verwijderSessie(sessie);
     }
@@ -163,6 +167,9 @@ public class DomeinController {
         sessieKalenderController.addMediaSessie(s, m);
     }
 
+    public void verwijderGebruiker(IGebruiker gebruiker) {
+        sessieKalenderController.verwijderGebruiker(gebruiker);
+    }
 }
 
 //endregion

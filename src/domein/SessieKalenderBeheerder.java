@@ -225,6 +225,10 @@ public class SessieKalenderBeheerder {
         return gebruikers.stream().sorted(Comparator.comparing(Gebruiker::getNaam).thenComparing(Gebruiker::getGebruikersnaam)).collect(Collectors.toList());
     }
 
+    public List<String> geefNamenGebruikers(){
+        return gebruikers.stream().map(Gebruiker::getNaam).collect(Collectors.toList());
+    }
+
     public void addGebruiker(Gebruiker gebruiker) {
         gebruikers.add(gebruiker);
         em.getTransaction().begin();

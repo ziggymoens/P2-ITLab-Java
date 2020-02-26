@@ -1,6 +1,7 @@
 package domein;
 
 import domein.domeinklassen.*;
+import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.ISessie;
 
 import java.time.LocalDate;
@@ -52,6 +53,10 @@ public class SessieKalenderController {
         return sessieKalenderBeheerder.geefAlleGebruikers();
     }
 
+    public List<String> geefNamenGebruikers(){
+        return sessieKalenderBeheerder.geefNamenGebruikers();
+    }
+
     public List<ISessie> geefSessiesOpDag(LocalDate date) {
         return geefAlleSessies().stream().filter(s -> s.getStartSessie().getDayOfYear() == date.getDayOfYear() && s.getStartSessie().getYear() == date.getYear()).sorted(Comparator.comparing(Sessie::getStartSessie)).collect(Collectors.toList());
     }
@@ -79,5 +84,10 @@ public class SessieKalenderController {
 
     public Set<Lokaal> getLokalen (){
         return sessieKalenderBeheerder.geefAlleLokalen();
+    }
+
+    public void verwijderGebruiker(IGebruiker gebruiker) {
+        Gebruiker g = getGebruikerByID(gebruiker.getGebruikersnaam());
+        sessieKalenderBeheerder.verwijderGebruiker(g);
     }
 }
