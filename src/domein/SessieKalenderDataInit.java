@@ -13,6 +13,8 @@ import java.util.List;
 
 public class SessieKalenderDataInit {
     private final File lokalen = new File("src/csv/Lokalen");
+    private final File gebruikers = new File("src/csv/Gebruikers");
+    private final File sessies = new File("src/csv/Sessies");
     private SessieKalender sessieKalender;
 
     public SessieKalenderDataInit(SessieKalender sessieKalender){
@@ -30,29 +32,28 @@ public class SessieKalenderDataInit {
             throw new RuntimeException("lokalen lezen");
         }
 
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(gebruikers));
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] gebruiker = line.split(";");
+                sessieKalender.voegGebruikerToe(new Gebruiker(gebruiker[1], gebruiker[0], gebruiker[2], gebruiker[3]));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("gebruikers lezen");
+        }
 
-        Gebruiker gebruiker1 = new Gebruiker("Ziggy Moens", "758095zm", Gebruikersprofielen.HOOFDVERANTWOORDELIJKE, Gebruikersstatus.ACTIEF);
-        Gebruiker gebruiker2 = new Gebruiker("Kilian Hoefman", "757932kh", Gebruikersprofielen.GEBRUIKER, Gebruikersstatus.ACTIEF);
-        Gebruiker gebruiker3 = new Gebruiker("Jonathan Vanden Eynden", "862361jv", Gebruikersprofielen.GEBRUIKER, Gebruikersstatus.ACTIEF);
-        Gebruiker gebruiker4 = new Gebruiker("Sébastien De Pauw", "755223sd", Gebruikersprofielen.VERANTWOORDELIJKE, Gebruikersstatus.ACTIEF);
-        Gebruiker gebruiker5 = new Gebruiker("Sven Wyseur", "751158sw", Gebruikersprofielen.GEBRUIKER, Gebruikersstatus.NIET_ACTIEF);
-        Gebruiker gebruiker6 = new Gebruiker("Elias Ameye", "860570ea", Gebruikersprofielen.GEBRUIKER, Gebruikersstatus.GEBLOKKEERD);
-        Gebruiker gebruiker7 = new Gebruiker("Yorgo baeyens", "755230yb", Gebruikersprofielen.GEBRUIKER, Gebruikersstatus.GEBLOKKEERD);
-
-
-        Sessie sessie1 = new Sessie("Wat de recruteringsafdeling van jou verwacht", LocalDateTime.now().plusMinutes(1000), LocalDateTime.now().plusMinutes(1200), sessieKalender.geefLokaalById("GSCHB1.017"), gebruiker1);
-        Sessie sessie2 = new Sessie("Internationaal samenwerken", LocalDateTime.now().plusMinutes(2000), LocalDateTime.now().plusMinutes(2100), sessieKalender.geefLokaalById("GSCHB3.019"), gebruiker2);
-        Sessie sessie3 = new Sessie("Inleiding tot Trello", LocalDateTime.now().plusMinutes(3500), LocalDateTime.now().plusMinutes(3550),sessieKalender.geefLokaalById("GSCHB4.036"), gebruiker4);
-        Sessie sessie4 = new Sessie("Inleiding tot GIT", LocalDateTime.now().plusMinutes(4500), LocalDateTime.now().plusMinutes(4590), sessieKalender.geefLokaalById("GSCHB1.017"), gebruiker1);
-        Sessie sessie5 = new Sessie("inleiding tot UNIX", LocalDateTime.now().plusMinutes(3000), LocalDateTime.now().plusMinutes(3120), sessieKalender.geefLokaalById("GSCHC0.125"), gebruiker5);
-        Sessie sessie6 = new Sessie("IT in het leger", LocalDateTime.now().plusMinutes(1000), LocalDateTime.now().plusMinutes(1060), sessieKalender.geefLokaalById("GSCHB0.010"), gebruiker1);
-
-        sessieKalender.voegSessieToe(sessie1);
-        sessieKalender.voegSessieToe(sessie2);
-        sessieKalender.voegSessieToe(sessie3);
-        sessieKalender.voegSessieToe(sessie4);
-        sessieKalender.voegSessieToe(sessie5);
-        sessieKalender.voegSessieToe(sessie6);
-
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(sessies));
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] sessie = line.split(";");
+                sessieKalender.voegSessieToe(new Sessie(sessie[0], LocalDateTime.parse(sessie[1]), LocalDateTime.parse(sessie[2]), sessieKalender.geefLokaalById(sessie[3]), sessieKalender.geefGebruikerById(sessie[4])));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("sessie lezen");
+        }
     }
 }

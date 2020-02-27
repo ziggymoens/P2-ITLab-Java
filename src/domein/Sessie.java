@@ -35,7 +35,7 @@ public class Sessie implements ISessie {
     private int maximumAantalPlaatsen;
     private int academiejaar;
     private boolean geopend;
-    private boolean verwijderd;
+    private boolean verwijderd = false;
 
     @OneToMany()
     private List<Media> media;

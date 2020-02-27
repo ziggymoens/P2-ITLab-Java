@@ -18,7 +18,7 @@ public class Lokaal implements ILokaal {
     private String lokaalCode;
 
     private int aantalPlaatsen;
-    private boolean verwijderd;
+    private boolean verwijderd = false;
     //endregion
 
     //region Constructor

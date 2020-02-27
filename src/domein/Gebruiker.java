@@ -24,7 +24,7 @@ public class Gebruiker implements IGebruiker {
     private Gebruikersstatus status;
 
     private String profielfoto;
-    private boolean verwijderd;
+    private boolean verwijderd = false;
     //region Constructor
 
     /**

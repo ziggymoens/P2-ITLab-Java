@@ -25,7 +25,7 @@ public class Herinnering implements IHerinnering {
     private String herinneringsId;
 
     private HerinneringTijdstippen dagenVooraf;
-    private boolean verwijderd;
+    private boolean verwijderd = false;
     //endregion
 
     //region Constructor

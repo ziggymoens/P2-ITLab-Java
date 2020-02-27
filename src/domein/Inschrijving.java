@@ -30,7 +30,7 @@ public class Inschrijving implements IInschrijving {
 
     private LocalDateTime inschrijvingsdatum;
     private boolean statusAanwezigheid = false;
-    private boolean verwijderd;
+    private boolean verwijderd = false;
     //endregion
 
     //region Constructor

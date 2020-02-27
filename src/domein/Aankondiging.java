@@ -35,7 +35,7 @@ public class Aankondiging implements IAankondiging {
     private String inhoud;
     private boolean automatischeHerinnering;
 
-    private boolean verwijderd;
+    private boolean verwijderd = false;
     //mapping
 
     //private Herinnering herinnering;

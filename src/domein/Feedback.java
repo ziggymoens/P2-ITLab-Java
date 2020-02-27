@@ -27,7 +27,7 @@ public class Feedback implements IFeedback {
     @OneToOne
     private Gebruiker gebruiker;
     private String tekst;
-    private boolean verwijderd;
+    private boolean verwijderd = false;
 
     //endregion
 

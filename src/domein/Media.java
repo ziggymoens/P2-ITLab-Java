@@ -30,7 +30,7 @@ public class Media implements IMedia {
     private Gebruiker gebruiker;
     private String locatie;
     private MediaTypes type;
-    private boolean verwijderd;
+    private boolean verwijderd = false;
 //endregion
 
     //region Constructor

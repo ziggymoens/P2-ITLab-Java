@@ -51,11 +51,23 @@ public class SessieKalender {
     }
 
     public List<Lokaal> geefAlleLokalen(){
-        return em.createQuery("select l from Lokaal l").getResultList();
+        return em.createQuery("select l from Lokaal l where l.verwijderd = false").getResultList();
     }
 
     public Lokaal geefLokaalById(String lokaalCode) {
         return (Lokaal) em.createQuery("select l from Lokaal l where lokaalCode = ?1").setParameter(1, lokaalCode).getResultList().get(0);
+    }
+    //endregion
+
+    //region Gebruiker
+    public void voegGebruikerToe(Gebruiker gebruiker) {
+        em.getTransaction().begin();
+        em.persist(gebruiker);
+        em.getTransaction().commit();
+    }
+
+    public Gebruiker geefGebruikerById(String gebruikerId) {
+        return (Gebruiker) em.createQuery("select g from Gebruiker g where gebruikersnaam = ?1").setParameter(1, gebruikerId).getResultList().get(0);
     }
     //endregion
 }
