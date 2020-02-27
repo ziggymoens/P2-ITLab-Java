@@ -120,11 +120,33 @@ public class SessieKalender {
     }
 
     public Feedback geefFeedbackById(String feedbackId) {
-        return (Feedback) em.createQuery("select a from Feedback a where feedbackId = ?1").setParameter(1, feedbackId).getResultList().get(0);
+        return (Feedback) em.createQuery("select f from Feedback f where feedbackId = ?1").setParameter(1, feedbackId).getResultList().get(0);
     }
 
     public List<Feedback> geefAlleFeedback(){
         return (List<Feedback>) em.createQuery("select a from Feedback a where a.verwijderd = false").getResultList();
+    }
+    //endregion
+
+    //region Inschrijving
+    public void voegInschrijvingToe(Inschrijving inschrijving, Sessie sessie) {
+        em.getTransaction().begin();
+        sessie.addInschrijving(inschrijving);
+        em.getTransaction().commit();
+    }
+
+    public void verwijderInschrijving(Inschrijving inschrijving){
+        em.getTransaction().begin();
+        inschrijving.setVerwijderd(true);
+        em.getTransaction().commit();
+    }
+
+    public Feedback geefInschrijvingById(String inschrijvingsId) {
+        return (Feedback) em.createQuery("select i from Inschrijving i where inschrijvingsId = ?1").setParameter(1, inschrijvingsId).getResultList().get(0);
+    }
+
+    public List<Inschrijving> geefAlleInschrijvingen(){
+        return (List<Inschrijving>) em.createQuery("select a from Feedback a where a.verwijderd = false").getResultList();
     }
     //endregion
 }
