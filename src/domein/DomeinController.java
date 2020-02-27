@@ -43,7 +43,7 @@ public class DomeinController {
     //endregion
 
     //region Sessie
-    public List<ISessie> geefSessieHuidigeKalender() {
+    public List<ISessie> geefISessieHuidigeKalender() {
         return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender();
     }
 

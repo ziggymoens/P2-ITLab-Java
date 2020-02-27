@@ -1,8 +1,10 @@
 package main;
 
+import domein.DomeinController;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
-//import userinterface.startUp.StartUpController;
+import userinterface.startUp.StartUpController;
 
 public class ITLab extends Application {
 
@@ -14,12 +16,11 @@ public class ITLab extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        /*
         ITLab.primaryStage = primaryStage;
         DomeinController domeinController = new DomeinController();
         Scene scene = new Scene(new StartUpController(domeinController));
         ITLab.primaryStage.setScene(scene);
         ITLab.primaryStage.show();
-         */
+
     }
 }

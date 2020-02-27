@@ -6,11 +6,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import main.ITLab;
 import userinterface.MAIN.MainScreenController;
-import userinterface.sessieBeheren.SessieBeherenController;
 
 import java.io.IOException;
 
@@ -19,7 +22,16 @@ public class StartUpController extends BorderPane {
     private DomeinController domeinController;
 
     @FXML
-    private Button inloggenButton, aanmeldenButton;
+    private Button inloggenButton;
+
+    @FXML
+    private TextField gebruikersNaam;
+
+    @FXML
+    private PasswordField wachtwoord;
+
+    @FXML
+    private ImageView logo;
 
     public StartUpController(DomeinController domeinController) {
         this.domeinController = domeinController;
@@ -32,8 +44,9 @@ public class StartUpController extends BorderPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
+        Image image = new Image("storage/logo/HoGent.png");
+        this.logo.setImage(image);
         inloggenButton.setOnAction(this::inloggen);
-        aanmeldenButton.setOnAction(this::aanmelden);
     }
 
     private void inloggen(ActionEvent actionEvent) {
@@ -42,10 +55,6 @@ public class StartUpController extends BorderPane {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
-
-    }
-
-    private void aanmelden(ActionEvent actionEvent) {
 
     }
 }
