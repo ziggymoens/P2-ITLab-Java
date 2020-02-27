@@ -1,11 +1,13 @@
 package domein;
 
 
+import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.IMedia;
 import domein.interfacesDomein.ISessie;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DomeinController {
     //region Variabelen
@@ -37,11 +39,25 @@ public class DomeinController {
     public List<ISessie> geefSessieHuidigeKalender(){
         return (List<ISessie>)(Object)huidigeSessieKalender.geefAlleSessiesKalender();
     }
+
+    public void verwijderSessie(ISessie sessie) {
+        huidigeSessieKalender.verwijderSessie((Sessie) sessie);
+    }
     //endregion
 
     //region Media
     public List<IMedia> geefMediaVanSessie(String sessie) {
         return (List<IMedia>)(Object) huidigeSessieKalender.geefAlleMediaVanSessie(sessie);
     }
+
+    public IGebruiker geefIGebruiker() {
+        return (IGebruiker) huidigeGebruiker;
+    }
+
+    public List<ISessie> geefSessiesOpDag(LocalDate date) {
+        return (List<ISessie>)(Object)huidigeSessieKalender.geefAlleSessiesKalender().stream().filter(s -> s.getStartSessie().getDayOfYear() == date.getDayOfYear()).collect(Collectors.toList())
+    }
+
+
     //endregion
 }

@@ -3,7 +3,6 @@ package userinterface.aankondigingPlaatsen;
 import domein.DomeinController;
 import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.ISessie;
-import domein.interfacesDomein.ISessieKalender;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;

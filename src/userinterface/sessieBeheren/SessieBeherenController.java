@@ -2,7 +2,6 @@ package userinterface.sessieBeheren;
 
 import domein.DomeinController;
 import domein.interfacesDomein.ISessie;
-import domein.interfacesDomein.ISessieKalender;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -28,7 +27,7 @@ public class SessieBeherenController extends BorderPane {
     @FXML
     private ListView<ISessie> listView;
     @FXML
-    private ChoiceBox<ISessieKalender> choiceBoxSessie;
+    private ChoiceBox<String> choiceBoxSessie;
 
     private ObservableList<ISessie> sessies;
 
