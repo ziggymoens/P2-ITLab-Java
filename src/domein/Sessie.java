@@ -37,17 +37,17 @@ public class Sessie implements ISessie {
     private boolean geopend;
     private boolean verwijderd = false;
 
-    @OneToMany()
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Media> media;
-    @OneToMany()
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Inschrijving> inschrijvingen;
-    @OneToMany()
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Aankondiging> aankondigingen;
-    @OneToMany()
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Feedback> feedback;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Lokaal lokaal;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Gebruiker verantwoordelijke;
 
     //endregion

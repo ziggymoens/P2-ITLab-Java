@@ -24,7 +24,7 @@ public class Feedback implements IFeedback {
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d")})
     private String feedbackId;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Gebruiker gebruiker;
     private String tekst;
     private boolean verwijderd = false;

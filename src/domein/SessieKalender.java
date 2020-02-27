@@ -2,6 +2,7 @@ package domein;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SessieKalender {
 
@@ -34,7 +35,8 @@ public class SessieKalender {
     }
 
     public Sessie geefSessieById(String sessieId) {
-        return (Sessie) em.createQuery("select s from Sessie s where sessieId = ?1").setParameter(1, sessieId).getResultList().get(0);
+        return em.find(Sessie.class, sessieId);
+        //return (Sessie) em.createQuery("select s from Sessie s where sessieId = ?1").setParameter(1, sessieId).getResultList().get(0);
     }
 
     public List<Sessie> geefAlleSessiesKalender(){
@@ -60,7 +62,8 @@ public class SessieKalender {
     }
 
     public Lokaal geefLokaalById(String lokaalCode) {
-        return (Lokaal) em.createQuery("select l from Lokaal l where lokaalCode = ?1").setParameter(1, lokaalCode).getResultList().get(0);
+        return em.find(Lokaal.class, lokaalCode);
+        //return (Lokaal) em.createQuery("select l from Lokaal l where lokaalCode = ?1").setParameter(1, lokaalCode).getResultList().get(0);
     }
     //endregion
 
@@ -78,7 +81,8 @@ public class SessieKalender {
     }
 
     public Gebruiker geefGebruikerById(String gebruikerId) {
-        return (Gebruiker) em.createQuery("select g from Gebruiker g where gebruikersnaam = ?1").setParameter(1, gebruikerId).getResultList().get(0);
+        return em.find(Gebruiker.class, gebruikerId);
+        //return (Gebruiker) em.createQuery("select g from Gebruiker g where gebruikersnaam = ?1").setParameter(1, gebruikerId).getResultList().get(0);
     }
 
     public List<Gebruiker> geefAlleGebruikers(){
@@ -101,11 +105,16 @@ public class SessieKalender {
     }
 
     public Aankondiging geefAankondigingById(String aankondigingsId) {
-        return (Aankondiging) em.createQuery("select a from Aankondiging a where aankondigingsId = ?1").setParameter(1, aankondigingsId).getResultList().get(0);
+        return em.find(Aankondiging.class, aankondigingsId);
+        //return (Aankondiging) em.createQuery("select a from Aankondiging a where aankondigingsId = ?1").setParameter(1, aankondigingsId).getResultList().get(0);
     }
 
     public List<Gebruiker> geefAlleAankondigingen(){
         return (List<Gebruiker>) em.createQuery("select a from Aankondiging a where a.verwijderd = false").getResultList();
+    }
+
+    public List<Aankondiging> geefAlleAankondigingenVanSessie(String sessie){
+        return geefSessieById(sessie).getAankondigingen();
     }
     //endregion
 
@@ -125,11 +134,16 @@ public class SessieKalender {
     }
 
     public Feedback geefFeedbackById(String feedbackId) {
-        return (Feedback) em.createQuery("select f from Feedback f where feedbackId = ?1").setParameter(1, feedbackId).getResultList().get(0);
+        return em.find(Feedback.class, feedbackId);
+        //return (Feedback) em.createQuery("select f from Feedback f where feedbackId = ?1").setParameter(1, feedbackId).getResultList().get(0);
     }
 
     public List<Feedback> geefAlleFeedback(){
         return (List<Feedback>) em.createQuery("select a from Feedback a where a.verwijderd = false").getResultList();
+    }
+
+    public List<Feedback> geefAlleFeedbackVanSessie(String sessie){
+        return geefSessieById(sessie).getFeedback();
     }
     //endregion
 
@@ -147,12 +161,17 @@ public class SessieKalender {
         em.getTransaction().commit();
     }
 
-    public Feedback geefInschrijvingById(String inschrijvingsId) {
-        return (Feedback) em.createQuery("select i from Inschrijving i where inschrijvingsId = ?1").setParameter(1, inschrijvingsId).getResultList().get(0);
+    public Inschrijving geefInschrijvingById(String inschrijvingsId) {
+        return em.find(Inschrijving.class, inschrijvingsId);
+        //return (Inschrijving) em.createQuery("select i from Inschrijving i where inschrijvingsId = ?1").setParameter(1, inschrijvingsId).getResultList().get(0);
     }
 
     public List<Inschrijving> geefAlleInschrijvingen(){
         return (List<Inschrijving>) em.createQuery("select f from Feedback f where f.verwijderd = false").getResultList();
+    }
+
+    public List<Inschrijving> geefAlleInschrijvingenVanSessie(String sessie){
+        return geefSessieById(sessie).getInschrijvingen();
     }
     //endregion
 
@@ -171,11 +190,15 @@ public class SessieKalender {
     }
 
     public Media geefMediaById(String mediaId) {
-        return (Media) em.createQuery("select m from Media m where mediaId = ?1").setParameter(1, mediaId).getResultList().get(0);
+        return em.find(Media.class, mediaId);
+        //return (Media) em.createQuery("select m from Media m where mediaId = ?1").setParameter(1, mediaId).getResultList().get(0);
     }
 
     public List<Media> geefAlleMedia(){
         return (List<Media>) em.createQuery("select m from Media m where m.verwijderd = false").getResultList();
+    }
+    public List<Media> geefAlleMediaVanSessie(String sessie){
+        return geefSessieById(sessie).getMedia();
     }
     //endregion
 
@@ -193,12 +216,17 @@ public class SessieKalender {
         em.getTransaction().commit();
     }
 
-    public Media geefHerinneringById(String herinneringsId) {
-        return (Media) em.createQuery("select h from Herinnering h where herinneringsId = ?1").setParameter(1, herinneringsId).getResultList().get(0);
+    public Herinnering geefHerinneringById(String herinneringsId) {
+        return em.find(Herinnering.class, herinneringsId);
+        //return (Media) em.createQuery("select h from Herinnering h where herinneringsId = ?1").setParameter(1, herinneringsId).getResultList().get(0);
     }
 
     public List<Herinnering> geefAlleHerinneringen(){
         return (List<Herinnering>) em.createQuery("select h from Herinnering h where h.verwijderd = false").getResultList();
+    }
+
+    public List<Herinnering> geefAlleHerinneringenVanSessie(String sessie){
+        return geefSessieById(sessie).getAankondigingen().stream().filter(Aankondiging::isAutomatischeHerinnering).map(Aankondiging::getHerinnering).collect(Collectors.toList());
     }
     //endregion
 }

@@ -1,6 +1,7 @@
 package domein;
 
 
+import domein.interfacesDomein.IMedia;
 import domein.interfacesDomein.ISessie;
 
 import java.time.LocalDate;
@@ -11,7 +12,6 @@ public class DomeinController {
     private SessieKalender huidigeSessieKalender;
 
     private Sessie huidigeSessie;
-
     private Gebruiker huidigeGebruiker;
     //endregion
 
@@ -36,6 +36,12 @@ public class DomeinController {
     //region Sessie
     public List<ISessie> geefSessieHuidigeKalender(){
         return (List<ISessie>)(Object)huidigeSessieKalender.geefAlleSessiesKalender();
+    }
+    //endregion
+
+    //region Media
+    public List<IMedia> geefMediaVanSessie(String sessie) {
+        return (List<IMedia>)(Object) huidigeSessieKalender.geefAlleMediaVanSessie(sessie);
     }
     //endregion
 }

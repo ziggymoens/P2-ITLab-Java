@@ -25,7 +25,7 @@ public class Inschrijving implements IInschrijving {
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d")})
     private String inschrijvingsId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Gebruiker gebruiker;
 
     private LocalDateTime inschrijvingsdatum;

@@ -26,7 +26,7 @@ public class Media implements IMedia {
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d")})
     private String mediaId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Gebruiker gebruiker;
     private String locatie;
     private MediaTypes type;

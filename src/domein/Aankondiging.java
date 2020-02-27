@@ -28,7 +28,7 @@ public class Aankondiging implements IAankondiging {
 
     @OneToOne(cascade = CascadeType.ALL)
     private Herinnering herinnering;
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     private Gebruiker gebruiker;
 
     private LocalDateTime publicatiedatum;
