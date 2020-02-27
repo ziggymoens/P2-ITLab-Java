@@ -1,4 +1,4 @@
-package domein.domeinklassen;
+package domein;
 
 import domein.interfacesDomein.ILokaal;
 import exceptions.domein.LokaalException;
@@ -18,6 +18,7 @@ public class Lokaal implements ILokaal {
     private String lokaalCode;
 
     private int aantalPlaatsen;
+    private boolean verwijderd;
     //endregion
 
     //region Constructor
@@ -54,6 +55,11 @@ public class Lokaal implements ILokaal {
         }
         this.aantalPlaatsen = aantalPlaatsen;
     }
+
+    public void setVerwijderd(boolean verwijderd) {
+        this.verwijderd = verwijderd;
+    }
+
     //endregion
 
     //region Getters

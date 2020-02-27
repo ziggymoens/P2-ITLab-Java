@@ -1,4 +1,4 @@
-package domein.domeinklassen;
+package domein;
 
 import domein.enums.Gebruikersprofielen;
 import domein.enums.Gebruikersstatus;
@@ -8,7 +8,6 @@ import language.Talen;
 
 import javax.persistence.*;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -25,6 +24,7 @@ public class Gebruiker implements IGebruiker {
     private Gebruikersstatus status;
 
     private String profielfoto;
+    private boolean verwijderd;
     //region Constructor
 
     /**
@@ -129,6 +129,10 @@ public class Gebruiker implements IGebruiker {
             throw new GebruikerException("GebruikerException.verantwoordelijkeFoutStatus");
         }
         this.status = status;
+    }
+
+    private void setVerwijderd(boolean verwijderd) {
+        this.verwijderd = verwijderd;
     }
     //endregion
 

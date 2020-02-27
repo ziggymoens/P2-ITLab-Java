@@ -1,17 +1,14 @@
 package test.domein;
-import domein.domeinklassen.Gebruiker;
-import domein.domeinklassen.Inschrijving;
-import domein.domeinklassen.Lokaal;
-import domein.domeinklassen.Sessie;
+import domein.Gebruiker;
+import domein.Inschrijving;
+import domein.Lokaal;
+import domein.Sessie;
 import exceptions.domein.InschrijvingException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.time.LocalDateTime;
 import java.util.stream.Stream;

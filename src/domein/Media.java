@@ -1,20 +1,14 @@
-package domein.domeinklassen;
+package domein;
 
-import domein.enums.Gebruikersprofielen;
-import domein.enums.Gebruikersstatus;
 import domein.enums.MediaTypes;
 import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.IMedia;
-import exceptions.domein.GebruikerException;
 import exceptions.domein.MediaException;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Entity
 @Table(name = "media")
@@ -26,7 +20,7 @@ public class Media implements IMedia {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mediaKey")
     @GenericGenerator(
             name = "mediaKey",
-            strategy = "domein.domeinklassen.JPAIdGenerator",
+            strategy = "domein.JPAIdGenerator",
             parameters = {
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.VALUE_PREFIX_PARAMETER, value = "M1920-"),
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d")})
@@ -36,6 +30,7 @@ public class Media implements IMedia {
     private Gebruiker gebruiker;
     private String locatie;
     private MediaTypes type;
+    private boolean verwijderd;
 //endregion
 
     //region Constructor
@@ -100,6 +95,11 @@ public class Media implements IMedia {
         }
         this.gebruiker = gebruiker;
     }
+
+    private void setVerwijderd(boolean verwijderd) {
+        this.verwijderd = verwijderd;
+    }
+
     //endregion
 
     //region Getters

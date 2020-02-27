@@ -1,4 +1,4 @@
-package domein.domeinklassen;
+package domein;
 
 import domein.enums.HerinneringTijdstippen;
 import domein.interfacesDomein.IHerinnering;
@@ -18,13 +18,14 @@ public class Herinnering implements IHerinnering {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "herinneringKey")
     @GenericGenerator(
             name = "herinneringKey",
-            strategy = "domein.domeinklassen.JPAIdGenerator",
+            strategy = "domein.JPAIdGenerator",
             parameters = {
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.VALUE_PREFIX_PARAMETER, value = "H1920-"),
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d")})
     private String herinneringsId;
 
     private HerinneringTijdstippen dagenVooraf;
+    private boolean verwijderd;
     //endregion
 
     //region Constructor
@@ -60,6 +61,10 @@ public class Herinnering implements IHerinnering {
             throw new HerinneringException();
         }
         this.dagenVooraf = dagenVooraf;
+    }
+
+    private void setVerwijderd(boolean verwijderd) {
+        this.verwijderd = verwijderd;
     }
     //endregion
 

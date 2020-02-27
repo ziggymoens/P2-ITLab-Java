@@ -1,4 +1,4 @@
-package domein.domeinklassen;
+package domein;
 
 import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.IInschrijving;
@@ -19,7 +19,7 @@ public class Inschrijving implements IInschrijving {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "inschrijvingKey")
     @GenericGenerator(
             name = "inschrijvingKey",
-            strategy = "domein.domeinklassen.JPAIdGenerator",
+            strategy = "domein.JPAIdGenerator",
             parameters = {
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.VALUE_PREFIX_PARAMETER, value = "I20-"),
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d")})
@@ -30,6 +30,7 @@ public class Inschrijving implements IInschrijving {
 
     private LocalDateTime inschrijvingsdatum;
     private boolean statusAanwezigheid = false;
+    private boolean verwijderd;
     //endregion
 
     //region Constructor
@@ -80,6 +81,10 @@ public class Inschrijving implements IInschrijving {
             throw new InschrijvingException();
         }
         this.gebruiker = gebruiker;
+    }
+
+    private void setVerwijderd(boolean verwijderd) {
+        this.verwijderd = verwijderd;
     }
 
     //endregion

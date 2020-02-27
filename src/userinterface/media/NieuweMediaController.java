@@ -1,8 +1,6 @@
 package userinterface.media;
 
-import com.sun.scenario.effect.impl.prism.PrImage;
 import domein.DomeinController;
-import domein.domeinklassen.Sessie;
 import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.ISessie;
 import javafx.beans.value.ChangeListener;

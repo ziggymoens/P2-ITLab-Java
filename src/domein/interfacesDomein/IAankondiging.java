@@ -1,6 +1,6 @@
 package domein.interfacesDomein;
 
-import domein.domeinklassen.Gebruiker;
+import domein.Gebruiker;
 
 import java.time.LocalDateTime;
 

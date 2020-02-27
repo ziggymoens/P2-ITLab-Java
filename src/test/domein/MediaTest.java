@@ -1,17 +1,15 @@
 package test.domein;
-import domein.domeinklassen.Gebruiker;
-import domein.domeinklassen.Media;
-import domein.domeinklassen.Sessie;
+import domein.Gebruiker;
+import domein.Media;
+import domein.Sessie;
 import domein.enums.MediaTypes;
 import exceptions.domein.MediaException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.Arrays;
 import java.util.stream.Stream;
 
 import static domein.enums.Gebruikersprofielen.GEBRUIKER;

@@ -1,18 +1,15 @@
 package domein;
 
-import domein.domeinklassen.*;
 import domein.enums.Gebruikersprofielen;
 import domein.enums.Gebruikersstatus;
 
 import java.time.LocalDateTime;
 
 public class SessieKalenderData {
-    private final SessieKalenderBeheerder sessieKalenderBeheerder;
 
-    public SessieKalenderData(SessieKalenderBeheerder sessieKalenderBeheerder) {
-        this.sessieKalenderBeheerder = sessieKalenderBeheerder;
+    public SessieKalenderData( ) {
     }
-
+/*
     public void populeerDataLokalen() {
         sessieKalenderBeheerder.addLokaal(new Lokaal("GSCHB1.017", 50));
         sessieKalenderBeheerder.addLokaal(new Lokaal("GSCHB3.019", 35));
@@ -89,4 +86,6 @@ public class SessieKalenderData {
     public void populeerDataSessieKalender(){
         sessieKalenderBeheerder.addSessieKalender(new SessieKalender(1920));
     }
+
+ */
 }

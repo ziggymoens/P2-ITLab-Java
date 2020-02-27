@@ -1,36 +1,25 @@
 package userinterface.GebruikerBeheren;
 
 import domein.DomeinController;
-import domein.domeinklassen.Gebruiker;
 
-
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 import domein.interfacesDomein.IGebruiker;
-import domein.interfacesDomein.ISessie;
-import domein.interfacesDomein.ISessieKalender;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 import userinterface.MAIN.MainScreenController;
-import userinterface.sessieBeheren.SessieBewerkenController;
 
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
+
 //TODO zoekbalk
 public class InfoGebruikerController extends BorderPane{
     private DomeinController domeinController;

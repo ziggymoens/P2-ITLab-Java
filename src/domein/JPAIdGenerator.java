@@ -1,4 +1,4 @@
-package domein.domeinklassen;
+package domein;
 
 import org.hibernate.HibernateException;
 import org.hibernate.MappingException;

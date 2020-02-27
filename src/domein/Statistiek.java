@@ -1,4 +1,4 @@
-package domein.domeinklassen;
+package domein;
 
 import domein.interfacesDomein.IStatistiek;
 

@@ -1,4 +1,4 @@
-package domein.domeinklassen;
+package domein;
 
 import domein.interfacesDomein.IFeedback;
 import domein.interfacesDomein.IGebruiker;
@@ -18,7 +18,7 @@ public class Feedback implements IFeedback {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "feedbackKey")
     @GenericGenerator(
             name = "feedbackKey",
-            strategy = "domein.domeinklassen.JPAIdGenerator",
+            strategy = "domein.JPAIdGenerator",
             parameters = {
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.VALUE_PREFIX_PARAMETER, value = "F1920-"),
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d")})
@@ -27,6 +27,8 @@ public class Feedback implements IFeedback {
     @OneToOne
     private Gebruiker gebruiker;
     private String tekst;
+    private boolean verwijderd;
+
     //endregion
 
     //region Constructor
@@ -63,6 +65,11 @@ public class Feedback implements IFeedback {
         }
         this.gebruiker = gebruiker;
     }
+
+    private void setVerwijderd(boolean verwijderd) {
+        this.verwijderd = verwijderd;
+    }
+
     //endregion
 
     //region Getters

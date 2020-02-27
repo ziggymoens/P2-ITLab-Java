@@ -1,4 +1,4 @@
-package domein.domeinklassen;
+package domein;
 
 import domein.interfacesDomein.*;
 import exceptions.domein.SessieException;
@@ -22,7 +22,7 @@ public class Sessie implements ISessie {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sessieKey")
     @GenericGenerator(
             name = "sessieKey",
-            strategy = "domein.domeinklassen.JPAIdGenerator",
+            strategy = "domein.JPAIdGenerator",
             parameters = {
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.VALUE_PREFIX_PARAMETER, value = "S1920-"),
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d")})
@@ -33,20 +33,23 @@ public class Sessie implements ISessie {
     private LocalDateTime startSessie;
     private LocalDateTime eindeSessie;
     private int maximumAantalPlaatsen;
+    private int academiejaar;
     private boolean geopend;
+    private boolean verwijderd;
 
-    @OneToMany ()
+    @OneToMany()
     private List<Media> media;
-    @OneToMany ()
+    @OneToMany()
     private List<Inschrijving> inschrijvingen;
-    @OneToMany ()
+    @OneToMany()
     private List<Aankondiging> aankondigingen;
-    @OneToMany ()
+    @OneToMany()
     private List<Feedback> feedback;
-    @OneToOne ()
+    @OneToOne(cascade = CascadeType.ALL)
     private Lokaal lokaal;
-    @OneToOne()
+    @OneToOne(cascade = CascadeType.ALL)
     private Gebruiker verantwoordelijke;
+
     //endregion
 
     //region Constructors
@@ -76,6 +79,7 @@ public class Sessie implements ISessie {
         setMaximumAantalPlaatsen(this.lokaal.getAantalPlaatsen());
         setNaamGastspreker("Onbekend");
         initLijsten();
+        setAcademiejaar();
     }
     //endregion
 
@@ -132,6 +136,20 @@ public class Sessie implements ISessie {
         }
         this.lokaal = lokaal;
     }
+
+    public void setVerwijderd(boolean verwijderd) {
+        this.verwijderd = verwijderd;
+    }
+
+    private void setAcademiejaar() {
+        int jaar = startSessie.getYear() - 2000;
+        if (startSessie.getDayOfYear() < 243) {
+            academiejaar = Integer.parseInt(String.format("%d%d", jaar - 1, jaar));
+        } else {
+            academiejaar = Integer.parseInt(String.format("%d%d", jaar, jaar + 1));
+        }
+    }
+
     //endregion
 
     //region Getters
@@ -143,7 +161,7 @@ public class Sessie implements ISessie {
     @Override
     public String getNaamGastspreker() {
 
-        if(naamGastspreker == null || naamGastspreker.isBlank()) return "Geen gastspreker";
+        if (naamGastspreker == null || naamGastspreker.isBlank()) return "Geen gastspreker";
         return naamGastspreker;
     }
 
@@ -218,6 +236,13 @@ public class Sessie implements ISessie {
         return feedback;
     }
 
+    private int getAcademiejaar() {
+        return academiejaar;
+    }
+
+    private boolean isVerwijderd() {
+        return verwijderd;
+    }
     //endregion
 
     //region toString
@@ -342,9 +367,10 @@ public class Sessie implements ISessie {
             throw new SessieException();
         }
     }
+
     //endregion
     @Override
-    public Map<String, Object> gegevensDetails(){
+    public Map<String, Object> gegevensDetails() {
         Map<String, Object> gegevens = new HashMap<>();
         gegevens.put("Titel", getTitel());
         gegevens.put("Gasspreker", getNaamGastspreker());
@@ -367,7 +393,7 @@ public class Sessie implements ISessie {
 
     @Override
     public int getBeschikbarePlaatsen() {
-        return maximumAantalPlaatsen-inschrijvingen.size();
+        return maximumAantalPlaatsen - inschrijvingen.size();
     }
 
     @Override

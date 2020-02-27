@@ -1,11 +1,10 @@
-package domein.domeinklassen;
+package domein;
 
 import domein.interfacesDomein.IAankondiging;
 import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.IHerinnering;
 import exceptions.domein.AankondigingException;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -19,7 +18,7 @@ public class Aankondiging implements IAankondiging {
     @Id
     @GenericGenerator(
             name = "aankondigingKey",
-            strategy = "domein.domeinklassen.JPAIdGenerator",
+            strategy = "domein.JPAIdGenerator",
             parameters = {
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.VALUE_PREFIX_PARAMETER, value = "A1920-"),
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d")})
@@ -35,6 +34,8 @@ public class Aankondiging implements IAankondiging {
     private LocalDateTime publicatiedatum;
     private String inhoud;
     private boolean automatischeHerinnering;
+
+    private boolean verwijderd;
     //mapping
 
     //private Herinnering herinnering;
@@ -107,6 +108,10 @@ public class Aankondiging implements IAankondiging {
 
     public void setAutomatischeHerinnering(boolean automatischeHerinnering) {
         this.automatischeHerinnering = automatischeHerinnering;
+    }
+
+    public void setVerwijderd(boolean verwijderd) {
+        this.verwijderd = verwijderd;
     }
 
     //endregion

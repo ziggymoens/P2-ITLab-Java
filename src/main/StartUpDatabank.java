@@ -1,11 +1,15 @@
 package main;
 
-import domein.SessieKalenderController;
+import domein.DomeinController;
+import domein.Sessie;
+import domein.SessieKalenderDataInit;
+
+import java.util.stream.Collectors;
 
 public class StartUpDatabank {
     public static void main(String[] args) {
-        SessieKalenderController gebruikerController = new SessieKalenderController();
+        DomeinController domeinController = new DomeinController();
 
-        System.out.println(gebruikerController.geefSessiesVanJaar(1920));
+        System.out.println(domeinController.geefSessieHuidigeKalender().stream().map(Sessie::toString).collect(Collectors.joining("\n")));
     }
 }
