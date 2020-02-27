@@ -63,7 +63,7 @@ public class Herinnering implements IHerinnering {
         this.dagenVooraf = dagenVooraf;
     }
 
-    private void setVerwijderd(boolean verwijderd) {
+    public void setVerwijderd(boolean verwijderd) {
         this.verwijderd = verwijderd;
     }
     //endregion

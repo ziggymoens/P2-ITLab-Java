@@ -146,7 +146,51 @@ public class SessieKalender {
     }
 
     public List<Inschrijving> geefAlleInschrijvingen(){
-        return (List<Inschrijving>) em.createQuery("select a from Feedback a where a.verwijderd = false").getResultList();
+        return (List<Inschrijving>) em.createQuery("select f from Feedback f where f.verwijderd = false").getResultList();
+    }
+    //endregion
+
+    //region Media
+    public void voegMediaToe(Media media, Sessie sessie) {
+        em.getTransaction().begin();
+        sessie.addMedia(media);
+        em.getTransaction().commit();
+    }
+
+    public void verwijderMedia(Media media){
+        em.getTransaction().begin();
+        media.setVerwijderd(true);
+        em.getTransaction().commit();
+    }
+
+    public Media geefMediaById(String mediaId) {
+        return (Media) em.createQuery("select m from Media m where mediaId = ?1").setParameter(1, mediaId).getResultList().get(0);
+    }
+
+    public List<Media> geefAlleMedia(){
+        return (List<Media>) em.createQuery("select m from Media m where m.verwijderd = false").getResultList();
+    }
+    //endregion
+
+    //region Herinnering
+    public void voegHerinneringToe(Herinnering herinnering, Aankondiging aankondiging) {
+        em.getTransaction().begin();
+        aankondiging.setHerinnering(herinnering);
+        em.getTransaction().commit();
+    }
+
+    public void verwijderHerinnering(Herinnering herinnering){
+        em.getTransaction().begin();
+        herinnering.setVerwijderd(true);
+        em.getTransaction().commit();
+    }
+
+    public Media geefHerinneringById(String herinneringsId) {
+        return (Media) em.createQuery("select h from Herinnering h where herinneringsId = ?1").setParameter(1, herinneringsId).getResultList().get(0);
+    }
+
+    public List<Herinnering> geefAlleHerinneringen(){
+        return (List<Herinnering>) em.createQuery("select h from Herinnering h where h.verwijderd = false").getResultList();
     }
     //endregion
 }

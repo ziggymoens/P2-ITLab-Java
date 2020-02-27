@@ -96,7 +96,7 @@ public class Media implements IMedia {
         this.gebruiker = gebruiker;
     }
 
-    private void setVerwijderd(boolean verwijderd) {
+    public void setVerwijderd(boolean verwijderd) {
         this.verwijderd = verwijderd;
     }
 

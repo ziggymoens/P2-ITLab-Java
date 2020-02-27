@@ -4,6 +4,7 @@ import domein.interfacesDomein.IAankondiging;
 import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.IHerinnering;
 import exceptions.domein.AankondigingException;
+import exceptions.domein.HerinneringException;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -77,31 +78,31 @@ public class Aankondiging implements IAankondiging {
 
     public void setGebruiker(Gebruiker gebruiker) {
         if(gebruiker == null){
-            throw new AankondigingException();
+            throw new HerinneringException();
         }
         this.gebruiker = gebruiker;
     }
 
     private void setPublicatiedatum(LocalDateTime publicatiedatum) {
         if (publicatiedatum == null) {
-            throw new AankondigingException();
+            throw new HerinneringException();
         }
         this.publicatiedatum = publicatiedatum;
     }
 
     private void setInhoud(String inhoud) {
         if (inhoud == null || inhoud.isBlank()) {
-            throw new AankondigingException();
+            throw new HerinneringException();
         }
         this.inhoud = inhoud;
     }
 
     public void setHerinnering(int dagenVooraf) {
         if(dagenVooraf < 0)
-            throw new AankondigingException();
+            throw new HerinneringException();
         Herinnering herinnering = new Herinnering(dagenVooraf);
         if (automatischeHerinnering && herinnering == null) {
-            throw new AankondigingException();
+            throw new HerinneringException();
         }
         this.herinnering = herinnering;
     }
@@ -114,6 +115,10 @@ public class Aankondiging implements IAankondiging {
         this.verwijderd = verwijderd;
     }
 
+    public void setHerinnering(Herinnering herinnering) {
+        this.herinnering = herinnering;
+        automatischeHerinnering = true;
+    }
     //endregion
 
     //region Getters
