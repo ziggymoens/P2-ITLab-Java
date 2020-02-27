@@ -1,7 +1,6 @@
 package domein;
 
 import javax.persistence.*;
-import java.lang.reflect.Type;
 import java.util.List;
 
 public class SessieKalender {

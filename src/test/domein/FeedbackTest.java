@@ -1,4 +1,4 @@
-package test.domein;
+package domein;
 
 import domein.Feedback;
 import domein.Gebruiker;
@@ -17,7 +17,6 @@ import java.util.stream.Stream;
 import static domein.enums.Gebruikersprofielen.GEBRUIKER;
 import static domein.enums.Gebruikersstatus.ACTIEF;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 public class FeedbackTest {

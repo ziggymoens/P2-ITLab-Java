@@ -3,7 +3,6 @@ package domein;
 import domein.interfacesDomein.IAankondiging;
 import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.IHerinnering;
-import exceptions.domein.AankondigingException;
 import exceptions.domein.HerinneringException;
 import org.hibernate.annotations.GenericGenerator;
 
