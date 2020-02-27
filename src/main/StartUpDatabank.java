@@ -10,7 +10,8 @@ public class StartUpDatabank {
     public static void main(String[] args) {
         DomeinController domeinController = new DomeinController();
 
-        System.out.println(domeinController.geefSessieHuidigeKalender().stream().map(ISessie::toString).collect(Collectors.joining("\n")));
+        System.out.println(domeinController.geefISessiesHuidigeKalender().stream().map(ISessie::toString).collect(Collectors.joining("\n")));
+
 
         System.out.println(domeinController.geefMediaVanSessie("S1920-000001").stream().map(IMedia::toString_Compleet).collect(Collectors.joining("\n")));
     }

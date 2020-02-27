@@ -88,7 +88,8 @@ public class SessieBewerkenController extends BorderPane {
 //        });
 //        lokaal.setEditable(true);
 
-        lokaal.setItems(FXCollections.observableArrayList(domeinController.getLokalen()));
+        lokaal.setItems(FXCollections.observableArrayList(domeinController.geefILokalen()));
+        lokaal.setValue(domeinController.geefILokalen().stream().filter(lokaal -> lokaal.getLokaalCode().equals(sessie.getLokaal().getLokaalCode())).findFirst().orElse(null));
         lokaal.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observableValue, Object o, Object t1) {
