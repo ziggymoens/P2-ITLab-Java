@@ -82,4 +82,49 @@ public class SessieKalender {
         return (List<Gebruiker>) em.createQuery("select g from Gebruiker g where g.verwijderd = false").getResultList();
     }
     //endregion
+
+    //region Aankondiging
+    public void voegAankondigingToe(Aankondiging aankondiging) {
+        em.getTransaction().begin();
+        em.persist(aankondiging);
+        em.getTransaction().commit();
+    }
+
+    public void verwijderGebruiker(Aankondiging aankondiging, Sessie sessie){
+        em.getTransaction().begin();
+        sessie.addAankondiging(aankondiging);
+        em.getTransaction().commit();
+    }
+
+    public Aankondiging geefAankondigingById(String aankondigingsId) {
+        return (Aankondiging) em.createQuery("select a from Aankondiging a where aankondigingsId = ?1").setParameter(1, aankondigingsId).getResultList().get(0);
+    }
+
+    public List<Gebruiker> geefAlleAankondigingen(){
+        return (List<Gebruiker>) em.createQuery("select a from Aankondiging a where a.verwijderd = false").getResultList();
+    }
+    //endregion
+
+
+    //region Feedback
+    public void voegFeedbackToe(Feedback feedback, Sessie sessie) {
+        em.getTransaction().begin();
+        sessie.addFeedback(feedback);
+        em.getTransaction().commit();
+    }
+
+    public void verwijderFeedback(Feedback feedback){
+        em.getTransaction().begin();
+        feedback.setVerwijderd(true);
+        em.getTransaction().commit();
+    }
+
+    public Feedback geefFeedbackById(String feedbackId) {
+        return (Feedback) em.createQuery("select a from Feedback a where feedbackId = ?1").setParameter(1, feedbackId).getResultList().get(0);
+    }
+
+    public List<Feedback> geefAlleFeedback(){
+        return (List<Feedback>) em.createQuery("select a from Feedback a where a.verwijderd = false").getResultList();
+    }
+    //endregion
 }
