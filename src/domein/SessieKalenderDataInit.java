@@ -67,7 +67,7 @@ public class SessieKalenderDataInit {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] aankondiging = line.split(";");
-                sessieKalender.voegAankondigingToe(new Aankondiging(sessieKalender.geefGebruikerById(aankondiging[0]), LocalDateTime.parse(aankondiging[1]), aankondiging[2]), sessieKalender.geefSessieById(aankondiging[4]));
+                sessieKalender.voegAankondigingToe(new Aankondiging(sessieKalender.geefGebruikerById(aankondiging[0]), LocalDateTime.parse(aankondiging[1]), aankondiging[2]), sessieKalender.geefSessieById(aankondiging[3]));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -119,7 +119,7 @@ public class SessieKalenderDataInit {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            throw new RuntimeException("inschrijving lezen");
+            throw new RuntimeException("media lezen");
         }
     }
 }

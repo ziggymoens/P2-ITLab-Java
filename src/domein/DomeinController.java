@@ -22,12 +22,12 @@ public class DomeinController {
         } else {
             academiejaar = Integer.parseInt(String.format("%d%d", jaar, jaar + 1));
         }
-        huidigeSessieKalender = new SessieKalender();
+        huidigeSessieKalender = new SessieKalender(academiejaar);
         SessieKalenderDataInit sessieKalenderDataInit = new SessieKalenderDataInit(huidigeSessieKalender);
     }
 
     private DomeinController(int academiejaar) {
-        huidigeSessieKalender = new SessieKalender();
+        huidigeSessieKalender = new SessieKalender(academiejaar);
     }
     //endregion
 
