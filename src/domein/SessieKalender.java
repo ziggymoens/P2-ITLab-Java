@@ -90,6 +90,7 @@ public class SessieKalender {
     //region Aankondiging
     public void voegAankondigingToe(Aankondiging aankondiging, Sessie sessie) {
         em.getTransaction().begin();
+        em.persist(aankondiging);
         sessie.addAankondiging(aankondiging);
         em.getTransaction().commit();
     }
@@ -113,6 +114,7 @@ public class SessieKalender {
     //region Feedback
     public void voegFeedbackToe(Feedback feedback, Sessie sessie) {
         em.getTransaction().begin();
+        em.persist(feedback);
         sessie.addFeedback(feedback);
         em.getTransaction().commit();
     }
@@ -135,6 +137,7 @@ public class SessieKalender {
     //region Inschrijving
     public void voegInschrijvingToe(Inschrijving inschrijving, Sessie sessie) {
         em.getTransaction().begin();
+        em.persist(inschrijving);
         sessie.addInschrijving(inschrijving);
         em.getTransaction().commit();
     }
@@ -157,6 +160,7 @@ public class SessieKalender {
     //region Media
     public void voegMediaToe(Media media, Sessie sessie) {
         em.getTransaction().begin();
+        em.persist(media);
         sessie.addMedia(media);
         em.getTransaction().commit();
     }
@@ -179,6 +183,7 @@ public class SessieKalender {
     //region Herinnering
     public void voegHerinneringToe(Herinnering herinnering, Aankondiging aankondiging) {
         em.getTransaction().begin();
+        em.persist(herinnering);
         aankondiging.setHerinnering(herinnering);
         em.getTransaction().commit();
     }
