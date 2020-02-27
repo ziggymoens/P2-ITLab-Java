@@ -34,6 +34,10 @@ public class SessieKalender {
         em.getTransaction().commit();
     }
 
+    public Sessie geefSessieById(String sessieId) {
+        return (Sessie) em.createQuery("select s from Sessie s where sessieId = ?1").setParameter(1, sessieId).getResultList().get(0);
+    }
+
     public List<Sessie> geefAlleSessiesKalender(){
         return (List<Sessie>) em.createQuery("select s from Sessie s where s.verwijderd = false and academiejaar = ?1").setParameter(1, academiejaar).getResultList();
     }
@@ -84,15 +88,15 @@ public class SessieKalender {
     //endregion
 
     //region Aankondiging
-    public void voegAankondigingToe(Aankondiging aankondiging) {
+    public void voegAankondigingToe(Aankondiging aankondiging, Sessie sessie) {
         em.getTransaction().begin();
-        em.persist(aankondiging);
+        sessie.addAankondiging(aankondiging);
         em.getTransaction().commit();
     }
 
     public void verwijderGebruiker(Aankondiging aankondiging, Sessie sessie){
         em.getTransaction().begin();
-        sessie.addAankondiging(aankondiging);
+        aankondiging.setVerwijderd(true);
         em.getTransaction().commit();
     }
 
