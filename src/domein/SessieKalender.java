@@ -9,8 +9,10 @@ public class SessieKalender {
     public final String PERSISTENCE_UNIT_NAME = "ITLab";
     private EntityManager em;
     private EntityManagerFactory emf;
+    private int academiejaar;
 
-    public SessieKalender() {
+    public SessieKalender(int academiejaar) {
+        this.academiejaar = academiejaar;
         initPersistentie();
     }
 
@@ -33,7 +35,7 @@ public class SessieKalender {
     }
 
     public List<Sessie> geefAlleSessiesKalender(){
-        return em.createQuery("select s from Sessie s").getResultList();
+        return (List<Sessie>) em.createQuery("select s from Sessie s where s.verwijderd = false and academiejaar = ?1").setParameter(1, academiejaar).getResultList();
     }
     //endregion
 
@@ -51,7 +53,7 @@ public class SessieKalender {
     }
 
     public List<Lokaal> geefAlleLokalen(){
-        return em.createQuery("select l from Lokaal l where l.verwijderd = false").getResultList();
+        return (List<Lokaal>) em.createQuery("select l from Lokaal l where l.verwijderd = false").getResultList();
     }
 
     public Lokaal geefLokaalById(String lokaalCode) {
@@ -66,8 +68,18 @@ public class SessieKalender {
         em.getTransaction().commit();
     }
 
+    public void verwijderGebruiker(Gebruiker gebruiker){
+        em.getTransaction().begin();
+        gebruiker.setVerwijderd(true);
+        em.getTransaction().commit();
+    }
+
     public Gebruiker geefGebruikerById(String gebruikerId) {
         return (Gebruiker) em.createQuery("select g from Gebruiker g where gebruikersnaam = ?1").setParameter(1, gebruikerId).getResultList().get(0);
+    }
+
+    public List<Gebruiker> geefAlleGebruikers(){
+        return (List<Gebruiker>) em.createQuery("select g from Gebruiker g where g.verwijderd = false").getResultList();
     }
     //endregion
 }

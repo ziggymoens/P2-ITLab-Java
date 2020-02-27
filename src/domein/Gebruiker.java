@@ -131,7 +131,7 @@ public class Gebruiker implements IGebruiker {
         this.status = status;
     }
 
-    private void setVerwijderd(boolean verwijderd) {
+    public void setVerwijderd(boolean verwijderd) {
         this.verwijderd = verwijderd;
     }
     //endregion
