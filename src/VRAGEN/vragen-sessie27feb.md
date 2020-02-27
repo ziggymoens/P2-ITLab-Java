@@ -2,8 +2,8 @@
 
 ##JAVA
 
-[x] ListView bij verwijderen
-[x] Databank bij verwijderen (cascading delete?)
-[x] Zoekbalk in listview
+- [x] ListView bij verwijderen
+- [x] Databank bij verwijderen (cascading delete?)
+- [x] Zoekbalk in listview
 
 ##Analyse
