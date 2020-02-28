@@ -19,7 +19,7 @@ public class AankondigingTest {
     @BeforeAll
     public static void before(){
         gebruiker = new Gebruiker("Test Persoon", "123456tp", "GEBRUIKER", "ACTIEF");
-        lokaal = new Lokaal("GSCB.3.049", 50);
+        lokaal = new Lokaal("GSCB.3.049","AUDITORIUM", 50);
         sessie = new Sessie("Titel sessie", LocalDateTime.now().plusSeconds(1), LocalDateTime.now().plusMinutes(30), lokaal, gebruiker);
         herinnering = new Herinnering(1);
     }

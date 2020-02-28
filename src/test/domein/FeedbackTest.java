@@ -29,7 +29,7 @@ public class FeedbackTest {
     @BeforeAll
     public static void before(){
         gebruiker = new Gebruiker("862361jv", "Jonathan Vanden Eynden", GEBRUIKER, ACTIEF);
-        lokaal = new Lokaal("GSCB.3.049", 50);
+        lokaal = new Lokaal("GSCB.3.049","AUDITORIUM", 50);
         sessie = new Sessie("Titel sessie", LocalDateTime.now().plusSeconds(1), LocalDateTime.now().plusMinutes(30), lokaal, gebruiker);
     }
     //endregion
