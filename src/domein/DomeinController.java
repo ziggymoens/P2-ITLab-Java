@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -65,6 +66,7 @@ public class DomeinController {
     }
 
     public void pasSessieAan(ISessie sessie, Map<String, String> veranderingenMap) {
+
     }
 
     public void verwijderSessie(ISessie sessie) {

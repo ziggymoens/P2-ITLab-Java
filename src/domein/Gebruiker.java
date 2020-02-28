@@ -7,6 +7,7 @@ import exceptions.domein.GebruikerException;
 import language.Talen;
 
 import javax.persistence.*;
+import java.awt.*;
 import java.util.Arrays;
 import java.util.Objects;
 
