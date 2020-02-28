@@ -51,6 +51,7 @@ public class StartUpController extends BorderPane {
 
     private void inloggen(ActionEvent actionEvent) {
         ITLab.primaryStage.close();
+        domeinController.setHuidigeGebruiker(gebruikersNaam.getText().isBlank()? "758095zm": gebruikersNaam.getText());
         Scene scene = new Scene(new MainScreenController(domeinController));
         Stage stage = new Stage();
         stage.setScene(scene);

@@ -6,12 +6,10 @@ import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.ILokaal;
 import domein.interfacesDomein.IMedia;
 import domein.interfacesDomein.ISessie;
-import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -62,11 +60,15 @@ public class DomeinController {
         return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender(academiejaar);
     }
 
-    public void maakSessieAan() {
+    public void maakSessieAan(String[] sessie) {
+        //iterator
+        huidigeSessieKalender.voegSessieToe(new Sessie(sessie[0], LocalDateTime.parse(sessie[1]), LocalDateTime.parse(sessie[2]), huidigeSessieKalender.geefLokaalById(sessie[3]), huidigeSessieKalender.geefGebruikerById(sessie[4])));
+
     }
 
-    public void pasSessieAan(ISessie sessie, Map<String, String> veranderingenMap) {
-
+    public void pasSessieAan(Map<String, String> veranderingenMap) {
+        huidigeSessie.updateSessie(veranderingenMap, (List<ILokaal>)(Object)huidigeSessieKalender.geefAlleLokalen());
+        huidigeSessieKalender.updateSessie(huidigeSessie);
     }
 
     public void verwijderSessie(ISessie sessie) {
@@ -79,6 +81,10 @@ public class DomeinController {
 
     public List<ISessie> geefISessiesAcademiejaar(Integer academiejaar) {
         return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender(academiejaar);
+    }
+
+    public void setHuidigeSessie(ISessie t1) {
+        this.setHuidigeSessie((Sessie)t1);
     }
     //endregion
 
