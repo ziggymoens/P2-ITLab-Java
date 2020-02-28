@@ -73,6 +73,8 @@ public class SessieKalender {
         return em.find(Lokaal.class, lokaalCode);
         //return (Lokaal) em.createQuery("select l from Lokaal l where lokaalCode = ?1").setParameter(1, lokaalCode).getResultList().get(0);
     }
+
+
     //endregion
 
     //region Gebruiker
