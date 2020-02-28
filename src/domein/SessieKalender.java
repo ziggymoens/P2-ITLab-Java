@@ -38,6 +38,10 @@ public class SessieKalender {
         em.getTransaction().commit();
     }
 
+    public void updateSessie(Sessie sessie){
+
+    }
+
     public void verwijderSessie(Sessie sessie) {
         em.getTransaction().begin();
         sessie.setVerwijderd(true);

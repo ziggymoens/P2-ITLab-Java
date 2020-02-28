@@ -163,7 +163,7 @@ public class SessieBewerkenController extends BorderPane {
             maxPlaatsen.setText(String.valueOf(sessie.getMaximumAantalPlaatsen()));
             veranderingenMap.put("maxPlaatsen", String.valueOf(sessie.getMaximumAantalPlaatsen()));
         }
-        domeinController.pasSessieAan(sessie, veranderingenMap);
+        domeinController.pasSessieAan(veranderingenMap);
         Stage stage = (Stage) this.getScene().getWindow();
         stage.close();
         //sessieBeherenController.vulSchermOp();

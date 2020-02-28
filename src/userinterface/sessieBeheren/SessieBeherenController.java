@@ -104,7 +104,7 @@ public class SessieBeherenController extends BorderPane {
                 listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessie>() {
                     @Override
                     public void changed(ObservableValue<? extends ISessie> observableValue, ISessie iSessie, ISessie t1) {
-                        sessie = t1;
+                        domeinController.setHuidigeSessie(t1);
                         geefDetails(t1);
                     }
                 });

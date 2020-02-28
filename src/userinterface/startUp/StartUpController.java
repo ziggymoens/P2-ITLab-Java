@@ -44,13 +44,15 @@ public class StartUpController extends BorderPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
-        Image image = new Image("storage/images/logoITLab.png");
+        Image image = new Image("storage/images/logoHoGent.png");
         this.logo.setImage(image);
         inloggenButton.setOnAction(this::inloggen);
     }
 
     private void inloggen(ActionEvent actionEvent) {
         ITLab.primaryStage.close();
+        //hey
+        domeinController.setHuidigeGebruiker(gebruikersNaam.getText().isBlank()? "758095zm": gebruikersNaam.getText());
         Scene scene = new Scene(new MainScreenController(domeinController));
         Stage stage = new Stage();
         stage.setScene(scene);

@@ -8,7 +8,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -400,6 +399,36 @@ public class Sessie implements ISessie {
     @Override
     public String toString_Kalender() {
         return String.format("%02d:%02d: %s", startSessie.getHour(), startSessie.getMinute(), getTitel());
+    }
+
+    public void updateSessie(Map<String, String> veranderingenMap, List<ILokaal> lokaal){
+        veranderingenMap.forEach((key, value) -> {
+            switch(key){
+                case "naamverantwoordelijke":
+                    setNaamGastspreker(value);
+                    break;
+                case "titel":
+                    setTitel(value);
+                    break;
+                case "naamGastspreker":
+                    setNaamGastspreker(value);
+                    break;
+                case "lokaal":
+                    String[] str = value.split(",");
+                    setLokaal((Lokaal)lokaal.stream().filter(e -> e.getLokaalCode().equals(str[0])).findFirst().orElse(null));
+                    break;
+                case "start":
+                    //s.setStartSessie(LocalDateTime.parse(value));
+                    break;
+                case "eind":
+                    //s.setEindeSessie(LocalDateTime.parse(value));
+                    break;
+                case "maxPlaatsen":
+                    setMaximumAantalPlaatsen(Integer.parseInt(value));
+                    break;
+            }
+
+        });
     }
 
     public void verwijderMedia(Media mediaOud) {
