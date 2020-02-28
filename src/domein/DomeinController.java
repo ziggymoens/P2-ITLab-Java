@@ -90,8 +90,9 @@ public class DomeinController {
     }
 
     public ObservableList<ISessie> geefObservableListISessiesHuidigeGebruiker(){
-        List <ISessie> ISessie = (List<ISessie>)(Object)huidigeSessieKalender.geefSessiesVanGebruiker(huidigeGebruiker);
-        return FXCollections.observableArrayList(ISessie);
+        List <Sessie> sessie = huidigeSessieKalender.geefSessiesVanGebruiker(huidigeGebruiker);
+        sessie.stream().map(e -> e.toArray());
+        return FXCollections.observableArrayList(sessie);
     }
 
     public List<ISessie> geefISessiesHuidigeGebruiker() {

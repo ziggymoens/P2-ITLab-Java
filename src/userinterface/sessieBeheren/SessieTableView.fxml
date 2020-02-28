@@ -92,9 +92,9 @@
                <children>
                   <TableView fx:id="tableView" prefHeight="482.0">
                     <columns>
-                      <TableColumn prefWidth="300.0" text="Titel" />
-                      <TableColumn prefWidth="200.0" text="Start sessie" />
-                        <TableColumn prefWidth="200.0" text="Einde sessie" />
+                      <TableColumn fx:id="titel" prefWidth="300.0" text="Titel" />
+                      <TableColumn fx:id="startSessie" prefWidth="200.0" text="Start sessie" />
+                        <TableColumn fx:id="eindSessie" prefWidth="200.0" text="Einde sessie" />
                         <TableColumn fx:id="lastColumn" prefWidth="200.0" text="Vrije plaatsen" />
                     </columns>
                      <columnResizePolicy>

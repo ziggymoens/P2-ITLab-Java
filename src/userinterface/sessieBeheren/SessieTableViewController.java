@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import userinterface.MAIN.MainScreenController;
 
@@ -18,6 +19,10 @@ public class SessieTableViewController extends BorderPane {
     private Button nieuweSessie, verwijderSessie;
     @FXML
     private TableView tableView;
+    @FXML private TableColumn<ISessie, String> titel;
+    @FXML private TableColumn<ISessie, String> startSessie;
+    @FXML private TableColumn<ISessie, String> eindSessie;
+    @FXML private TableColumn<ISessie, String> lastColumn;
     @FXML
     private ChoiceBox<String> choiceBoxKalenderJaar;
     @FXML
@@ -48,7 +53,12 @@ public class SessieTableViewController extends BorderPane {
     }
 
     public void vulTable(){
-        tableView.setItems(domeinController.geefObservableListISessiesHuidigeGebruiker());
+        titel.setCellValueFactory(new PropertyValueFactory<ISessie, String>("titel"));
+        startSessie.setCellValueFactory(new PropertyValueFactory<ISessie, String>("start sessie"));
+        eindSessie.setCellValueFactory(new PropertyValueFactory<ISessie, String>("eind sessie"));
+        lastColumn.setCellValueFactory(new PropertyValueFactory<ISessie, String>("vrije plaatsen"));
+
+        tableView.getItems().setAll(domeinController.geefObservableListISessiesHuidigeGebruiker());
     }
 
     private void geefDetails(ISessie sessie) {
