@@ -8,6 +8,8 @@ import language.Talen;
 
 import javax.persistence.*;
 import java.awt.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -25,6 +27,7 @@ public class Gebruiker implements IGebruiker {
     private Gebruikersstatus status;
     private String profielfoto;
     private int aantalInlogPogingen;
+    private LocalDateTime laatstIngelogd;
     private boolean verwijderd = false;
     //region Constructor
 
@@ -150,6 +153,10 @@ public class Gebruiker implements IGebruiker {
     public void addInlogPoging(){
         setAantalInlogPogingen(aantalInlogPogingen+1);
     }
+
+    public void setIngelogd(){
+        this.laatstIngelogd = LocalDateTime.now();
+    }
     //endregion
 
     //region Getters
@@ -178,6 +185,10 @@ public class Gebruiker implements IGebruiker {
         return profielfoto;
     }
 
+    @Override
+    public LocalDateTime getLaatstIngelogd() {
+        return laatstIngelogd;
+    }
 
     //endregion
 

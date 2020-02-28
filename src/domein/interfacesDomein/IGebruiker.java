@@ -3,6 +3,8 @@ package domein.interfacesDomein;
 import domein.enums.Gebruikersprofielen;
 import domein.enums.Gebruikersstatus;
 
+import java.time.LocalDateTime;
+
 public interface IGebruiker {
     String getNaam();
 
@@ -13,6 +15,8 @@ public interface IGebruiker {
     Gebruikersprofielen getGebruikersprofiel();
 
     String getProfielfoto();
+
+    LocalDateTime getLaatstIngelogd();
 
     //List<IFeedback> getIFeedbackList();
 
