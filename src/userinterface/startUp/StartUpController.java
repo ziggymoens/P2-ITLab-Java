@@ -44,7 +44,7 @@ public class StartUpController extends BorderPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
-        Image image = new Image("storage/media/logoITLab.png");
+        Image image = new Image("storage/images/logoITLab.png");
         this.logo.setImage(image);
         inloggenButton.setOnAction(this::inloggen);
     }
