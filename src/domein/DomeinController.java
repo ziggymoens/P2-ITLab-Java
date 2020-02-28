@@ -109,6 +109,11 @@ public class DomeinController {
     public List<ILokaal> geefILokalen() {
         return (List<ILokaal>) (Object) huidigeSessieKalender.geefAlleLokalen();
     }
+
+    public List<ILokaal> geefLokalenVanCampus(String campus){
+        return (List<ILokaal>) (Object) huidigeSessieKalender.geefLokaalByCampus(campus.toUpperCase());
+    }
+
     //endregion
 
     //region Media

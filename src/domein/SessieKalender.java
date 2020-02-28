@@ -1,5 +1,7 @@
 package domein;
 
+import domein.enums.Campussen;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -74,7 +76,10 @@ public class SessieKalender {
         //return (Lokaal) em.createQuery("select l from Lokaal l where lokaalCode = ?1").setParameter(1, lokaalCode).getResultList().get(0);
     }
 
-
+    public List<Lokaal> geefLokaalByCampus(String campus){
+        String afkorting = Campussen.valueOf(campus).getAfkorting();
+        return (List<Lokaal>) geefAlleLokalen().stream().filter(l -> l.getLokaalCode().matches(String.format("G%s.*", afkorting))).collect(Collectors.toList());
+    }
     //endregion
 
     //region Gebruiker

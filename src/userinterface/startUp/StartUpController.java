@@ -55,6 +55,5 @@ public class StartUpController extends BorderPane {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
-
     }
 }

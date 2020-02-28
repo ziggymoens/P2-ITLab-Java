@@ -1,6 +1,7 @@
 package main;
 
 import domein.DomeinController;
+import domein.interfacesDomein.ILokaal;
 import domein.interfacesDomein.IMedia;
 import domein.interfacesDomein.ISessie;
 
@@ -17,5 +18,7 @@ public class StartUpDatabank {
 
         domeinController.setHuidigeGebruiker("758095zm");
         System.out.println(domeinController.geefISessieGebruiker().stream().map(ISessie::toString_Kalender).collect(Collectors.joining("\n")));
+
+        System.out.println(domeinController.geefLokalenVanCampus("schoonmeersen").stream().map(ILokaal::getLokaalCode).collect(Collectors.joining("\n")));
     }
 }
