@@ -52,31 +52,36 @@ public class AankondigingPlaatsenController extends BorderPane {
 
     public void voegAankondigingToe(ActionEvent actionEvent){
         String keuze = herinneringKeuze.getSelectionModel().selectedItemProperty().getValue().toString();
-        int keuze2 = 0;
+        int dagenHerinnering = 0;
         boolean automatischeHerinnering = false;
         switch (keuze){
             case "geen":
-                keuze2 = 0;
+                dagenHerinnering = 0;
                 automatischeHerinnering = false;
                 break;
             case "1 dag":
-                keuze2 = 1;
+                dagenHerinnering = 1;
                 automatischeHerinnering = true;
                 break;
             case "2 dagen":
-                keuze2 = 2;
+                dagenHerinnering = 2;
                 automatischeHerinnering = true;
                 break;
             case "3 dagen":
-                keuze2 = 3;
+                dagenHerinnering = 3;
                 automatischeHerinnering = true;
                 break;
             case "7 dagen":
-                keuze2 = 7;
+                dagenHerinnering = 7;
                 automatischeHerinnering = true;
+                break;
+            default:
+                dagenHerinnering = 0;
+                automatischeHerinnering = false;
+                break;
         }
         IGebruiker gebruiker = domeinController.geefIGebruiker();
-        domeinController.addAankondigingSessie(sessie.getSessieId(), gebruiker.getGebruikersnaam(), aankondigingTekst.getText(), automatischeHerinnering, keuze2);
+        domeinController.addAankondigingSessie(sessie.getSessieId(), gebruiker.getGebruikersnaam(), aankondigingTekst.getText(), automatischeHerinnering, dagenHerinnering);
         stage.close();
     }
 

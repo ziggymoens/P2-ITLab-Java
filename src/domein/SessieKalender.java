@@ -11,10 +11,9 @@ public class SessieKalender {
     public final String PERSISTENCE_UNIT_NAME = "ITLab";
     private EntityManager em;
     private EntityManagerFactory emf;
-    private int academiejaar;
 
-    public SessieKalender(int academiejaar) {
-        this.academiejaar = academiejaar;
+
+    public SessieKalender() {
         initPersistentie();
     }
 
@@ -23,14 +22,21 @@ public class SessieKalender {
         em = emf.createEntityManager();
     }
 
+    //region Academiejaar
+    public List<String> geefAlleAcademieJaren() {
+        return (List<String>) em.createQuery("select DISTINCT academiejaar from Sessie").getResultList();
+    }
+
+    //endregion
+
     //region Sessie
-    public void voegSessieToe(Sessie sessie){
+    public void voegSessieToe(Sessie sessie) {
         em.getTransaction().begin();
         em.persist(sessie);
         em.getTransaction().commit();
     }
 
-    public void verwijderSessie(Sessie sessie){
+    public void verwijderSessie(Sessie sessie) {
         em.getTransaction().begin();
         sessie.setVerwijderd(true);
         em.getTransaction().commit();
@@ -41,25 +47,25 @@ public class SessieKalender {
         //return (Sessie) em.createQuery("select s from Sessie s where sessieId = ?1").setParameter(1, sessieId).getResultList().get(0);
     }
 
-    public List<Sessie> geefAlleSessiesKalender(){
+    public List<Sessie> geefAlleSessiesKalender(int academiejaar) {
         return (List<Sessie>) em.createQuery("select s from Sessie s where s.verwijderd = false and academiejaar = ?1").setParameter(1, academiejaar).getResultList();
     }
     //endregion
 
     //region Lokaal
-    public void voegLokaalToe(Lokaal lokaal){
+    public void voegLokaalToe(Lokaal lokaal) {
         em.getTransaction().begin();
         em.persist(lokaal);
         em.getTransaction().commit();
     }
 
-    public void verwijderLokaal(Lokaal lokaal){
+    public void verwijderLokaal(Lokaal lokaal) {
         em.getTransaction().begin();
         lokaal.setVerwijderd(true);
         em.getTransaction().commit();
     }
 
-    public List<Lokaal> geefAlleLokalen(){
+    public List<Lokaal> geefAlleLokalen() {
         return (List<Lokaal>) em.createQuery("select l from Lokaal l where l.verwijderd = false").getResultList();
     }
 
@@ -76,7 +82,7 @@ public class SessieKalender {
         em.getTransaction().commit();
     }
 
-    public void verwijderGebruiker(Gebruiker gebruiker){
+    public void verwijderGebruiker(Gebruiker gebruiker) {
         em.getTransaction().begin();
         gebruiker.setVerwijderd(true);
         em.getTransaction().commit();
@@ -87,8 +93,12 @@ public class SessieKalender {
         //return (Gebruiker) em.createQuery("select g from Gebruiker g where gebruikersnaam = ?1").setParameter(1, gebruikerId).getResultList().get(0);
     }
 
-    public List<Gebruiker> geefAlleGebruikers(){
+    public List<Gebruiker> geefAlleGebruikers() {
         return (List<Gebruiker>) em.createQuery("select g from Gebruiker g where g.verwijderd = false").getResultList();
+    }
+
+    public List<Sessie> geefSessiesVanGebruiker(Gebruiker gebruiker) {
+        return (List<Sessie>) em.createQuery("select s from Sessie s where verantwoordelijke = ?1").setParameter(1, gebruiker).getResultList();
     }
     //endregion
 
@@ -100,7 +110,7 @@ public class SessieKalender {
         em.getTransaction().commit();
     }
 
-    public void verwijderGebruiker(Aankondiging aankondiging, Sessie sessie){
+    public void verwijderAankondiging(Aankondiging aankondiging) {
         em.getTransaction().begin();
         aankondiging.setVerwijderd(true);
         em.getTransaction().commit();
@@ -111,11 +121,11 @@ public class SessieKalender {
         //return (Aankondiging) em.createQuery("select a from Aankondiging a where aankondigingsId = ?1").setParameter(1, aankondigingsId).getResultList().get(0);
     }
 
-    public List<Gebruiker> geefAlleAankondigingen(){
+    public List<Gebruiker> geefAlleAankondigingen() {
         return (List<Gebruiker>) em.createQuery("select a from Aankondiging a where a.verwijderd = false").getResultList();
     }
 
-    public List<Aankondiging> geefAlleAankondigingenVanSessie(String sessie){
+    public List<Aankondiging> geefAlleAankondigingenVanSessie(String sessie) {
         return geefSessieById(sessie).getAankondigingen();
     }
     //endregion
@@ -129,7 +139,7 @@ public class SessieKalender {
         em.getTransaction().commit();
     }
 
-    public void verwijderFeedback(Feedback feedback){
+    public void verwijderFeedback(Feedback feedback) {
         em.getTransaction().begin();
         feedback.setVerwijderd(true);
         em.getTransaction().commit();
@@ -140,11 +150,11 @@ public class SessieKalender {
         //return (Feedback) em.createQuery("select f from Feedback f where feedbackId = ?1").setParameter(1, feedbackId).getResultList().get(0);
     }
 
-    public List<Feedback> geefAlleFeedback(){
+    public List<Feedback> geefAlleFeedback() {
         return (List<Feedback>) em.createQuery("select a from Feedback a where a.verwijderd = false").getResultList();
     }
 
-    public List<Feedback> geefAlleFeedbackVanSessie(String sessie){
+    public List<Feedback> geefAlleFeedbackVanSessie(String sessie) {
         return geefSessieById(sessie).getFeedback();
     }
     //endregion
@@ -157,7 +167,7 @@ public class SessieKalender {
         em.getTransaction().commit();
     }
 
-    public void verwijderInschrijving(Inschrijving inschrijving){
+    public void verwijderInschrijving(Inschrijving inschrijving) {
         em.getTransaction().begin();
         inschrijving.setVerwijderd(true);
         em.getTransaction().commit();
@@ -168,11 +178,11 @@ public class SessieKalender {
         //return (Inschrijving) em.createQuery("select i from Inschrijving i where inschrijvingsId = ?1").setParameter(1, inschrijvingsId).getResultList().get(0);
     }
 
-    public List<Inschrijving> geefAlleInschrijvingen(){
+    public List<Inschrijving> geefAlleInschrijvingen() {
         return (List<Inschrijving>) em.createQuery("select f from Feedback f where f.verwijderd = false").getResultList();
     }
 
-    public List<Inschrijving> geefAlleInschrijvingenVanSessie(String sessie){
+    public List<Inschrijving> geefAlleInschrijvingenVanSessie(String sessie) {
         return geefSessieById(sessie).getInschrijvingen();
     }
     //endregion
@@ -185,7 +195,7 @@ public class SessieKalender {
         em.getTransaction().commit();
     }
 
-    public void verwijderMedia(Media media){
+    public void verwijderMedia(Media media) {
         em.getTransaction().begin();
         media.setVerwijderd(true);
         em.getTransaction().commit();
@@ -196,10 +206,11 @@ public class SessieKalender {
         //return (Media) em.createQuery("select m from Media m where mediaId = ?1").setParameter(1, mediaId).getResultList().get(0);
     }
 
-    public List<Media> geefAlleMedia(){
+    public List<Media> geefAlleMedia() {
         return (List<Media>) em.createQuery("select m from Media m where m.verwijderd = false").getResultList();
     }
-    public List<Media> geefAlleMediaVanSessie(String sessie){
+
+    public List<Media> geefAlleMediaVanSessie(String sessie) {
         return geefSessieById(sessie).getMedia();
     }
     //endregion
@@ -212,7 +223,7 @@ public class SessieKalender {
         em.getTransaction().commit();
     }
 
-    public void verwijderHerinnering(Herinnering herinnering){
+    public void verwijderHerinnering(Herinnering herinnering) {
         em.getTransaction().begin();
         herinnering.setVerwijderd(true);
         em.getTransaction().commit();
@@ -223,11 +234,11 @@ public class SessieKalender {
         //return (Media) em.createQuery("select h from Herinnering h where herinneringsId = ?1").setParameter(1, herinneringsId).getResultList().get(0);
     }
 
-    public List<Herinnering> geefAlleHerinneringen(){
+    public List<Herinnering> geefAlleHerinneringen() {
         return (List<Herinnering>) em.createQuery("select h from Herinnering h where h.verwijderd = false").getResultList();
     }
 
-    public List<Herinnering> geefAlleHerinneringenVanSessie(String sessie){
+    public List<Herinnering> geefAlleHerinneringenVanSessie(String sessie) {
         return geefSessieById(sessie).getAankondigingen().stream().filter(Aankondiging::isAutomatischeHerinnering).map(Aankondiging::getHerinnering).collect(Collectors.toList());
     }
     //endregion

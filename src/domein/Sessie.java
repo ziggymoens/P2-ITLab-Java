@@ -358,7 +358,7 @@ public class Sessie implements ISessie {
         if (!eindeSessie.isAfter(startSessie.plusMinutes(29))) {
             throw new SessieException("SessieException.startEinde30Min");
         }
-
+        /*
         if (!startSessie.isAfter(LocalDateTime.now(ZoneId.of("Europe/Brussels")))) {
             throw new SessieException("SessieException.startSessie1Dag");
         }
@@ -366,6 +366,7 @@ public class Sessie implements ISessie {
         if (LocalDateTime.now().isAfter(eindeSessie)) {
             throw new SessieException();
         }
+        */
     }
 
     //endregion

@@ -41,7 +41,7 @@ public class NieuweMediaController extends AnchorPane {
         startFXML();
         initChoiceboxes();
         gebruiker.setValue(domeinController.geefIGebruiker());
-        if (!domeinController.geefProfielGebruiker().equals("HOOFDVERANTWOORDELIJKE")) {
+        if (!domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("HOOFDVERANTWOORDELIJKE")) {
             gebruiker.setDisable(true);
         }
         initButtons();
@@ -53,10 +53,10 @@ public class NieuweMediaController extends AnchorPane {
         this.huidigeSessie = s;
         startFXML();
         initChoiceboxes();
-        sessie.setValue(domeinController.getISessies().stream().filter(s1 -> s1.getSessieId().equals(s1.getSessieId())).findFirst().orElse(null));
+        sessie.setValue(domeinController.geefISessiesHuidigeKalender().stream().filter(s1 -> s1.getSessieId().equals(s1.getSessieId())).findFirst().orElse(null));
         sessie.setDisable(true);
         gebruiker.setValue(domeinController.geefIGebruiker());
-        if (!domeinController.geefProfielGebruiker().equals("HOOFDVERANTWOORDELIJKE")) {
+        if (!domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("HOOFDVERANTWOORDELIJKE")) {
             gebruiker.setDisable(true);
         }
         initButtons();
@@ -119,10 +119,10 @@ public class NieuweMediaController extends AnchorPane {
     }
 
     private void initChoiceboxes() {
-        if (domeinController.geefProfielGebruiker().equals("VERANTWOORDELIJKE")) {
-            sessie.setItems(FXCollections.observableArrayList(domeinController.getISessies()));
+        if (domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("VERANTWOORDELIJKE")) {
+            sessie.setItems(FXCollections.observableArrayList(domeinController.geefISessiesHuidigeKalender()));
         } else {
-            sessie.setItems(FXCollections.observableArrayList((domeinController.geefSessiesVanGebruiker())));
+            sessie.setItems(FXCollections.observableArrayList((domeinController.geefISessieGebruiker())));
         }
         gebruiker.setItems(FXCollections.observableArrayList(domeinController.geefIGebruikers()));
         type.setItems(FXCollections.observableArrayList(domeinController.geefMediaTypes()));

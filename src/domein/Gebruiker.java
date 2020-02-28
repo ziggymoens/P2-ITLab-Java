@@ -22,8 +22,8 @@ public class Gebruiker implements IGebruiker {
     private String naam;
     private Gebruikersprofielen gebruikersprofiel;
     private Gebruikersstatus status;
-
     private String profielfoto;
+    private int aantalInlogPogingen;
     private boolean verwijderd = false;
     //region Constructor
 
@@ -42,12 +42,13 @@ public class Gebruiker implements IGebruiker {
      * @param gebruikersstatus  (Gebruikersprofiel) ==> Inlogstatus van de gebruiker
      * @param profielfoto       (Media) ==> profielfoto van de gebruiker
      */
-    public Gebruiker(String naam, String gebruikersnaam, Gebruikersprofielen gebruikersprofiel, Gebruikersstatus gebruikersstatus, String profielfoto) {
+    public Gebruiker(String naam, String gebruikersnaam, Gebruikersprofielen gebruikersprofiel, Gebruikersstatus gebruikersstatus, String profielfoto, int aantalInlogPogingen) {
         setNaam(naam);
         setGebruikersnaam(gebruikersnaam);
-        setGebruikersprofielen(gebruikersprofiel);
+        setGebruikersprofiel(gebruikersprofiel);
         setStatus(gebruikersstatus);
         setProfielfoto(profielfoto);
+        setAantalInlogPogingen(aantalInlogPogingen);
     }
 
     /**
@@ -59,7 +60,7 @@ public class Gebruiker implements IGebruiker {
      * @param gebruikersstatus  (Gebruikersprofiel) ==> Inlogstatus van de gebruiker
      */
     public Gebruiker(String naam, String gebruikersnaam, Gebruikersprofielen gebruikersprofiel, Gebruikersstatus gebruikersstatus) {
-        this(naam, gebruikersnaam, gebruikersprofiel, gebruikersstatus, null);
+        this(naam, gebruikersnaam, gebruikersprofiel, gebruikersstatus, null, 0);
     }
 
     /**
@@ -74,7 +75,7 @@ public class Gebruiker implements IGebruiker {
         this(naam, gebruikersnaam,
                 Arrays.stream(Gebruikersprofielen.values()).filter(g -> g.toString().equals(gebruikersprofiel)).findFirst().orElse(null),
                 Arrays.stream(Gebruikersstatus.values()).filter(g -> g.toString().equals(gebruikersstatus)).findFirst().orElse(null),
-                null);
+                null, 0);
     }
 
     /**
@@ -90,7 +91,7 @@ public class Gebruiker implements IGebruiker {
         this(naam, gebruikersnaam,
                 Arrays.stream(Gebruikersprofielen.values()).filter(g -> g.toString().equals(gebruikersprofiel)).findFirst().orElse(null),
                 Arrays.stream(Gebruikersstatus.values()).filter(g -> g.toString().equals(gebruikersstatus)).findFirst().orElse(null),
-                profielfoto);
+                profielfoto, 0);
     }
     //endregion
 
@@ -113,7 +114,7 @@ public class Gebruiker implements IGebruiker {
         this.gebruikersnaam = gebruikersnaam;
     }
 
-    private void setGebruikersprofielen(Gebruikersprofielen gebruikersprofielen) {
+    private void setGebruikersprofiel(Gebruikersprofielen gebruikersprofielen) {
         if (gebruikersprofielen == null)
             throw new GebruikerException();
         if (Arrays.stream(Gebruikersprofielen.values()).filter(e -> e == gebruikersprofielen).findFirst().orElse(null) == null) {
@@ -133,6 +134,20 @@ public class Gebruiker implements IGebruiker {
 
     public void setVerwijderd(boolean verwijderd) {
         this.verwijderd = verwijderd;
+    }
+
+    private void setAantalInlogPogingen(int aantalInlogPogingen) {
+        if (aantalInlogPogingen < 0){
+            throw new GebruikerException();
+        }
+        if (aantalInlogPogingen > 3){
+            setStatus(Gebruikersstatus.GEBLOKKEERD);
+        }
+        this.aantalInlogPogingen = aantalInlogPogingen;
+    }
+
+    public void addInlogPoging(){
+        setAantalInlogPogingen(aantalInlogPogingen+1);
     }
     //endregion
 

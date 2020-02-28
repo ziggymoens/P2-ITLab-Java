@@ -94,11 +94,11 @@ public class SessieBeherenController extends BorderPane {
     }
 
     private void listView (){
-        choiceBoxSessie.setItems(FXCollections.observableArrayList(domeinController.getISessieKalenders()));
-        choiceBoxSessie.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessieKalender>() {
+        choiceBoxSessie.setItems(FXCollections.observableArrayList(domeinController.geefAcademiejaren()));
+        choiceBoxSessie.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
-            public void changed(ObservableValue<? extends ISessieKalender> observableValue, ISessieKalender iSessieKalender, ISessieKalender t1) {
-                sessies = FXCollections.observableArrayList(t1.getISessieList());
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                sessies = FXCollections.observableArrayList(domeinController.geefISessiesAcademiejaar(Integer.valueOf(t1)));
                 listView.setItems(sessies);
                 listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
                 listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessie>() {

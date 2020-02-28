@@ -1,12 +1,16 @@
 package domein;
 
 
+import domein.enums.MediaTypes;
 import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.ILokaal;
 import domein.interfacesDomein.IMedia;
 import domein.interfacesDomein.ISessie;
+import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -18,33 +22,43 @@ public class DomeinController {
     private Sessie huidigeSessie;
 
     private Gebruiker huidigeGebruiker;
+
+    private int academiejaar;
     //endregion
 
     //region Constructor
     public DomeinController() {
-        int academiejaar = 0;
-        int jaar = LocalDate.now().getYear() - 2000;
-        if (LocalDate.now().getMonthValue() < 9) {
-            academiejaar = Integer.parseInt(String.format("%d%d", jaar - 1, jaar));
-        } else {
-            academiejaar = Integer.parseInt(String.format("%d%d", jaar, jaar + 1));
-        }
-        huidigeSessieKalender = new SessieKalender(academiejaar);
+        this.academiejaar = geefAcademiejaar(LocalDate.now());
+        huidigeSessieKalender = new SessieKalender();
         SessieKalenderDataInit sessieKalenderDataInit = new SessieKalenderDataInit(huidigeSessieKalender);
     }
 
     private DomeinController(int academiejaar) {
-        huidigeSessieKalender = new SessieKalender(academiejaar);
+        this.academiejaar = academiejaar;
+        huidigeSessieKalender = new SessieKalender();
     }
     //endregion
 
-    //methodes
-    //region SessieKalender
+    private int geefAcademiejaar(LocalDate date) {
+        int jaar = LocalDate.now().getYear() - 2000;
+        int aj = 0;
+        if (LocalDate.now().getMonthValue() < 9) {
+            aj = Integer.parseInt(String.format("%d%d", jaar - 1, jaar));
+        } else {
+            aj = Integer.parseInt(String.format("%d%d", jaar, jaar + 1));
+        }
+        return aj;
+    }
+
+    //region Academiejaar
+    public List<String> geefAcademiejaren() {
+        return huidigeSessieKalender.geefAlleAcademieJaren();
+    }
     //endregion
 
     //region Sessie
-    public List<ISessie> geefISessieHuidigeKalender() {
-        return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender();
+    public List<ISessie> geefISessiesHuidigeKalender() {
+        return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender(academiejaar);
     }
 
     public void maakSessieAan() {
@@ -56,12 +70,37 @@ public class DomeinController {
     public void verwijderSessie(ISessie sessie) {
         huidigeSessieKalender.verwijderSessie((Sessie) sessie);
     }
+
+    public ISessie geefISessie() {
+        return (ISessie) huidigeSessie;
+    }
+
+    public List<ISessie> geefISessiesAcademiejaar(Integer academiejaar) {
+        return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender(academiejaar);
+    }
     //endregion
 
     //region Gebruiker
+    public IGebruiker geefIGebruiker() {
+        return (IGebruiker) huidigeGebruiker;
+    }
+
     public List<IGebruiker> geefIGebruikers() {
         return (List<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers();
     }
+
+    public List<ISessie> geefISessieGebruiker() {
+        return (List<ISessie>) (Object) huidigeSessieKalender.geefSessiesVanGebruiker(huidigeGebruiker);
+    }
+
+    public void setHuidigeGebruiker(String gebruikersnaam) {
+        huidigeGebruiker = huidigeSessieKalender.geefGebruikerById(gebruikersnaam);
+    }
+
+    public void verwijderGebruiker(IGebruiker gebruiker) {
+        huidigeSessieKalender.verwijderGebruiker((Gebruiker) gebruiker);
+    }
+
     //endregion
 
     //region Lokaal
@@ -75,16 +114,28 @@ public class DomeinController {
         return (List<IMedia>) (Object) huidigeSessieKalender.geefAlleMediaVanSessie(sessie);
     }
 
-    public IGebruiker geefIGebruiker() {
-        return (IGebruiker) huidigeGebruiker;
-    }
 
     public List<ISessie> geefSessiesOpDag(LocalDate date) {
-        return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender().stream().filter(s -> s.getStartSessie().getDayOfYear() == date.getDayOfYear()).collect(Collectors.toList());
+        return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender(geefAcademiejaar(date)).stream().filter(s -> s.getStartSessie().getDayOfYear() == date.getDayOfYear()).collect(Collectors.toList());
     }
 
-
+    public void maakNieuweMedia(ISessie sessie, IGebruiker gebruiker, String type, String locatie) {
+        huidigeSessieKalender.voegMediaToe(new Media((Gebruiker) gebruiker, locatie, type), (Sessie) sessie);
+    }
     //endregion
+
+    //region Aankondiging
+    public void addAankondigingSessie(String sessieId, String gebruikersnaam, String text, boolean automatischeHerinnering, int dagenHerinnering) {
+        Aankondiging aankondiging = new Aankondiging(huidigeSessieKalender.geefGebruikerById(gebruikersnaam), LocalDateTime.now(), text);
+        huidigeSessieKalender.voegAankondigingToe(aankondiging, huidigeSessieKalender.geefSessieById(sessieId));
+        if (automatischeHerinnering) {
+            huidigeSessieKalender.voegHerinneringToe(new Herinnering(dagenHerinnering), aankondiging);
+        }
+    }
+
+    public List<String> geefMediaTypes() {
+        return Arrays.stream(MediaTypes.values()).map(Enum::toString).collect(Collectors.toList());
+    }
     //endregion
 }
 
