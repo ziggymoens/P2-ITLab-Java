@@ -26,7 +26,7 @@ public class SessieKalenderDataInit {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] lokaal = line.split(";");
-                sessieKalender.voegLokaalToe(new Lokaal(lokaal[0], Integer.parseInt(lokaal[1])));
+                sessieKalender.voegLokaalToe(new Lokaal(lokaal[0], lokaal[1],Integer.parseInt(lokaal[2])));
             }
         } catch (IOException e) {
             e.printStackTrace();

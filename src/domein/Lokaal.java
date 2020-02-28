@@ -1,11 +1,13 @@
 package domein;
 
+import domein.enums.LokaalTypes;
 import domein.interfacesDomein.ILokaal;
 import exceptions.domein.LokaalException;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Arrays;
 import java.util.Objects;
 
 @Entity
@@ -19,6 +21,7 @@ public class Lokaal implements ILokaal {
 
     private int aantalPlaatsen;
     private boolean verwijderd = false;
+    private LokaalTypes type;
     //endregion
 
     //region Constructor
@@ -35,8 +38,9 @@ public class Lokaal implements ILokaal {
      * @param lokaalCode     (String) ==> de code van het lokaal
      * @param aantalPlaatsen (int) ==> de maximale capaciteit van het lokaal
      */
-    public Lokaal(String lokaalCode, int aantalPlaatsen) {
+    public Lokaal(String lokaalCode, String type, int aantalPlaatsen) {
         setLokaalCode(lokaalCode);
+        setLokaalType(type);
         setAantalPlaatsen(aantalPlaatsen);
     }
     //endregion
@@ -58,6 +62,10 @@ public class Lokaal implements ILokaal {
 
     public void setVerwijderd(boolean verwijderd) {
         this.verwijderd = verwijderd;
+    }
+
+    public void setLokaalType(String type) {
+        this.type = Arrays.stream(LokaalTypes.values()).filter(t -> t.toString().equals(type)).findFirst().orElse(null);
     }
 
     //endregion

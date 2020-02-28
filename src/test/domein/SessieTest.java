@@ -20,7 +20,7 @@ class SessieTest {
     @BeforeAll
     private static void before(){
         gebruiker = new Gebruiker("Test Persoon", "123456tp", "VERANTWOORDELIJKE", "ACTIEF");
-        lokaal = new Lokaal("GSCB.3.049", 50);
+        lokaal = new Lokaal("GSCB.3.049","AUDITORIUM", 50);
     }
 
     private static Stream<Arguments> opsommingGeldigeWaarden(){
