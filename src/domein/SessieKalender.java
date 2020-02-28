@@ -109,7 +109,7 @@ public class SessieKalender {
     }
 
     public List<Sessie> geefSessiesVanGebruiker(Gebruiker gebruiker) {
-        return (List<Sessie>) em.createQuery("select s from Sessie s where verantwoordelijke = ?1").setParameter(1, gebruiker).getResultList();
+        return (List<Sessie>)em.createQuery("select s from Sessie s where verantwoordelijke = ?1").setParameter(1, gebruiker).getResultList();
     }
     //endregion
 

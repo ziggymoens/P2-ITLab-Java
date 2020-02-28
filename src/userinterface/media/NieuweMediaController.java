@@ -122,7 +122,7 @@ public class NieuweMediaController extends AnchorPane {
         if (domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("VERANTWOORDELIJKE")) {
             sessie.setItems(FXCollections.observableArrayList(domeinController.geefISessiesHuidigeKalender()));
         } else {
-            sessie.setItems(FXCollections.observableArrayList((domeinController.geefISessieGebruiker())));
+            sessie.setItems(FXCollections.observableArrayList((domeinController.geefISessiesHuidigeGebruiker())));
         }
         gebruiker.setItems(FXCollections.observableArrayList(domeinController.geefIGebruikers()));
         type.setItems(FXCollections.observableArrayList(domeinController.geefMediaTypes()));

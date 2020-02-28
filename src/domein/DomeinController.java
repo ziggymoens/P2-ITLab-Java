@@ -6,6 +6,8 @@ import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.ILokaal;
 import domein.interfacesDomein.IMedia;
 import domein.interfacesDomein.ISessie;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -60,6 +62,10 @@ public class DomeinController {
         return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender(academiejaar);
     }
 
+    public List<ISessie> geefISessiesAcademiejaar(Integer academiejaar) {
+        return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender(academiejaar);
+    }
+
     public void maakSessieAan(String[] sessie) {
         //iterator
         huidigeSessieKalender.voegSessieToe(new Sessie(sessie[0], LocalDateTime.parse(sessie[1]), LocalDateTime.parse(sessie[2]), huidigeSessieKalender.geefLokaalById(sessie[3]), huidigeSessieKalender.geefGebruikerById(sessie[4])));
@@ -79,12 +85,17 @@ public class DomeinController {
         return (ISessie) huidigeSessie;
     }
 
-    public List<ISessie> geefISessiesAcademiejaar(Integer academiejaar) {
-        return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender(academiejaar);
-    }
-
     public void setHuidigeSessie(ISessie t1) {
         this.setHuidigeSessie((Sessie)t1);
+    }
+
+    public ObservableList<ISessie> geefObservableListISessiesHuidigeGebruiker(){
+        List <ISessie> ISessie = (List<ISessie>)(Object)huidigeSessieKalender.geefSessiesVanGebruiker(huidigeGebruiker);
+        return FXCollections.observableArrayList(ISessie);
+    }
+
+    public List<ISessie> geefISessiesHuidigeGebruiker() {
+        return (List<ISessie>) (Object) huidigeSessieKalender.geefSessiesVanGebruiker(huidigeGebruiker);
     }
     //endregion
 
@@ -95,10 +106,6 @@ public class DomeinController {
 
     public List<IGebruiker> geefIGebruikers() {
         return (List<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers();
-    }
-
-    public List<ISessie> geefISessieGebruiker() {
-        return (List<ISessie>) (Object) huidigeSessieKalender.geefSessiesVanGebruiker(huidigeGebruiker);
     }
 
     public void setHuidigeGebruiker(String gebruikersnaam) {

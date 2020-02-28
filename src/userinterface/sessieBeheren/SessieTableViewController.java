@@ -2,42 +2,37 @@ package userinterface.sessieBeheren;
 
 import domein.DomeinController;
 import domein.interfacesDomein.ISessie;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 import userinterface.MAIN.MainScreenController;
 
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 
-public class SessieBeherenController extends BorderPane {
+public class SessieTableViewController extends BorderPane {
     private DomeinController domeinController;
     @FXML
-    private TextField naamverantwoordelijke, titel, start, eind, plaatsen;
+    private Button nieuweSessie, verwijderSessie;
     @FXML
-    private Button meer, bewerken, verwijderen, nieuw;
+    private TableView tableView;
     @FXML
-    private ListView<ISessie> listView;
+    private ChoiceBox<String> choiceBoxKalenderJaar;
     @FXML
-    private ChoiceBox<String> choiceBoxSessie;
+    private CheckBox nietGeopend, geopend, open, aalst, gent;
+    @FXML
+    private TextField zoeken;
 
     private ObservableList<ISessie> sessies;
 
-    private ISessie sessie;
     private MainScreenController mainScreenController;
 
-    public SessieBeherenController(DomeinController domeinController, MainScreenController mainScreenController) {
+    public SessieTableViewController(DomeinController domeinController, MainScreenController mainScreenController) {
         this.domeinController = domeinController;
         this.mainScreenController = mainScreenController;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("SessieBeheren.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("SessieTableView.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try {
@@ -46,54 +41,35 @@ public class SessieBeherenController extends BorderPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
-        listView();
-        vulSchermOp();
+        //listView();
+        vulTable();
+        nieuweSessie.setOnAction(this :: nieuweSessie);
+        verwijderSessie.setOnAction(this::verwijderSessie);
     }
 
-    public void vulSchermOp() {
-        meer.setOnAction(this::meer);
-        bewerken.setOnAction(this::bewerken);
-        verwijderen.setOnAction(this::verwijderen);
-        nieuw.setOnAction(this::nieuw);
-        mainScreenController.vulSchermIn(this);
+    public void vulTable(){
+        tableView.setItems(domeinController.geefObservableListISessiesHuidigeGebruiker());
     }
 
     private void geefDetails(ISessie sessie) {
+        /*
         naamverantwoordelijke.setText(sessie.getVerantwoordelijke().getNaam());
         titel.setText(sessie.getTitel());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         start.setText(sessie.getStartSessie().format(formatter));
         eind.setText(sessie.getEindeSessie().format(formatter));
         plaatsen.setText(String.valueOf(sessie.isGeopend()?sessie.getAantalAanwezigen():sessie.getBeschikbarePlaatsen()));
+   */
     }
 
-    private void nieuw(ActionEvent actionEvent) {
-        Scene scene = new Scene (new SessieBewerkenController(domeinController/*,this*/));
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
+    private void nieuweSessie(ActionEvent actionEvent) {
+
     }
 
-    private void verwijderen(ActionEvent actionEvent) {
-        domeinController.verwijderSessie(sessie);
-        vulSchermOp();
+    private void verwijderSessie(ActionEvent actionEvent) {
     }
 
-    private void bewerken(ActionEvent actionEvent) {
-        Scene scene = new Scene (new SessieBewerkenController(sessie, domeinController/*,this*/));
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    private void meer(ActionEvent actionEvent) {
-        Scene scene = new Scene(new InfoSessieController(sessie, domeinController));
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    private void listView (){
+    /*private void listView (){
         choiceBoxSessie.setItems(FXCollections.observableArrayList(domeinController.geefAcademiejaren()));
         choiceBoxSessie.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -111,5 +87,5 @@ public class SessieBeherenController extends BorderPane {
             }
         });
         choiceBoxSessie.setValue(choiceBoxSessie.getItems().get(0));
-    }
+    }*/
 }
