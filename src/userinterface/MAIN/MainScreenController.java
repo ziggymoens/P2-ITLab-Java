@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 import userinterface.GebruikerBeheren.InfoGebruikerController;
 import userinterface.kalender.KalenderController;
 import userinterface.media.NieuweMediaController;
-import userinterface.sessieBeheren.SessieBeherenController;
+import userinterface.sessieBeheren.SessieTableViewController;
 import userinterface.sessieBeheren.SessieBewerkenController;
 
 import java.io.IOException;
@@ -76,17 +76,17 @@ public class MainScreenController extends AnchorPane {
     }
 
     private void openSessie(ActionEvent actionEvent) {
-        new SessieBeherenController(domeinController, this);
+        setCenter(new SessieTableViewController(domeinController, this));
     }
 
     private void nieuweSessie(ActionEvent actionEvent){
         new SessieBewerkenController(domeinController);
-        new SessieBeherenController(domeinController, this);
+        new SessieTableViewController(domeinController, this);
 
     }
 
     private void verwijderSessie(ActionEvent actionEvent){
-        new SessieBeherenController(domeinController, this);
+        new SessieTableViewController(domeinController, this);
     }
 
     private void gebruikerOpenGebruiker(ActionEvent actionEvent){

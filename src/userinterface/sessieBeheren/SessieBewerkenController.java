@@ -40,7 +40,7 @@ public class SessieBewerkenController extends BorderPane {
 
         this.domeinController = domeinController;
         //this.sessieBeherenController = sbc;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("SessieBewerken.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("SessieAanmaken.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try {

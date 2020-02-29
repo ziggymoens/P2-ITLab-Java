@@ -447,4 +447,8 @@ public class Sessie implements ISessie {
         inschrijvingen.remove(inschrijvingOud);
     }
 
+    public String[] toArray (){
+          String [] arr = new String []{titel, startSessie.toString(), eindeSessie.toString(),Integer.toString(maximumAantalPlaatsen), Integer.toString(academiejaar), Boolean.toString(geopend)};
+        return arr;
+    }
 }
