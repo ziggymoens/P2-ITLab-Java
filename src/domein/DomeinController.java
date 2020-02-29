@@ -85,6 +85,8 @@ public class DomeinController {
         return (ISessie) huidigeSessie;
     }
 
+    public ISessie geefISessieById(String id){ return (ISessie) huidigeSessieKalender.geefSessieById(id); }
+
     public void setHuidigeSessie(ISessie t1) {
         this.setHuidigeSessie((Sessie)t1);
     }
@@ -107,6 +109,10 @@ public class DomeinController {
 
     public List<IGebruiker> geefIGebruikers() {
         return (List<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers();
+    }
+
+    public List<ISessie> geefISessieGebruiker() {
+        return (List<ISessie>) (Object) huidigeSessieKalender.geefSessiesVanGebruiker(huidigeGebruiker);
     }
 
     public void setHuidigeGebruiker(String gebruikersnaam) {

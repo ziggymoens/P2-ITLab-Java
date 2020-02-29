@@ -2,6 +2,7 @@ package userinterface.MAIN;
 
 import domein.DomeinController;
 import domein.interfacesDomein.IGebruiker;
+import domein.interfacesDomein.ISessie;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,7 @@ import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import userinterface.GebruikerBeheren.InfoGebruikerController;
+import userinterface.aankondigingPlaatsen.AankondigingPlaatsenController;
 import userinterface.kalender.KalenderController;
 import userinterface.media.NieuweMediaController;
 import userinterface.sessieBeheren.SessieTableViewController;
@@ -67,6 +69,7 @@ public class MainScreenController extends AnchorPane {
         addMedia.setOnAction(this::addMedia);
         newSessie.setOnAction(this::nieuweSessie);
         deleteSessie.setOnAction(this::verwijderSessie);
+        addAankondiging.setOnAction(this::openAankondiging);
         mainTabBP.setRight(new KalenderController(domeinController, mainTabBP));
     }
 
@@ -104,5 +107,15 @@ public class MainScreenController extends AnchorPane {
 
     public void kalenderTonen(ActionEvent event){
         mainTabBP.setCenter(new KalenderController(domeinController, mainTabBP));
+    }
+
+    public void openAankondiging(ActionEvent event){
+        ISessie sessie = domeinController.geefISessieById("S1920-000002");
+        AankondigingPlaatsenController aankondigingPlaatsenController = new AankondigingPlaatsenController(domeinController, sessie);
+        Scene scene = new Scene(aankondigingPlaatsenController);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+        aankondigingPlaatsenController.setStage(stage);
     }
 }
