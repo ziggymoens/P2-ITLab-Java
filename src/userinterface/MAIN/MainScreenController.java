@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import userinterface.GebruikerBeheren.InfoGebruikerController;
@@ -66,6 +67,7 @@ public class MainScreenController extends AnchorPane {
         addMedia.setOnAction(this::addMedia);
         newSessie.setOnAction(this::nieuweSessie);
         deleteSessie.setOnAction(this::verwijderSessie);
+        mainTabBP.setRight(new KalenderController(domeinController, mainTabBP));
     }
 
 
@@ -76,7 +78,10 @@ public class MainScreenController extends AnchorPane {
     }
 
     private void openSessie(ActionEvent actionEvent) {
-        setCenter(new SessieTableViewController(domeinController, this));
+        Tab tab = new Tab("Sessies");
+        tab.setClosable(true);
+        tab.setContent(new SessieTableViewController(domeinController, this));
+        tabPane.getTabs().add(tab);
     }
 
     private void nieuweSessie(ActionEvent actionEvent){
