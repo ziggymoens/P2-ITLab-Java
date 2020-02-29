@@ -14,9 +14,11 @@ public interface IGebruiker {
 
     Gebruikersprofielen getGebruikersprofiel();
 
-    String getProfielfoto();
+    byte[] getProfielfoto();
 
     LocalDateTime getLaatstIngelogd();
+
+    String getWachtwoord();
 
     //List<IFeedback> getIFeedbackList();
 

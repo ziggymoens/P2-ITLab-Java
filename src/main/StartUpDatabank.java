@@ -1,6 +1,7 @@
 package main;
 
 import domein.DomeinController;
+import domein.PasswordUtils;
 import domein.interfacesDomein.ILokaal;
 import domein.interfacesDomein.IMedia;
 import domein.interfacesDomein.ISessie;
@@ -20,5 +21,6 @@ public class StartUpDatabank {
         System.out.println(domeinController.geefISessieGebruiker().stream().map(ISessie::toString_Kalender).collect(Collectors.joining("\n")));
 
         System.out.println(domeinController.geefLokalenVanCampus("schoonmeersen").stream().map(ILokaal::getLokaalCode).collect(Collectors.joining("\n")));
+        System.out.println(PasswordUtils.getSalt(60));
     }
 }

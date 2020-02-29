@@ -15,10 +15,12 @@ public class SessieKalenderDataInit {
     private final File herinnering = new File("src/csv/Herinneringen.csv");
     private final File inschrijving = new File("src/csv/Inschrijvingen.csv");
     private final File media = new File("src/csv/Media.csv");
+    private final PasswordUtils passwordUtils;
 
     private SessieKalender sessieKalender;
 
     public SessieKalenderDataInit(SessieKalender sessieKalender){
+        passwordUtils = new PasswordUtils();
         this.sessieKalender = sessieKalender;
 
         try {
@@ -38,7 +40,7 @@ public class SessieKalenderDataInit {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] gebruiker = line.split(";");
-                sessieKalender.voegGebruikerToe(new Gebruiker(gebruiker[1], gebruiker[0], gebruiker[2], gebruiker[3]));
+                sessieKalender.voegGebruikerToe(new Gebruiker(gebruiker[1], gebruiker[0], gebruiker[2], gebruiker[3], "storage/profielfotos/profielfoto.png", PasswordUtils.generateSecurePassword(gebruiker[4])));
             }
         } catch (IOException e) {
             e.printStackTrace();

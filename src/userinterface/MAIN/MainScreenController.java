@@ -7,10 +7,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import userinterface.GebruikerBeheren.InfoGebruikerController;
@@ -20,14 +20,24 @@ import userinterface.sessieBeheren.SessieBeherenController;
 import userinterface.sessieBeheren.SessieBewerkenController;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 
-public class MainScreenController extends BorderPane {
+public class MainScreenController extends AnchorPane {
     @FXML
     private MenuItem newSessie, openSessie, deleteSessie,addAankondiging, addFeedback, addInschrijving, addMedia, gebruikerNieuwegebruiker, gebruikerOpenGebruiker, gebruikerVerwijderGebruiker, about, help, gebruikerGegevens, gebruikerInstellingen, gebruikerUitloggen, gebruikerAfsluiten, openKalender;
     @FXML
     private ImageView profielFoto;
     @FXML
-    private Label gebruikersnaam;
+    private Label gebruikersnaam, laatst;
+    @FXML
+    private TabPane tabPane;
+    @FXML
+    private Tab mainTab;
+    @FXML
+    private BorderPane mainTabBP;
+    @FXML
+    private Menu menuAccount;
+
 
     private DomeinController domeinController;
     private IGebruiker gebruiker;
@@ -43,9 +53,12 @@ public class MainScreenController extends BorderPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
+        menuAccount.setText(String.format("Ingelogd als: %s", domeinController.geefIGebruiker().getNaam()));
         gebruiker = domeinController.geefIGebruiker();
         gebruikersnaam.setText(gebruiker.getNaam());
         Image image = new Image("storage/profielfotos/profielfoto.png");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        laatst.setText(domeinController.geefIGebruiker().getLaatstIngelogd().format(formatter));
         this.profielFoto.setImage(image);
         openSessie.setOnAction(this::openSessie);
         openKalender.setOnAction(this::kalenderTonen);
@@ -53,8 +66,8 @@ public class MainScreenController extends BorderPane {
         addMedia.setOnAction(this::addMedia);
         newSessie.setOnAction(this::nieuweSessie);
         deleteSessie.setOnAction(this::verwijderSessie);
-
     }
+
 
     private void addMedia(ActionEvent event) {
         Stage stage = new Stage();
@@ -81,10 +94,10 @@ public class MainScreenController extends BorderPane {
     }
 
     public void vulSchermIn(Node node){
-        this.setCenter(node);
+        mainTabBP.setCenter(node);
     }
 
     public void kalenderTonen(ActionEvent event){
-        this.setCenter(new KalenderController(domeinController, this));
+        mainTabBP.setCenter(new KalenderController(domeinController, mainTabBP));
     }
 }

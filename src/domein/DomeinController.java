@@ -105,6 +105,8 @@ public class DomeinController {
         huidigeGebruiker = huidigeSessieKalender.geefGebruikerById(gebruikersnaam);
     }
 
+
+
     public void verwijderGebruiker(IGebruiker gebruiker) {
         huidigeSessieKalender.verwijderGebruiker((Gebruiker) gebruiker);
     }
@@ -129,7 +131,7 @@ public class DomeinController {
 
 
     public List<ISessie> geefSessiesOpDag(LocalDate date) {
-        return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender(geefAcademiejaar(date)).stream().filter(s -> s.getStartSessie().getDayOfYear() == date.getDayOfYear()).collect(Collectors.toList());
+        return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender(geefAcademiejaar(date)).stream().filter(s -> s.getStartSessie().getDayOfYear() == date.getDayOfYear() && s.getStartSessie().getYear()==date.getYear()).collect(Collectors.toList());
     }
 
     public void maakNieuweMedia(ISessie sessie, IGebruiker gebruiker, String type, String locatie) {
@@ -148,6 +150,10 @@ public class DomeinController {
 
     public List<String> geefMediaTypes() {
         return Arrays.stream(MediaTypes.values()).map(Enum::toString).collect(Collectors.toList());
+    }
+
+    public void huidigeGebruikerIngelogd() {
+        huidigeGebruiker.setIngelogd();
     }
     //endregion
 }

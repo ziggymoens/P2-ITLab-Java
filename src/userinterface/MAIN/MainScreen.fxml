@@ -11,12 +11,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <MenuBar layoutX="1058.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" prefWidth="342.0">
          <menus>
-            <Menu mnemonicParsing="false" text="ingelogd als: xxx">
+            <Menu fx:id="menuAccount" mnemonicParsing="false" text="ingelogd als: xxx">
                <items>
                   <MenuItem disable="true" mnemonicParsing="false">
                      <graphic>
@@ -27,7 +28,12 @@
                                     <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
                                  </HBox.margin>
                               </ImageView>
-                              <Label fx:id="gebruikersnaam" alignment="CENTER" text="Label" textAlignment="CENTER" />
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label fx:id="gebruikersnaam" alignment="CENTER" text="Label" textAlignment="CENTER" />
+                                    <Label fx:id="laatst" text="Label" />
+                                 </children>
+                              </VBox>
                            </children>
                         </HBox>
                      </graphic>
@@ -77,13 +83,13 @@
             </Menu>
          </menus>
       </MenuBar>
-      <TabPane layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="875.0" minWidth="1400.0" prefHeight="875.0" prefWidth="1400.0">
+      <TabPane fx:id="tabPane" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="875.0" minWidth="1400.0" prefHeight="875.0" prefWidth="1400.0">
         <tabs>
-          <Tab closable="false" text="IT-Lab">
+          <Tab fx:id="mainTab" closable="false" text="IT-Lab">
                <content>
-                  <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="837.0" minWidth="1400.0" prefHeight="837.0" prefWidth="1400.0" />
+                  <BorderPane fx:id="mainTabBP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="837.0" minWidth="1400.0" prefHeight="837.0" prefWidth="1400.0" />
                </content></Tab>
         </tabs>
       </TabPane>
    </children>
-</AnchorPane>
+</fx:root>

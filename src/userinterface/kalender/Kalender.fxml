@@ -8,72 +8,73 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<fx:root prefHeight="850.0" prefWidth="1280.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="700.0" prefWidth="900.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <GridPane fx:id="gridpane" gridLinesVisible="true" layoutX="29.0" layoutY="49.0" prefHeight="801.0" prefWidth="1226.0" style="-fx-border-color: black;">
+      <GridPane fx:id="gridpane" gridLinesVisible="true" layoutX="15.0" layoutY="48.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="875.0" style="-fx-border-color: black;">
         <columnConstraints>
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="70.0" prefWidth="70.0" />
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="70.0" prefWidth="70.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="70.0" prefWidth="70.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="70.0" prefWidth="70.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="70.0" prefWidth="70.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="70.0" prefWidth="70.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="70.0" prefWidth="70.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="125.0" prefWidth="125.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="125.0" prefWidth="125.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="125.0" prefWidth="125.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="125.0" prefWidth="125.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="125.0" prefWidth="125.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="125.0" prefWidth="125.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="125.0" prefWidth="125.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="195.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="195.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="199.0377960205078" minHeight="125.0" prefHeight="125.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="173.27322387695312" minHeight="125.0" prefHeight="125.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="197.56768798828125" minHeight="125.0" prefHeight="125.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="305.56768798828125" minHeight="125.0" prefHeight="125.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="262.9110107421875" minHeight="125.0" prefHeight="125.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="262.9110107421875" minHeight="125.0" prefHeight="125.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="-Infinity" minHeight="0.0" prefHeight="40.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="-Infinity" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" text="maandag" GridPane.rowIndex="1">
+            <Label alignment="CENTER" text="maandag">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="dinsdag" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label text="dinsdag" GridPane.columnIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Woensdag" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Label text="woensdag" GridPane.columnIndex="2">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Donderdag" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <Label text="donderdag" GridPane.columnIndex="3">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="vrijdag" GridPane.columnIndex="4" GridPane.rowIndex="1">
+            <Label text="vrijdag" GridPane.columnIndex="4">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="zaterdag" GridPane.columnIndex="5" GridPane.rowIndex="1">
+            <Label text="zaterdag" GridPane.columnIndex="5">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="zondag" GridPane.columnIndex="6" GridPane.rowIndex="1">
+            <Label text="zondag" GridPane.columnIndex="6">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
          </children>
       </GridPane>
-      <Label fx:id="naam" layoutX="593.0" layoutY="4.0" text="maand">
+      <Label fx:id="naam" alignment="CENTER" contentDisplay="CENTER" layoutX="265.0" layoutY="5.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="375.0" text="maand">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <Button fx:id="vorig" layoutX="31.0" layoutY="12.0" mnemonicParsing="false" text="Vorige" />
-      <Button fx:id="volgend" layoutX="1183.0" layoutY="12.0" mnemonicParsing="false" text="Volgende" />
+      <Button fx:id="vorig" layoutX="58.0" layoutY="13.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="125.0" text="&lt;   Vorige" />
+      <Button fx:id="volgend" layoutX="718.0" layoutY="14.0" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="125.0" text="Volgende   &gt;" />
+      <Button fx:id="vorigJaar" alignment="CENTER" layoutX="15.0" layoutY="13.0" mnemonicParsing="false" text="&lt;&lt;" />
+      <Button fx:id="volgendJaar" alignment="CENTER" layoutX="852.0" layoutY="14.0" mnemonicParsing="false" text="&gt;&gt;" />
    </children>
 </fx:root>

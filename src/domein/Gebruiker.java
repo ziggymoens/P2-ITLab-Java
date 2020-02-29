@@ -7,8 +7,7 @@ import exceptions.domein.GebruikerException;
 import language.Talen;
 
 import javax.persistence.*;
-import java.awt.*;
-import java.time.LocalDate;
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Objects;
@@ -24,10 +23,11 @@ public class Gebruiker implements IGebruiker {
 
     private String naam;
     private Gebruikersprofielen gebruikersprofiel;
+    private String wachtwoord;
     private Gebruikersstatus status;
-    private String profielfoto;
+    private byte[] profielfoto;
     private int aantalInlogPogingen;
-    private LocalDateTime laatstIngelogd;
+    private LocalDateTime laatstIngelogd = LocalDateTime.now().minusDays(4);
     private boolean verwijderd = false;
     //region Constructor
 
@@ -46,13 +46,14 @@ public class Gebruiker implements IGebruiker {
      * @param gebruikersstatus  (Gebruikersprofiel) ==> Inlogstatus van de gebruiker
      * @param profielfoto       (Media) ==> profielfoto van de gebruiker
      */
-    public Gebruiker(String naam, String gebruikersnaam, Gebruikersprofielen gebruikersprofiel, Gebruikersstatus gebruikersstatus, String profielfoto, int aantalInlogPogingen) {
+    public Gebruiker(String naam, String gebruikersnaam, Gebruikersprofielen gebruikersprofiel, Gebruikersstatus gebruikersstatus, String profielfoto, int aantalInlogPogingen, String wachtwoord) {
         setNaam(naam);
         setGebruikersnaam(gebruikersnaam);
         setGebruikersprofiel(gebruikersprofiel);
         setStatus(gebruikersstatus);
-        setProfielfoto(profielfoto);
+        setProfielfoto("storage/profielfotos/profielfoto.png");
         setAantalInlogPogingen(aantalInlogPogingen);
+        setWachtwoord(wachtwoord);
     }
 
     /**
@@ -64,7 +65,7 @@ public class Gebruiker implements IGebruiker {
      * @param gebruikersstatus  (Gebruikersprofiel) ==> Inlogstatus van de gebruiker
      */
     public Gebruiker(String naam, String gebruikersnaam, Gebruikersprofielen gebruikersprofiel, Gebruikersstatus gebruikersstatus) {
-        this(naam, gebruikersnaam, gebruikersprofiel, gebruikersstatus, null, 0);
+        this(naam, gebruikersnaam, gebruikersprofiel, gebruikersstatus, "storage/profielfotos/profielfoto.png", 0, null);
     }
 
     /**
@@ -79,7 +80,7 @@ public class Gebruiker implements IGebruiker {
         this(naam, gebruikersnaam,
                 Arrays.stream(Gebruikersprofielen.values()).filter(g -> g.toString().equals(gebruikersprofiel)).findFirst().orElse(null),
                 Arrays.stream(Gebruikersstatus.values()).filter(g -> g.toString().equals(gebruikersstatus)).findFirst().orElse(null),
-                null, 0);
+                "storage/profielfotos/profielfoto.png", 0, null);
     }
 
     /**
@@ -91,17 +92,19 @@ public class Gebruiker implements IGebruiker {
      * @param gebruikersstatus  (String) ==> Inlogstatus van de gebruiker
      * @param profielfoto       (String) ==> profielfoto van de gebruiker
      */
-    public Gebruiker(String naam, String gebruikersnaam, String gebruikersprofiel, String gebruikersstatus, String profielfoto) {
+    public Gebruiker(String naam, String gebruikersnaam, String gebruikersprofiel, String gebruikersstatus, String profielfoto, String wachtwoord) {
         this(naam, gebruikersnaam,
                 Arrays.stream(Gebruikersprofielen.values()).filter(g -> g.toString().equals(gebruikersprofiel)).findFirst().orElse(null),
                 Arrays.stream(Gebruikersstatus.values()).filter(g -> g.toString().equals(gebruikersstatus)).findFirst().orElse(null),
-                profielfoto, 0);
+                profielfoto, 0, wachtwoord);
     }
     //endregion
 
     //region Setters
-    private void setProfielfoto(String profielfoto) {
-        this.profielfoto = profielfoto;
+    private void setProfielfoto(String path) {
+        File file = new File("storage/profielfotos/profielfoto.png");
+        byte[] bFile = new byte[(int) file.length()];
+        this.profielfoto = bFile;
     }
 
     private void setNaam(String naam) {
@@ -157,6 +160,11 @@ public class Gebruiker implements IGebruiker {
     public void setIngelogd(){
         this.laatstIngelogd = LocalDateTime.now();
     }
+
+    public void setWachtwoord(String wachtwoord) {
+        this.wachtwoord = wachtwoord;
+    }
+
     //endregion
 
     //region Getters
@@ -181,13 +189,18 @@ public class Gebruiker implements IGebruiker {
     }
 
     @Override
-    public String getProfielfoto() {
+    public byte[] getProfielfoto() {
         return profielfoto;
     }
 
     @Override
     public LocalDateTime getLaatstIngelogd() {
         return laatstIngelogd;
+    }
+
+    @Override
+    public String getWachtwoord() {
+        return wachtwoord;
     }
 
     //endregion
