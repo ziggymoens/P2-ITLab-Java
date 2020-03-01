@@ -15,37 +15,6 @@
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <MenuBar layoutX="1058.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" prefWidth="342.0">
-         <menus>
-            <Menu fx:id="menuAccount" mnemonicParsing="false" text="ingelogd als: xxx">
-               <items>
-                  <MenuItem disable="true" mnemonicParsing="false">
-                     <graphic>
-                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <ImageView fx:id="profielFoto" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                 <HBox.margin>
-                                    <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
-                                 </HBox.margin>
-                              </ImageView>
-                              <VBox prefHeight="200.0" prefWidth="100.0">
-                                 <children>
-                                    <Label fx:id="gebruikersnaam" alignment="CENTER" text="Label" textAlignment="CENTER" />
-                                    <Label fx:id="laatst" text="Label" />
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                     </graphic>
-                  </MenuItem>
-                  <MenuItem fx:id="gebruikerGegevens" mnemonicParsing="false" text="Gegevens..." />
-                  <MenuItem fx:id="gebruikerInstellingen" mnemonicParsing="false" text="Instellingen..." />
-                  <MenuItem fx:id="gebruikerUitloggen" mnemonicParsing="false" text="Uitloggen..." />
-                  <MenuItem fx:id="gebruikerAfsluiten" mnemonicParsing="false" text="Afsluiten" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
       <MenuBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="1080.0">
          <menus>
             <Menu mnemonicParsing="false" text="Sessie">
@@ -91,5 +60,36 @@
                </content></Tab>
         </tabs>
       </TabPane>
+      <MenuBar layoutX="1058.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" prefWidth="342.0">
+         <menus>
+            <Menu fx:id="menuAccount" mnemonicParsing="false" text="ingelogd als: xxx">
+               <items>
+                  <MenuItem disable="true" mnemonicParsing="false">
+                     <graphic>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fx:id="profielFoto" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label fx:id="gebruikersnaam" alignment="CENTER" text="Label" textAlignment="CENTER" />
+                                    <Label fx:id="laatst" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Label" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem fx:id="gebruikerGegevens" mnemonicParsing="false" text="Gegevens..." />
+                  <MenuItem fx:id="gebruikerInstellingen" mnemonicParsing="false" text="Instellingen..." />
+                  <MenuItem fx:id="gebruikerUitloggen" mnemonicParsing="false" text="Uitloggen..." />
+                  <MenuItem fx:id="gebruikerAfsluiten" mnemonicParsing="false" text="Afsluiten" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
    </children>
 </fx:root>

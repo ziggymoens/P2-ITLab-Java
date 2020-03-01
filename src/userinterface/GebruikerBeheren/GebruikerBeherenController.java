@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import userinterface.MAIN.MainScreenController;
@@ -44,7 +45,8 @@ public class GebruikerBeherenController extends BorderPane {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-        mainScreenController.vulSchermIn(this);
+        Tab tab = mainScreenController.maakNieuwTab(this);
+        tab.setText("Gebruiker beheren");
     }
 
 }

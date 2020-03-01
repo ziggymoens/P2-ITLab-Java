@@ -4,16 +4,17 @@ import domein.DomeinController;
 import domein.PasswordUtils;
 import domein.SessieKalender;
 import domein.interfacesDomein.IGebruiker;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import main.ITLab;
@@ -29,7 +30,7 @@ public class StartUpController extends AnchorPane {
     private Button inloggenButton;
 
     @FXML
-    private TextField gebruikersNaam;
+    private TextField gebruikersNaam, wachtwoordV;
 
     @FXML
     private PasswordField wachtwoord;
@@ -38,7 +39,10 @@ public class StartUpController extends AnchorPane {
     private ImageView logo;
 
     @FXML
-    private Label error;
+    private Label error, errorGebruikersnaam, errorWachtwoord;
+
+    @FXML
+    private CheckBox tonen;
 
     public StartUpController(DomeinController domeinController) {
         this.domeinController = domeinController;
@@ -53,26 +57,79 @@ public class StartUpController extends AnchorPane {
         }
         Image image = new Image("storage/images/logoHoGent.png");
         this.logo.setImage(image);
+        gebruikersNaam.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if (!gebruikersNaam.getText().isBlank()){
+                    errorGebruikersnaam.setText("");
+                }else{
+                    errorGebruikersnaam.setText("Gebruikersnaam ontbreekt");
+                }
+            }
+        });
+        wachtwoordV.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if (!wachtwoordV.getText().isBlank()){
+                    errorWachtwoord.setText("");
+                }else{
+                    errorWachtwoord.setText("Wachtwoord ontbreekt");
+                }
+            }
+        });
+        wachtwoord.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if (!wachtwoord.getText().isBlank()){
+                    errorWachtwoord.setText("");
+                }else{
+                    errorWachtwoord.setText("Wachtwoord ontbreekt");
+                }
+            }
+        });
         gebruikersNaam.setText("itlab");
         inloggenButton.setOnAction(this::inloggen);
+        tonen.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (newValue){
+                    String ww = wachtwoord.getText();
+                    wachtwoordV.setText(ww);
+                    wachtwoordV.setVisible(true);
+                    wachtwoord.setVisible(false);
+                }else{
+                    String ww = wachtwoordV.getText();
+                    wachtwoord.setText(ww);
+                    wachtwoord.setVisible(true);
+                    wachtwoordV.setVisible(false);
+                }
+            }
+        });
+        tonen.setSelected(false);
     }
 
     private void inloggen(ActionEvent actionEvent) {
-        String gebruikersnaam = gebruikersNaam.getText();
-        String ww = wachtwoord.getText();
-
-        IGebruiker gebruiker = domeinController.geefIGebruikers().stream().filter(g -> g.getGebruikersnaam().equals(gebruikersnaam)).findFirst().orElse(null);
-
-        if (gebruiker == null || !PasswordUtils.verifyUserPassword(ww, gebruiker.getWachtwoord())){
-            error.setText("Gebruikersnaam en/of wachtwoord zijn ongeldig");
-            wachtwoord.setText("");
+        if(gebruikersNaam.getText().isBlank()){
+            errorGebruikersnaam.setText("Gebruikersnaam ontbreekt");
+        } else if(wachtwoord.getText().isBlank()|| wachtwoordV.getText().isBlank()){
+            errorWachtwoord.setText("Wachtwoord ontbreekt");
         } else {
-            ITLab.primaryStage.close();
-            domeinController.setHuidigeGebruiker(gebruiker.getGebruikersnaam());
-            Scene scene = new Scene(new MainScreenController(domeinController));
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.show();
+            String gebruikersnaam = gebruikersNaam.getText();
+            String ww = wachtwoord.getText();
+
+            IGebruiker gebruiker = domeinController.geefIGebruikers().stream().filter(g -> g.getGebruikersnaam().equals(gebruikersnaam)).findFirst().orElse(null);
+
+            if (gebruiker == null || !PasswordUtils.verifyUserPassword(ww, gebruiker.getWachtwoord())) {
+                error.setText("Gebruikersnaam en/of wachtwoord zijn ongeldig");
+                wachtwoord.setText("");
+            } else {
+                ITLab.primaryStage.close();
+                domeinController.setHuidigeGebruiker(gebruiker.getGebruikersnaam());
+                Scene scene = new Scene(new MainScreenController(domeinController));
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
+            }
         }
     }
 }

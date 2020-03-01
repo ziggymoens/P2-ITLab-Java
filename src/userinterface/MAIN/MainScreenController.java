@@ -98,8 +98,12 @@ public class MainScreenController extends AnchorPane {
         new InfoGebruikerController(domeinController, this);
     }
 
-    public void vulSchermIn(Node node){
-        mainTabBP.setCenter(node);
+    public Tab maakNieuwTab(Node node){
+        Tab tab = new Tab();
+        tab.setContent(node);
+        tab.setClosable(true);
+        tabPane.getTabs().add(tab);
+        return tab;
     }
 
     public void kalenderTonen(ActionEvent event){

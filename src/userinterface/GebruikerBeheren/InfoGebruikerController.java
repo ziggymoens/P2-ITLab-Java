@@ -11,17 +11,15 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import userinterface.MAIN.MainScreenController;
 
 import java.io.IOException;
 
 //TODO zoekbalk
-public class InfoGebruikerController extends BorderPane{
+public class InfoGebruikerController extends AnchorPane {
     private DomeinController domeinController;
 
     @FXML
@@ -52,7 +50,8 @@ public class InfoGebruikerController extends BorderPane{
 
         vulSchermOp();
 
-        mainScreenController.vulSchermIn(this);
+        Tab tab = mainScreenController.maakNieuwTab(this);
+        tab.setText("Info Gebruiker");
 
     }
 
