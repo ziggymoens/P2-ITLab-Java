@@ -14,6 +14,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCharacterCombination;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -57,48 +59,21 @@ public class StartUpController extends AnchorPane {
         }
         Image image = new Image("storage/images/logoHoGent.png");
         this.logo.setImage(image);
-        gebruikersNaam.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (!gebruikersNaam.getText().isBlank()){
-                    errorGebruikersnaam.setText("");
-                }else{
-                    errorGebruikersnaam.setText("Gebruikersnaam ontbreekt");
-                }
-            }
-        });
-        wachtwoordV.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (!wachtwoordV.getText().isBlank()){
-                    errorWachtwoord.setText("");
-                }else{
-                    errorWachtwoord.setText("Wachtwoord ontbreekt");
-                }
-            }
-        });
-        wachtwoord.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (!wachtwoord.getText().isBlank()){
-                    errorWachtwoord.setText("");
-                }else{
-                    errorWachtwoord.setText("Wachtwoord ontbreekt");
-                }
-            }
-        });
         gebruikersNaam.setText("itlab");
         inloggenButton.setOnAction(this::inloggen);
+        inloggenButton.setDefaultButton(true);
         tonen.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (newValue){
+                if (newValue) {
                     String ww = wachtwoord.getText();
+                    wachtwoord.setText("");
                     wachtwoordV.setText(ww);
                     wachtwoordV.setVisible(true);
                     wachtwoord.setVisible(false);
-                }else{
+                } else {
                     String ww = wachtwoordV.getText();
+                    wachtwoordV.setText("");
                     wachtwoord.setText(ww);
                     wachtwoord.setVisible(true);
                     wachtwoordV.setVisible(false);
@@ -109,19 +84,23 @@ public class StartUpController extends AnchorPane {
     }
 
     private void inloggen(ActionEvent actionEvent) {
-        if(gebruikersNaam.getText().isBlank()){
+        if (gebruikersNaam.getText().isBlank()) {
             errorGebruikersnaam.setText("Gebruikersnaam ontbreekt");
-        } else if(wachtwoord.getText().isBlank()|| wachtwoordV.getText().isBlank()){
+        } else if (wachtwoord.getText().isBlank() & wachtwoordV.getText().isBlank()) {
             errorWachtwoord.setText("Wachtwoord ontbreekt");
         } else {
+            errorWachtwoord.setText("");
+            errorGebruikersnaam.setText("");
             String gebruikersnaam = gebruikersNaam.getText();
             String ww = wachtwoord.getText();
-
+            if (tonen.isSelected()) {
+                ww = wachtwoordV.getText();
+            }
             IGebruiker gebruiker = domeinController.geefIGebruikers().stream().filter(g -> g.getGebruikersnaam().equals(gebruikersnaam)).findFirst().orElse(null);
-
             if (gebruiker == null || !PasswordUtils.verifyUserPassword(ww, gebruiker.getWachtwoord())) {
                 error.setText("Gebruikersnaam en/of wachtwoord zijn ongeldig");
                 wachtwoord.setText("");
+                wachtwoordV.setText("");
             } else {
                 ITLab.primaryStage.close();
                 domeinController.setHuidigeGebruiker(gebruiker.getGebruikersnaam());

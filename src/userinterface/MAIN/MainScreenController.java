@@ -33,7 +33,7 @@ public class MainScreenController extends AnchorPane {
     @FXML
     private Label gebruikersnaam, laatst;
     @FXML
-    private TabPane tabPane;
+    public static TabPane tabPane;
     @FXML
     private Tab mainTab;
     @FXML
@@ -70,7 +70,7 @@ public class MainScreenController extends AnchorPane {
         newSessie.setOnAction(this::nieuweSessie);
         deleteSessie.setOnAction(this::verwijderSessie);
         addAankondiging.setOnAction(this::openAankondiging);
-        mainTabBP.setRight(new KalenderController(domeinController, mainTabBP));
+        mainTabBP.setLeft(new KalenderController(domeinController, mainTabBP));
     }
 
 
@@ -121,5 +121,9 @@ public class MainScreenController extends AnchorPane {
         stage.setScene(scene);
         stage.show();
         aankondigingPlaatsenController.setStage(stage);
+    }
+
+    public static void addTab(Tab tab){
+        tabPane.getTabs().add(tab);
     }
 }

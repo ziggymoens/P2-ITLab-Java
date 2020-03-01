@@ -3,6 +3,7 @@ package userinterface.kalender;
 import domein.DomeinController;
 import domein.interfacesDomein.ISessie;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -21,7 +22,7 @@ import java.util.List;
 
 public class KalenderController extends AnchorPane {
     private DomeinController domeinController;
-    private BorderPane mainScreenController;
+    private BorderPane borderPane;
     private int GRIDPANE_COL = 7;
     private int GRIDPANE_ROW = 7;
     @FXML
@@ -32,8 +33,8 @@ public class KalenderController extends AnchorPane {
     private Button vorig, volgend, vorigJaar, volgendJaar;
     private KalenderGegevens kalenderGegevens;
 
-    public KalenderController(DomeinController domeinController, BorderPane mainScreenController) {
-        this.mainScreenController = mainScreenController;
+    public KalenderController(DomeinController domeinController, BorderPane borderPane) {
+        this.borderPane = borderPane;
         this.domeinController = domeinController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Kalender.fxml"));
         loader.setRoot(this);
@@ -48,9 +49,9 @@ public class KalenderController extends AnchorPane {
         startKal();
     }
 
-    public KalenderController(DomeinController domeinController, BorderPane mainScreenController, KalenderGegevens kalenderGegevens) {
+    public KalenderController(DomeinController domeinController, BorderPane borderPane, KalenderGegevens kalenderGegevens) {
         this.domeinController = domeinController;
-        this.mainScreenController = mainScreenController;
+        this.borderPane = borderPane;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Kalender.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -88,23 +89,24 @@ public class KalenderController extends AnchorPane {
 
     private void volgendJaar(ActionEvent event) {
         KalenderGegevens kg = kalenderGegevens.volgendJaar();
-        mainScreenController.setCenter(new KalenderController(domeinController, mainScreenController, kg));
+        borderPane.setLeft(
+                new KalenderController(domeinController, borderPane, kg));
     }
 
     private void vorigJaar(ActionEvent event) {
         KalenderGegevens kg = kalenderGegevens.vorigJaar();
-        mainScreenController.setCenter(new KalenderController(domeinController, mainScreenController, kg));
+        borderPane.setLeft(new KalenderController(domeinController, borderPane, kg));
     }
 
 
     private void vorigeMaand(ActionEvent event) {
         KalenderGegevens kg = kalenderGegevens.vorigeMaand();
-        mainScreenController.setCenter(new KalenderController(domeinController, mainScreenController, kg));
+        borderPane.setLeft(new KalenderController(domeinController, borderPane, kg));
     }
 
     private void volgendeMaand(ActionEvent event) {
         KalenderGegevens kg = kalenderGegevens.volgendeMaand();
-        mainScreenController.setCenter(new KalenderController(domeinController, mainScreenController, kg));
+        borderPane.setLeft(new KalenderController(domeinController, borderPane, kg));
     }
 
 
@@ -120,13 +122,13 @@ public class KalenderController extends AnchorPane {
                         CharSequence cs = String.format("%d-%02d-%02d", kalenderGegevens.geefJaar(), kalenderGegevens.geefNummerMaand(), t);
                         LocalDate date = LocalDate.parse(cs);
                         List<ISessie> sessies = domeinController.geefSessiesOpDag(date);
-                        for (ISessie sessie : sessies) {
-                            Button button = new Button(sessie.toString());
-                            button.setOnAction(e -> {
-                                Stage stage = new Stage();
-                                Scene scene = new Scene(new SessieBewerkenController(sessie, domeinController));
-                                stage.setScene(scene);
-                                stage.show();
+                        if (sessies.size() != 0) {
+                            Button button = new Button(String.valueOf(sessies.size()));
+                            button.setOnAction(new EventHandler<ActionEvent>() {
+                                @Override
+                                public void handle(ActionEvent event) {
+                                    borderPane.setRight(new DagOverzichtController(domeinController, sessies));
+                                }
                             });
                             vBox.getChildren().add(button);
                         }
@@ -147,13 +149,13 @@ public class KalenderController extends AnchorPane {
                         CharSequence cs = String.format("%d-%02d-%02d", kalenderGegevens.geefJaar(), kalenderGegevens.geefNummerMaand(), t);
                         LocalDate date = LocalDate.parse(cs);
                         List<ISessie> sessies = domeinController.geefSessiesOpDag(date);
-                        for (ISessie sessie : sessies) {
-                            Button button = new Button(sessie.toString_Kalender());
-                            button.setOnAction(e -> {
-                                Stage stage = new Stage();
-                                Scene scene = new Scene(new SessieBewerkenController(sessie, domeinController));
-                                stage.setScene(scene);
-                                stage.show();
+                        if (sessies.size() != 0) {
+                            Button button = new Button(String.valueOf(sessies.size()));
+                            button.setOnAction(new EventHandler<ActionEvent>() {
+                                @Override
+                                public void handle(ActionEvent event) {
+                                    borderPane.setRight(new DagOverzichtController(domeinController, sessies));
+                                }
                             });
                             vBox.getChildren().add(button);
                         }
@@ -169,3 +171,15 @@ public class KalenderController extends AnchorPane {
     }
 }
 
+/*
+for (ISessie sessie : sessies) {
+                            Button button = new Button(sessie.toString());
+                            button.setOnAction(e -> {
+                                Stage stage = new Stage();
+                                Scene scene = new Scene(new SessieBewerkenController(sessie, domeinController));
+                                stage.setScene(scene);
+                                stage.show();
+                            });
+                            vBox.getChildren().add(button);
+                        }
+ */
