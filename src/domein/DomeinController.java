@@ -31,7 +31,7 @@ public class DomeinController {
     public DomeinController() {
         this.academiejaar = geefAcademiejaar(LocalDate.now());
         huidigeSessieKalender = new SessieKalender();
-        SessieKalenderDataInit sessieKalenderDataInit = new SessieKalenderDataInit(huidigeSessieKalender);
+        //SessieKalenderDataInit sessieKalenderDataInit = new SessieKalenderDataInit(huidigeSessieKalender);
     }
 
     private DomeinController(int academiejaar) {
