@@ -32,8 +32,6 @@ public class KalenderController extends AnchorPane {
     private Label naam;
     @FXML
     private Button vorig, volgend, vorigJaar, volgendJaar;
-    @FXML
-    private TableView<VBox> tableView;
     private KalenderGegevens kalenderGegevens;
 
     public KalenderController(DomeinController domeinController, MainScreenController mainScreenController) {
@@ -114,7 +112,6 @@ public class KalenderController extends AnchorPane {
 
 
     private void initKalender() {
-        VBox[] vBoxes = {new VBox(), new VBox(), new VBox(), new VBox(), new VBox(), new VBox(), new VBox()};
         VBox vBox;
         int t = 1;
         for (int i = 1; i < GRIDPANE_ROW; i++) {
@@ -140,16 +137,11 @@ public class KalenderController extends AnchorPane {
                             vBox.setStyle("-fx-background-color: #FFCC99;");
                         }
                         gridpane.add(vBox, j, i);
-                        vBoxes[j] = vBox;
                         t++;
                     }
-                    tableView.setItems(FXCollections.observableArrayList(vBoxes));
                 }
 
             } else {
-                for (VBox vBox1:vBoxes){
-                    vBox1 = new VBox();
-                }
                 for (int j = 0; j < GRIDPANE_COL; j++) {
                     if (t <= kalenderGegevens.aantalDagen()) {
                         vBox = new VBox();
@@ -172,10 +164,8 @@ public class KalenderController extends AnchorPane {
                             vBox.setStyle("-fx-background-color: #FFCC99;");
                         }
                         gridpane.add(vBox, j, i);
-                        vBoxes[j] = vBox;
                         t++;
                     }
-                    tableView.setItems(FXCollections.observableArrayList(vBoxes));
                 }
             }
         }
