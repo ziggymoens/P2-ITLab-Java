@@ -12,7 +12,7 @@ import userinterface.MAIN.MainScreenController;
 
 import java.io.IOException;
 
-public class GebruikerBeherenController extends BorderPane {
+public class GebruikerMakenController extends BorderPane {
 
     @FXML
     private TextField txtFieldName;
@@ -34,10 +34,10 @@ public class GebruikerBeherenController extends BorderPane {
 
     private DomeinController domeinController;
 
-    public GebruikerBeherenController(DomeinController domeinController, MainScreenController mainScreenController) {
+    public GebruikerMakenController(DomeinController domeinController, MainScreenController mainScreenController) {
         this.domeinController = domeinController;
         FXMLLoader loader
-                = new FXMLLoader(getClass().getResource("GebruikerBeheren.fxml"));
+                = new FXMLLoader(getClass().getResource("GebruikerMaken.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try {

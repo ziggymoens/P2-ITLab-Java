@@ -1,6 +1,8 @@
 package domein;
 
 
+import domein.enums.Gebruikersprofielen;
+import domein.enums.Gebruikersstatus;
 import domein.enums.MediaTypes;
 import domein.interfacesDomein.*;
 import javafx.collections.FXCollections;
@@ -110,6 +112,48 @@ public class DomeinController {
 
     public void verwijderGebruiker(IGebruiker gebruiker) {
         huidigeSessieKalender.verwijderGebruiker((Gebruiker) gebruiker);
+    }
+
+    public ObservableList<IGebruiker> geefAlleActieveGebruikers(){
+        return (ObservableList<IGebruiker>) (Object)huidigeSessieKalender.geefAlleGebruikers()
+                .stream()
+                .filter(g -> g.getStatus().toString().equals(Gebruikersstatus.ACTIEF.toString()))
+                .collect(Collectors.toList());
+    }
+
+    public ObservableList<IGebruiker> geefAlleNietActieveGebruikers(){
+        return (ObservableList<IGebruiker>) (Object)huidigeSessieKalender.geefAlleGebruikers()
+                .stream()
+                .filter(g -> g.getStatus().toString().equals(Gebruikersstatus.NIET_ACTIEF.toString()))
+                .collect(Collectors.toList());
+    }
+
+    public ObservableList<IGebruiker> geefAlleGeblokkeerdeGebruikers(){
+        return (ObservableList<IGebruiker>) (Object)huidigeSessieKalender.geefAlleGebruikers()
+                .stream()
+                .filter(g -> g.getStatus().toString().equals(Gebruikersstatus.GEBLOKKEERD.toString()))
+                .collect(Collectors.toList());
+    }
+
+    public ObservableList<IGebruiker> geefAlleGewoneGebruikers(){
+        return (ObservableList<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers()
+                .stream()
+                .filter(g -> g.getGebruikersprofiel().toString().equals(Gebruikersprofielen.GEBRUIKER.toString()))
+                .collect(Collectors.toList());
+    }
+
+    public ObservableList<IGebruiker> geefAlleVerantwoordelijkeGebruikers(){
+        return (ObservableList<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers()
+                .stream()
+                .filter(g -> g.getGebruikersprofiel().toString().equals(Gebruikersprofielen.VERANTWOORDELIJKE.toString()))
+                .collect(Collectors.toList());
+    }
+
+    public ObservableList<IGebruiker> geefAlleHoofdverantwoordelijkeGebruikers(){
+        return (ObservableList<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers()
+                .stream()
+                .filter(g -> g.getGebruikersprofiel().toString().equals(Gebruikersprofielen.HOOFDVERANTWOORDELIJKE.toString()))
+                .collect(Collectors.toList());
     }
 
     //endregion

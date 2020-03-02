@@ -109,6 +109,10 @@ public class SessieKalender {
         return (List<Gebruiker>) em.createQuery("select g from Gebruiker g where g.verwijderd = false order by g.naam, g.gebruikersnaam").getResultList();
     }
 
+//    public List<Gebruiker> geefAlleActieveGebruikers(){
+//        return (List<Gebruiker>) em.createQuery("select g from Gebruiker g where g.status = 'actief'").getResultList();
+//    }
+
     public List<Sessie> geefSessiesVanGebruiker(Gebruiker gebruiker) {
         return (List<Sessie>)em.createQuery("select s from Sessie s where verantwoordelijke = ?1").setParameter(1, gebruiker).getResultList();
     }
