@@ -1,5 +1,6 @@
 package userinterface.startUp;
 
+import com.sun.javafx.application.HostServicesDelegate;
 import domein.DomeinController;
 import domein.PasswordUtils;
 import domein.SessieKalender;
@@ -19,32 +20,30 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import language.I18N;
 import main.ITLab;
 import userinterface.MAIN.MainScreenController;
 
 import java.io.IOException;
+import java.util.Locale;
 
 public class StartUpController extends AnchorPane {
 
     private DomeinController domeinController;
-
     @FXML
     private Button inloggenButton;
-
     @FXML
     private TextField gebruikersNaam, wachtwoordV;
-
     @FXML
     private PasswordField wachtwoord;
-
     @FXML
     private ImageView logo;
-
     @FXML
     private Label error, errorGebruikersnaam, errorWachtwoord;
-
     @FXML
     private CheckBox tonen;
+    @FXML
+    private Label welkom;
 
     public StartUpController(DomeinController domeinController) {
         this.domeinController = domeinController;
@@ -59,7 +58,9 @@ public class StartUpController extends AnchorPane {
         }
         Image image = new Image("storage/images/logoHoGent.png");
         this.logo.setImage(image);
+        welkom = I18N.labelForKey(() -> I18N.get("welkom"));
         gebruikersNaam.setText("itlab");
+        wachtwoord.setText("itlab");
         inloggenButton.setOnAction(this::inloggen);
         inloggenButton.setDefaultButton(true);
         tonen.selectedProperty().addListener(new ChangeListener<Boolean>() {

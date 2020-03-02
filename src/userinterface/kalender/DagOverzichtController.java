@@ -4,29 +4,29 @@ import domein.DomeinController;
 import domein.interfacesDomein.ISessie;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.*;
+import org.jboss.jandex.Main;
 import userinterface.MAIN.MainScreenController;
 import userinterface.sessieBeheren.SessieBewerkenController;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class DagOverzichtController extends AnchorPane {
     private DomeinController domeinController;
     private List<ISessie> sessies;
+    private MainScreenController msc;
 
     @FXML
     private GridPane gridPane;
 
-    public DagOverzichtController(DomeinController domeinController, List<ISessie> iSessies) {
+    public DagOverzichtController(DomeinController domeinController, List<ISessie> iSessies, MainScreenController msc) {
         this.domeinController = domeinController;
         this.sessies = iSessies;
+        this.msc = msc;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DagOverzicht.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -52,7 +52,7 @@ public class DagOverzichtController extends AnchorPane {
                     bp.setCenter(new SessieBewerkenController(sessie, domeinController));
                     tab.setContent(bp);
                     tab.setText(sessie.getTitel());
-                    MainScreenController.addTab(new Tab());
+                    msc.addTab(new Tab());
                 });
                 hBox.getChildren().add(button);
             }

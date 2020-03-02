@@ -12,35 +12,37 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import userinterface.GebruikerBeheren.InfoGebruikerController;
 import userinterface.aankondigingPlaatsen.AankondigingPlaatsenController;
 import userinterface.kalender.KalenderController;
+import userinterface.kalender.KalenderGegevens;
 import userinterface.media.NieuweMediaController;
 import userinterface.sessieBeheren.SessieTableViewController;
 import userinterface.sessieBeheren.SessieBewerkenController;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class MainScreenController extends AnchorPane {
     @FXML
     private MenuItem newSessie, openSessie, deleteSessie,addAankondiging, addFeedback, addInschrijving, addMedia, gebruikerNieuwegebruiker, gebruikerOpenGebruiker, gebruikerVerwijderGebruiker, about, help, gebruikerGegevens, gebruikerInstellingen, gebruikerUitloggen, gebruikerAfsluiten, openKalender;
     @FXML
+    private RadioMenuItem taalN, taalE, taalF;
+    @FXML
     private ImageView profielFoto;
     @FXML
     private Label gebruikersnaam, laatst;
     @FXML
-    public static TabPane tabPane;
+    private TabPane tabPane;
     @FXML
     private Tab mainTab;
     @FXML
     private BorderPane mainTabBP;
     @FXML
     private Menu menuAccount;
-
 
     private DomeinController domeinController;
     private IGebruiker gebruiker;
@@ -70,7 +72,7 @@ public class MainScreenController extends AnchorPane {
         newSessie.setOnAction(this::nieuweSessie);
         deleteSessie.setOnAction(this::verwijderSessie);
         addAankondiging.setOnAction(this::openAankondiging);
-        mainTabBP.setLeft(new KalenderController(domeinController, mainTabBP));
+        mainTabBP.setLeft(new KalenderController(domeinController, this, new KalenderGegevens(LocalDate.now().getMonth().getValue(), LocalDate.now().getYear())));
     }
 
 
@@ -110,7 +112,10 @@ public class MainScreenController extends AnchorPane {
     }
 
     public void kalenderTonen(ActionEvent event){
-        mainTabBP.setCenter(new KalenderController(domeinController, mainTabBP));
+        Tab tab = new Tab();
+        tab.setContent(new KalenderController(domeinController, this));
+        tab.setText("Kalender");
+        addTab(tab);
     }
 
     public void openAankondiging(ActionEvent event){
@@ -123,7 +128,11 @@ public class MainScreenController extends AnchorPane {
         aankondigingPlaatsenController.setStage(stage);
     }
 
-    public static void addTab(Tab tab){
+    public void addTab(Tab tab){
         tabPane.getTabs().add(tab);
+    }
+
+    public BorderPane geefMainBP(){
+        return mainTabBP;
     }
 }
