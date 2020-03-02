@@ -2,6 +2,8 @@ package userinterface.sessieBeheren;
 
 import domein.DomeinController;
 import domein.interfacesDomein.ISessie;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,10 +17,12 @@ import java.io.IOException;
 
 public class SessieTableViewController extends BorderPane {
     private DomeinController domeinController;
+    private ObservableList<ISessie> sessies;
+    private MainScreenController mainScreenController;
+
     @FXML
-    private Button nieuweSessie, verwijderSessie;
-    @FXML
-    private TableView tableView;
+    private Button nieuweSessie, verwijderSessie, bewerkSessie, btnzoek;
+    @FXML private TableView table;
     @FXML private TableColumn<ISessie, String> titel;
     @FXML private TableColumn<ISessie, String> startSessie;
     @FXML private TableColumn<ISessie, String> eindSessie;
@@ -29,10 +33,6 @@ public class SessieTableViewController extends BorderPane {
     private CheckBox nietGeopend, geopend, open, aalst, gent;
     @FXML
     private TextField zoeken;
-
-    private ObservableList<ISessie> sessies;
-
-    private MainScreenController mainScreenController;
 
     public SessieTableViewController(DomeinController domeinController, MainScreenController mainScreenController) {
         this.domeinController = domeinController;
@@ -46,19 +46,23 @@ public class SessieTableViewController extends BorderPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
-        //listView();
         vulTable();
+        observable();
         nieuweSessie.setOnAction(this :: nieuweSessie);
         verwijderSessie.setOnAction(this::verwijderSessie);
+        bewerkSessie.setOnAction(this::bewerkSessie);
+        btnzoek.setOnAction(this::zoek);
+
     }
 
     public void vulTable(){
-        titel.setCellValueFactory(new PropertyValueFactory<ISessie, String>("titel"));
-        startSessie.setCellValueFactory(new PropertyValueFactory<ISessie, String>("start sessie"));
-        eindSessie.setCellValueFactory(new PropertyValueFactory<ISessie, String>("eind sessie"));
-        lastColumn.setCellValueFactory(new PropertyValueFactory<ISessie, String>("vrije plaatsen"));
-
-        tableView.getItems().setAll(domeinController.geefObservableListISessiesHuidigeGebruiker());
+        table.getColumns().clear();
+        titel.setCellValueFactory(new PropertyValueFactory<>("titel"));
+        startSessie.setCellValueFactory(new PropertyValueFactory<>("startSessie"));
+        eindSessie.setCellValueFactory(new PropertyValueFactory<>("eindeSessie"));
+        lastColumn.setCellValueFactory(new PropertyValueFactory<>("maximumAantalPlaatsen"));
+        table.setItems(domeinController.geefObservableListISessiesHuidigeGebruiker());
+        table.getColumns().addAll(titel, startSessie, eindSessie, lastColumn);
     }
 
     private void geefDetails(ISessie sessie) {
@@ -72,6 +76,16 @@ public class SessieTableViewController extends BorderPane {
    */
     }
 
+    private void zoek(ActionEvent actionEvent) {
+    }
+
+    private void bewerkSessie(ActionEvent actionEvent) {
+        Tab tab = new Tab("Bewerk Sessie");
+        tab.setClosable(true);
+        tab.setContent(new SessieBewerkenController(domeinController.getHuidigeISessie(), domeinController, this));
+        mainScreenController.addTab(tab);
+    }
+
     private void nieuweSessie(ActionEvent actionEvent) {
 
     }
@@ -79,23 +93,24 @@ public class SessieTableViewController extends BorderPane {
     private void verwijderSessie(ActionEvent actionEvent) {
     }
 
-    /*private void listView (){
-        choiceBoxSessie.setItems(FXCollections.observableArrayList(domeinController.geefAcademiejaren()));
-        choiceBoxSessie.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+    private void observable() {
+
+/*        choiceBoxKalenderJaar.setItems(FXCollections.observableArrayList(domeinController.geefAcademiejaren()));
+        choiceBoxKalenderJaar.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                sessies = FXCollections.observableArrayList(domeinController.geefISessiesAcademiejaar(Integer.valueOf(t1)));
-                listView.setItems(sessies);
-                listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-                listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessie>() {
+                sessies = FXCollections.observableArrayList(domeinController.geefISessiesAcademiejaar(Integer.valueOf(t1)));*/
+                table.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+                table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessie>() {
                     @Override
                     public void changed(ObservableValue<? extends ISessie> observableValue, ISessie iSessie, ISessie t1) {
-                        domeinController.setHuidigeSessie(t1);
-                        geefDetails(t1);
+                        domeinController.setHuidigeISessie(t1);
                     }
                 });
-            }
-        });
-        choiceBoxSessie.setValue(choiceBoxSessie.getItems().get(0));
-    }*/
+/*            }
+        });*/
+        //choiceBoxKalenderJaar.setValue(choiceBoxKalenderJaar.getItems().get(0));
+
+    }
 }

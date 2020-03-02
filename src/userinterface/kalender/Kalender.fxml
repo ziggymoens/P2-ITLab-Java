@@ -12,7 +12,7 @@
 
 <fx:root prefHeight="700.0" prefWidth="900.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <GridPane fx:id="gridpane" gridLinesVisible="true" layoutX="15.0" layoutY="48.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="875.0" style="-fx-border-color: black;">
+      <GridPane fx:id="gridpane" gridLinesVisible="true" layoutX="15.0" layoutY="48.0" maxHeight="-Infinity" maxWidth="875.0" minHeight="-Infinity" prefHeight="640.0" style="-fx-border-color: black;">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="125.0" prefWidth="125.0" />
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="125.0" prefWidth="125.0" />

@@ -20,7 +20,6 @@ import userinterface.kalender.KalenderController;
 import userinterface.kalender.KalenderGegevens;
 import userinterface.media.NieuweMediaController;
 import userinterface.sessieBeheren.SessieTableViewController;
-import userinterface.sessieBeheren.SessieBewerkenController;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -90,8 +89,8 @@ public class MainScreenController extends AnchorPane {
     }
 
     private void nieuweSessie(ActionEvent actionEvent){
-        new SessieBewerkenController(domeinController);
-        new SessieTableViewController(domeinController, this);
+        //new SessieBewerkenController(null, domeinController, null);
+        //new SessieTableViewController(domeinController, this);
 
     }
 

@@ -19,27 +19,27 @@
             <VBox prefHeight="362.0" prefWidth="150.0">
                <children>
                   <Label text="Filter:" />
-                  <CheckBox mnemonicParsing="false" text="niet geopende sessies">
+                  <CheckBox fx:id="nietGeopend" mnemonicParsing="false" text="niet geopende sessies">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                   </CheckBox>
-                  <CheckBox mnemonicParsing="false" text="geopende sessies">
+                  <CheckBox fx:id="geopend" mnemonicParsing="false" text="geopende sessies">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                   </CheckBox>
-                  <CheckBox mnemonicParsing="false" text="open sessies">
+                  <CheckBox fx:id="open" mnemonicParsing="false" text="open sessies">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                   </CheckBox>
-                  <CheckBox mnemonicParsing="false" text="Aalst">
+                  <CheckBox fx:id="aalst" mnemonicParsing="false" text="Aalst">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                   </CheckBox>
-                  <CheckBox mnemonicParsing="false" text="Gent">
+                  <CheckBox fx:id="gent" mnemonicParsing="false" text="Gent">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -60,7 +60,7 @@
                   <VBox alignment="CENTER_LEFT" prefHeight="144.0" prefWidth="232.0">
                      <children>
                         <Label text="Selecteer een kalenderjaar:" />
-                        <ChoiceBox fx:id="choiceBoxSessie" accessibleRole="CHECK_BOX" prefWidth="200.0">
+                        <ChoiceBox fx:id="choiceBoxKalenderJaar" accessibleRole="CHECK_BOX" prefWidth="200.0">
                            <VBox.margin>
                               <Insets bottom="20.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
@@ -72,8 +72,8 @@
                   </VBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="144.0" prefWidth="550.0">
                      <children>
-                        <TextField maxWidth="500.0" prefHeight="26.0" prefWidth="409.0" promptText="Zoek sessie naam" />
-                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" text="Zoek">
+                        <TextField fx:id="zoeken" maxWidth="500.0" prefHeight="26.0" prefWidth="409.0" promptText="Zoek sessie naam" />
+                        <Button fx:id="btnzoek" mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" text="Zoek">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -90,7 +90,7 @@
             </HBox>
             <VBox alignment="CENTER_LEFT" prefHeight="581.0" prefWidth="1050.0">
                <children>
-                  <TableView fx:id="tableView" prefHeight="482.0">
+                  <TableView fx:id="table" prefHeight="482.0">
                     <columns>
                       <TableColumn fx:id="titel" prefWidth="300.0" text="Titel" />
                       <TableColumn fx:id="startSessie" prefWidth="200.0" text="Start sessie" />
@@ -114,10 +114,21 @@
                               <Insets right="20.0" />
                            </HBox.margin>
                         </Button>
+                        <Button fx:id="bewerkSessie" mnemonicParsing="false" prefWidth="120.0" text="Bewerk Sessie">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                           <HBox.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </HBox.margin>
+                        </Button>
                         <Button fx:id="verwijderSessie" mnemonicParsing="false" prefWidth="120.0" text="Verwijder Sessie">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
                         </Button>
                      </children>
                   </HBox>

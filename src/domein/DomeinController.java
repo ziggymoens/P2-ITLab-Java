@@ -40,6 +40,12 @@ public class DomeinController {
     }
     //endregion
 
+
+    //region Academiejaar
+    public List<String> geefAcademiejaren() {
+        return huidigeSessieKalender.geefAlleAcademieJaren();
+    }
+
     private int geefAcademiejaar(LocalDate date) {
         int jaar = LocalDate.now().getYear() - 2000;
         int aj = 0;
@@ -49,11 +55,6 @@ public class DomeinController {
             aj = Integer.parseInt(String.format("%d%d", jaar, jaar + 1));
         }
         return aj;
-    }
-
-    //region Academiejaar
-    public List<String> geefAcademiejaren() {
-        return huidigeSessieKalender.geefAlleAcademieJaren();
     }
     //endregion
 
@@ -87,14 +88,15 @@ public class DomeinController {
 
     public ISessie geefISessieById(String id){ return (ISessie) huidigeSessieKalender.geefSessieById(id); }
 
-    public void setHuidigeSessie(ISessie t1) {
-        this.setHuidigeSessie((Sessie)t1);
+    public ISessie getHuidigeISessie(){return huidigeSessie;}
+
+    public void setHuidigeISessie(ISessie t1) {
+        this.huidigeSessie = (Sessie)t1;
     }
 
     public ObservableList<ISessie> geefObservableListISessiesHuidigeGebruiker(){
-        List <Sessie> sessie = huidigeSessieKalender.geefSessiesVanGebruiker(huidigeGebruiker);
-        sessie.stream().map(e -> e.toArray());
-        return FXCollections.observableArrayList(sessie);
+
+        return FXCollections.observableArrayList(huidigeSessieKalender.geefSessiesVanGebruiker(huidigeGebruiker));
     }
 
     public List<ISessie> geefISessiesHuidigeGebruiker() {

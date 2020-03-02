@@ -6,8 +6,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
-import javafx.scene.layout.*;
-import org.jboss.jandex.Main;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import userinterface.MAIN.MainScreenController;
 import userinterface.sessieBeheren.SessieBewerkenController;
 
@@ -49,7 +51,7 @@ public class DagOverzichtController extends AnchorPane {
                 button.setOnAction(b -> {
                     Tab tab = new Tab();
                     BorderPane bp = new BorderPane();
-                    bp.setCenter(new SessieBewerkenController(sessie, domeinController));
+                    bp.setCenter(new SessieBewerkenController(sessie, domeinController, null));
                     tab.setContent(bp);
                     tab.setText(sessie.getTitel());
                     msc.addTab(new Tab());

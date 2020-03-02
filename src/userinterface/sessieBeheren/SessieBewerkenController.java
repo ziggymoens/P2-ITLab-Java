@@ -1,6 +1,7 @@
 package userinterface.sessieBeheren;
 
 import domein.DomeinController;
+import domein.interfacesDomein.ILokaal;
 import domein.interfacesDomein.ISessie;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -20,27 +21,27 @@ import java.util.HashMap;
 public class SessieBewerkenController extends BorderPane {
     private ISessie sessie;
     private DomeinController domeinController;
+    private SessieTableViewController sessieTableViewController;
     private HashMap<String, String> veranderingenMap;
-    //SessieBeherenController sessieBeherenController;
 
     @FXML
-    private Label aanmakenBewerken;
-
+    private Label tabelTitel, schermTitel, lblinschrijvingen, lblaankondigingen, lblmedia, lblfeedback;
     @FXML
-    private TextField naamverantwoordelijke, titel, naamGastspreker, start, eind, maxPlaatsen;
-
+    private TextField titel, naamGast, maxPlaatsen, start, eind, verantwoordelijke;
     @FXML
-    private ChoiceBox lokaal;
-
+    private ChoiceBox<ILokaal> lokaal;
     @FXML
-    private Button aankondigingen, media, gebruikers, feedback, toepassen, cancel;
+    private CheckBox geopend;
+    @FXML
+    private TableView table;
+    @FXML
+    private Button inschrijvingen, aankondigingen, media, feedback, nieuw, bewerken, save, cancel;
 
-    public SessieBewerkenController(ISessie sessie, DomeinController domeinController/*, SessieBeherenController sbc*/) {
+    public SessieBewerkenController(ISessie sessie, DomeinController domeinController, SessieTableViewController stvc) {
         this.sessie = sessie;
-
         this.domeinController = domeinController;
-        //this.sessieBeherenController = sbc;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("SessieAanmaken.fxml"));
+        this.sessieTableViewController = stvc;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("SessieBewerken.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try {
@@ -50,25 +51,25 @@ public class SessieBewerkenController extends BorderPane {
             throw new RuntimeException();
         }
 
-        if(sessie == null) {aanmakenBewerken.setText("Aanmaken");}
+        if(sessie == null) {schermTitel.setText("Aanmaken");}
         else {geefDetails(sessie);}
 
         veranderingenMap = new HashMap<String, String>();
-        naamverantwoordelijke.textProperty().addListener(new ChangeListener<String>() {
+        verantwoordelijke.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 kijkenVoorAanpassingen("naamverantwoordelijke", t1);
             }
         });
-        naamverantwoordelijke.setEditable(true);
+        verantwoordelijke.setEditable(true);
 
-        naamGastspreker.textProperty().addListener(new ChangeListener<String>() {
+        naamGast.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 kijkenVoorAanpassingen("naamGastspreker", t1);
             }
         });
-        naamGastspreker.setEditable(true);
+        naamGast.setEditable(true);
 
 
         titel.textProperty().addListener(new ChangeListener<String>() {
@@ -89,7 +90,7 @@ public class SessieBewerkenController extends BorderPane {
 //        lokaal.setEditable(true);
 
         lokaal.setItems(FXCollections.observableArrayList(domeinController.geefILokalen()));
-        lokaal.setValue(domeinController.geefILokalen().stream().filter(lokaal -> lokaal.getLokaalCode().equals(sessie.getLokaal().getLokaalCode())).findFirst().orElse(null));
+        lokaal.setValue(domeinController.geefILokalen().stream().filter(lokaal -> lokaal.getLokaalCode().equals(this.sessie.getLokaal().getLokaalCode())).findFirst().orElse(null));
         lokaal.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observableValue, Object o, Object t1) {
@@ -124,11 +125,12 @@ public class SessieBewerkenController extends BorderPane {
             }
         });
         maxPlaatsen.setEditable(true);
-        toepassen.setOnAction(this::toepassen);
+
+        save.setOnAction(this::save);
         cancel.setOnAction(this::cancel);
         media.setOnAction(this::media);
         aankondigingen.setOnAction(this::aankondigingen);
-        gebruikers.setOnAction(this::gerbuikers);
+        inschrijvingen.setOnAction(this::gerbuikers);
         feedback.setDisable(true);
         if(sessie != null && sessie.isGeopend()){
             feedback.setDisable(false);
@@ -137,39 +139,33 @@ public class SessieBewerkenController extends BorderPane {
 
     }
 
-    public SessieBewerkenController(DomeinController domeinController/*, SessieBeherenController sbc*/) {
-        this(null, domeinController/*, sbc*/);
-
-    }
-
     private void kijkenVoorAanpassingen(String var, String t1) {
         veranderingenMap.put(var,t1);
     }
 
     private void geefDetails(ISessie sessie) {
-        naamverantwoordelijke.setText(sessie.getVerantwoordelijke().getNaam());
+        verantwoordelijke.setText(sessie.getVerantwoordelijke().getNaam());
         titel.setText(sessie.getTitel());
-        naamGastspreker.setText(sessie.getNaamGastspreker());
+        naamGast.setText(sessie.getNaamGastspreker());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         start.setText(sessie.getStartSessie().format(formatter));
         eind.setText(sessie.getEindeSessie().format(formatter));
         maxPlaatsen.setText(String.valueOf(sessie.getMaximumAantalPlaatsen()));
     }
 
-    private void toepassen (ActionEvent actionEvent){
-
-        if(sessie.getLokaal().getAantalPlaatsen() - (sessie.getLokaal().getAantalPlaatsen() - sessie.getBeschikbarePlaatsen()) < 0){
+    private void save (ActionEvent actionEvent){
+/*        if(sessie.getLokaal().getAantalPlaatsen() - (sessie.getLokaal().getAantalPlaatsen() - sessie.getBeschikbarePlaatsen()) < 0){
             Alert alert = new Alert(Alert.AlertType.ERROR, "DUS JIJ WILT MIJN KOEKJE STELEN? MAG NIET!!",ButtonType.CLOSE);
             maxPlaatsen.setText(String.valueOf(sessie.getMaximumAantalPlaatsen()));
             veranderingenMap.put("maxPlaatsen", String.valueOf(sessie.getMaximumAantalPlaatsen()));
-        }
+        }*/
         domeinController.pasSessieAan(veranderingenMap);
         Stage stage = (Stage) this.getScene().getWindow();
         stage.close();
-        //sessieBeherenController.vulSchermOp();
     }
 
     private void media(ActionEvent actionEvent) {
+
         //nog te implementeren
     }
 
