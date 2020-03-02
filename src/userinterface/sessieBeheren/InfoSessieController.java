@@ -183,6 +183,5 @@ public class  InfoSessieController extends AnchorPane {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
-        aankondigingPlaatsenController.setStage(stage);
     }
 }

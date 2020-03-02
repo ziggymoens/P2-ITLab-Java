@@ -124,7 +124,6 @@ public class MainScreenController extends AnchorPane {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
-        aankondigingPlaatsenController.setStage(stage);
     }
 
     public void addTab(Tab tab){

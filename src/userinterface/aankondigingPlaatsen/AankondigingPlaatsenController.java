@@ -20,11 +20,13 @@ import userinterface.sessieBeheren.InfoSessieController;
 import javax.swing.*;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AankondigingPlaatsenController extends BorderPane {
     private DomeinController domeinController;
     private ISessie sessie;
-    private Stage stage;
+
     @FXML
     private TextArea aankondigingTekst;
 
@@ -52,40 +54,18 @@ public class AankondigingPlaatsenController extends BorderPane {
 
     public void voegAankondigingToe(ActionEvent actionEvent){
         String keuze = herinneringKeuze.getSelectionModel().selectedItemProperty().getValue().toString();
-        int dagenHerinnering = 0;
         boolean automatischeHerinnering = false;
-        switch (keuze){
-            case "geen":
-                dagenHerinnering = 0;
-                automatischeHerinnering = false;
-                break;
-            case "1 dag":
-                dagenHerinnering = 1;
-                automatischeHerinnering = true;
-                break;
-            case "2 dagen":
-                dagenHerinnering = 2;
-                automatischeHerinnering = true;
-                break;
-            case "3 dagen":
-                dagenHerinnering = 3;
-                automatischeHerinnering = true;
-                break;
-            case "7 dagen":
-                dagenHerinnering = 7;
-                automatischeHerinnering = true;
-                break;
-            default:
-                dagenHerinnering = 0;
-                automatischeHerinnering = false;
-                break;
-        }
+        Map<String, Integer> herinneringsMap = new HashMap<>();
+        herinneringsMap.put("geen", 0);
+        herinneringsMap.put("1 dag", 1);
+        herinneringsMap.put("2 dagen", 2);
+        herinneringsMap.put("3 dagen", 3);
+        herinneringsMap.put("7 dagen", 7);
+        int dagenHerinnering = herinneringsMap.get(keuze);
+        if(herinneringsMap.get(keuze) > 0)
+            automatischeHerinnering = true;
+
         IGebruiker gebruiker = domeinController.geefIGebruiker();
         domeinController.addAankondigingSessie(sessie.getSessieId(), gebruiker.getGebruikersnaam(), aankondigingTekst.getText(), automatischeHerinnering, dagenHerinnering);
-        stage.close();
-    }
-
-    public void setStage(Stage stage){
-        this.stage = stage;
     }
 }
