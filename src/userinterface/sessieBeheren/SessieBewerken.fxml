@@ -63,9 +63,9 @@
       </VBox>
    </right>
    <left>
-      <VBox prefHeight="240.0" prefWidth="260.0" BorderPane.alignment="TOP_CENTER">
+      <VBox prefHeight="634.0" prefWidth="270.0" BorderPane.alignment="TOP_CENTER">
          <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER_RIGHT" maxWidth="270.0" prefHeight="100.0">
                <children>
                   <Label fx:id="schermTitel" text="Bewerken" underline="true">
                      <font>
@@ -77,81 +77,85 @@
                   <Insets bottom="40.0" />
                </VBox.margin>
             </HBox>
-            <Label text="Titel">
-               <VBox.margin>
-                  <Insets left="5.0" right="5.0" />
-               </VBox.margin>
-            </Label>
-            <TextField fx:id="titel" editable="false">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
-               </VBox.margin>
-            </TextField>
-            <Label text="Naam Gastspreker">
-               <VBox.margin>
-                  <Insets left="5.0" right="5.0" />
-               </VBox.margin>
-            </Label>
-            <TextField fx:id="naamGast" editable="false">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
-               </VBox.margin>
-            </TextField>
-            <Label text="Maximum aantal plaatsen">
-               <VBox.margin>
-                  <Insets left="5.0" right="5.0" />
-               </VBox.margin>
-            </Label>
-            <TextField fx:id="maxPlaatsen" editable="false">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
-               </VBox.margin>
-            </TextField>
-            <Label text="Lokaal">
-               <VBox.margin>
-                  <Insets left="5.0" right="5.0" />
-               </VBox.margin>
-            </Label>
-            <ChoiceBox fx:id="lokaal" prefWidth="245.0">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
-               </VBox.margin>
-            </ChoiceBox>
-            <Label text="Start van de sessie">
-               <VBox.margin>
-                  <Insets left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </Label>
-            <TextField fx:id="start" editable="false">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </TextField>
-            <Label text="Einde van de sessie">
-               <VBox.margin>
-                  <Insets left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </Label>
-            <TextField fx:id="eind" editable="false">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </TextField>
-            <Label text="Verantwoordelijke">
-               <VBox.margin>
-                  <Insets left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </Label>
-            <TextField fx:id="verantwoordelijke" editable="false">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </TextField>
-            <CheckBox fx:id="geopend" mnemonicParsing="false" text="Sessie Geopend">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="10.0" right="5.0" top="12.0" />
-               </VBox.margin>
-            </CheckBox>
+            <VBox maxWidth="250.0" prefHeight="418.0">
+               <children>
+                  <Label text="Titel">
+                     <VBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="titel" editable="false">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label text="Naam Gastspreker">
+                     <VBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="naamGast" editable="false">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label text="Maximum aantal plaatsen">
+                     <VBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="maxPlaatsen" editable="false">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label text="Lokaal">
+                     <VBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ChoiceBox fx:id="lokaal" prefWidth="245.0">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
+                     </VBox.margin>
+                  </ChoiceBox>
+                  <Label text="Start van de sessie">
+                     <VBox.margin>
+                        <Insets left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="start" editable="false">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label text="Einde van de sessie">
+                     <VBox.margin>
+                        <Insets left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="eind" editable="false">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label text="Verantwoordelijke">
+                     <VBox.margin>
+                        <Insets left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="verantwoordelijke" editable="false">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <CheckBox fx:id="geopend" mnemonicParsing="false" text="Sessie Geopend">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="10.0" right="5.0" top="12.0" />
+                     </VBox.margin>
+                  </CheckBox>
+               </children>
+            </VBox>
          </children>
          <BorderPane.margin>
             <Insets left="20.0" />
@@ -166,7 +170,10 @@
                   <Label text="Inschrijvingen" />
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="lblinschrijvingen" text="Aantal: " />
+                        <Label fx:id="lblinschrijvingen" text="Aantal:">
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin></Label>
                         <Button fx:id="inschrijvingen" mnemonicParsing="false" text="Toon" />
                      </children>
                   </HBox>
@@ -180,7 +187,10 @@
                   <Label text="Aankondigingen" />
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="lblaankondigingen" text="Aantal: " />
+                        <Label fx:id="lblaankondigingen" text="Aantal:">
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin></Label>
                         <Button fx:id="aankondigingen" mnemonicParsing="false" text="Toon" />
                      </children>
                   </HBox>
@@ -194,7 +204,10 @@
                   <Label text="Media" />
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="lblmedia" text="Aantal: " />
+                        <Label fx:id="lblmedia" text="Aantal:">
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin></Label>
                         <Button fx:id="media" mnemonicParsing="false" text="Toon" />
                      </children>
                   </HBox>
@@ -208,7 +221,10 @@
                   <Label text="Feedback" />
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="lblfeedback" text="Aantal: " />
+                        <Label fx:id="lblfeedback" text="Aantal:">
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin></Label>
                         <Button fx:id="feedback" mnemonicParsing="false" text="Toon" />
                      </children>
                   </HBox>

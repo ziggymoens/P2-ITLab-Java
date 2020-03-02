@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <MenuBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="1080.0">
          <menus>
@@ -64,7 +64,7 @@
         <tabs>
           <Tab fx:id="mainTab" closable="false" text="IT-Lab">
                <content>
-                  <BorderPane fx:id="mainTabBP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="837.0" minWidth="1400.0" prefHeight="837.0" prefWidth="1400.0" />
+                  <BorderPane fx:id="mainTabBP" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="739.0" prefWidth="1400.0" />
                </content></Tab>
         </tabs>
       </TabPane>

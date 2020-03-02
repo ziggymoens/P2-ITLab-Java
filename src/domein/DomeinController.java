@@ -2,10 +2,7 @@ package domein;
 
 
 import domein.enums.MediaTypes;
-import domein.interfacesDomein.IGebruiker;
-import domein.interfacesDomein.ILokaal;
-import domein.interfacesDomein.IMedia;
-import domein.interfacesDomein.ISessie;
+import domein.interfacesDomein.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -19,11 +16,8 @@ import java.util.stream.Collectors;
 public class DomeinController {
     //region Variabelen
     private SessieKalender huidigeSessieKalender;
-
     private Sessie huidigeSessie;
-
     private Gebruiker huidigeGebruiker;
-
     private int academiejaar;
     //endregion
 
@@ -67,10 +61,19 @@ public class DomeinController {
         return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender(academiejaar);
     }
 
+    public ISessie geefISessieById(String id){ return (ISessie)(Object)huidigeSessieKalender.geefSessieById(id); }
+
+    public ISessie geefHuidigeISessie(){return (ISessie)(Object)huidigeSessieKalender.geefSessieById(huidigeSessie.getSessieId());}
+
+    public List<ISessie> geefISessiesHuidigeGebruiker() {return (List<ISessie>)(Object) huidigeSessieKalender.geefSessiesVanGebruiker(huidigeGebruiker);}
+
+    public ObservableList<ISessie> geefObservableListISessiesHuidigeGebruiker(){
+        return FXCollections.observableArrayList(huidigeSessieKalender.geefSessiesVanGebruiker(huidigeGebruiker));
+    }
+
     public void maakSessieAan(String[] sessie) {
         //iterator
         huidigeSessieKalender.voegSessieToe(new Sessie(sessie[0], LocalDateTime.parse(sessie[1]), LocalDateTime.parse(sessie[2]), huidigeSessieKalender.geefLokaalById(sessie[3]), huidigeSessieKalender.geefGebruikerById(sessie[4])));
-
     }
 
     public void pasSessieAan(Map<String, String> veranderingenMap) {
@@ -82,26 +85,10 @@ public class DomeinController {
         huidigeSessieKalender.verwijderSessie((Sessie) sessie);
     }
 
-    public ISessie geefISessie() {
-        return (ISessie) huidigeSessie;
-    }
-
-    public ISessie geefISessieById(String id){ return (ISessie) huidigeSessieKalender.geefSessieById(id); }
-
-    public ISessie getHuidigeISessie(){return huidigeSessie;}
-
     public void setHuidigeISessie(ISessie t1) {
-        this.huidigeSessie = (Sessie)t1;
+        this.huidigeSessie = huidigeSessieKalender.geefSessieById(t1.getSessieId());
     }
 
-    public ObservableList<ISessie> geefObservableListISessiesHuidigeGebruiker(){
-
-        return FXCollections.observableArrayList(huidigeSessieKalender.geefSessiesVanGebruiker(huidigeGebruiker));
-    }
-
-    public List<ISessie> geefISessiesHuidigeGebruiker() {
-        return (List<ISessie>) (Object) huidigeSessieKalender.geefSessiesVanGebruiker(huidigeGebruiker);
-    }
     //endregion
 
     //region Gebruiker
@@ -120,8 +107,6 @@ public class DomeinController {
     public void setHuidigeGebruiker(String gebruikersnaam) {
         huidigeGebruiker = huidigeSessieKalender.geefGebruikerById(gebruikersnaam);
     }
-
-
 
     public void verwijderGebruiker(IGebruiker gebruiker) {
         huidigeSessieKalender.verwijderGebruiker((Gebruiker) gebruiker);
@@ -150,6 +135,10 @@ public class DomeinController {
         return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender(geefAcademiejaar(date)).stream().filter(s -> s.getStartSessie().getDayOfYear() == date.getDayOfYear() && s.getStartSessie().getYear()==date.getYear()).collect(Collectors.toList());
     }
 
+    public ObservableList<IMedia> geefObservableListIMedia(){
+        return FXCollections.observableArrayList(huidigeSessieKalender.geefAlleMedia());
+    }
+
     public void maakNieuweMedia(ISessie sessie, IGebruiker gebruiker, String type, String locatie) {
         huidigeSessieKalender.voegMediaToe(new Media((Gebruiker) gebruiker, locatie, type), (Sessie) sessie);
     }
@@ -172,6 +161,12 @@ public class DomeinController {
         huidigeGebruiker.setIngelogd();
     }
     //endregion
+
+    //region Inschrijving
+    public ObservableList<IInschrijving> geefObservableListIInschrijvingen(){
+        return FXCollections.observableArrayList(huidigeSessie.getInschrijvingen());
+    }
+    //end region
 }
 
 /* vorige dc
