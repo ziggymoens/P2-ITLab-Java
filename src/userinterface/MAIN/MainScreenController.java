@@ -99,7 +99,10 @@ public class MainScreenController extends AnchorPane {
     }
 
     private void gebruikerOpenGebruiker(ActionEvent actionEvent){
-        new InfoGebruikerController(domeinController, this);
+        Tab tab = new Tab();
+        tab.setContent(new InfoGebruikerController(domeinController, this));
+        tab.setText("Gebruiker");
+        addTab(tab);
     }
 
     public Tab maakNieuwTab(Node node){

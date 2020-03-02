@@ -109,8 +109,8 @@ public class DomeinController {
         return (IGebruiker) huidigeGebruiker;
     }
 
-    public List<IGebruiker> geefIGebruikers() {
-        return (List<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers();
+    public ObservableList<IGebruiker> geefIGebruikers() {
+        return  FXCollections.observableArrayList(huidigeSessieKalender.geefAlleGebruikers());
     }
 
     public List<ISessie> geefISessieGebruiker() {
