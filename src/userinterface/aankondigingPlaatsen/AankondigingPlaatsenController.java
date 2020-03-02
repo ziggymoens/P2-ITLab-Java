@@ -25,6 +25,7 @@ import java.util.Map;
 
 public class AankondigingPlaatsenController extends BorderPane {
     private DomeinController domeinController;
+    private MainScreenController mainScreenController;
     private ISessie sessie;
 
     @FXML
@@ -36,8 +37,9 @@ public class AankondigingPlaatsenController extends BorderPane {
     @FXML
     private Button voegToe;
 
-    public AankondigingPlaatsenController(DomeinController domeinController, ISessie sessie){
+    public AankondigingPlaatsenController(DomeinController domeinController, MainScreenController mainScreenController, ISessie sessie){
         this.domeinController = domeinController;
+        this.mainScreenController = mainScreenController;
         this.sessie = sessie;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AankondigingPlaatsen.fxml"));
         loader.setRoot(this);

@@ -77,7 +77,7 @@ public class  InfoSessieController extends AnchorPane {
 
         infoAankondiging.setOnAction(this::infoAankondiging);
 
-        voegAankondigingToe.setOnAction(this::voegAankondigingToe);
+        //voegAankondigingToe.setOnAction(this::voegAankondigingToe);
 
         invullenGegevens();
 
@@ -177,11 +177,11 @@ public class  InfoSessieController extends AnchorPane {
         stage.show();
     }
 
-    private void voegAankondigingToe(ActionEvent actionEvent){
+    /*private void voegAankondigingToe(ActionEvent actionEvent){
         AankondigingPlaatsenController aankondigingPlaatsenController = new AankondigingPlaatsenController(domeinController, sessie);
         Scene scene = new Scene(aankondigingPlaatsenController);
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
-    }
+    }*/
 }

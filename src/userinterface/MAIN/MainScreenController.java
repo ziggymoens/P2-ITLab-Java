@@ -122,11 +122,11 @@ public class MainScreenController extends AnchorPane {
 
     public void openAankondiging(ActionEvent event){
         ISessie sessie = domeinController.geefISessieById("S1920-000002");
-        AankondigingPlaatsenController aankondigingPlaatsenController = new AankondigingPlaatsenController(domeinController, sessie);
-        Scene scene = new Scene(aankondigingPlaatsenController);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
+        Tab tab = new Tab();
+        tab.setContent(new AankondigingPlaatsenController(domeinController, this, sessie));
+        tab.setText("Nieuwe Aankondiging");
+        addTab(tab);
+        tabPane.getSelectionModel().select(tab);
     }
 
     public void addTab(Tab tab){
