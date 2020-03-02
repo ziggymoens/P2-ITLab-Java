@@ -32,6 +32,12 @@ public class AankondigingPlaatsenController extends BorderPane {
     private TextArea aankondigingTekst;
 
     @FXML
+    private TextField sessieTitel;
+
+    @FXML
+    private CheckBox automatischeHerinnering;
+
+    @FXML
     private ChoiceBox herinneringKeuze;
 
     @FXML
@@ -41,6 +47,14 @@ public class AankondigingPlaatsenController extends BorderPane {
         this.domeinController = domeinController;
         this.mainScreenController = mainScreenController;
         this.sessie = sessie;
+        startFXML();
+        sessieTitel.setText(sessie.getTitel());
+        //herinneringKeuze.setDisable(true);
+        aankondigingTekst.setPromptText("Schrijf hier je aankondiging");
+        voegToe.setOnAction(this::voegAankondigingToe);
+    }
+
+    public void startFXML(){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AankondigingPlaatsen.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -50,15 +64,13 @@ public class AankondigingPlaatsenController extends BorderPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
-        aankondigingTekst.setPromptText("Schrijf hier je aankondiging");
-        voegToe.setOnAction(this::voegAankondigingToe);
     }
 
     public void voegAankondigingToe(ActionEvent actionEvent){
         String keuze = herinneringKeuze.getSelectionModel().selectedItemProperty().getValue().toString();
         boolean automatischeHerinnering = false;
         Map<String, Integer> herinneringsMap = new HashMap<>();
-        herinneringsMap.put("geen", 0);
+        //herinneringsMap.put("geen", 0);
         herinneringsMap.put("1 dag", 1);
         herinneringsMap.put("2 dagen", 2);
         herinneringsMap.put("3 dagen", 3);
