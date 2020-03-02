@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" type="AnchorPane">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="1400.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="830.0" prefWidth="1400.0">
          <children>
@@ -48,7 +47,7 @@
                                  <children>
                                     <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                                        <children>
-                                          <CheckBox alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="All">
+                                          <CheckBox fx:id="statusFilterAll" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="All">
                                              <VBox.margin>
                                                 <Insets bottom="5.0" />
                                              </VBox.margin>
@@ -56,7 +55,7 @@
                                                 <Font size="12.0" />
                                              </font>
                                           </CheckBox>
-                                          <CheckBox mnemonicParsing="false" text="Actief">
+                                          <CheckBox fx:id="statusFilterActief" mnemonicParsing="false" text="Actief">
                                              <VBox.margin>
                                                 <Insets bottom="5.0" top="5.0" />
                                              </VBox.margin>
@@ -71,7 +70,7 @@
                                     </VBox>
                                     <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                                        <children>
-                                          <CheckBox alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Niet actief">
+                                          <CheckBox fx:id="statusFilterNietActief" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Niet actief">
                                              <VBox.margin>
                                                 <Insets bottom="5.0" />
                                              </VBox.margin>
@@ -79,7 +78,7 @@
                                                 <Font size="12.0" />
                                              </font>
                                           </CheckBox>
-                                          <CheckBox mnemonicParsing="false" text="Geblokkeerd">
+                                          <CheckBox fx:id="statusFilterGeblokkeerd" mnemonicParsing="false" text="Geblokkeerd">
                                              <VBox.margin>
                                                 <Insets bottom="5.0" top="5.0" />
                                              </VBox.margin>
@@ -103,7 +102,7 @@
                                  <children>
                                     <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                                        <children>
-                                          <CheckBox alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="All">
+                                          <CheckBox fx:id="typeFilterAll" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="All">
                                              <VBox.margin>
                                                 <Insets bottom="5.0" />
                                              </VBox.margin>
@@ -111,7 +110,7 @@
                                                 <Font size="12.0" />
                                              </font>
                                           </CheckBox>
-                                          <CheckBox mnemonicParsing="false" text="Gebruiker">
+                                          <CheckBox fx:id="typeFilterGebruiker" mnemonicParsing="false" text="Gebruiker">
                                              <VBox.margin>
                                                 <Insets bottom="5.0" top="5.0" />
                                              </VBox.margin>
@@ -126,7 +125,7 @@
                                     </VBox>
                                     <VBox alignment="CENTER_LEFT" prefHeight="65.0" prefWidth="158.0">
                                        <children>
-                                          <CheckBox alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Verantwoordelijke">
+                                          <CheckBox fx:id="typeFilterVerantwoordelijke" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Verantwoordelijke">
                                              <VBox.margin>
                                                 <Insets bottom="5.0" />
                                              </VBox.margin>
@@ -134,7 +133,7 @@
                                                 <Font size="12.0" />
                                              </font>
                                           </CheckBox>
-                                          <CheckBox mnemonicParsing="false" text="Hoofdverantwoordelijke">
+                                          <CheckBox fx:id="typeFilterHoofdverantwoordelijke" mnemonicParsing="false" text="Hoofdverantwoordelijke">
                                              <VBox.margin>
                                                 <Insets bottom="5.0" top="5.0" />
                                              </VBox.margin>
@@ -159,27 +158,27 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
                   </HBox>
-                  <TableView prefHeight="395.0" prefWidth="1000.0">
+                  <TableView fx:id="tableViewGebrukers" prefHeight="395.0" prefWidth="1000.0">
                      <columns>
-                        <TableColumn minWidth="250.0" prefWidth="166.85226440429688" text="Naam" />
-                        <TableColumn minWidth="250.0" prefWidth="129.14773559570312" text="Gebruikersnaam Chamilo" />
-                        <TableColumn minWidth="250.0" prefWidth="180.30389404296875" text="Status" />
-                        <TableColumn minWidth="250.0" prefWidth="203.10150146484375" text="Type" />
+                        <TableColumn fx:id="TVnaamGebruiker" minWidth="250.0" prefWidth="166.85226440429688" text="Naam" />
+                        <TableColumn fx:id="TVgebruikersnaamChamilo" minWidth="250.0" prefWidth="129.14773559570312" text="Gebruikersnaam Chamilo" />
+                        <TableColumn fx:id="TVstatus" minWidth="250.0" prefWidth="180.30389404296875" text="Status" />
+                        <TableColumn fx:id="TVtype" minWidth="250.0" prefWidth="203.10150146484375" text="Type" />
                      </columns>
                   </TableView>
                   <HBox alignment="CENTER" prefHeight="0.0" prefWidth="1000.0">
                      <children>
-                        <Button alignment="CENTER" mnemonicParsing="false" text="Maak aan">
+                        <Button fx:id="maakAanKnop" alignment="CENTER" mnemonicParsing="false" text="Maak aan">
                            <HBox.margin>
                               <Insets left="100.0" right="100.0" />
                            </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" text="Bewerk">
+                        <Button fx:id="bewerkKnop" mnemonicParsing="false" text="Bewerk">
                            <HBox.margin>
                               <Insets left="150.0" right="150.0" />
                            </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" text="Verwijder">
+                        <Button fx:id="verwijderKnop" mnemonicParsing="false" text="Verwijder">
                            <HBox.margin>
                               <Insets left="150.0" right="150.0" />
                            </HBox.margin>
