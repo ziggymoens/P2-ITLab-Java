@@ -14,38 +14,6 @@
 <fx:root prefHeight="700.0" prefWidth="1200.0" type="BorderPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <right>
       <VBox prefHeight="660.0" prefWidth="685.0" BorderPane.alignment="CENTER">
-         <children>
-            <VBox alignment="CENTER" prefHeight="660.0" prefWidth="100.0">
-               <children>
-                  <Label fx:id="tabelTitel" text="Inschrijvingen">
-                     <font>
-                        <Font name="Arial Italic" size="22.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </Label>
-                  <VBox fx:id="vboxTable" maxHeight="500.0" prefHeight="500.0" prefWidth="100.0" />
-                  <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Button fx:id="nieuw" mnemonicParsing="false" text="Nieuw">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="bewerken" mnemonicParsing="false" text="Bewerken">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </HBox>
-               </children>
-            </VBox>
-         </children>
          <BorderPane.margin>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </BorderPane.margin>
