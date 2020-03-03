@@ -2,20 +2,16 @@ package userinterface.kalender;
 
 import domein.DomeinController;
 import domein.interfacesDomein.ISessie;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import org.jboss.jandex.Main;
-import userinterface.MAIN.MainScreenController;
+import userinterface.main.MainScreenController;
 
 import java.io.IOException;
 import java.time.LocalDate;

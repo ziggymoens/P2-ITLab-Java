@@ -12,7 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import userinterface.MAIN.MainScreenController;
+import userinterface.main.MainScreenController;
 
 import java.io.IOException;
 
