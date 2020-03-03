@@ -1,7 +1,6 @@
 package userinterface.sessie;
 
 import domein.DomeinController;
-import domein.interfacesDomein.IInschrijving;
 import domein.interfacesDomein.ILokaal;
 import domein.interfacesDomein.ISessie;
 import javafx.beans.value.ChangeListener;
@@ -14,7 +13,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import userinterface.main.OverzichtController;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
@@ -120,14 +118,6 @@ public class SessieBewerkenController extends BorderPane {
         lblfeedback.setText(lblfeedback.getText() + " " + domeinController.geefHuidigeISessie().getIFeedbackSessie().size());
         lblinschrijvingen.setText(lblinschrijvingen.getText() + " " + domeinController.geefHuidigeISessie().getIIngeschrevenGebruikers().size());
         lblmedia.setText(lblmedia.getText() + " " + domeinController.geefHuidigeISessie().getIMediaBijSessie().size());;
-
-        vboxTable.getChildren().addAll(new OverzichtController<IInschrijving>());
-        vboxTable.getChildren().get(0).minWidth(100);
-        vboxTable.getChildren().get(0).maxWidth(100);
-        vboxTable.getChildren().get(0).maxHeight(500);
-
-
-
 
         save.setOnAction(this::save);
         cancel.setOnAction(this::cancel);
