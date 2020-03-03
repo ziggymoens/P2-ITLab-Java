@@ -4,6 +4,7 @@ import domein.DomeinController;
 import domein.interfacesDomein.ISessie;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -61,7 +62,7 @@ public class SessieTableViewController extends BorderPane {
         startSessie.setCellValueFactory(new PropertyValueFactory<>("startSessie"));
         eindSessie.setCellValueFactory(new PropertyValueFactory<>("eindeSessie"));
         lastColumn.setCellValueFactory(new PropertyValueFactory<>("maximumAantalPlaatsen"));
-        table.setItems(domeinController.geefObservableListISessiesHuidigeGebruiker());
+        table.setItems(FXCollections.observableArrayList(domeinController.geefISessiesHuidigeGebruiker()));
         table.getColumns().addAll(titel, startSessie, eindSessie, lastColumn);
     }
 

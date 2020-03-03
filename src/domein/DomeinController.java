@@ -118,8 +118,8 @@ public class DomeinController {
                 .collect(Collectors.toList());
     }
 
-    public ObservableList<IGebruiker> geefAlleNietActieveGebruikers(){
-        return (ObservableList<IGebruiker>) (Object)huidigeSessieKalender.geefAlleGebruikers()
+    public List<IGebruiker> geefAlleNietActieveGebruikers(){
+        return (List<IGebruiker>) (Object)huidigeSessieKalender.geefAlleGebruikers()
                 .stream()
                 .filter(g -> g.getStatus().toString().equals(Gebruikersstatus.NIET_ACTIEF.toString()))
                 .collect(Collectors.toList());

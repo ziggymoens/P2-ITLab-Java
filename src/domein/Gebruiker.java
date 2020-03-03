@@ -214,7 +214,7 @@ public class Gebruiker implements IGebruiker {
 
     public String toString_Compleet() {
         return String.format("%s: %s%n%s: %s%n%s: %s%n%s: %s%n",
-                Talen.getString("Gebruiker.naam"), naam, Talen.getString("Gebruiker.gebruikersnaam"), gebruikersnaam, Talen.getString("Gebruiker.type"), gebruikersprofiel, Talen.getString("Gebruiker.status"), status);
+                Talen.getString("Gebruiker.naam"), naam, Talen.getString("Gebruiker.gebruikersnaam"), gebruikersnaam, Talen.getString("Gebruiker.type"), gebruikersprofiel.toString(), Talen.getString("Gebruiker.status"), status.toString());
     }
     //endregion
 

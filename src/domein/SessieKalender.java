@@ -106,7 +106,7 @@ public class SessieKalender {
     }
 
     public List<Gebruiker> geefAlleGebruikers() {
-        return (List<Gebruiker>) em.createQuery("select g from Gebruiker g where g.verwijderd = false order by g.naam, g.gebruikersnaam").getResultList();
+        return (List<Gebruiker>) em.createQuery("select g from Gebruiker g where g.verwijderd = false order by g.gebruikersprofiel DESC, g.naam, g.gebruikersnaam").getResultList();
     }
 
 //    public List<Gebruiker> geefAlleActieveGebruikers(){

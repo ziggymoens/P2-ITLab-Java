@@ -2,6 +2,7 @@ package userinterface.GebruikerBeheren;
 
 import domein.DomeinController;
 import domein.interfacesDomein.IGebruiker;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import userinterface.MAIN.MainScreenController;
 
 import java.io.IOException;
+import java.util.List;
 
 public class InfoGebruikerController extends AnchorPane {
 
@@ -48,7 +50,7 @@ public class InfoGebruikerController extends AnchorPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
-        vulTable(domeinController.geefIGebruikers());
+        initVulTable(FXCollections.observableArrayList(domeinController.geefIGebruikers()));
 
         typeFilterAll.setOnAction(this::FilterAllTypes);
         typeFilterGebruiker.setOnAction(this::FilterGebruikersType);
@@ -61,26 +63,30 @@ public class InfoGebruikerController extends AnchorPane {
         statusFilterGeblokkeerd.setOnAction(this::FilterGeblokkeerdStatus);
     }
 
-    public void vulTable(ObservableList<IGebruiker> observableList){
+    public void initVulTable(List<IGebruiker> list){
         clearTable();
         TVnaamGebruiker.setCellValueFactory(new PropertyValueFactory<>("naam"));
         TVgebruikersnaamChamilo.setCellValueFactory(new PropertyValueFactory<>("gebruikersnaam"));
         TVstatus.setCellValueFactory(new PropertyValueFactory<>("status"));
         TVtype.setCellValueFactory(new PropertyValueFactory<>("gebruikersprofiel"));
-        tableViewGebruikers.setItems(observableList);
+        tableViewGebruikers.setItems(FXCollections.observableArrayList(list));
         tableViewGebruikers.getColumns().addAll(TVnaamGebruiker, TVgebruikersnaamChamilo, TVstatus, TVtype);
     }
 
     @FXML
     void FilterActiefStatus(ActionEvent event) {
+        VulTable(FXCollections.observableArrayList(domeinController.geefAlleActieveGebruikers()));
+    }
+
+    private void VulTable(ObservableList<IGebruiker> observableList) {
         clearTable();
-        vulTable(domeinController.geefAlleActieveGebruikers());
+        tableViewGebruikers.setItems(observableList);
     }
 
     @FXML
     void FilterAllTypes(ActionEvent event) {
-        clearTable();
-        vulTable(domeinController.geefIGebruikers());
+        VulTable(FXCollections.observableArrayList(domeinController.geefIGebruikers()));
+        typeFilterAll.setSelected(true);
         typeFilterHoofdverantwoordelijke.setSelected(true);
         typeFilterVerantwoordelijke.setSelected(true);
         typeFilterGebruiker.setSelected(true);
@@ -88,8 +94,7 @@ public class InfoGebruikerController extends AnchorPane {
 
     @FXML
     void FilterAllStatus(ActionEvent event) {
-        clearTable();
-        vulTable(domeinController.geefIGebruikers());
+        VulTable(FXCollections.observableArrayList(domeinController.geefIGebruikers()));
         statusFilterAll.setSelected(true);
         statusFilterActief.setSelected(true);
         statusFilterGeblokkeerd.setSelected(true);
@@ -99,31 +104,31 @@ public class InfoGebruikerController extends AnchorPane {
     @FXML
     void FilterGeblokkeerdStatus(ActionEvent event) {
         clearTable();
-        vulTable(domeinController.geefAlleGeblokkeerdeGebruikers());
+        VulTable(FXCollections.observableArrayList(domeinController.geefAlleGeblokkeerdeGebruikers()));
     }
 
     @FXML
     void FilterGebruikersType(ActionEvent event) {
         clearTable();
-        vulTable(domeinController.geefAlleGewoneGebruikers());
+        VulTable(FXCollections.observableArrayList(domeinController.geefAlleGewoneGebruikers()));
     }
 
     @FXML
     void FilterHoofdverantwoordelijkeType(ActionEvent event) {
         clearTable();
-        vulTable(domeinController.geefAlleHoofdverantwoordelijkeGebruikers());
+        VulTable(FXCollections.observableArrayList(domeinController.geefAlleHoofdverantwoordelijkeGebruikers()));
     }
 
     @FXML
     void FilterNietActiefStatus(ActionEvent event) {
         clearTable();
-        vulTable(domeinController.geefAlleNietActieveGebruikers());
+        VulTable(FXCollections.observableArrayList(domeinController.geefAlleNietActieveGebruikers()));
     }
 
     @FXML
     void FilterVerantwoordelijkeType(ActionEvent event) {
         clearTable();
-        vulTable(domeinController.geefAlleVerantwoordelijkeGebruikers());
+        VulTable(FXCollections.observableArrayList(domeinController.geefAlleVerantwoordelijkeGebruikers()));
     }
 
     public void clearTable(){

@@ -2,6 +2,7 @@ package userinterface.sessieBeheren;
 
 import domein.DomeinController;
 import domein.interfacesDomein.*;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -56,16 +57,16 @@ public class  InfoSessieController extends AnchorPane {
             throw new RuntimeException();
         }
         this.sessie = sessie;
-        listViewMedia.setItems(sessie.getIMediaBijSessie());
+        listViewMedia.setItems(FXCollections.observableArrayList(sessie.getIMediaBijSessie()));
         listViewMedia.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-        listViewFeedback.setItems(sessie.getIFeedbackSessie());
+        listViewFeedback.setItems(FXCollections.observableArrayList(sessie.getIFeedbackSessie()));
         listViewFeedback.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-        listViewAankondigingen.setItems(sessie.getIAankondigingenSessie());
+        listViewAankondigingen.setItems(FXCollections.observableArrayList(sessie.getIAankondigingenSessie()));
         listViewAankondigingen.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-        listViewInschrijvingen.setItems(sessie.getIIngeschrevenGebruikers());
+        listViewInschrijvingen.setItems(FXCollections.observableArrayList(sessie.getIIngeschrevenGebruikers()));
         listViewInschrijvingen.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
         infoFeedback.setOnAction(this::infoFeedback);
