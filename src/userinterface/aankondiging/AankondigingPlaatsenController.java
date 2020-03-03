@@ -81,16 +81,10 @@ public class AankondigingPlaatsenController extends AnchorPane {
     }
 
     public void gebruikersInit(){
-        if(domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("HOOFDVERANTWOORDELIJKE")){
-            gebruikersList.setItems(FXCollections.observableList(domeinController.geefIGebruikers()));
-            gebruikersList.setValue(domeinController.geefIGebruiker());
-        }
-
-        if(domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("VERANTWOORDELIJKE")){
-            gebruikersList.setItems(FXCollections.observableList(domeinController.geefIGebruikers()));
-            gebruikersList.setValue(domeinController.geefIGebruiker());
+        gebruikersList.setItems(FXCollections.observableList(domeinController.geefIGebruikers()));
+        gebruikersList.setValue(domeinController.geefIGebruiker());
+        if(!domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("HOOFDVERANTWOORDELIJKE"))
             gebruikersList.setDisable(true);
-        }
     }
 
     public void voegAankondigingToe(ActionEvent actionEvent){

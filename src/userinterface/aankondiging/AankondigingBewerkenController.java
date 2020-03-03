@@ -5,6 +5,7 @@ import domein.DomeinController;
 import domein.interfacesDomein.IAankondiging;
 import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.ISessie;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -20,6 +21,7 @@ public class AankondigingBewerkenController extends AnchorPane {
     private DomeinController domeinController;
     private MainScreenController mainScreenController;
     private IAankondiging aankondiging;
+    private ISessie sessie;
     @FXML
     private TextArea aankondigingTekst;
 
@@ -40,7 +42,10 @@ public class AankondigingBewerkenController extends AnchorPane {
         this.domeinController = domeinController;
         this.mainScreenController = mainScreenController;
         this.aankondiging = aankondiging;
+        this.sessie = sessie;
         startFXML();
+        sessiesInit();
+        gebruikersInit();
         aankondigingTekst.setText(aankondiging.getInhoud());
     }
 
@@ -55,5 +60,17 @@ public class AankondigingBewerkenController extends AnchorPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
+    }
+
+    public void sessiesInit(){
+        sessieList.setItems(FXCollections.observableList(domeinController.geefISessiesHuidigeKalender()));
+        sessieList.setValue(sessie);
+        sessieList.setDisable(true);
+    }
+
+    public void gebruikersInit(){
+        gebruikersList.setItems(FXCollections.observableList(domeinController.geefIGebruikers()));
+        gebruikersList.setValue(sessie.getVerantwoordelijke());
+        gebruikersList.setDisable(true);
     }
 }
