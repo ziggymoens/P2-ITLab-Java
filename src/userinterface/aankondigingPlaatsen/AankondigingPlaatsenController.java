@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import userinterface.MAIN.MainScreenController;
@@ -20,10 +21,12 @@ import userinterface.sessieBeheren.InfoSessieController;
 import javax.swing.*;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class AankondigingPlaatsenController extends BorderPane {
+public class AankondigingPlaatsenController extends AnchorPane {
     private DomeinController domeinController;
     private MainScreenController mainScreenController;
     private ISessie sessie;
@@ -32,13 +35,14 @@ public class AankondigingPlaatsenController extends BorderPane {
     private TextArea aankondigingTekst;
 
     @FXML
-    private TextField sessieTitel;
-
-    @FXML
     private CheckBox automatischeHerinnering;
 
     @FXML
     private ChoiceBox herinneringKeuze;
+    @FXML
+    private ChoiceBox<ISessie> sessieList;
+    @FXML
+    private ChoiceBox<IGebruiker> gebruikersList;
 
     @FXML
     private Button voegToe;
@@ -48,8 +52,19 @@ public class AankondigingPlaatsenController extends BorderPane {
         this.mainScreenController = mainScreenController;
         this.sessie = sessie;
         startFXML();
-        sessieTitel.setText(sessie.getTitel());
-        //herinneringKeuze.setDisable(true);
+        sessiesInit();
+        gebruikersInit();
+        herinneringKeuze.setVisible(false);
+        automatischeHerinnering.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (newValue) {
+                    herinneringKeuze.setVisible(true);
+                } else {
+                    herinneringKeuze.setVisible(false);
+                }
+            }
+        });
         aankondigingTekst.setPromptText("Schrijf hier je aankondiging");
         voegToe.setOnAction(this::voegAankondigingToe);
     }
@@ -66,20 +81,38 @@ public class AankondigingPlaatsenController extends BorderPane {
         }
     }
 
+    public void sessiesInit(){
+        if(domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("HOOFDVERANTWOORDELIJKE"))
+            sessieList.setItems(FXCollections.observableList(domeinController.geefISessiesHuidigeKalender()));
+        if(domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("VERANTWOORDELIJKE"))
+            sessieList.setItems(FXCollections.observableList(domeinController.geefISessieGebruiker()));
+    }
+
+    public void gebruikersInit(){
+        if(domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("HOOFDVERANTWOORDELIJKE"))
+            gebruikersList.setItems(FXCollections.observableList(domeinController.geefIGebruikers()));
+        if(domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("VERANTWOORDELIJKE")){
+            gebruikersList.setItems(FXCollections.observableList(domeinController.geefIGebruikers()));
+            gebruikersList.setValue(domeinController.geefIGebruiker());
+            gebruikersList.setDisable(true);
+        }
+    }
+
     public void voegAankondigingToe(ActionEvent actionEvent){
         String keuze = herinneringKeuze.getSelectionModel().selectedItemProperty().getValue().toString();
-        boolean automatischeHerinnering = false;
+        boolean herinnering = false;
         Map<String, Integer> herinneringsMap = new HashMap<>();
-        //herinneringsMap.put("geen", 0);
         herinneringsMap.put("1 dag", 1);
         herinneringsMap.put("2 dagen", 2);
         herinneringsMap.put("3 dagen", 3);
         herinneringsMap.put("7 dagen", 7);
         int dagenHerinnering = herinneringsMap.get(keuze);
-        if(herinneringsMap.get(keuze) > 0)
-            automatischeHerinnering = true;
+        if(automatischeHerinnering.isSelected())
+            herinnering = true;
 
         IGebruiker gebruiker = domeinController.geefIGebruiker();
-        domeinController.addAankondigingSessie(sessie.getSessieId(), gebruiker.getGebruikersnaam(), aankondigingTekst.getText(), automatischeHerinnering, dagenHerinnering);
+        domeinController.addAankondigingSessie(sessie.getSessieId(), gebruiker.getGebruikersnaam(), aankondigingTekst.getText(), herinnering, dagenHerinnering);
     }
+
+
 }
