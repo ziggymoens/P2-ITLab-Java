@@ -1,7 +1,7 @@
 package userinterface.kalender;
 
-import domeintje.DomeinController;
-import domeintje.interfacesDomein.ISessie;
+import domein.DomeinController;
+import domein.interfacesDomein.ISessie;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

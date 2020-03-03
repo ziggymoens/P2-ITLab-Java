@@ -1,7 +1,7 @@
 package userinterface.sessie;
 
-import domeintje.DomeinController;
-import domeintje.interfacesDomein.ISessie;
+import domein.DomeinController;
+import domein.interfacesDomein.ISessie;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;

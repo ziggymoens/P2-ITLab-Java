@@ -1,8 +1,8 @@
 package userinterface.aankondiging;
 
-import domeintje.DomeinController;
-import domeintje.interfacesDomein.IGebruiker;
-import domeintje.interfacesDomein.ISessie;
+import domein.DomeinController;
+import domein.interfacesDomein.IGebruiker;
+import domein.interfacesDomein.ISessie;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

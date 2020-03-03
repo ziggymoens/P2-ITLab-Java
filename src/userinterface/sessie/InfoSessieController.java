@@ -1,7 +1,7 @@
 package userinterface.sessie;
 
-import domeintje.DomeinController;
-import domeintje.interfacesDomein.*;
+import domein.DomeinController;
+import domein.interfacesDomein.*;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

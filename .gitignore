@@ -33,6 +33,6 @@ hs_err_pid*
 
 #package ongebruikt
 /src/ongebruikt/*
-/src/domeintje/domeinklassen/JPAIdGenerator.java
+/src/domein/domeinklassen/JPAIdGenerator.java
 /vpproject
 /IntelliJ-g001.vpdm

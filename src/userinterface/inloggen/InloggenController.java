@@ -1,6 +1,6 @@
 package userinterface.inloggen;
 
-import domeintje.DomeinController;
+import domein.DomeinController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
 

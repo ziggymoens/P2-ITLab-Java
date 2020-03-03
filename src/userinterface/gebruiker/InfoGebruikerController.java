@@ -1,7 +1,7 @@
 package userinterface.gebruikerBeheren;
 
-import domeintje.DomeinController;
-import domeintje.interfacesDomein.IGebruiker;
+import domein.DomeinController;
+import domein.interfacesDomein.IGebruiker;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

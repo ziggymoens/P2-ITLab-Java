@@ -1,6 +1,6 @@
 package main;
 
-import domeintje.DomeinController;
+import domein.DomeinController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
