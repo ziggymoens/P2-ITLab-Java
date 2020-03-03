@@ -104,7 +104,13 @@ public class InfoGebruikerController extends AnchorPane {
     @FXML
     void FilterGeblokkeerdStatus(ActionEvent event) {
         clearTable();
-        VulTable(FXCollections.observableArrayList(domeinController.geefAlleGeblokkeerdeGebruikers()));
+        if(!statusFilterActief.isSelected() && !statusFilterNietActief.isSelected()){
+            VulTable(FXCollections.observableArrayList(domeinController.geefAlleGeblokkeerdeGebruikers()));
+        }else if(statusFilterActief.isSelected()){
+            ObservableList<IGebruiker> list = (ObservableList) domeinController.geefAlleActieveGebruikers();
+            list.addAll((ObservableList) domeinController.geefAlleActieveGebruikers());
+            VulTable(FXCollections.observableArrayList(list));
+        }
     }
 
     @FXML
