@@ -2,6 +2,7 @@ package userinterface.gebruiker;
 
 import domein.DomeinController;
 import domein.interfacesDomein.IGebruiker;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,9 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import userinterface.main.MainScreenController;
-
 import java.io.IOException;
-import java.util.List;
 
 public class InfoGebruikerController extends AnchorPane {
 
@@ -50,7 +49,10 @@ public class InfoGebruikerController extends AnchorPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
-        initVulTable(FXCollections.observableArrayList(domeinController.geefIGebruikers()));
+
+        //tableViewGebruikers = new TableView<>();
+
+        VulTable(FXCollections.observableArrayList(domeinController.geefIGebruikers()));
 
         typeFilterAll.setOnAction(this::FilterAllTypes);
         typeFilterGebruiker.setOnAction(this::FilterGebruikersType);
@@ -61,16 +63,37 @@ public class InfoGebruikerController extends AnchorPane {
         statusFilterActief.setOnAction(this::FilterActiefStatus);
         statusFilterNietActief.setOnAction(this::FilterNietActiefStatus);
         statusFilterGeblokkeerd.setOnAction(this::FilterGeblokkeerdStatus);
+
+        zoekKnop.setOnAction(this::zoekKnop);
+
+        ObservableList data =  tableViewGebruikers.getItems();
+            txtFieldUser.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if (oldValue != null && (newValue.length() < oldValue.length())) {
+                tableViewGebruikers.setItems(data);
+            }
+            String value = newValue.toLowerCase();
+            ObservableList<IGebruiker> subentries = FXCollections.observableArrayList();
+
+            long count = tableViewGebruikers.getColumns().stream().count();
+            for (int i = 0; i < tableViewGebruikers.getItems().size(); i++) {
+                for (int j = 0; j < count; j++) {
+                    String entry = "" + tableViewGebruikers.getColumns().get(j).getCellData(i);
+                    if (entry.toLowerCase().contains(value)) {
+                        subentries.add(tableViewGebruikers.getItems().get(i));
+                        break;
+                    }
+                }
+            }
+            tableViewGebruikers.setItems(subentries);
+        });
     }
 
-    public void initVulTable(List<IGebruiker> list){
-        clearTable();
-        TVnaamGebruiker.setCellValueFactory(new PropertyValueFactory<>("naam"));
-        TVgebruikersnaamChamilo.setCellValueFactory(new PropertyValueFactory<>("gebruikersnaam"));
-        TVstatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-        TVtype.setCellValueFactory(new PropertyValueFactory<>("gebruikersprofiel"));
-        tableViewGebruikers.setItems(FXCollections.observableArrayList(list));
-        tableViewGebruikers.getColumns().addAll(TVnaamGebruiker, TVgebruikersnaamChamilo, TVstatus, TVtype);
+    private void zoekKnop(ActionEvent actionEvent) {
+        System.out.println("Wie zoekt, die vindt...");
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println("Gevonden!");
     }
 
     @FXML
@@ -79,8 +102,15 @@ public class InfoGebruikerController extends AnchorPane {
     }
 
     private void VulTable(ObservableList<IGebruiker> observableList) {
-        clearTable();
-        tableViewGebruikers.setItems(observableList);
+        tableViewGebruikers.getColumns().clear();
+        TVnaamGebruiker.setCellValueFactory(new PropertyValueFactory<>("naam"));
+        TVgebruikersnaamChamilo.setCellValueFactory(new PropertyValueFactory<>("gebruikersnaam"));
+        TVstatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        TVtype.setCellValueFactory(new PropertyValueFactory<>("gebruikersprofiel"));
+        tableViewGebruikers.setItems(FXCollections.observableArrayList(observableList));
+        tableViewGebruikers.getColumns().addAll(TVnaamGebruiker, TVgebruikersnaamChamilo, TVstatus, TVtype);
+        if(tableViewGebruikers.getSelectionModel() != null)
+            tableViewGebruikers.getSelectionModel().select(0);
     }
 
     @FXML
@@ -107,9 +137,8 @@ public class InfoGebruikerController extends AnchorPane {
         if(!statusFilterActief.isSelected() && !statusFilterNietActief.isSelected()){
             VulTable(FXCollections.observableArrayList(domeinController.geefAlleGeblokkeerdeGebruikers()));
         }else if(statusFilterActief.isSelected()){
-            ObservableList<IGebruiker> list = (ObservableList) domeinController.geefAlleActieveGebruikers();
-            list.addAll((ObservableList) domeinController.geefAlleActieveGebruikers());
-            VulTable(FXCollections.observableArrayList(list));
+            tableViewGebruikers.setItems(FXCollections.observableArrayList(domeinController.geefAlleGeblokkeerdeGebruikers()));
+            tableViewGebruikers.setItems(FXCollections.observableArrayList(domeinController.geefAlleActieveGebruikers()));
         }
     }
 
@@ -138,8 +167,10 @@ public class InfoGebruikerController extends AnchorPane {
     }
 
     public void clearTable(){
-        tableViewGebruikers.getItems().clear();
+        tableViewGebruikers.getColumns().clear();
     }
+
+
 
 }
 

@@ -35,9 +35,9 @@
             </Menu>
             <Menu fx:id="menuGebruiker" mnemonicParsing="false" text="Gebruiker">
                <items>
-                  <MenuItem fx:id="gebruikerNieuweGebruiker" mnemonicParsing="false" text="Nieuwe gebruiker..." />
+                  <MenuItem fx:id="gebruikerMaakGebruiker" mnemonicParsing="false" text="Maak gebruiker" />
                   <MenuItem fx:id="gebruikerOpenGebruiker" mnemonicParsing="false" text="Open gebruiker..." />
-                  <MenuItem fx:id="gebruikerVerwijderGebruiker" mnemonicParsing="false" text="Verwijder gebruiker..." />
+                  <MenuItem fx:id="gebruikerVerwijderGebruiker" mnemonicParsing="false" text="Verwijder gebruiker" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Sessiekalender">

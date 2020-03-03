@@ -30,7 +30,7 @@ import java.time.format.DateTimeFormatter;
 
 public class MainScreenController extends AnchorPane {
     @FXML
-    private MenuItem newSessie, openSessie, deleteSessie,addAankondiging, addFeedback, addInschrijving, addMedia, gebruikerNieuwegebruiker, gebruikerOpenGebruiker, gebruikerVerwijderGebruiker, about, help, gebruikerGegevens, gebruikerInstellingen, gebruikerUitloggen, gebruikerAfsluiten, openKalender;
+    private MenuItem newSessie, openSessie, deleteSessie,addAankondiging, addFeedback, addInschrijving, addMedia, gebruikerMaakGebruiker, gebruikerOpenGebruiker, gebruikerVerwijderGebruiker,about, help, gebruikerGegevens, gebruikerInstellingen, gebruikerUitloggen, gebruikerAfsluiten, openKalender;
     @FXML
     private RadioMenuItem taalN, taalE, taalF;
     @FXML
