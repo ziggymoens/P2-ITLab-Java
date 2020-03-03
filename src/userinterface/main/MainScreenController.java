@@ -14,7 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import userinterface.gebruikerBeheren.InfoGebruikerController;
+import userinterface.gebruiker.InfoGebruikerController;
 import userinterface.aankondiging.AankondigingPlaatsenController;
 import userinterface.kalender.KalenderController;
 import userinterface.kalender.KalenderGegevens;

@@ -1,4 +1,4 @@
-package userinterface.gebruikerBeheren;
+package userinterface.gebruiker;
 
 import domein.DomeinController;
 import domein.interfacesDomein.IGebruiker;
