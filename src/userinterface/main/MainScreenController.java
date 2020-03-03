@@ -19,7 +19,7 @@ import userinterface.aankondiging.AankondigingPlaatsenController;
 import userinterface.kalender.KalenderController;
 import userinterface.kalender.KalenderGegevens;
 import userinterface.media.NieuweMediaController;
-import userinterface.sessieBeheren.SessieTableViewController;
+import userinterface.sessie.SessieTableViewController;
 
 import java.io.IOException;
 import java.time.LocalDate;

@@ -1,4 +1,4 @@
-package userinterface.GebruikerBeheren;
+package userinterface.gebruikerBeheren;
 
 import domein.DomeinController;
 import domein.interfacesDomein.IGebruiker;
@@ -10,7 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import userinterface.MAIN.MainScreenController;
+import userinterface.main.MainScreenController;
 
 import java.io.IOException;
 import java.util.List;

@@ -11,7 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import userinterface.main.MainScreenController;
-import userinterface.sessieBeheren.SessieBewerkenController;
+import userinterface.sessie.SessieBewerkenController;
 
 import java.io.IOException;
 import java.util.List;

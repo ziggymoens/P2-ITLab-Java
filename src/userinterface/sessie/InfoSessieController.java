@@ -1,4 +1,4 @@
-package userinterface.sessieBeheren;
+package userinterface.sessie;
 
 import domein.DomeinController;
 import domein.interfacesDomein.*;
