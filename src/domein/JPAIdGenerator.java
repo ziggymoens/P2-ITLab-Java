@@ -31,8 +31,6 @@ public class JPAIdGenerator extends SequenceStyleGenerator {
     @Override
     public void configure(Type type, Properties params,
                           ServiceRegistry serviceRegistry) throws MappingException {
-
-        //PARAMETER AANPASSEN NAAR 50 OF 1
         try{
             params.put(SequenceStyleGenerator.INCREMENT_PARAM, "50");
             super.configure(LongType.INSTANCE, params, serviceRegistry);
@@ -40,7 +38,7 @@ public class JPAIdGenerator extends SequenceStyleGenerator {
             try {
                 params.put(SequenceStyleGenerator.INCREMENT_PARAM, "1");
                 super.configure(LongType.INSTANCE, params, serviceRegistry);
-            } catch (Exception ex) {
+            } catch (Exception ignored) {
             }
         }
 

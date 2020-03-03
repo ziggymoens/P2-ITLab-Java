@@ -1,31 +1,24 @@
 package userinterface.startUp;
 
-import com.sun.javafx.application.HostServicesDelegate;
 import domein.DomeinController;
 import domein.PasswordUtils;
-import domein.SessieKalender;
 import domein.interfacesDomein.IGebruiker;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCharacterCombination;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import language.I18N;
 import main.ITLab;
-import userinterface.MAIN.MainScreenController;
+import userinterface.main.MainScreenController;
 
 import java.io.IOException;
-import java.util.Locale;
 
 public class StartUpController extends AnchorPane {
 
@@ -108,6 +101,7 @@ public class StartUpController extends AnchorPane {
                 Scene scene = new Scene(new MainScreenController(domeinController));
                 Stage stage = new Stage();
                 stage.setScene(scene);
+                stage.setResizable(false);
                 stage.show();
             }
         }

@@ -1,4 +1,4 @@
-package userinterface.GebruikerBeheren;
+package userinterface.gebruiker;
 
 public class GebruikerBewerkenController {
 

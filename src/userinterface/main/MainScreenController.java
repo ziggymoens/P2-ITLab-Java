@@ -1,4 +1,4 @@
-package userinterface.MAIN;
+package userinterface.main;
 
 import domein.DomeinController;
 import domein.interfacesDomein.IGebruiker;
@@ -14,12 +14,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import userinterface.GebruikerBeheren.InfoGebruikerController;
-import userinterface.aankondigingPlaatsen.AankondigingPlaatsenController;
+import userinterface.gebruiker.InfoGebruikerController;
+import userinterface.aankondiging.AankondigingPlaatsenController;
 import userinterface.kalender.KalenderController;
 import userinterface.kalender.KalenderGegevens;
 import userinterface.media.NieuweMediaController;
-import userinterface.sessieBeheren.SessieTableViewController;
+import userinterface.sessie.SessieTableViewController;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -103,8 +103,8 @@ public class MainScreenController extends AnchorPane {
         Tab tab = new Tab();
         tab.setContent(new InfoGebruikerController(domeinController, this));
         tab.setText("Gebruiker");
+        tab.setClosable(true);
         addTab(tab);
-        tabPane.getSelectionModel().select(tab);
     }
 
     public Tab maakNieuwTab(Node node){
@@ -133,6 +133,7 @@ public class MainScreenController extends AnchorPane {
 
     public void addTab(Tab tab){
         tabPane.getTabs().add(tab);
+        tabPane.getSelectionModel().select(tab);
     }
 
     public BorderPane geefMainBP(){

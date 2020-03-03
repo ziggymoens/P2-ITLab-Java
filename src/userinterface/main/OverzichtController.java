@@ -1,4 +1,4 @@
-package userinterface.MAIN;
+package userinterface.main;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

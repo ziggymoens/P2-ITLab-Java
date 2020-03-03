@@ -1,7 +1,4 @@
 package domein;
-import domein.Gebruiker;
-import domein.Media;
-import domein.Sessie;
 import domein.enums.MediaTypes;
 import exceptions.domein.MediaException;
 import org.junit.jupiter.api.Assertions;

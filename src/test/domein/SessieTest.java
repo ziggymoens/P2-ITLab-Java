@@ -1,7 +1,4 @@
 package domein;
-import domein.Gebruiker;
-import domein.Lokaal;
-import domein.Sessie;
 import exceptions.domein.SessieException;
 
 import org.junit.jupiter.api.Assertions;

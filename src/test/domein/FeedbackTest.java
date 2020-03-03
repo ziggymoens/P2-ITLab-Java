@@ -1,9 +1,5 @@
 package domein;
 
-import domein.Feedback;
-import domein.Gebruiker;
-import domein.Lokaal;
-import domein.Sessie;
 import exceptions.domein.FeedbackException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;

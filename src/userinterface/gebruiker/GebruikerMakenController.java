@@ -1,4 +1,4 @@
-package userinterface.GebruikerBeheren;
+package userinterface.gebruiker;
 
 import domein.DomeinController;
 import javafx.fxml.FXML;
@@ -8,7 +8,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import userinterface.MAIN.MainScreenController;
+import userinterface.main.MainScreenController;
 
 import java.io.IOException;
 

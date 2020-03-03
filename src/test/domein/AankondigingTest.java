@@ -1,6 +1,5 @@
 package domein;
 
-import domein.*;
 import exceptions.domein.AankondigingException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
