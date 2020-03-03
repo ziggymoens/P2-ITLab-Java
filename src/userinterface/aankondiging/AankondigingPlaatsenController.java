@@ -77,6 +77,7 @@ public class AankondigingPlaatsenController extends AnchorPane {
             sessieList.setItems(FXCollections.observableList(domeinController.geefISessiesHuidigeKalender()));
         if(domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("VERANTWOORDELIJKE"))
             sessieList.setItems(FXCollections.observableList(domeinController.geefISessiesVanGebruiker()));
+        sessieList.setValue(sessie);
     }
 
     public void gebruikersInit(){
