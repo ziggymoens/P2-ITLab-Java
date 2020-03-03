@@ -9,10 +9,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class BeherenInschrijvingenController {
+public class BeherenInschrijvingenController extends AnchorPane {
     private DomeinController domeinController;
 
     @FXML
@@ -22,12 +23,12 @@ public class BeherenInschrijvingenController {
     private TableColumn<IInschrijving, String> naamGebruiker;
     private TableColumn<IInschrijving, String> datumInschrijving;
     private TableColumn<IInschrijving, String> aanwezigheid;
-
+        //hey
     @FXML
     private Button opslaan, verwijder, bewerken;
 
     public BeherenInschrijvingenController(DomeinController dc) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("BeherenInschrijvingen.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("BeherenInschrijving.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try {

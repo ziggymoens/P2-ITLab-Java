@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import userinterface.inschrijvingen.BeherenInschrijvingenController;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
@@ -119,6 +120,8 @@ public class SessieBewerkenController extends BorderPane {
         lblinschrijvingen.setText(lblinschrijvingen.getText() + " " + domeinController.geefHuidigeISessie().getIIngeschrevenGebruikers().size());
         lblmedia.setText(lblmedia.getText() + " " + domeinController.geefHuidigeISessie().getIMediaBijSessie().size());;
 
+        maakTable("inschrijvingen");
+
         save.setOnAction(this::save);
         cancel.setOnAction(this::cancel);
         media.setOnAction(this::media);
@@ -134,27 +137,14 @@ public class SessieBewerkenController extends BorderPane {
 
     }
 
-    private void vulTable(String t) {
-        /*table.getColumns().clear();
+    private void maakTable(String t) {
+
         switch(t){
             case "inschrijvingen":
-                System.out.println(domeinController.geefHuidigeISessie());
-                System.out.println(domeinController.geefHuidigeISessie().getIIngeschrevenGebruikers());
-                TableColumn<Gebruiker, String> gebruiker = new TableColumn<>("Naam gebruiker");
-                TableColumn<Inschrijving, String> datum = new TableColumn<>("Datum inschrijving");
-                TableColumn<Inschrijving, String> statusAanwezigheid = new TableColumn<>("Status aanwezigheid");
-
-                gebruiker.setCellValueFactory(new PropertyValueFactory<>("naam"));
-                datum.setCellValueFactory(new PropertyValueFactory<>("inschrijvingsdatum"));
-                statusAanwezigheid.setCellValueFactory(new PropertyValueFactory<>("statusAanwezigheid"));
-
-                table = new TableView<>();
-                table.setItems(domeinController.geefHuidigeISessie().getIIngeschrevenGebruikers());
-                table.getColumns().addAll(gebruiker, datum, statusAanwezigheid);
-
+                vboxTable.getChildren().addAll(new BeherenInschrijvingenController(domeinController));
                 break;
 
-            case "media":
+           /* case "media":
                 TableColumn<Media, MediaTypes> mediatype = new TableColumn<>("Type media");
                 TableColumn<Media, String> locatie = new TableColumn<>("Bestandslocatie");
                 mediatype.setCellValueFactory(new PropertyValueFactory<>("type"));
@@ -186,9 +176,9 @@ public class SessieBewerkenController extends BorderPane {
                 table = new TableView<IFeedback>();
                 table.setItems(domeinController.geefHuidigeISessie().getIFeedbackSessie());
                 table.getColumns().addAll(gebr, tekst);
-                break;
+                break;*/
 
-        }*/
+        }
 
 
     }
@@ -219,22 +209,22 @@ public class SessieBewerkenController extends BorderPane {
     }
 
     private void media(ActionEvent actionEvent) {
-        vulTable("media");
+        maakTable("media");
         //nog te implementeren
     }
 
     private void aankondigingen(ActionEvent actionEvent) {
-        vulTable("aankondigingen");
+        maakTable("aankondigingen");
         //nog te implementeren
     }
 
     private void inschrijvingen(ActionEvent actionEvent) {
-        vulTable("inschrijvingen");
+        maakTable("inschrijvingen");
         //nog te implementeren
     }
 
     private void feedback(ActionEvent actionEvent) {
-        vulTable("feedback");
+        maakTable("feedback");
         //nog te implementeren
     }
 
