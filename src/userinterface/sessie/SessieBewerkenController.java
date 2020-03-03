@@ -1,11 +1,11 @@
 package userinterface.sessie;
 
 import domein.DomeinController;
-import domein.interfacesDomein.ILokaal;
 import domein.interfacesDomein.ISessie;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +18,7 @@ import userinterface.inschrijvingen.BeherenInschrijvingenController;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 
 public class SessieBewerkenController extends BorderPane {
@@ -31,7 +32,7 @@ public class SessieBewerkenController extends BorderPane {
     @FXML
     private TextField titel, naamGast, maxPlaatsen, start, eind, verantwoordelijke;
     @FXML
-    private ChoiceBox<ILokaal> lokaal;
+    private ChoiceBox<String> lokaal;
     @FXML
     private CheckBox geopend;
     @FXML
@@ -82,8 +83,9 @@ public class SessieBewerkenController extends BorderPane {
         });
         titel.setEditable(true);
 
-        lokaal.setItems(FXCollections.observableArrayList(domeinController.geefILokalen()));
-        lokaal.setValue(domeinController.geefILokalen().stream().filter(lokaal -> lokaal.getLokaalCode().equals(this.domeinController.geefHuidigeISessie().getLokaal().getLokaalCode())).findFirst().orElse(null));
+        ObservableList<String> lokaalCodes = FXCollections.observableArrayList(domeinController.geefILokalen().stream().map(k -> k.getLokaalCode()).collect(Collectors.toList()));
+        lokaal.setItems(lokaalCodes);
+        lokaal.setValue(lokaalCodes.stream().filter(e -> e.equals(this.domeinController.geefHuidigeISessie().getLokaal())).findFirst().orElse(null));
         lokaal.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observableValue, Object o, Object t1) {

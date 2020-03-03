@@ -134,7 +134,7 @@ public class Inschrijving implements IInschrijving {
 
     @Override
     public String toString() {
-        return String.format("%s %s %s", gebruiker.getNaam(), inschrijvingsdatum.toString(), statusAanwezigheid);
+        return String.format("%s %s %s", gebruiker.getNaam(), inschrijvingsdatum, statusAanwezigheid);
     }
 
     @Override

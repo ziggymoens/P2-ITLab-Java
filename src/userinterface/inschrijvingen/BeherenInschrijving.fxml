@@ -17,9 +17,9 @@
          </font></Label>
       <TableView fx:id="tableView" layoutX="12.0" layoutY="75.0" prefHeight="250.0" prefWidth="575.0" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="75.0">
          <columns>
-            <TableColumn fx:id="naamGebruiker" prefWidth="75.0" text="Naam gerbuiker" />
-            <TableColumn fx:id="datumInschrijving" prefWidth="75.0" text="Inschrijvingsdatum" />
-            <TableColumn fx:id="aanwezigheid" prefWidth="75.0" text="Aanwezig" />
+            <TableColumn fx:id="a" prefWidth="75.0" text="Naam gerbuiker" />
+            <TableColumn fx:id="b" prefWidth="75.0" text="Inschrijvingsdatum" />
+            <TableColumn fx:id="c" prefWidth="75.0" text="Aanwezig" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

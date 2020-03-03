@@ -49,29 +49,27 @@ public class SessieTableViewController extends BorderPane {
         }
         vulTable();
         observable();
-        nieuweSessie.setOnAction(this :: nieuweSessie);
+        nieuweSessie.setOnAction(this::nieuweSessie);
         verwijderSessie.setOnAction(this::verwijderSessie);
         bewerkSessie.setOnAction(this::bewerkSessie);
         btnzoek.setOnAction(this::zoek);
 
     }
 
-    public void vulTable(){
+    public void vulTable() {
         table.getColumns().clear();
         titel.setCellValueFactory(new PropertyValueFactory<>("titel"));
         startSessie.setCellValueFactory(new PropertyValueFactory<>("startSessie"));
         eindSessie.setCellValueFactory(new PropertyValueFactory<>("eindeSessie"));
         lastColumn.setCellValueFactory(new PropertyValueFactory<>("maximumAantalPlaatsen"));
-        vulSessiesOp();
-        table.getColumns().addAll(titel, startSessie, eindSessie, lastColumn);
-    }
-
-    public void vulSessiesOp(){
         if(domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("HOOFDVERANTWOORDELIJKE"))
-            table.setItems(FXCollections.observableArrayList(domeinController.geefISessiesHuidigeKalender()));
+            sessies= FXCollections.observableArrayList(domeinController.geefISessiesHuidigeGebruiker());
         if(domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("VERANTWOORDELIJKE"))
-            table.setItems(FXCollections.observableList(domeinController.geefISessieGebruiker()));
-
+            sessies= FXCollections.observableArrayList(domeinController.geefISessieGebruiker());
+        table.setItems(sessies);
+        table.getColumns().addAll(titel, startSessie, eindSessie, lastColumn);
+        table.getSelectionModel().select(0);
+        domeinController.setHuidigeISessie(sessies.get(0));
     }
 
     private void geefDetails(ISessie sessie) {
@@ -91,7 +89,7 @@ public class SessieTableViewController extends BorderPane {
     private void bewerkSessie(ActionEvent actionEvent) {
         Tab tab = new Tab("Bewerk Sessie");
         tab.setClosable(true);
-        tab.setContent(new SessieBewerkenController(domeinController.geefHuidigeISessie(), domeinController, this));
+        tab.setContent(new SessieBewerkenController((ISessie)table.getSelectionModel().getSelectedItem(), domeinController, this));
         mainScreenController.addTab(tab);
         mainScreenController.getTabPane().getSelectionModel().select(tab);
     }

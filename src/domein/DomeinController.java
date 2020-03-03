@@ -164,6 +164,10 @@ public class DomeinController {
         return (List<ILokaal>) (Object) huidigeSessieKalender.geefAlleLokalen();
     }
 
+    public ILokaal geefLokaalSessie(){
+        return (ILokaal)(Object)huidigeSessie.getLokaal();
+    }
+
     public List<ILokaal> geefLokalenVanCampus(String campus){
         return (List<ILokaal>) (Object) huidigeSessieKalender.geefLokaalByCampus(campus.toUpperCase());
     }
