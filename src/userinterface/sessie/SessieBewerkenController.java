@@ -1,9 +1,9 @@
 package userinterface.sessie;
 
-import domein.DomeinController;
-import domein.interfacesDomein.IInschrijving;
-import domein.interfacesDomein.ILokaal;
-import domein.interfacesDomein.ISessie;
+import domeintje.DomeinController;
+import domeintje.interfacesDomein.IInschrijving;
+import domeintje.interfacesDomein.ILokaal;
+import domeintje.interfacesDomein.ISessie;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;

@@ -1,10 +1,9 @@
 package main;
 
-import domein.DomeinController;
-import domein.PasswordUtils;
-import domein.interfacesDomein.ILokaal;
-import domein.interfacesDomein.IMedia;
-import domein.interfacesDomein.ISessie;
+import domeintje.DomeinController;
+import domeintje.PasswordUtils;
+import domeintje.interfacesDomein.ILokaal;
+import domeintje.interfacesDomein.ISessie;
 
 import java.util.stream.Collectors;
 

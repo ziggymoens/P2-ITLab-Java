@@ -1,8 +1,8 @@
 package userinterface.startUp;
 
-import domein.DomeinController;
-import domein.PasswordUtils;
-import domein.interfacesDomein.IGebruiker;
+import domeintje.DomeinController;
+import domeintje.PasswordUtils;
+import domeintje.interfacesDomein.IGebruiker;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;

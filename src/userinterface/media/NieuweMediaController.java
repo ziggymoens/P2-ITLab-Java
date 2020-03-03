@@ -1,8 +1,8 @@
 package userinterface.media;
 
-import domein.DomeinController;
-import domein.interfacesDomein.IGebruiker;
-import domein.interfacesDomein.ISessie;
+import domeintje.DomeinController;
+import domeintje.interfacesDomein.IGebruiker;
+import domeintje.interfacesDomein.ISessie;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;

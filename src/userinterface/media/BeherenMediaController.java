@@ -1,6 +1,6 @@
 package userinterface.media;
 
-import domein.interfacesDomein.IMedia;
+import domeintje.interfacesDomein.IMedia;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 
