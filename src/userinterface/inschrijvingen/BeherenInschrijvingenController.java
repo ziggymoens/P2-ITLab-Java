@@ -1,6 +1,7 @@
 package userinterface.inschrijvingen;
 
 import domein.DomeinController;
+import domein.Inschrijving;
 import domein.interfacesDomein.IInschrijving;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,9 +19,9 @@ public class BeherenInschrijvingenController extends AnchorPane {
     private DomeinController domeinController;
 
     @FXML private TableView tableView;
-    @FXML private TableColumn<IInschrijving, String> naam;
-    @FXML private TableColumn<IInschrijving, String> datum;
-    @FXML private TableColumn<IInschrijving, String> aanwezig;
+    @FXML private TableColumn<Inschrijving, String> naam;
+    @FXML private TableColumn<Inschrijving, String> datum;
+    @FXML private TableColumn<Inschrijving, String> aanwezig;
 
     @FXML
     private Button opslaan, verwijder, bewerken;
@@ -40,7 +41,7 @@ public class BeherenInschrijvingenController extends AnchorPane {
     }
 
     private void vulTable(){
-        tableView.getColumns().clear();
+        //tableView.getColumns().clear();
 
         naam.setCellValueFactory(new PropertyValueFactory<>("gebruiker"));
         datum.setCellValueFactory(new PropertyValueFactory<>("inschrijvingsdatum"));
