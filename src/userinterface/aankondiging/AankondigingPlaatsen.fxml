@@ -31,7 +31,7 @@
             </FXCollections>
          </items>
       </ChoiceBox>
-      <Button fx:id="voegToe" layoutX="418.0" layoutY="498.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="133.0" text="Submit" />
+      <Button fx:id="voegToe" layoutX="620.0" layoutY="491.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="160.0" text="Toevoegen" />
       <Label layoutX="419.0" layoutY="43.0" prefHeight="18.0" prefWidth="562.0" text="Aankondiging">
          <padding>
             <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
