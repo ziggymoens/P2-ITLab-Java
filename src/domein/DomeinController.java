@@ -5,7 +5,6 @@ import domein.enums.Gebruikersprofielen;
 import domein.enums.Gebruikersstatus;
 import domein.enums.MediaTypes;
 import domein.interfacesDomein.*;
-import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -65,11 +64,17 @@ public class DomeinController {
         return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender(geefAcademiejaar(date)).stream().filter(s -> s.getStartSessie().getDayOfYear() == date.getDayOfYear() && s.getStartSessie().getYear()==date.getYear()).collect(Collectors.toList());
     }
 
-    public ISessie geefISessieById(String id){ return (ISessie)(Object)huidigeSessieKalender.geefSessieById(id); }
+    public ISessie geefISessieById(String id){
+        return (ISessie)(Object)huidigeSessieKalender.geefSessieById(id);
+    }
 
-    public ISessie geefHuidigeISessie(){return (ISessie)(Object)huidigeSessieKalender.geefSessieById(huidigeSessie.getSessieId());}
+    public ISessie geefHuidigeISessie(){
+        return (ISessie)(Object)huidigeSessieKalender.geefSessieById(huidigeSessie.getSessieId());
+    }
 
-    public List<ISessie> geefISessiesHuidigeGebruiker() {return (List<ISessie>)(Object) huidigeSessieKalender.geefSessiesVanGebruiker(huidigeGebruiker);}
+    public List<ISessie> geefISessiesHuidigeGebruiker() {
+        return (List<ISessie>)(Object) huidigeSessieKalender.geefSessiesVanGebruiker(huidigeGebruiker);
+    }
 
     public void maakSessieAan(String[] sessie) {
         //iterator
@@ -101,14 +106,6 @@ public class DomeinController {
 
     public List<ISessie> geefISessieGebruiker() {
         return (List<ISessie>) (Object) huidigeSessieKalender.geefSessiesVanGebruiker(huidigeGebruiker);
-    }
-
-    public void setHuidigeGebruiker(String gebruikersnaam) {
-        huidigeGebruiker = huidigeSessieKalender.geefGebruikerById(gebruikersnaam);
-    }
-
-    public void verwijderGebruiker(IGebruiker gebruiker) {
-        huidigeSessieKalender.verwijderGebruiker((Gebruiker) gebruiker);
     }
 
     public List<IGebruiker> geefAlleActieveGebruikers(){
@@ -153,6 +150,13 @@ public class DomeinController {
                 .collect(Collectors.toList());
     }
 
+    public void setHuidigeGebruiker(String gebruikersnaam) {
+        huidigeGebruiker = huidigeSessieKalender.geefGebruikerById(gebruikersnaam);
+    }
+
+    public void verwijderGebruiker(IGebruiker gebruiker) {
+        huidigeSessieKalender.verwijderGebruiker((Gebruiker) gebruiker);
+    }
     //endregion
 
     //region Lokaal

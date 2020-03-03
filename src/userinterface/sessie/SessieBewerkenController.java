@@ -1,4 +1,4 @@
-package userinterface.sessieBeheren;
+package userinterface.sessie;
 
 import domein.DomeinController;
 import domein.interfacesDomein.IInschrijving;
@@ -14,7 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import userinterface.MAIN.OverzichtController;
+import userinterface.main.OverzichtController;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
