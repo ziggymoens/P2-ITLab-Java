@@ -120,9 +120,9 @@ public class NieuweMediaController extends AnchorPane {
 
     private void initChoiceboxes() {
         if (domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("VERANTWOORDELIJKE")) {
-            sessie.setItems(FXCollections.observableArrayList(domeinController.geefISessiesHuidigeKalender()));
+            sessie.setItems(FXCollections.observableArrayList(domeinController.geefISessiesVanGebruiker()));
         } else {
-            sessie.setItems(FXCollections.observableArrayList((domeinController.geefISessiesHuidigeGebruiker())));
+            sessie.setItems(FXCollections.observableArrayList((domeinController.geefISessiesHuidigeKalender())));
         }
         gebruiker.setItems(FXCollections.observableArrayList(domeinController.geefIGebruikers()));
         type.setItems(FXCollections.observableArrayList(domeinController.geefMediaTypes()));

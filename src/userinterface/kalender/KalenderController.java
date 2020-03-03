@@ -118,7 +118,7 @@ public class KalenderController extends AnchorPane {
                         vBox.getChildren().add(new Label(String.format("%d %s", t, kalenderGegevens.afkorting())));
                         CharSequence cs = String.format("%d-%02d-%02d", kalenderGegevens.geefJaar(), kalenderGegevens.geefNummerMaand(), t);
                         LocalDate date = LocalDate.parse(cs);
-                        List<ISessie> sessies = domeinController.geefSessiesOpDag(date);
+                        List<ISessie> sessies = domeinController.geefISessiesOpDag(date);
                         if (sessies.size() != 0) {
                             Button button = new Button(String.valueOf(sessies.size()));
                             button.setOnAction(new EventHandler<ActionEvent>() {
@@ -145,7 +145,7 @@ public class KalenderController extends AnchorPane {
                         vBox.getChildren().add(label);
                         CharSequence cs = String.format("%d-%02d-%02d", kalenderGegevens.geefJaar(), kalenderGegevens.geefNummerMaand(), t);
                         LocalDate date = LocalDate.parse(cs);
-                        List<ISessie> sessies = domeinController.geefSessiesOpDag(date);
+                        List<ISessie> sessies = domeinController.geefISessiesOpDag(date);
                         if (sessies.size() != 0) {
                             Button button = new Button(String.valueOf(sessies.size()));
                             button.setOnAction(new EventHandler<ActionEvent>() {

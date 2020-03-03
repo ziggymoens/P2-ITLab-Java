@@ -24,11 +24,11 @@
       </Label>
       <Label fx:id="error" alignment="CENTER" layoutX="156.0" layoutY="288.0" prefHeight="17.0" prefWidth="289.0" textFill="RED" />
       <CheckBox fx:id="tonen" layoutX="445.0" layoutY="191.0" mnemonicParsing="false" text="wachtwoord tonen" />
-      <Label fx:id="errorGebruikersnaam" alignment="CENTER" layoutX="157.0" layoutY="162.0" prefHeight="17.0" prefWidth="289.0" textFill="RED" />
+      <Label fx:id="errorGebruikersnaam" alignment="CENTER" layoutX="157.0" layoutY="162.0" prefHeight="17.0" prefWidth="289.0" text="Piemel" textFill="RED" />
       <Label fx:id="errorWachtwoord" alignment="CENTER" layoutX="157.0" layoutY="218.0" prefHeight="17.0" prefWidth="289.0" textFill="RED" />
       <Pane layoutX="-6.0" layoutY="363.0" prefHeight="38.0" prefWidth="608.0" style="-fx-background-color: rgba(0, 0, 0, 0.7)rgba(0, 0, 0, 0.7);">
          <children>
-            <Label alignment="CENTER" layoutX="91.0" layoutY="11.0" prefHeight="17.0" prefWidth="426.0" text="Copyright © 2020 Alle rechten voorbehouden" />
+            <Label alignment="CENTER" layoutX="91.0" layoutY="11.0" prefHeight="17.0" prefWidth="426.0" text="Copyright © 2020 Alle rechten voorbehouden" textFill="#ff0080" />
          </children>
       </Pane>
    </children>

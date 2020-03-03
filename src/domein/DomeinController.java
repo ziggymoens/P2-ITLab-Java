@@ -60,7 +60,7 @@ public class DomeinController {
         return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender(academiejaar);
     }
 
-    public List<ISessie> geefSessiesOpDag(LocalDate date) {
+    public List<ISessie> geefISessiesOpDag(LocalDate date) {
         return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender(geefAcademiejaar(date)).stream().filter(s -> s.getStartSessie().getDayOfYear() == date.getDayOfYear() && s.getStartSessie().getYear()==date.getYear()).collect(Collectors.toList());
     }
 
@@ -72,8 +72,8 @@ public class DomeinController {
         return (ISessie)(Object)huidigeSessieKalender.geefSessieById(huidigeSessie.getSessieId());
     }
 
-    public List<ISessie> geefISessiesHuidigeGebruiker() {
-        return (List<ISessie>)(Object) huidigeSessieKalender.geefSessiesVanGebruiker(huidigeGebruiker);
+    public List<ISessie> geefISessiesVanGebruiker() {
+        return (List<ISessie>) (Object) huidigeSessieKalender.geefSessiesVanGebruiker(huidigeGebruiker);
     }
 
     public void maakSessieAan(String[] sessie) {
@@ -81,8 +81,8 @@ public class DomeinController {
         huidigeSessieKalender.voegSessieToe(new Sessie(sessie[0], LocalDateTime.parse(sessie[1]), LocalDateTime.parse(sessie[2]), huidigeSessieKalender.geefLokaalById(sessie[3]), huidigeSessieKalender.geefGebruikerById(sessie[4])));
     }
 
-    public void pasSessieAan(Map<String, String> veranderingenMap) {
-        huidigeSessie.updateSessie(veranderingenMap, (List<ILokaal>)(Object)huidigeSessieKalender.geefAlleLokalen());
+    public void pasSessieAan(Map<String, String> nieuweMap) {
+        huidigeSessie.updateSessie(nieuweMap, (List<ILokaal>)(Object)huidigeSessieKalender.geefAlleLokalen());
         huidigeSessieKalender.updateSessie(huidigeSessie);
     }
 
@@ -102,10 +102,6 @@ public class DomeinController {
 
     public List<IGebruiker> geefIGebruikers() {
         return (List<IGebruiker>)(Object) huidigeSessieKalender.geefAlleGebruikers();
-    }
-
-    public List<ISessie> geefISessieGebruiker() {
-        return (List<ISessie>) (Object) huidigeSessieKalender.geefSessiesVanGebruiker(huidigeGebruiker);
     }
 
     public List<IGebruiker> geefAlleActieveGebruikers(){
@@ -206,8 +202,12 @@ public class DomeinController {
     //endregion
 
     //region Inschrijving
-    public List<IInschrijving> geefIInschrijvingen(){
-        return (List<IInschrijving>)(Object)huidigeSessie.getInschrijvingen();
+    public List<IInschrijving> geefAlleInschrijvingenVanSessie(){
+        return (List<IInschrijving>)(Object)huidigeSessieKalender.geefAlleInschrijvingenVanSessie(huidigeSessie.getSessieId());
+    }
+
+    public List<IInschrijving> geefAlleInschrijvingen(){
+        return (List<IInschrijving>)(Object)huidigeSessieKalender.geefAlleInschrijvingen();
     }
     //endregion
 }

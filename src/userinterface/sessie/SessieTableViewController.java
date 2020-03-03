@@ -58,14 +58,17 @@ public class SessieTableViewController extends BorderPane {
 
     public void vulTable() {
         table.getColumns().clear();
+
         titel.setCellValueFactory(new PropertyValueFactory<>("titel"));
         startSessie.setCellValueFactory(new PropertyValueFactory<>("startSessie"));
         eindSessie.setCellValueFactory(new PropertyValueFactory<>("eindeSessie"));
         lastColumn.setCellValueFactory(new PropertyValueFactory<>("maximumAantalPlaatsen"));
+
         if(domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("HOOFDVERANTWOORDELIJKE"))
-            sessies= FXCollections.observableArrayList(domeinController.geefISessiesHuidigeGebruiker());
+            sessies= FXCollections.observableArrayList(domeinController.geefISessiesHuidigeKalender());
         if(domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("VERANTWOORDELIJKE"))
-            sessies= FXCollections.observableArrayList(domeinController.geefISessieGebruiker());
+            sessies= FXCollections.observableArrayList(domeinController.geefISessiesVanGebruiker());
+
         table.setItems(sessies);
         table.getColumns().addAll(titel, startSessie, eindSessie, lastColumn);
         table.getSelectionModel().select(0);
@@ -89,7 +92,7 @@ public class SessieTableViewController extends BorderPane {
     private void bewerkSessie(ActionEvent actionEvent) {
         Tab tab = new Tab("Bewerk Sessie");
         tab.setClosable(true);
-        tab.setContent(new SessieBewerkenController((ISessie)table.getSelectionModel().getSelectedItem(), domeinController, this));
+        tab.setContent(new SessieBewerkenController((ISessie)table.getSelectionModel().getSelectedItem(), domeinController, mainScreenController));
         mainScreenController.addTab(tab);
         mainScreenController.getTabPane().getSelectionModel().select(tab);
     }

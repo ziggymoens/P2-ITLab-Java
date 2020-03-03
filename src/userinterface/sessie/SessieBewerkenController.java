@@ -11,9 +11,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import userinterface.inschrijvingen.BeherenInschrijvingenController;
+import userinterface.main.MainScreenController;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
@@ -24,8 +25,8 @@ import java.util.stream.Collectors;
 public class SessieBewerkenController extends BorderPane {
     private ISessie sessie;
     private DomeinController domeinController;
-    private SessieTableViewController sessieTableViewController;
     private HashMap<String, String> veranderingenMap;
+    private MainScreenController mainScreenController;
 
     @FXML
     private Label tabelTitel, schermTitel, lblinschrijvingen, lblaankondigingen, lblmedia, lblfeedback;
@@ -36,14 +37,16 @@ public class SessieBewerkenController extends BorderPane {
     @FXML
     private CheckBox geopend;
     @FXML
+    private HBox hboxTable;
+    @FXML
     private VBox vboxTable;
     @FXML
     private Button inschrijvingen, aankondigingen, media, feedback, nieuw, bewerken, save, cancel;
 
-    public SessieBewerkenController(ISessie sessie, DomeinController domeinController, SessieTableViewController stvc) {
+    public SessieBewerkenController(ISessie sessie, DomeinController domeinController, MainScreenController msc) {
+        this.mainScreenController = msc;
         this.sessie = sessie;
         this.domeinController = domeinController;
-        this.sessieTableViewController = stvc;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("SessieBewerken.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -58,6 +61,7 @@ public class SessieBewerkenController extends BorderPane {
         else {geefDetails(sessie);}
 
         veranderingenMap = new HashMap<String, String>();
+
         verantwoordelijke.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
@@ -85,7 +89,7 @@ public class SessieBewerkenController extends BorderPane {
 
         ObservableList<String> lokaalCodes = FXCollections.observableArrayList(domeinController.geefILokalen().stream().map(k -> k.getLokaalCode()).collect(Collectors.toList()));
         lokaal.setItems(lokaalCodes);
-        lokaal.setValue(lokaalCodes.stream().filter(e -> e.equals(this.domeinController.geefHuidigeISessie().getLokaal())).findFirst().orElse(null));
+        lokaal.setValue(lokaalCodes.stream().filter(e -> e.equals(this.domeinController.geefHuidigeISessie().getLokaal().getLokaalCode())).findFirst().orElse(null));
         lokaal.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observableValue, Object o, Object t1) {
@@ -206,8 +210,7 @@ public class SessieBewerkenController extends BorderPane {
             veranderingenMap.put("maxPlaatsen", String.valueOf(sessie.getMaximumAantalPlaatsen()));
         }*/
         domeinController.pasSessieAan(veranderingenMap);
-        Stage stage = (Stage) this.getScene().getWindow();
-        stage.close();
+        Tab selectedTab = mainScreenController.getTabPane().getTabs().remove(mainScreenController.getTabPane().getSelectionModel().getSelectedIndex());
     }
 
     private void media(ActionEvent actionEvent) {
@@ -231,8 +234,7 @@ public class SessieBewerkenController extends BorderPane {
     }
 
     private void cancel(ActionEvent actionEvent) {
-        Stage stage = (Stage) this.getScene().getWindow();
-        stage.close();
+        Tab selectedTab = mainScreenController.getTabPane().getTabs().remove(mainScreenController.getTabPane().getSelectionModel().getSelectedIndex());
     }
 
 

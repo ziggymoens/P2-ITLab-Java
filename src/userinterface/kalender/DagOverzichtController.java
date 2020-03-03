@@ -51,7 +51,7 @@ public class DagOverzichtController extends AnchorPane {
                 button.setOnAction(b -> {
                     Tab tab = new Tab();
                     BorderPane bp = new BorderPane();
-                    bp.setCenter(new SessieBewerkenController(sessie, domeinController, null));
+                    bp.setCenter(new SessieBewerkenController(sessie, domeinController, msc));
                     tab.setContent(bp);
                     tab.setText(sessie.getTitel());
                     msc.addTab(new Tab());

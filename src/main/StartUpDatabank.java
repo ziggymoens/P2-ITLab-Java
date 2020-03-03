@@ -16,7 +16,7 @@ public class StartUpDatabank {
 
 
         domeinController.setHuidigeGebruiker("758095zm");
-        System.out.println(domeinController.geefISessiesHuidigeGebruiker().stream().map(ISessie::toString_Kalender).collect(Collectors.joining("\n")));
+        System.out.println(domeinController.geefISessiesVanGebruiker().stream().map(ISessie::toString_Kalender).collect(Collectors.joining("\n")));
         System.out.println(domeinController.geefLokalenVanCampus("schoonmeersen").stream().map(ILokaal::getLokaalCode).collect(Collectors.joining("\n")));
         System.out.println(PasswordUtils.getSalt(60));
     }
