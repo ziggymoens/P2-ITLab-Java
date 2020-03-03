@@ -5,7 +5,6 @@ import domein.enums.Gebruikersprofielen;
 import domein.enums.Gebruikersstatus;
 import domein.enums.MediaTypes;
 import domein.interfacesDomein.*;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
@@ -36,7 +35,6 @@ public class DomeinController {
     }
     //endregion
 
-
     //region Academiejaar
     public List<String> geefAcademiejaren() {
         return huidigeSessieKalender.geefAlleAcademieJaren();
@@ -61,6 +59,10 @@ public class DomeinController {
 
     public List<ISessie> geefISessiesAcademiejaar(Integer academiejaar) {
         return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender(academiejaar);
+    }
+
+    public List<ISessie> geefSessiesOpDag(LocalDate date) {
+        return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender(geefAcademiejaar(date)).stream().filter(s -> s.getStartSessie().getDayOfYear() == date.getDayOfYear() && s.getStartSessie().getYear()==date.getYear()).collect(Collectors.toList());
     }
 
     public ISessie geefISessieById(String id){ return (ISessie)(Object)huidigeSessieKalender.geefSessieById(id); }
@@ -161,7 +163,6 @@ public class DomeinController {
     public List<ILokaal> geefLokalenVanCampus(String campus){
         return (List<ILokaal>) (Object) huidigeSessieKalender.geefLokaalByCampus(campus.toUpperCase());
     }
-
     //endregion
 
     //region Media
@@ -169,13 +170,8 @@ public class DomeinController {
         return (List<IMedia>) (Object) huidigeSessieKalender.geefAlleMediaVanSessie(sessie);
     }
 
-
-    public List<ISessie> geefSessiesOpDag(LocalDate date) {
-        return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender(geefAcademiejaar(date)).stream().filter(s -> s.getStartSessie().getDayOfYear() == date.getDayOfYear() && s.getStartSessie().getYear()==date.getYear()).collect(Collectors.toList());
-    }
-
-    public ObservableList<IMedia> geefObservableListIMedia(){
-        return FXCollections.observableArrayList(huidigeSessieKalender.geefAlleMedia());
+    public List<IMedia> geefIMedia(){
+        return (List<IMedia>)(Object)huidigeSessieKalender.geefAlleMedia();
     }
 
     public void maakNieuweMedia(ISessie sessie, IGebruiker gebruiker, String type, String locatie) {
@@ -202,8 +198,8 @@ public class DomeinController {
     //endregion
 
     //region Inschrijving
-    public ObservableList<IInschrijving> geefObservableListIInschrijvingen(){
-        return FXCollections.observableArrayList(huidigeSessie.getInschrijvingen());
+    public List<IInschrijving> geefIInschrijvingen(){
+        return (List<IInschrijving>)(Object)huidigeSessie.getInschrijvingen();
     }
     //endregion
 }
