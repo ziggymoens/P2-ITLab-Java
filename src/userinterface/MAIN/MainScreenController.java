@@ -103,8 +103,8 @@ public class MainScreenController extends AnchorPane {
         Tab tab = new Tab();
         tab.setContent(new InfoGebruikerController(domeinController, this));
         tab.setText("Gebruiker");
+        tab.setClosable(true);
         addTab(tab);
-        tabPane.getSelectionModel().select(tab);
     }
 
     public Tab maakNieuwTab(Node node){
@@ -133,6 +133,7 @@ public class MainScreenController extends AnchorPane {
 
     public void addTab(Tab tab){
         tabPane.getTabs().add(tab);
+        tabPane.getSelectionModel().select(tab);
     }
 
     public BorderPane geefMainBP(){

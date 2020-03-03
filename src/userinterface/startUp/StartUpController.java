@@ -108,6 +108,7 @@ public class StartUpController extends AnchorPane {
                 Scene scene = new Scene(new MainScreenController(domeinController));
                 Stage stage = new Stage();
                 stage.setScene(scene);
+                stage.setResizable(false);
                 stage.show();
             }
         }
