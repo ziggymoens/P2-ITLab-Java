@@ -80,8 +80,11 @@ public class AankondigingPlaatsenController extends AnchorPane {
     }
 
     public void gebruikersInit(){
-        if(domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("HOOFDVERANTWOORDELIJKE"))
+        if(domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("HOOFDVERANTWOORDELIJKE")){
             gebruikersList.setItems(FXCollections.observableList(domeinController.geefIGebruikers()));
+            gebruikersList.setValue(domeinController.geefIGebruiker());
+        }
+
         if(domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("VERANTWOORDELIJKE")){
             gebruikersList.setItems(FXCollections.observableList(domeinController.geefIGebruikers()));
             gebruikersList.setValue(domeinController.geefIGebruiker());
@@ -100,10 +103,6 @@ public class AankondigingPlaatsenController extends AnchorPane {
         int dagenHerinnering = herinneringsMap.get(keuze);
         if(automatischeHerinnering.isSelected())
             herinnering = true;
-
-        IGebruiker gebruiker = domeinController.geefIGebruiker();
-        domeinController.addAankondigingSessie(sessie.getSessieId(), gebruiker.getGebruikersnaam(), aankondigingTekst.getText(), herinnering, dagenHerinnering);
+        domeinController.addAankondigingSessie(sessieList.getValue().getSessieId(), gebruikersList.getValue().getGebruikersnaam(), aankondigingTekst.getText(), herinnering, dagenHerinnering);
     }
-
-
 }
