@@ -1,6 +1,8 @@
 package userinterface.main;
 
+import domein.Aankondiging;
 import domein.DomeinController;
+import domein.interfacesDomein.IAankondiging;
 import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.ISessie;
 import javafx.event.ActionEvent;
@@ -14,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import userinterface.aankondiging.AankondigingBewerkenController;
 import userinterface.aankondiging.AankondigingPlaatsenController;
 import userinterface.gebruiker.InfoGebruikerController;
 import userinterface.kalender.KalenderController;
@@ -124,9 +127,15 @@ public class MainScreenController extends AnchorPane {
 
     public void openAankondiging(ActionEvent event){
         ISessie sessie = domeinController.geefISessieById("S1920-000002");
-        Tab tab = new Tab();
+        /*Tab tab = new Tab();
         tab.setContent(new AankondigingPlaatsenController(domeinController, this, sessie));
         tab.setText("Nieuwe Aankondiging");
+        addTab(tab);
+        tabPane.getSelectionModel().select(tab);*/
+        IAankondiging aankondiging = sessie.getIAankondigingenSessie().get(0);
+        Tab tab = new Tab();
+        tab.setContent(new AankondigingBewerkenController(domeinController, this, sessie, aankondiging));
+        tab.setText("Bewerken Aankondiging");
         addTab(tab);
         tabPane.getSelectionModel().select(tab);
     }
