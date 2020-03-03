@@ -8,8 +8,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class OverzichtController<T> extends AnchorPane {
@@ -38,5 +38,9 @@ public class OverzichtController<T> extends AnchorPane {
         }
 
         tableView.setItems(obj);
+    }
+
+    public void vulTable(int aantalKolommen, List <String> namen, List types){
+
     }
 }

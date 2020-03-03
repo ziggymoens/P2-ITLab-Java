@@ -84,6 +84,7 @@ public class SessieTableViewController extends BorderPane {
         tab.setClosable(true);
         tab.setContent(new SessieBewerkenController(domeinController.geefHuidigeISessie(), domeinController, this));
         mainScreenController.addTab(tab);
+        mainScreenController.getTabPane().getSelectionModel().select(tab);
     }
 
     private void nieuweSessie(ActionEvent actionEvent) {

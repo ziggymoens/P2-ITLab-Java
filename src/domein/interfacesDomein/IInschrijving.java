@@ -12,4 +12,6 @@ public interface IInschrijving {
     IGebruiker getIGebruiker();
 
     String toString_Compleet();
+
+    String toString_Kort();
 }

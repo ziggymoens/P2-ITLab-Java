@@ -1,11 +1,9 @@
 package userinterface.sessieBeheren;
 
 import domein.DomeinController;
-import domein.Gebruiker;
-import domein.Inschrijving;
-import domein.Media;
-import domein.enums.MediaTypes;
-import domein.interfacesDomein.*;
+import domein.interfacesDomein.IInschrijving;
+import domein.interfacesDomein.ILokaal;
+import domein.interfacesDomein.ISessie;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -13,12 +11,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import userinterface.MAIN.OverzichtController;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
@@ -38,7 +36,7 @@ public class SessieBewerkenController extends BorderPane {
     @FXML
     private CheckBox geopend;
     @FXML
-    private TableView table;
+    private VBox vboxTable;
     @FXML
     private Button inschrijvingen, aankondigingen, media, feedback, nieuw, bewerken, save, cancel;
 
@@ -85,15 +83,6 @@ public class SessieBewerkenController extends BorderPane {
         });
         titel.setEditable(true);
 
-
-//        lokaal.textProperty().addListener(new ChangeListener<String>() {
-//            @Override
-//            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-//                kijkenVoorAanpassingen("lokaal", t1);
-//            }
-//        });
-//        lokaal.setEditable(true);
-
         lokaal.setItems(FXCollections.observableArrayList(domeinController.geefILokalen()));
         lokaal.setValue(domeinController.geefILokalen().stream().filter(lokaal -> lokaal.getLokaalCode().equals(this.domeinController.geefHuidigeISessie().getLokaal().getLokaalCode())).findFirst().orElse(null));
         lokaal.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
@@ -103,8 +92,6 @@ public class SessieBewerkenController extends BorderPane {
             }
         });
 
-
-
         start.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
@@ -113,7 +100,6 @@ public class SessieBewerkenController extends BorderPane {
         });
         start.setEditable(true);
 
-
         eind.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
@@ -121,7 +107,6 @@ public class SessieBewerkenController extends BorderPane {
             }
         });
         eind.setEditable(true);
-
 
         maxPlaatsen.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -136,7 +121,13 @@ public class SessieBewerkenController extends BorderPane {
         lblinschrijvingen.setText(lblinschrijvingen.getText() + " " + domeinController.geefHuidigeISessie().getIIngeschrevenGebruikers().size());
         lblmedia.setText(lblmedia.getText() + " " + domeinController.geefHuidigeISessie().getIMediaBijSessie().size());;
 
-        vulTable("inschrijvingen");
+        vboxTable.getChildren().addAll(new OverzichtController<IInschrijving>());
+        vboxTable.getChildren().get(0).minWidth(100);
+        vboxTable.getChildren().get(0).maxWidth(100);
+        vboxTable.getChildren().get(0).maxHeight(500);
+
+
+
 
         save.setOnAction(this::save);
         cancel.setOnAction(this::cancel);
@@ -154,14 +145,14 @@ public class SessieBewerkenController extends BorderPane {
     }
 
     private void vulTable(String t) {
-        table.getColumns().clear();
+        /*table.getColumns().clear();
         switch(t){
             case "inschrijvingen":
                 System.out.println(domeinController.geefHuidigeISessie());
                 System.out.println(domeinController.geefHuidigeISessie().getIIngeschrevenGebruikers());
                 TableColumn<Gebruiker, String> gebruiker = new TableColumn<>("Naam gebruiker");
-                TableColumn<Inschrijving, LocalDateTime> datum = new TableColumn<>("Datum inschrijving");
-                TableColumn<Inschrijving, Boolean> statusAanwezigheid = new TableColumn<>("Status aanwezigheid");
+                TableColumn<Inschrijving, String> datum = new TableColumn<>("Datum inschrijving");
+                TableColumn<Inschrijving, String> statusAanwezigheid = new TableColumn<>("Status aanwezigheid");
 
                 gebruiker.setCellValueFactory(new PropertyValueFactory<>("naam"));
                 datum.setCellValueFactory(new PropertyValueFactory<>("inschrijvingsdatum"));
@@ -207,7 +198,7 @@ public class SessieBewerkenController extends BorderPane {
                 table.getColumns().addAll(gebr, tekst);
                 break;
 
-        }
+        }*/
 
 
     }

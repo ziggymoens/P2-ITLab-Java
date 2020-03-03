@@ -86,6 +86,7 @@ public class MainScreenController extends AnchorPane {
         tab.setClosable(true);
         tab.setContent(new SessieTableViewController(domeinController, this));
         tabPane.getTabs().add(tab);
+        tabPane.getSelectionModel().select(tab);
     }
 
     private void nieuweSessie(ActionEvent actionEvent){
@@ -103,6 +104,7 @@ public class MainScreenController extends AnchorPane {
         tab.setContent(new InfoGebruikerController(domeinController, this));
         tab.setText("Gebruiker");
         addTab(tab);
+        tabPane.getSelectionModel().select(tab);
     }
 
     public Tab maakNieuwTab(Node node){
@@ -135,5 +137,9 @@ public class MainScreenController extends AnchorPane {
 
     public BorderPane geefMainBP(){
         return mainTabBP;
+    }
+
+    public TabPane getTabPane (){
+        return this.tabPane;
     }
 }

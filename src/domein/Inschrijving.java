@@ -134,12 +134,19 @@ public class Inschrijving implements IInschrijving {
 
     @Override
     public String toString() {
-        return String.format("%s - %s", inschrijvingsId, gebruiker.getNaam());
+        return String.format("%s %s %s", gebruiker.getNaam(), inschrijvingsdatum.toString(), statusAanwezigheid);
     }
+
     @Override
     public String toString_Compleet() {
         return String.format("Inschrijving: %s%nIngeschreven gebruiker: %s%nIngeschreven op: %s%n", inschrijvingsId, gebruiker.getNaam(), toString_inschrijvingsDatum());
     }
+
+    @Override
+    public String toString_Kort() {
+        return String.format("%s - %s", inschrijvingsId, gebruiker.getNaam());
+    }
+
     public String toString_inschrijvingsDatum(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return String.format("%s", inschrijvingsdatum.format(formatter));

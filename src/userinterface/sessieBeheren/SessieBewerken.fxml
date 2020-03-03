@@ -5,8 +5,6 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -24,19 +22,10 @@
                         <Font name="Arial Italic" size="22.0" />
                      </font>
                      <VBox.margin>
-                        <Insets bottom="10.0" />
+                        <Insets bottom="20.0" />
                      </VBox.margin>
                   </Label>
-                  <TableView fx:id="table" prefHeight="509.0" prefWidth="686.0">
-                     <columns>
-                        <TableColumn prefWidth="129.60003662109375" text="Ingeschreven gebruikers" />
-                        <TableColumn prefWidth="75.0" text="Inschrijvingsdatum" />
-                        <TableColumn prefWidth="760.8000183105469" text="Satus aanwezigheid" />
-                     </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TableView>
+                  <VBox fx:id="vboxTable" maxHeight="500.0" prefHeight="500.0" prefWidth="100.0" />
                   <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Button fx:id="nieuw" mnemonicParsing="false" text="Nieuw">
@@ -235,7 +224,7 @@
             </VBox>
          </children>
          <BorderPane.margin>
-            <Insets bottom="20.0" left="20.0" top="20.0" />
+            <Insets left="20.0" top="20.0" />
          </BorderPane.margin>
       </VBox>
    </center>
@@ -253,6 +242,9 @@
                </HBox.margin>
             </Button>
          </children>
+         <BorderPane.margin>
+            <Insets bottom="20.0" />
+         </BorderPane.margin>
       </HBox>
    </bottom>
 </fx:root>
