@@ -76,6 +76,24 @@ public class DomeinController {
         return (List<ISessie>) (Object) huidigeSessieKalender.geefSessiesVanGebruiker(huidigeGebruiker);
     }
 
+    public List<ISessie> geefISessiesVanGebruiker(List<ISessie> sessies) {
+        return sessies.stream().filter(e -> e.getVerantwoordelijke().equals(huidigeGebruiker)).collect(Collectors.toList());
+    }
+
+    public List<ISessie>geefISessiesAalst() {
+        return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender(academiejaar)
+                .stream()
+                .filter(e -> e.getLokaal().getLokaalCode().matches("GA\\.+"))
+                .collect(Collectors.toList());
+    }
+
+    public List<ISessie>geefISessiesGent() {
+        return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender(academiejaar)
+                .stream()
+                .filter(e -> e.getLokaal().getLokaalCode().matches("GS\\.+"))
+                .collect(Collectors.toList());
+    }
+
     public void maakSessieAan(String[] sessie) {
         //iterator
         huidigeSessieKalender.voegSessieToe(new Sessie(sessie[0], LocalDateTime.parse(sessie[1]), LocalDateTime.parse(sessie[2]), huidigeSessieKalender.geefLokaalById(sessie[3]), huidigeSessieKalender.geefGebruikerById(sessie[4])));
@@ -219,7 +237,7 @@ public class DomeinController {
         public List<IFeedback> geefAlleFeedbackVanHuidigeSessie(){
             return (List<IFeedback>)(Object)huidigeSessieKalender.geefAlleFeedbackVanSessie(huidigeSessie.getSessieId());
         }
-    //end region
+    //endregion
 }
 
 /* vorige dc

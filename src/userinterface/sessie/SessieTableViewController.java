@@ -15,6 +15,7 @@ import javafx.scene.layout.BorderPane;
 import userinterface.main.MainScreenController;
 
 import java.io.IOException;
+import java.util.List;
 
 public class SessieTableViewController extends BorderPane {
     private DomeinController domeinController;
@@ -47,8 +48,23 @@ public class SessieTableViewController extends BorderPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
-        vulTable();
-        observable();
+
+        vulTable(this.domeinController.geefISessiesHuidigeKalender());
+
+        table.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessie>() {
+            @Override
+            public void changed(ObservableValue<? extends ISessie> observableValue, ISessie iSessie, ISessie t1) {
+                domeinController.setHuidigeISessie(t1);
+            }
+        });
+
+        nietGeopend.setOnAction(this::filterNietGeopend);
+        geopend.setOnAction(this::filterGeopend);
+        open.setOnAction(this::filterOpen);
+        aalst.setOnAction(this::filterAalst);
+        gent.setOnAction(this::filterGent);
+
         nieuweSessie.setOnAction(this::nieuweSessie);
         verwijderSessie.setOnAction(this::verwijderSessie);
         bewerkSessie.setOnAction(this::bewerkSessie);
@@ -56,7 +72,7 @@ public class SessieTableViewController extends BorderPane {
 
     }
 
-    public void vulTable() {
+    public void vulTable(List<ISessie> isessies) {
         table.getColumns().clear();
 
         titel.setCellValueFactory(new PropertyValueFactory<>("titel"));
@@ -64,26 +80,73 @@ public class SessieTableViewController extends BorderPane {
         eindSessie.setCellValueFactory(new PropertyValueFactory<>("eindeSessie"));
         lastColumn.setCellValueFactory(new PropertyValueFactory<>("maximumAantalPlaatsen"));
 
-        if(domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("HOOFDVERANTWOORDELIJKE"))
-            sessies= FXCollections.observableArrayList(domeinController.geefISessiesHuidigeKalender());
-        if(domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("VERANTWOORDELIJKE"))
-            sessies= FXCollections.observableArrayList(domeinController.geefISessiesVanGebruiker());
+        if(domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("VERANTWOORDELIJKE")) {
+            sessies = FXCollections.observableArrayList(domeinController.geefISessiesVanGebruiker(isessies));
+        } else {sessies= FXCollections.observableArrayList(isessies);}
+        System.out.println(sessies);
 
         table.setItems(sessies);
         table.getColumns().addAll(titel, startSessie, eindSessie, lastColumn);
-        table.getSelectionModel().select(0);
-        domeinController.setHuidigeISessie(sessies.get(0));
+        if(!table.getItems().isEmpty() ||table.getItems() != null){
+            table.getSelectionModel().select(0);
+            domeinController.setHuidigeISessie(sessies.get(0));
+        }
     }
 
-    private void geefDetails(ISessie sessie) {
-        /*
-        naamverantwoordelijke.setText(sessie.getVerantwoordelijke().getNaam());
-        titel.setText(sessie.getTitel());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        start.setText(sessie.getStartSessie().format(formatter));
-        eind.setText(sessie.getEindeSessie().format(formatter));
-        plaatsen.setText(String.valueOf(sessie.isGeopend()?sessie.getAantalAanwezigen():sessie.getBeschikbarePlaatsen()));
-   */
+    private void filterGent(ActionEvent actionEvent) {
+        if(gent.isSelected()){
+            aalst.setDisable(true);
+            vulTable(domeinController.geefISessiesGent());
+        }else if(!gent.isSelected()){
+            aalst.setDisable(false);
+            vulTable(this.domeinController.geefISessiesHuidigeKalender());
+        }
+    }
+
+    private void filterAalst(ActionEvent actionEvent) {
+        if(aalst.isSelected()){
+            gent.setDisable(true);
+            vulTable(this.domeinController.geefISessiesAalst());
+        }else {
+            gent.setDisable(false);
+            vulTable(this.domeinController.geefISessiesHuidigeKalender());
+        }
+    }
+
+    private void filterOpen(ActionEvent actionEvent) {
+        if(open.isSelected()){
+            geopend.setDisable(true);
+            nietGeopend.setDisable(true);
+            vulTable(this.domeinController.geefISessiesHuidigeKalender());
+        }else if(!open.isSelected()){
+            geopend.setDisable(false);
+            nietGeopend.setDisable(false);
+            vulTable(this.domeinController.geefISessiesHuidigeKalender());
+        }
+    }
+
+    private void filterGeopend(ActionEvent actionEvent) {
+        if(geopend.isSelected()){
+            nietGeopend.setDisable(true);
+            open.setDisable(true);
+            vulTable(this.domeinController.geefISessiesHuidigeKalender());
+        }else if(!geopend.isSelected()){
+            nietGeopend.setDisable(false);
+            open.setDisable(false);
+            vulTable(this.domeinController.geefISessiesHuidigeKalender());
+        }
+    }
+
+    private void filterNietGeopend(ActionEvent actionEvent) {
+        if(nietGeopend.isSelected()){
+            geopend.setDisable(true);
+            open.setDisable(true);
+            vulTable(this.domeinController.geefISessiesHuidigeKalender());
+        }else if(!nietGeopend.isSelected()){
+            geopend.setDisable(false);
+            open.setDisable(false);
+            vulTable(this.domeinController.geefISessiesHuidigeKalender());
+        }
     }
 
     private void zoek(ActionEvent actionEvent) {
@@ -105,23 +168,17 @@ public class SessieTableViewController extends BorderPane {
     }
 
 
-    private void observable() {
+  /*   private void observable() {
 
-/*        choiceBoxKalenderJaar.setItems(FXCollections.observableArrayList(domeinController.geefAcademiejaren()));
+       choiceBoxKalenderJaar.setItems(FXCollections.observableArrayList(domeinController.geefAcademiejaren()));
         choiceBoxKalenderJaar.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                sessies = FXCollections.observableArrayList(domeinController.geefISessiesAcademiejaar(Integer.valueOf(t1)));*/
-                table.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-                table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessie>() {
-                    @Override
-                    public void changed(ObservableValue<? extends ISessie> observableValue, ISessie iSessie, ISessie t1) {
-                        domeinController.setHuidigeISessie(t1);
-                    }
-                });
-/*            }
-        });*/
+                sessies = FXCollections.observableArrayList(domeinController.geefISessiesAcademiejaar(Integer.valueOf(t1)));
+
+           }
+        });
         //choiceBoxKalenderJaar.setValue(choiceBoxKalenderJaar.getItems().get(0));
 
-    }
+    }*/
 }

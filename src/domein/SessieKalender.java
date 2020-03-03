@@ -146,7 +146,6 @@ public class SessieKalender {
     }
     //endregion
 
-
     //region Feedback
     public void voegFeedbackToe(Feedback feedback, Sessie sessie) {
         em.getTransaction().begin();
