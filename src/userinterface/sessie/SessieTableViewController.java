@@ -62,8 +62,16 @@ public class SessieTableViewController extends BorderPane {
         startSessie.setCellValueFactory(new PropertyValueFactory<>("startSessie"));
         eindSessie.setCellValueFactory(new PropertyValueFactory<>("eindeSessie"));
         lastColumn.setCellValueFactory(new PropertyValueFactory<>("maximumAantalPlaatsen"));
-        table.setItems(FXCollections.observableArrayList(domeinController.geefISessiesHuidigeGebruiker()));
+        vulSessiesOp();
         table.getColumns().addAll(titel, startSessie, eindSessie, lastColumn);
+    }
+
+    public void vulSessiesOp(){
+        if(domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("HOOFDVERANTWOORDELIJKE"))
+            table.setItems(FXCollections.observableArrayList(domeinController.geefISessiesHuidigeKalender()));
+        if(domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("VERANTWOORDELIJKE"))
+            table.setItems(FXCollections.observableList(domeinController.geefISessieGebruiker()));
+
     }
 
     private void geefDetails(ISessie sessie) {

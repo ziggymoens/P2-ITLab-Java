@@ -13,8 +13,8 @@
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="1400.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ChoiceBox fx:id="sessieList" layoutX="419.0" layoutY="153.0" prefHeight="26.0" prefWidth="562.0" />
-      <ChoiceBox fx:id="gebruikersList" layoutX="419.0" layoutY="105.0" prefHeight="26.0" prefWidth="562.0" />
+      <ChoiceBox fx:id="sessieList" layoutX="419.0" layoutY="99.0" prefHeight="26.0" prefWidth="562.0" />
+      <ChoiceBox fx:id="gebruikersList" layoutX="419.0" layoutY="143.0" prefHeight="26.0" prefWidth="562.0" />
       <Label layoutX="419.0" layoutY="250.0" text="Voeg aankondiging toe:">
          <padding>
             <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
