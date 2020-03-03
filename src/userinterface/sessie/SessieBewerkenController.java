@@ -13,7 +13,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import userinterface.aankondiging.BeherenAankondigingController;
+import userinterface.feedback.BeherenFeedbackController;
 import userinterface.inschrijvingen.BeherenInschrijvingenController;
+import userinterface.media.BeherenMediaController;
 import userinterface.main.MainScreenController;
 
 import java.io.IOException;
@@ -144,45 +147,23 @@ public class SessieBewerkenController extends BorderPane {
     }
 
     private void maakTable(String t) {
-
+        if(vboxTable.getChildren().size() != 0) vboxTable.getChildren().remove(0);
         switch(t){
             case "inschrijvingen":
                 vboxTable.getChildren().addAll(new BeherenInschrijvingenController(domeinController));
                 break;
 
-           /* case "media":
-                TableColumn<Media, MediaTypes> mediatype = new TableColumn<>("Type media");
-                TableColumn<Media, String> locatie = new TableColumn<>("Bestandslocatie");
-                mediatype.setCellValueFactory(new PropertyValueFactory<>("type"));
-                locatie.setCellValueFactory(new PropertyValueFactory<>("locatie"));
-                table = new TableView<IMedia>();
-                table.setItems(domeinController.geefObservableListIMedia());
-                table.getColumns().addAll(mediatype, locatie);
+            case "media":
+                vboxTable.getChildren().addAll(new BeherenMediaController(domeinController));
                 break;
 
             case "aankondigingen":
-                TableColumn<IAankondiging, LocalDateTime> publicatiedatum = new TableColumn<>("Publicatie datum");
-                publicatiedatum.setCellValueFactory(new PropertyValueFactory<>("publicatiedatum"));
-                TableColumn<IAankondiging, String> inhoud = new TableColumn<>("Inhoud");
-                inhoud.setCellValueFactory(new PropertyValueFactory<>("inhoud"));
-                TableColumn<IAankondiging, Boolean> automatischeHerinnering = new TableColumn<>("Automatische herinnering");
-                automatischeHerinnering.setCellValueFactory(new PropertyValueFactory<>("automatischeHerinnering"));
-                TableColumn<IAankondiging, Integer> dagenVooraf = new TableColumn<>("Aantal dagen vooraf");
-                dagenVooraf.setCellValueFactory(new PropertyValueFactory<>("dagenVooraf"));
-                table = new TableView<IAankondiging>();
-                table.setItems(domeinController.geefHuidigeISessie().getIAankondigingenSessie());
-                table.getColumns().addAll(publicatiedatum, inhoud, automatischeHerinnering);
+                vboxTable.getChildren().addAll(new BeherenAankondigingController(domeinController));
                 break;
 
             case "feedback":
-                TableColumn<IFeedback, IGebruiker> gebr = new TableColumn<>("Naam gebruiker");
-                gebr.setCellValueFactory(new PropertyValueFactory<>("gebruiker.getNaam()"));
-                TableColumn<IFeedback, String> tekst = new TableColumn<>("Inhoud");
-                tekst.setCellValueFactory(new PropertyValueFactory<>("tekst"));
-                table = new TableView<IFeedback>();
-                table.setItems(domeinController.geefHuidigeISessie().getIFeedbackSessie());
-                table.getColumns().addAll(gebr, tekst);
-                break;*/
+                vboxTable.getChildren().addAll(new BeherenFeedbackController(domeinController));
+                break;
 
         }
 

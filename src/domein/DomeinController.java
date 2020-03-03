@@ -170,8 +170,8 @@ public class DomeinController {
     //endregion
 
     //region Media
-    public List<IMedia> geefMediaVanSessie(String sessie) {
-        return (List<IMedia>) (Object) huidigeSessieKalender.geefAlleMediaVanSessie(sessie);
+    public List<IMedia> geefMediaVanHuidigeSessie() {
+        return (List<IMedia>) (Object) huidigeSessieKalender.geefAlleMediaVanSessie(huidigeSessie.getSessieId());
     }
 
     public List<IMedia> geefIMedia(){
@@ -184,6 +184,10 @@ public class DomeinController {
     //endregion
 
     //region Aankondiging
+    public List<IAankondiging> geefAlleAankondigingenVanHuidigeSessie(){
+        return (List<IAankondiging>)(Object)huidigeSessieKalender.geefAlleAankondigingenVanSessie(huidigeSessie.getSessieId());
+    }
+
     public void addAankondigingSessie(String sessieId, String gebruikersnaam, String text, boolean automatischeHerinnering, int dagenHerinnering) {
         Aankondiging aankondiging = new Aankondiging(huidigeSessieKalender.geefGebruikerById(gebruikersnaam), LocalDateTime.now(), text);
         huidigeSessieKalender.voegAankondigingToe(aankondiging, huidigeSessieKalender.geefSessieById(sessieId));
@@ -202,7 +206,7 @@ public class DomeinController {
     //endregion
 
     //region Inschrijving
-    public List<IInschrijving> geefAlleInschrijvingenVanSessie(){
+    public List<IInschrijving> geefAlleInschrijvingenVanHuidigeSessie(){
         return (List<IInschrijving>)(Object)huidigeSessieKalender.geefAlleInschrijvingenVanSessie(huidigeSessie.getSessieId());
     }
 
@@ -210,6 +214,12 @@ public class DomeinController {
         return (List<IInschrijving>)(Object)huidigeSessieKalender.geefAlleInschrijvingen();
     }
     //endregion
+
+    //region Feedback
+        public List<IFeedback> geefAlleFeedbackVanHuidigeSessie(){
+            return (List<IFeedback>)(Object)huidigeSessieKalender.geefAlleFeedbackVanSessie(huidigeSessie.getSessieId());
+        }
+    //end region
 }
 
 /* vorige dc

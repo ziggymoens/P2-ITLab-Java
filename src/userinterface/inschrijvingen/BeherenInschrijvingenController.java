@@ -1,7 +1,6 @@
 package userinterface.inschrijvingen;
 
 import domein.DomeinController;
-import domein.Inschrijving;
 import domein.interfacesDomein.IInschrijving;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,11 +16,12 @@ import java.io.IOException;
 
 public class BeherenInschrijvingenController extends AnchorPane {
     private DomeinController domeinController;
+    private ObservableList<IInschrijving>inschrijvingen;
 
-    @FXML private TableView tableView;
-    @FXML private TableColumn<Inschrijving, String> naam;
-    @FXML private TableColumn<Inschrijving, String> datum;
-    @FXML private TableColumn<Inschrijving, String> aanwezig;
+    @FXML private TableView table;
+    @FXML private TableColumn<IInschrijving, String> gebruiker;
+    @FXML private TableColumn<IInschrijving, String> inschrijvingsdatum;
+    @FXML private TableColumn<IInschrijving, String> statusAanwezigheid;
 
     @FXML
     private Button opslaan, verwijder, bewerken;
@@ -41,16 +41,17 @@ public class BeherenInschrijvingenController extends AnchorPane {
     }
 
     private void vulTable(){
-        //tableView.getColumns().clear();
+        table.getColumns().clear();
 
-        naam.setCellValueFactory(new PropertyValueFactory<>("gebruiker"));
-        datum.setCellValueFactory(new PropertyValueFactory<>("inschrijvingsdatum"));
-        aanwezig.setCellValueFactory(new PropertyValueFactory<>("statusAanwezigheid"));
+        gebruiker.setCellValueFactory(new PropertyValueFactory<>("gebruiker"));
+        inschrijvingsdatum.setCellValueFactory(new PropertyValueFactory<>("inschrijvingsdatum"));
+        statusAanwezigheid.setCellValueFactory(new PropertyValueFactory<>("statusAanwezigheid"));
 
-        ObservableList<IInschrijving>inschrijvingen = FXCollections.observableArrayList(domeinController.geefAlleInschrijvingenVanSessie());
-        tableView.setItems(inschrijvingen);
-        tableView.getColumns().addAll(naam,datum,aanwezig);
-        tableView.getSelectionModel().select(0);
+        inschrijvingen = FXCollections.observableArrayList(domeinController.geefAlleInschrijvingenVanHuidigeSessie());
+
+        table.setItems(inschrijvingen);
+        table.getColumns().addAll(gebruiker,inschrijvingsdatum,statusAanwezigheid);
+        table.getSelectionModel().select(0);
     }
 
 }

@@ -15,15 +15,12 @@
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font></Label>
-      <TableView fx:id="tableView" layoutX="12.0" layoutY="75.0" prefHeight="250.0" prefWidth="575.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+      <TableView fx:id="table" layoutX="12.0" layoutY="75.0" prefHeight="250.0" prefWidth="575.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
          <columns>
-            <TableColumn fx:id="a" prefWidth="75.0" text="Naam gerbuiker" />
-            <TableColumn fx:id="b" prefWidth="75.0" text="Inschrijvingsdatum" />
-            <TableColumn fx:id="c" prefWidth="75.0" text="Aanwezig" />
-         </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy></TableView>
+            <TableColumn fx:id="gebruiker" prefWidth="238.0" text="Naam gerbuiker" />
+            <TableColumn fx:id="inschrijvingsdatum" prefWidth="244.0" text="Inschrijvingsdatum" />
+            <TableColumn fx:id="statusAanwezigheid" minWidth="9.0" prefWidth="97.0" text="Aanwezig" />
+         </columns></TableView>
       <HBox layoutY="344.0" maxWidth="1.7976931348623157E308">
          <children>
             <Button fx:id="opslaan" mnemonicParsing="false" prefWidth="100.0" text="Opslaan">
