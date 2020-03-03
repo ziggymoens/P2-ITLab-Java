@@ -69,10 +69,6 @@ public class DomeinController {
 
     public List<ISessie> geefISessiesHuidigeGebruiker() {return (List<ISessie>)(Object) huidigeSessieKalender.geefSessiesVanGebruiker(huidigeGebruiker);}
 
-    public ObservableList<ISessie> geefObservableListISessiesHuidigeGebruiker(){
-        return FXCollections.observableArrayList(huidigeSessieKalender.geefSessiesVanGebruiker(huidigeGebruiker));
-    }
-
     public void maakSessieAan(String[] sessie) {
         //iterator
         huidigeSessieKalender.voegSessieToe(new Sessie(sessie[0], LocalDateTime.parse(sessie[1]), LocalDateTime.parse(sessie[2]), huidigeSessieKalender.geefLokaalById(sessie[3]), huidigeSessieKalender.geefGebruikerById(sessie[4])));
@@ -90,7 +86,6 @@ public class DomeinController {
     public void setHuidigeISessie(ISessie t1) {
         this.huidigeSessie = huidigeSessieKalender.geefSessieById(t1.getSessieId());
     }
-
     //endregion
 
     //region Gebruiker
@@ -98,8 +93,8 @@ public class DomeinController {
         return (IGebruiker) huidigeGebruiker;
     }
 
-    public ObservableList<IGebruiker> geefIGebruikers() {
-        return  FXCollections.observableArrayList(huidigeSessieKalender.geefAlleGebruikers());
+    public List<IGebruiker> geefIGebruikers() {
+        return (List<IGebruiker>)(Object) huidigeSessieKalender.geefAlleGebruikers();
     }
 
     public List<ISessie> geefISessieGebruiker() {
@@ -114,8 +109,8 @@ public class DomeinController {
         huidigeSessieKalender.verwijderGebruiker((Gebruiker) gebruiker);
     }
 
-    public ObservableList<IGebruiker> geefAlleActieveGebruikers(){
-        return (ObservableList<IGebruiker>) (Object)huidigeSessieKalender.geefAlleGebruikers()
+    public List<IGebruiker> geefAlleActieveGebruikers(){
+        return (List<IGebruiker>) (Object)huidigeSessieKalender.geefAlleGebruikers()
                 .stream()
                 .filter(g -> g.getStatus().toString().equals(Gebruikersstatus.ACTIEF.toString()))
                 .collect(Collectors.toList());
@@ -128,29 +123,29 @@ public class DomeinController {
                 .collect(Collectors.toList());
     }
 
-    public ObservableList<IGebruiker> geefAlleGeblokkeerdeGebruikers(){
-        return (ObservableList<IGebruiker>) (Object)huidigeSessieKalender.geefAlleGebruikers()
+    public List<IGebruiker> geefAlleGeblokkeerdeGebruikers(){
+        return (List<IGebruiker>) (Object)huidigeSessieKalender.geefAlleGebruikers()
                 .stream()
                 .filter(g -> g.getStatus().toString().equals(Gebruikersstatus.GEBLOKKEERD.toString()))
                 .collect(Collectors.toList());
     }
 
-    public ObservableList<IGebruiker> geefAlleGewoneGebruikers(){
-        return (ObservableList<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers()
+    public List<IGebruiker> geefAlleGewoneGebruikers(){
+        return (List<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers()
                 .stream()
                 .filter(g -> g.getGebruikersprofiel().toString().equals(Gebruikersprofielen.GEBRUIKER.toString()))
                 .collect(Collectors.toList());
     }
 
-    public ObservableList<IGebruiker> geefAlleVerantwoordelijkeGebruikers(){
-        return (ObservableList<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers()
+    public List<IGebruiker> geefAlleVerantwoordelijkeGebruikers(){
+        return (List<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers()
                 .stream()
                 .filter(g -> g.getGebruikersprofiel().toString().equals(Gebruikersprofielen.VERANTWOORDELIJKE.toString()))
                 .collect(Collectors.toList());
     }
 
-    public ObservableList<IGebruiker> geefAlleHoofdverantwoordelijkeGebruikers(){
-        return (ObservableList<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers()
+    public List<IGebruiker> geefAlleHoofdverantwoordelijkeGebruikers(){
+        return (List<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers()
                 .stream()
                 .filter(g -> g.getGebruikersprofiel().toString().equals(Gebruikersprofielen.HOOFDVERANTWOORDELIJKE.toString()))
                 .collect(Collectors.toList());
@@ -210,7 +205,7 @@ public class DomeinController {
     public ObservableList<IInschrijving> geefObservableListIInschrijvingen(){
         return FXCollections.observableArrayList(huidigeSessie.getInschrijvingen());
     }
-    //end region
+    //endregion
 }
 
 /* vorige dc

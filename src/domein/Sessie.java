@@ -2,8 +2,6 @@ package domein;
 
 import domein.interfacesDomein.*;
 import exceptions.domein.SessieException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -180,23 +178,25 @@ public class Sessie implements ISessie {
     }
 
     @Override
-    public ObservableList<IMedia> getIMediaBijSessie() {
-        return FXCollections.observableArrayList(media);
+    public List<IMedia> getIMediaBijSessie() {
+
+        return (List<IMedia>)(Object)this.media;
     }
 
     @Override
-    public ObservableList<IInschrijving> getIIngeschrevenGebruikers() {
-        return FXCollections.observableArrayList(inschrijvingen);
+    public List<IInschrijving> getIIngeschrevenGebruikers() {
+        return (List<IInschrijving>)(Object)this.inschrijvingen;
     }
 
     @Override
-    public ObservableList<IAankondiging> getIAankondigingenSessie() {
-        return FXCollections.observableArrayList(aankondigingen);
+    public List<IAankondiging> getIAankondigingenSessie() {
+       return (List<IAankondiging>)(Object)this.aankondigingen;
     }
 
     @Override
-    public ObservableList<IFeedback> getIFeedbackSessie() {
-        return FXCollections.observableArrayList(feedback);
+    public List<IFeedback> getIFeedbackSessie() {
+
+        return (List<IFeedback>)(Object)this.feedback;
     }
 
     @Override
