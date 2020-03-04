@@ -25,7 +25,7 @@ public class DomeinController {
     public DomeinController() {
         this.academiejaar = geefAcademiejaar(LocalDate.now());
         huidigeSessieKalender = new SessieKalender();
-        SessieKalenderDataInit sessieKalenderDataInit = new SessieKalenderDataInit(huidigeSessieKalender);
+        //SessieKalenderDataInit sessieKalenderDataInit = new SessieKalenderDataInit(huidigeSessieKalender);
     }
 
     private DomeinController(int academiejaar) {
@@ -235,9 +235,9 @@ public class DomeinController {
     //endregion
 
     //region Feedback
-        public List<IFeedback> geefAlleFeedbackVanHuidigeSessie(){
-            return (List<IFeedback>)(Object)huidigeSessieKalender.geefAlleFeedbackVanSessie(huidigeSessie.getSessieId());
-        }
+    public List<IFeedback> geefAlleFeedbackVanHuidigeSessie(){
+        return (List<IFeedback>)(Object)huidigeSessieKalender.geefAlleFeedbackVanSessie(huidigeSessie.getSessieId());
+    }
     //endregion
 }
 
