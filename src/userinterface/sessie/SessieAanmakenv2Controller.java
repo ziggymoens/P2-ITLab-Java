@@ -13,6 +13,7 @@ import javafx.scene.layout.BorderPane;
 import userinterface.main.MainScreenController;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,39 +61,65 @@ public class SessieAanmakenv2Controller extends BorderPane {
     }
 
     private void save (ActionEvent actionEvent){
-        if(verantwoordelijke.getText().isBlank()){
-            foutVerantwoordelijke.setText("Verkeerde input");
-        }
-        if(naamGast.getText().isBlank()){
-            foutGast.setText("Verkeerde input");
-        }
-        if(titel.getText().isBlank()){
-            foutTitel.setText("Verkeerde input");
-        }
-        if(start.getText().isBlank()){
-            foutStart.setText("Verkeerde input");
-        }
-        if(eind.getText().isBlank()){
-            foutEind.setText("Verkeerde input");
-        }
-        if(maxPlaatsen.getText().isBlank()){
-            foutMax.setText("Verkeerde input");
-        } else{
-            nieuweSessie.add(verantwoordelijke.getText());
-            nieuweSessie.add(naamGast.getText());
-            nieuweSessie.add(titel.getText());
-            nieuweSessie.add(start.getText());
-            nieuweSessie.add(eind.getText());
-            nieuweSessie.add(maxPlaatsen.getText());
+        if(testOpFouten() >= 0) {
             domeinController.maakSessieAan(nieuweSessie);
             mainScreenController.getTabPane().getTabs().remove(mainScreenController.getTabPane().getSelectionModel().getSelectedIndex());
         }
-
     }
 
     private void cancel(ActionEvent actionEvent) {
         mainScreenController.getTabPane().getTabs().remove(mainScreenController.getTabPane().getSelectionModel().getSelectedIndex());
     }
+
+    private int testOpFouten() {
+        int tempint = 0;
+        nieuweSessie = new ArrayList<>();
+
+        if(verantwoordelijke.getText().isBlank()){
+            tempint--;
+            foutVerantwoordelijke.setText("Verkeerde input");
+        } else{
+            foutVerantwoordelijke.setText("");
+            nieuweSessie.add(verantwoordelijke.getText());
+        }
+        if(naamGast.getText().isBlank()){
+            tempint--;
+            foutGast.setText("Verkeerde input");
+        } else{
+            foutGast.setText("");
+            nieuweSessie.add(naamGast.getText());
+        }
+        if(titel.getText().isBlank()){
+            tempint--;
+            foutTitel.setText("Verkeerde input");
+        } else{
+            foutTitel.setText("");
+            nieuweSessie.add(titel.getText());
+        }
+        if(start.getText().isBlank()){
+            tempint--;
+            foutStart.setText("Verkeerde input");
+        } else{
+            foutStart.setText("");
+            nieuweSessie.add(start.getText());
+        }
+        if(eind.getText().isBlank()){
+            tempint--;
+            foutEind.setText("Verkeerde input");
+        } else{
+            foutEind.setText("");
+            nieuweSessie.add(eind.getText());
+        }
+        if(maxPlaatsen.getText().isBlank()){
+            tempint--;
+            foutMax.setText("Verkeerde input");
+        } else{
+            foutMax.setText("");
+            nieuweSessie.add(maxPlaatsen.getText());
+        }
+        return tempint;
+    }
+
 
 
 

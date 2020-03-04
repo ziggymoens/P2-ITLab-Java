@@ -62,6 +62,8 @@ public class SessieBewerkenController extends BorderPane {
 
         veranderingenMap = new HashMap<String, String>();
 
+        geefDetails(sessie);
+
         verantwoordelijke.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
