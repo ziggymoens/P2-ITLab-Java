@@ -83,7 +83,7 @@ public class SessieTableViewController extends BorderPane {
         if(domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("VERANTWOORDELIJKE")) {
             sessies = FXCollections.observableArrayList(domeinController.geefISessiesVanGebruiker(isessies));
         } else {sessies= FXCollections.observableArrayList(isessies);}
-        System.out.println(sessies);
+        //System.out.println(sessies);
 
         table.setItems(sessies);
         table.getColumns().addAll(titel, startSessie, eindSessie, lastColumn);
@@ -161,10 +161,17 @@ public class SessieTableViewController extends BorderPane {
     }
 
     private void nieuweSessie(ActionEvent actionEvent) {
+        domeinController.setHuidigeISessie(null);
+        Tab tab = new Tab("Aanmaken Sessie");
+        tab.setClosable(true);
+        tab.setContent(new SessieAanmakenv2Controller(domeinController, mainScreenController));
+        mainScreenController.addTab(tab);
+        mainScreenController.getTabPane().getSelectionModel().select(tab);
 
     }
 
     private void verwijderSessie(ActionEvent actionEvent) {
+        domeinController.verwijderSessie(domeinController.geefHuidigeISessie());
     }
 
 

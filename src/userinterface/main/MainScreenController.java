@@ -1,6 +1,5 @@
 package userinterface.main;
 
-import domein.Aankondiging;
 import domein.DomeinController;
 import domein.interfacesDomein.IAankondiging;
 import domein.interfacesDomein.IGebruiker;
@@ -17,11 +16,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import userinterface.aankondiging.AankondigingBewerkenController;
-import userinterface.aankondiging.AankondigingPlaatsenController;
 import userinterface.gebruiker.InfoGebruikerController;
 import userinterface.kalender.KalenderController;
 import userinterface.kalender.KalenderGegevens;
 import userinterface.media.NieuweMediaController;
+import userinterface.sessie.SessieAanmakenv2Controller;
 import userinterface.sessie.SessieTableViewController;
 
 import java.io.IOException;
@@ -93,8 +92,11 @@ public class MainScreenController extends AnchorPane {
     }
 
     private void nieuweSessie(ActionEvent actionEvent){
-        //new SessieBewerkenController(null, domeinController, null);
-        //new SessieTableViewController(domeinController, this);
+        Tab tab = new Tab("Aanmaken Sessie");
+        tab.setClosable(true);
+        tab.setContent(new SessieAanmakenv2Controller(domeinController, this));
+        tabPane.getTabs().add(tab);
+        tabPane.getSelectionModel().select(tab);
 
     }
 

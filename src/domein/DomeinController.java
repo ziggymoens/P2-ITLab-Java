@@ -25,7 +25,7 @@ public class DomeinController {
     public DomeinController() {
         this.academiejaar = geefAcademiejaar(LocalDate.now());
         huidigeSessieKalender = new SessieKalender();
-        //SessieKalenderDataInit sessieKalenderDataInit = new SessieKalenderDataInit(huidigeSessieKalender);
+        SessieKalenderDataInit sessieKalenderDataInit = new SessieKalenderDataInit(huidigeSessieKalender);
     }
 
     private DomeinController(int academiejaar) {
@@ -94,9 +94,9 @@ public class DomeinController {
                 .collect(Collectors.toList());
     }
 
-    public void maakSessieAan(String[] sessie) {
+    public void maakSessieAan(List<String> sessie) {
         //iterator
-        huidigeSessieKalender.voegSessieToe(new Sessie(sessie[0], LocalDateTime.parse(sessie[1]), LocalDateTime.parse(sessie[2]), huidigeSessieKalender.geefLokaalById(sessie[3]), huidigeSessieKalender.geefGebruikerById(sessie[4])));
+        huidigeSessieKalender.voegSessieToe(new Sessie(sessie.get(0), LocalDateTime.parse(sessie.get(1)), LocalDateTime.parse(sessie.get(2)), huidigeSessieKalender.geefLokaalById(sessie.get(3)), huidigeSessieKalender.geefGebruikerById(sessie.get(4))));
     }
 
     public void pasSessieAan(Map<String, String> nieuweMap) {
@@ -109,7 +109,8 @@ public class DomeinController {
     }
 
     public void setHuidigeISessie(ISessie t1) {
-        this.huidigeSessie = huidigeSessieKalender.geefSessieById(t1.getSessieId());
+        if(t1 == null){ this.huidigeSessie = null;}
+        else {this.huidigeSessie = huidigeSessieKalender.geefSessieById(t1.getSessieId());}
     }
     //endregion
 
