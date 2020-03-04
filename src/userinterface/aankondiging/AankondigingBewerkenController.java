@@ -47,6 +47,10 @@ public class AankondigingBewerkenController extends AnchorPane {
         sessiesInit();
         gebruikersInit();
         aankondigingTekst.setText(aankondiging.getInhoud());
+        if(aankondiging.isAutomatischeHerinnering()){
+            automatischeHerinnering.setSelected(true);
+            //herinneringKeuze.setValue(aankondiging.getIHerinnering().getDagenVoorafInt());
+        }
     }
 
 
