@@ -14,7 +14,7 @@ public class StartController {
     public StartController() {
         this.academiejaar = geefAcademiejaar(LocalDate.now());
         sessieKalender = new SessieKalender();
-        SessieKalenderDataInit sessieKalenderDataInit = new SessieKalenderDataInit(sessieKalender);
+        //SessieKalenderDataInit sessieKalenderDataInit = new SessieKalenderDataInit(sessieKalender);
     }
 
     private int geefAcademiejaar(LocalDate date) {
