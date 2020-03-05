@@ -78,7 +78,7 @@
                                        </VBox.margin>
                                     </Label>
                                     <TextField fx:id="txtFieldTitel" prefHeight="27.0" prefWidth="243.0" />
-                                    <Label fx:id="lblErrorTitel" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="236.0" text="Label" textFill="RED" />
+                                    <Label fx:id="lblErrorTitel" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="236.0" text="Label" textFill="RED" visible="false" />
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="2.0" top="2.0" />
@@ -92,7 +92,7 @@
                                        </VBox.margin>
                                     </Label>
                                     <TextField fx:id="txtFieldStartSessie" prefHeight="27.0" prefWidth="223.0" />
-                                    <Label fx:id="lblErrorStartSessje" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="294.0" text="Label" textFill="RED" />
+                                    <Label fx:id="lblErrorStartSessje" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="294.0" text="Label" textFill="RED" visible="false" />
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="2.0" top="2.0" />
@@ -106,7 +106,7 @@
                                        </VBox.margin>
                                     </Label>
                                     <TextField fx:id="txtFieldEindeSessie" prefHeight="27.0" prefWidth="223.0" />
-                                    <Label fx:id="lblErrorEindeSessie" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="322.0" text="Label" textFill="RED" />
+                                    <Label fx:id="lblErrorEindeSessie" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="322.0" text="Label" textFill="RED" visible="false" />
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="2.0" top="2.0" />
@@ -127,7 +127,7 @@
                                        </VBox.margin>
                                     </Label>
                                     <TextField fx:id="txtFieldGastspreker" prefHeight="27.0" prefWidth="242.0" />
-                                    <Label fx:id="lblErrorGastspreker" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="236.0" text="Label" textFill="RED" />
+                                    <Label fx:id="lblErrorGastspreker" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="236.0" text="Label" textFill="RED" visible="false" />
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="2.0" top="2.0" />
@@ -141,7 +141,7 @@
                                        </VBox.margin>
                                     </Label>
                                     <TextField fx:id="txtFieldVerantwoordelijke" prefHeight="27.0" prefWidth="223.0" />
-                                    <Label fx:id="lblErrorVerantwoordelijke" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="255.0" text="Label" textFill="RED" />
+                                    <Label fx:id="lblErrorVerantwoordelijke" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="255.0" text="Label" textFill="RED" visible="false" />
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="2.0" top="2.0" />
@@ -155,7 +155,7 @@
                                        </VBox.margin>
                                     </Label>
                                     <TextField fx:id="txtFieldLokaal" prefHeight="27.0" prefWidth="223.0" />
-                                    <Label fx:id="lblErrorLokaal" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="250.0" text="Label" textFill="RED" />
+                                    <Label fx:id="lblErrorLokaal" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="250.0" text="Label" textFill="RED" visible="false" />
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="2.0" top="2.0" />
@@ -179,7 +179,7 @@
                               <Insets bottom="3.0" />
                            </VBox.margin></Label>
                         <TextField alignment="CENTER" prefHeight="27.0" prefWidth="211.0" />
-                        <Label fx:id="lblErrorMaxPlaatsen" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="18.0" prefWidth="211.0" text="Label" textFill="RED" />
+                        <Label fx:id="lblErrorMaxPlaatsen" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="18.0" prefWidth="211.0" text="Label" textFill="RED" visible="false" />
                      </children>
                   </VBox>
                   <CheckBox fx:id="checkBoxCapaciteit" mnemonicParsing="false" text="Capaciteit lokaal gebruiker">
@@ -242,13 +242,13 @@
                            <children>
                               <Label alignment="CENTER" prefWidth="290.0" text="Gebruiker" />
                               <TextField prefWidth="290.0" />
-                              <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" />
+                              <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false" />
                               <Label alignment="CENTER" prefWidth="290.0" text="Publicatie datum" />
                               <TextField prefWidth="290.0" />
-                              <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" />
+                              <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false" />
                               <Label alignment="CENTER" prefWidth="290.0" text="Automatische herinnnering" />
                               <TextField prefWidth="290.0" />
-                              <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" />
+                              <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false" />
                            </children>
                            <HBox.margin>
                               <Insets left="5.0" right="5.0" />
@@ -295,7 +295,7 @@
             </AnchorPane>
          </children>
       </VBox>
-      <HBox fx:id="hBoxOnderaan" alignment="CENTER" layoutY="556.0" prefHeight="215.0" prefWidth="1400.0">
+      <HBox fx:id="hBoxOnderaan" alignment="CENTER" layoutY="556.0" prefHeight="215.0" prefWidth="1400.0" visible="false">
          <children>
             <VBox fx:id="vBoxOnderLinks" alignment="CENTER" prefHeight="200.0" prefWidth="137.0" visible="false">
                <children>
