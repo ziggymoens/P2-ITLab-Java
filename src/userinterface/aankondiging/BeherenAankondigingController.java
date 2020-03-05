@@ -4,21 +4,26 @@ import domein.DomeinController;
 import domein.interfacesDomein.IAankondiging;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import userinterface.main.MainScreenController;
+
 
 import java.io.IOException;
 
 public class BeherenAankondigingController extends AnchorPane {
     private DomeinController domeinController;
     private ObservableList<IAankondiging>aankondiging;
+    private MainScreenController mainScreenController;
 
-    @FXML private TableView table;
+    @FXML private TableView<IAankondiging> table;
     @FXML private TableColumn<IAankondiging, String> gebruiker;
     @FXML private TableColumn<IAankondiging, String> publicatiedatum;
     @FXML private TableColumn<IAankondiging, String> inhoud;
@@ -26,10 +31,11 @@ public class BeherenAankondigingController extends AnchorPane {
     @FXML private TableColumn<IAankondiging, String> herinnering;
 
     @FXML
-    private Button opslaan, verwijder, bewerken;
+    private Button nieuw, verwijder, bewerken;
 
-    public BeherenAankondigingController(DomeinController dc) {
+    public BeherenAankondigingController(DomeinController dc, MainScreenController mainScreenController) {
         this.domeinController = dc;
+        this.mainScreenController = mainScreenController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("BeherenAankondiging.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -40,6 +46,8 @@ public class BeherenAankondigingController extends AnchorPane {
             throw new RuntimeException();
         }
         vulTable();
+        nieuw.setOnAction(this::nieuweAankondiging);
+        bewerken.setOnAction(this::bewerkAankondiging);
     }
 
     private void vulTable(){
@@ -56,6 +64,22 @@ public class BeherenAankondigingController extends AnchorPane {
         table.setItems(aankondiging);
         table.getColumns().addAll(gebruiker,publicatiedatum,inhoud,automatischeHerinnering,herinnering);
         table.getSelectionModel().select(0);
+    }
+
+    private void nieuweAankondiging(ActionEvent actionEvent){
+        Tab tab = new Tab();
+        tab.setContent(new AankondigingPlaatsenController(domeinController, mainScreenController, domeinController.geefHuidigeISessie()));
+        tab.setText("Nieuwe Aankondiging");
+        mainScreenController.addTab(tab);
+        mainScreenController.getTabPane().getSelectionModel().select(tab);
+    }
+
+    private void bewerkAankondiging(ActionEvent actionEvent) {
+        Tab tab = new Tab();
+        tab.setContent(new AankondigingBewerkenController(domeinController, mainScreenController, domeinController.geefHuidigeISessie(), table.getSelectionModel().getSelectedItem()));
+        tab.setText("Bewerken Aankondiging");
+        mainScreenController.addTab(tab);
+        mainScreenController.getTabPane().getSelectionModel().select(tab);
     }
 
 }

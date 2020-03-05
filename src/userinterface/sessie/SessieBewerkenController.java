@@ -157,7 +157,7 @@ public class SessieBewerkenController extends BorderPane {
                 break;
 
             case "aankondigingen":
-                vboxTable.getChildren().addAll(new BeherenAankondigingController(domeinController));
+                vboxTable.getChildren().addAll(new BeherenAankondigingController(domeinController, mainScreenController));
                 break;
 
             case "feedback":

@@ -23,7 +23,7 @@ public class BeherenFeedbackController extends AnchorPane {
     @FXML private TableColumn<IFeedback, String> tekst;
 
     @FXML
-    private Button opslaan, verwijder, bewerken;
+    private Button nieuw, verwijder, bewerken;
 
     public BeherenFeedbackController (DomeinController dc) {
         this.domeinController = dc;

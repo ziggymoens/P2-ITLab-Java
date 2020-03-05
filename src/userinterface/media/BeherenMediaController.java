@@ -23,7 +23,7 @@ public class BeherenMediaController extends AnchorPane {
     @FXML private TableColumn<IMedia, String> locatie;
 
     @FXML
-    private Button opslaan, verwijder, bewerken;
+    private Button nieuw, verwijder, bewerken;
 
     public BeherenMediaController(DomeinController dc) {
         this.domeinController = dc;

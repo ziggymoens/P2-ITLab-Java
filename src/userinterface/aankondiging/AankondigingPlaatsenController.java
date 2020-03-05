@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import userinterface.main.MainScreenController;
+import userinterface.sessie.SessieBewerkenController;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -60,7 +61,7 @@ public class AankondigingPlaatsenController extends AnchorPane {
         voegToe.setOnAction(this::voegAankondigingToe);
     }
 
-    public void startFXML(){
+    private void startFXML(){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AankondigingPlaatsen.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -72,7 +73,7 @@ public class AankondigingPlaatsenController extends AnchorPane {
         }
     }
 
-    public void sessiesInit(){
+    private void sessiesInit(){
         if(domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("HOOFDVERANTWOORDELIJKE"))
             sessieList.setItems(FXCollections.observableList(domeinController.geefISessiesHuidigeKalender()));
         if(domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("VERANTWOORDELIJKE"))
@@ -80,14 +81,14 @@ public class AankondigingPlaatsenController extends AnchorPane {
         sessieList.setValue(sessie);
     }
 
-    public void gebruikersInit(){
+    private void gebruikersInit(){
         gebruikersList.setItems(FXCollections.observableList(domeinController.geefIGebruikers()));
         gebruikersList.setValue(domeinController.geefIGebruiker());
         if(!domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("HOOFDVERANTWOORDELIJKE"))
             gebruikersList.setDisable(true);
     }
 
-    public void voegAankondigingToe(ActionEvent actionEvent){
+    private void voegAankondigingToe(ActionEvent actionEvent){
         String keuze = herinneringKeuze.getSelectionModel().selectedItemProperty().getValue().toString();
         boolean herinnering = false;
         Map<String, Integer> herinneringsMap = new HashMap<>();
@@ -99,5 +100,11 @@ public class AankondigingPlaatsenController extends AnchorPane {
         if(automatischeHerinnering.isSelected())
             herinnering = true;
         domeinController.addAankondigingSessie(sessieList.getValue().getSessieId(), gebruikersList.getValue().getGebruikersnaam(), aankondigingTekst.getText(), herinnering, dagenHerinnering);
+        /*mainScreenController.getTabPane().getTabs().remove(3);
+        Tab tab = new Tab();
+        tab.setContent(new SessieBewerkenController(domeinController.geefHuidigeISessie(), domeinController, mainScreenController));
+        tab.setText("Bewerk Sessie");
+        mainScreenController.addTab(tab);
+        mainScreenController.getTabPane().getSelectionModel().select(tab);*/
     }
 }

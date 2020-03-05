@@ -24,7 +24,7 @@ public class BeherenInschrijvingenController extends AnchorPane {
     @FXML private TableColumn<IInschrijving, String> statusAanwezigheid;
 
     @FXML
-    private Button opslaan, verwijder, bewerken;
+    private Button nieuw, verwijder, bewerken;
 
     public BeherenInschrijvingenController(DomeinController dc) {
         this.domeinController = dc;
