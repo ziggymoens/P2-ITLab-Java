@@ -1,4 +1,8 @@
-package domein;
+package test;
+import domein.Gebruiker;
+import domein.Inschrijving;
+import domein.Lokaal;
+import domein.Sessie;
 import exceptions.domein.InschrijvingException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;

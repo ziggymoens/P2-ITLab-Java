@@ -1,5 +1,6 @@
-package domein;
+package test;
 
+import domein.Gebruiker;
 import exceptions.domein.GebruikerException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;

@@ -1,5 +1,6 @@
-package domein;
+package test;
 
+import domein.Herinnering;
 import exceptions.domein.HerinneringException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;

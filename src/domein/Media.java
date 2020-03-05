@@ -28,6 +28,7 @@ public class Media implements IMedia {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Gebruiker gebruiker;
+
     private String locatie;
     private MediaTypes type;
     private boolean verwijderd = false;
