@@ -41,7 +41,7 @@
       </VBox>
       <VBox layoutX="339.0" layoutY="43.0" prefHeight="446.0" prefWidth="448.0">
          <children>
-            <Label text="SESSIE">
+            <Label alignment="CENTER" prefHeight="29.0" prefWidth="467.0" text="SESSIE">
                <font>
                   <Font size="24.0" />
                </font>
@@ -201,7 +201,7 @@
             </Label>
          </children>
       </VBox>
-      <VBox layoutX="805.0" layoutY="44.0">
+      <VBox fx:id="vBoxRechts" layoutX="805.0" layoutY="44.0">
          <children>
             <ChoiceBox fx:id="choiceBoxSessieToebehoren" prefHeight="27.0" prefWidth="243.0" />
             <TableView fx:id="tableViewSessieToebehoren" prefHeight="200.0" prefWidth="581.0">
@@ -213,23 +213,35 @@
             <Pane prefHeight="200.0" prefWidth="200.0" />
          </children>
       </VBox>
-      <HBox layoutX="143.0" layoutY="531.0">
+      <HBox fx:id="hBoxOnderaan" layoutX="143.0" layoutY="546.0" prefHeight="203.0" prefWidth="1200.0">
          <children>
-            <VBox prefHeight="200.0" prefWidth="116.0">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="137.0">
                <children>
-                  <ComboBox prefWidth="150.0" promptText="Stad" />
-                  <ComboBox prefWidth="150.0" promptText="Gebouw" />
-                  <ComboBox prefWidth="150.0" promptText="Verdieping" />
-                  <ComboBox prefWidth="150.0" promptText="Capaciteit" />
+                  <ComboBox fx:id="choiceBox1Onder" prefWidth="150.0" promptText="Stad">
+                     <VBox.margin>
+                        <Insets right="20.0" top="20.0" />
+                     </VBox.margin></ComboBox>
+                  <ComboBox fx:id="choiceBox2Onder" prefWidth="150.0" promptText="Gebouw">
+                     <VBox.margin>
+                        <Insets right="20.0" top="20.0" />
+                     </VBox.margin></ComboBox>
+                  <ComboBox fx:id="choiceBoxOnder3" prefWidth="150.0" promptText="Verdieping">
+                     <VBox.margin>
+                        <Insets right="20.0" top="20.0" />
+                     </VBox.margin></ComboBox>
+                  <ComboBox fx:id="choiceBox4Onder" prefWidth="150.0" promptText="Capaciteit">
+                     <VBox.margin>
+                        <Insets right="20.0" top="20.0" />
+                     </VBox.margin></ComboBox>
                </children>
             </VBox>
-            <TableView prefHeight="200.0" prefWidth="200.0">
+            <TableView fx:id="tableViewOnderaan" prefHeight="200.0" prefWidth="795.0">
               <columns>
                 <TableColumn prefWidth="75.0" text="C1" />
                 <TableColumn prefWidth="124.0" text="C2" />
               </columns>
             </TableView>
-            <Button mnemonicParsing="false" text="Button" />
+            <Button fx:id="btnKiezen" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Kiezen" />
          </children>
       </HBox>
    </children>
