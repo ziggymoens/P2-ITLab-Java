@@ -1,6 +1,10 @@
 package domein;
 
 
+import domein.controllers.GebruikerController;
+import domein.controllers.HoofdverantwoordelijkeController;
+import domein.controllers.ITypeController;
+import domein.controllers.VerantwoordelijkeController;
 import domein.enums.Gebruikersprofielen;
 import domein.enums.Gebruikersstatus;
 import domein.enums.MediaTypes;
@@ -15,6 +19,7 @@ import java.util.stream.Collectors;
 
 public class DomeinController {
     //region Variabelen
+    private ITypeController typeController;
     private SessieKalender huidigeSessieKalender;
     private Sessie huidigeSessie;
     private Gebruiker huidigeGebruiker;
@@ -22,16 +27,31 @@ public class DomeinController {
     //endregion
 
     //region Constructor
-    public DomeinController() {
+    public DomeinController(Gebruiker gebruiker, SessieKalender sessieKalender) {
+        this.huidigeGebruiker = gebruiker;
+        //setTypeController();
         this.academiejaar = geefAcademiejaar(LocalDate.now());
-        huidigeSessieKalender = new SessieKalender();
-        SessieKalenderDataInit sessieKalenderDataInit = new SessieKalenderDataInit(huidigeSessieKalender);
+        huidigeSessieKalender = sessieKalender;
+    }
+/*
+    private void setTypeController() {
+        switch (huidigeGebruiker.getGebruikersprofiel().toString()){
+            default:
+            case "GEBRUIKER":
+                typeController = new GebruikerController();
+                break;
+            case "VERANTWOORDELIJKE":
+                typeController = new VerantwoordelijkeController();
+                break;
+            case "HOOFDVERANTWOORDELIJKE":
+                typeController = new HoofdverantwoordelijkeController();
+                break;
+        }
     }
 
-    private DomeinController(int academiejaar) {
-        this.academiejaar = academiejaar;
-        huidigeSessieKalender = new SessieKalender();
-    }
+ */
+
+
     //endregion
 
     //region Academiejaar
@@ -198,7 +218,7 @@ public class DomeinController {
     }
 
     public void maakNieuweMedia(ISessie sessie, IGebruiker gebruiker, String type, String locatie) {
-        huidigeSessieKalender.voegMediaToe(new Media((Gebruiker) gebruiker, locatie, type), (Sessie) sessie);
+        huidigeSessieKalender.voegMediaToe(new Media(huidigeSessie, (Gebruiker) gebruiker, locatie, type), (Sessie) sessie);
     }
     //endregion
 
@@ -208,7 +228,7 @@ public class DomeinController {
     }
 
     public void addAankondigingSessie(String sessieId, String gebruikersnaam, String text, boolean automatischeHerinnering, int dagenHerinnering) {
-        Aankondiging aankondiging = new Aankondiging(huidigeSessieKalender.geefGebruikerById(gebruikersnaam), LocalDateTime.now(), text);
+        Aankondiging aankondiging = new Aankondiging(huidigeSessie, huidigeSessieKalender.geefGebruikerById(gebruikersnaam), LocalDateTime.now(), text);
         huidigeSessieKalender.voegAankondigingToe(aankondiging, huidigeSessieKalender.geefSessieById(sessieId));
         if (automatischeHerinnering) {
             huidigeSessieKalender.voegHerinneringToe(new Herinnering(dagenHerinnering), aankondiging);

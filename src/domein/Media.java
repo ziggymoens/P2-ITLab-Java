@@ -27,6 +27,9 @@ public class Media implements IMedia {
     private String mediaId;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    private Sessie sessie;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private Gebruiker gebruiker;
 
     private String locatie;
@@ -48,7 +51,8 @@ public class Media implements IMedia {
      * @param locatie (String) ==> locatie van het mediaobject in het project
      * @param type    (MediaType) ==> type van media
      */
-    public Media(Gebruiker gebruiker, String locatie, MediaTypes type) {
+    public Media(Sessie sessie, Gebruiker gebruiker, String locatie, MediaTypes type) {
+        setSessie(sessie);
         setGebruiker(gebruiker);
         setLocatie(locatie);
         setType(type);
@@ -59,8 +63,8 @@ public class Media implements IMedia {
      *
      * @param locatie (String) ==> locatie van het mediaobject in het project
      */
-    public Media(Gebruiker gebruiker, String locatie) {
-        this(gebruiker, locatie, MediaTypes.ONBEKEND);
+    public Media(Sessie sessie, Gebruiker gebruiker, String locatie) {
+        this(sessie,gebruiker, locatie, MediaTypes.ONBEKEND);
     }
 
     /**
@@ -69,12 +73,20 @@ public class Media implements IMedia {
      * @param locatie (String) ==> locatie van het mediaobject in het project
      * @param type    (String) ==> type van media
      */
-    public Media(Gebruiker gebruiker, String locatie, String type) {
-        this(gebruiker, locatie, Arrays.stream(MediaTypes.values()).filter(t -> t.toString().equals(type)).findFirst().orElse(MediaTypes.ONBEKEND));
+    public Media(Sessie sessie,Gebruiker gebruiker, String locatie, String type) {
+        this(sessie, gebruiker, locatie, Arrays.stream(MediaTypes.values()).filter(t -> t.toString().equals(type)).findFirst().orElse(MediaTypes.ONBEKEND));
     }
     //endregion
 
     //region Setters
+
+    public void setSessie(Sessie sessie) {
+        if(sessie==null){
+            throw new MediaException();
+        }
+        this.sessie = sessie;
+    }
+
     private void setLocatie(String locatie) {
         if (locatie == null || locatie.isBlank())
             throw new MediaException();

@@ -34,7 +34,7 @@ public class MediaTest {
     @ParameterizedTest
     @MethodSource("opsommingGeldigeWaarden")
     public void maakMediaGeldigeGegevens_Slaagt(Gebruiker gebruiker, String locatie, String type){
-        Media media = new Media(gebruiker,locatie, type);
+        Media media = new Media(sessie, gebruiker,locatie, type);
         Assertions.assertEquals(locatie, media.getLocatie());
         String[] waarden = new String[]{type, "ONBEKEND"};
         //ssertions.assertTrue();
@@ -53,7 +53,7 @@ public class MediaTest {
     @MethodSource("opsommingOngeldigeWaarden")
     public void maakMediaOngeldigeWaarden_GooitException(Gebruiker gebruiker, String locatie, MediaTypes type){
         Assertions.assertThrows(MediaException.class, () -> {
-            new Media(gebruiker, locatie, type);
+            new Media(sessie,gebruiker, locatie, type);
         });
     }
 }

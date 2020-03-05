@@ -12,6 +12,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -234,70 +235,67 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </TableView>
-            <AnchorPane minHeight="200.0" minWidth="580.0" prefHeight="210.0" prefWidth="580.0">
-               <children>
-                  <HBox prefHeight="165.0" prefWidth="580.0">
-                     <children>
-                        <VBox prefHeight="200.0" prefWidth="290.0">
-                           <children>
-                              <Label alignment="CENTER" prefWidth="290.0" text="Gebruiker" />
-                              <TextField prefWidth="290.0" />
-                              <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false" />
-                              <Label alignment="CENTER" prefWidth="290.0" text="Publicatie datum" />
-                              <TextField prefWidth="290.0" />
-                              <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false" />
-                              <Label alignment="CENTER" prefWidth="290.0" text="Automatische herinnnering" />
-                              <TextField prefWidth="290.0" />
-                              <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false" />
-                           </children>
-                           <HBox.margin>
-                              <Insets left="5.0" right="5.0" />
-                           </HBox.margin>
-                        </VBox>
-                        <VBox prefHeight="200.0" prefWidth="290.0">
-                           <children>
-                              <Label alignment="CENTER" prefWidth="290.0" text="Inhoud" />
-                              <TextArea maxWidth="270.0" prefHeight="147.0" prefWidth="270.0">
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </TextArea>
-                           </children>
-                           <HBox.margin>
-                              <Insets left="5.0" right="5.0" />
-                           </HBox.margin>
-                        </VBox>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" layoutY="175.0" prefHeight="35.0" prefWidth="580.0">
-                     <children>
-                        <Button mnemonicParsing="false" prefWidth="80.0" text="Wijzig">
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button mnemonicParsing="false" prefWidth="80.0" text="Nieuw">
-                           <HBox.margin>
-                              <Insets left="10.0" right="10.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button mnemonicParsing="false" prefWidth="80.0" text="Verwijder">
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                  </HBox>
-               </children>
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </AnchorPane>
          </children>
       </VBox>
+      <AnchorPane layoutX="806.0" layoutY="295.0" minHeight="200.0" minWidth="580.0" prefHeight="210.0" prefWidth="580.0">
+         <children>
+            <HBox prefHeight="165.0" prefWidth="580.0">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="290.0">
+                     <children>
+                        <Label alignment="CENTER" prefWidth="290.0" text="Gebruiker" />
+                        <TextField prefWidth="290.0" />
+                        <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false" />
+                        <Label alignment="CENTER" prefWidth="290.0" text="Publicatie datum" />
+                        <TextField prefWidth="290.0" />
+                        <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false" />
+                        <Label alignment="CENTER" prefWidth="290.0" text="Automatische herinnnering" />
+                        <TextField prefWidth="290.0" />
+                        <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false" />
+                     </children>
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="290.0">
+                     <children>
+                        <Label alignment="CENTER" prefWidth="290.0" text="Inhoud" />
+                        <TextArea maxWidth="270.0" prefHeight="147.0" prefWidth="270.0">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </TextArea>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutY="175.0" prefHeight="35.0" prefWidth="580.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="150.0" text="Wijzig">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="150.0" text="Nieuw">
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="150.0" text="Verwijder">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
       <HBox fx:id="hBoxOnderaan" alignment="CENTER" layoutY="556.0" prefHeight="215.0" prefWidth="1400.0" visible="false">
          <children>
-            <VBox fx:id="vBoxOnderLinks" alignment="CENTER" prefHeight="200.0" prefWidth="137.0" visible="false">
+            <VBox fx:id="vBoxOnderLinks" alignment="CENTER" prefHeight="200.0" prefWidth="137.0">
                <children>
                   <ComboBox fx:id="choiceBox1Onder" prefWidth="150.0" promptText="Stad">
                      <VBox.margin>
@@ -323,11 +321,19 @@
                 <TableColumn prefWidth="124.0" text="C2" />
               </columns>
             </TableView>
-            <Button fx:id="btnKiezen" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Kiezen">
+            <Button fx:id="btnKiezen" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="81.0" prefWidth="55.0" text="Kiezen">
                <HBox.margin>
                   <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
                </HBox.margin></Button>
          </children>
       </HBox>
+      <Pane layoutY="-3.0" prefHeight="35.0" prefWidth="1400.0" style="-fx-background-color: lightgrey;">
+         <children>
+            <Button layoutX="57.0" layoutY="5.0" mnemonicParsing="false" text="Button" />
+            <Button layoutX="147.0" layoutY="5.0" mnemonicParsing="false" text="Button" />
+            <Button layoutX="237.0" layoutY="5.0" mnemonicParsing="false" text="Button" />
+            <Button layoutX="1106.0" layoutY="5.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="280.0" text="Button" />
+         </children>
+      </Pane>
    </children>
 </fx:root>

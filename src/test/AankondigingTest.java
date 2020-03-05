@@ -33,7 +33,7 @@ public class AankondigingTest {
     @ParameterizedTest
     @MethodSource("opsommingGeldigeWaarden")
     public void maakAankondigingGeldigeGegevens_Slaagt(String id, Sessie sessie, LocalDateTime publicatiedatum, Gebruiker publicist, String inhoud, boolean automatischeHerinnering){
-        Aankondiging aankondiging = new Aankondiging(publicist, publicatiedatum, inhoud, automatischeHerinnering, herinnering);
+        Aankondiging aankondiging = new Aankondiging(sessie, publicist, publicatiedatum, inhoud, automatischeHerinnering, herinnering);
         Assertions.assertEquals(publicist, aankondiging.getPublicist());
         Assertions.assertEquals(publicatiedatum, aankondiging.getPublicatiedatum());
         Assertions.assertEquals(inhoud, aankondiging.getInhoud());
@@ -53,7 +53,7 @@ public class AankondigingTest {
     @MethodSource("opsommingOngeldigeWaarden")
     public void maakAankondigingOngeldigeGegevens_GooitException(Gebruiker gebruiker, LocalDateTime publicatiedatum, String inhoud, boolean automatischeHerinnering, int dagenVooraf){
         Assertions.assertThrows(AankondigingException.class, () -> {
-            new Aankondiging(gebruiker, publicatiedatum, inhoud, automatischeHerinnering, dagenVooraf);
+            new Aankondiging(sessie, gebruiker, publicatiedatum, inhoud, automatischeHerinnering, dagenVooraf);
         });
     }
 }

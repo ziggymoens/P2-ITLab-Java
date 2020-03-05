@@ -25,6 +25,8 @@ public class Feedback implements IFeedback {
     private String feedbackId;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    private Sessie sessie;
+    @ManyToOne(fetch = FetchType.LAZY)
     private Gebruiker gebruiker;
     private String tekst;
     private boolean verwijderd = false;
@@ -45,13 +47,22 @@ public class Feedback implements IFeedback {
      * @param gebruiker (Gebruiker) ==> de gebruiker die de feedback plaatst
      * @param tekst     (String) ==> de boodschap van de feedback
      */
-    public Feedback(Gebruiker gebruiker, String tekst) {
+    public Feedback(Sessie sessie, Gebruiker gebruiker, String tekst) {
+        setSessie(sessie);
         setTekst(tekst);
         setGebruiker(gebruiker);
     }
     //endregion
 
     //region Setters
+
+    public void setSessie(Sessie sessie) {
+        if(sessie == null){
+            throw new FeedbackException();
+        }
+        this.sessie = sessie;
+    }
+
     private void setTekst(String tekst) {
         if (tekst == null || tekst.isBlank()) {
             throw new FeedbackException();

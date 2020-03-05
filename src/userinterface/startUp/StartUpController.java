@@ -2,6 +2,7 @@ package userinterface.startUp;
 
 import domein.DomeinController;
 import domein.PasswordUtils;
+import domein.controllers.StartController;
 import domein.interfacesDomein.IGebruiker;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -22,7 +23,7 @@ import java.io.IOException;
 
 public class StartUpController extends AnchorPane {
 
-    private DomeinController domeinController;
+    private StartController startController;
     @FXML
     private Button inloggenButton;
     @FXML
@@ -38,8 +39,8 @@ public class StartUpController extends AnchorPane {
     @FXML
     private Label welkom;
 
-    public StartUpController(DomeinController domeinController) {
-        this.domeinController = domeinController;
+    public StartUpController(StartController startController) {
+        this.startController = startController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("StartUp.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -90,15 +91,15 @@ public class StartUpController extends AnchorPane {
             if (tonen.isSelected()) {
                 ww = wachtwoordV.getText();
             }
-            IGebruiker gebruiker = domeinController.geefIGebruikers().stream().filter(g -> g.getGebruikersnaam().equals(gebruikersnaam)).findFirst().orElse(null);
+            IGebruiker gebruiker = startController.geefIGebruikers().stream().filter(g -> g.getGebruikersnaam().equals(gebruikersnaam)).findFirst().orElse(null);
             if (gebruiker == null || !PasswordUtils.verifyUserPassword(ww, gebruiker.getWachtwoord())) {
                 error.setText("Gebruikersnaam en/of wachtwoord zijn ongeldig");
                 wachtwoord.setText("");
                 wachtwoordV.setText("");
             } else {
                 ITLab.primaryStage.close();
-                domeinController.setHuidigeGebruiker(gebruiker.getGebruikersnaam());
-                Scene scene = new Scene(new MainScreenController(domeinController));
+                startController.setHuidigeGebruiker(gebruiker.getGebruikersnaam());
+                Scene scene = new Scene(new MainScreenController(startController.initDomeinController()));
                 Stage stage = new Stage();
                 stage.setScene(scene);
                 stage.setResizable(false);

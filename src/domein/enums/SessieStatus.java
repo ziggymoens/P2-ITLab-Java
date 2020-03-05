@@ -1,5 +1,5 @@
 package domein.enums;
 
 public enum SessieStatus {
-    ZICHTBAAR
+    ZICHTBAAR, NIET_ZICHTBAAR, OPEN, GESLOTEN;
 }

@@ -47,7 +47,7 @@ public class FeedbackTest {
     @ParameterizedTest
     @MethodSource("opsommingGeldigeWaarden")
     public void maakFeedbackGeldigeWaarden_Slaagt(Gebruiker gebruiker, String tekst){
-        Feedback feedback = new Feedback(gebruiker, tekst);
+        Feedback feedback = new Feedback(sessie,gebruiker, tekst);
         assertEquals(gebruiker, feedback.getGebruiker());
         assertEquals(tekst, feedback.getTekst());
     }
@@ -56,7 +56,7 @@ public class FeedbackTest {
     @MethodSource("opsommingOngeldigeWaarden")
     public void maakFeedbackOngeldigeWaarden_GooitException(Gebruiker gebruiker, String tekst){
         Assertions.assertThrows(FeedbackException.class, () -> {
-           new Feedback(gebruiker, tekst);
+           new Feedback(sessie,gebruiker, tekst);
         });
     }
 }

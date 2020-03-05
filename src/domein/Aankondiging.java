@@ -3,6 +3,7 @@ package domein;
 import domein.interfacesDomein.IAankondiging;
 import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.IHerinnering;
+import exceptions.domein.AankondigingException;
 import exceptions.domein.HerinneringException;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -30,6 +31,8 @@ public class Aankondiging implements IAankondiging {
     private Herinnering herinnering;
     @ManyToOne(fetch = FetchType.LAZY)
     private Gebruiker gebruiker;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Sessie sessie;
 
     private LocalDateTime publicatiedatum;
     private String inhoud;
@@ -50,7 +53,8 @@ public class Aankondiging implements IAankondiging {
     protected Aankondiging() {
     }
 
-    public Aankondiging(Gebruiker gebruiker, LocalDateTime publicatiedatum, String inhoud, boolean automatischeHerinnering, int dagenVooraf) {
+    public Aankondiging(Sessie sessie, Gebruiker gebruiker, LocalDateTime publicatiedatum, String inhoud, boolean automatischeHerinnering, int dagenVooraf) {
+        setSessie(sessie);
         if (automatischeHerinnering) {
             setHerinnering(dagenVooraf);
         }
@@ -63,17 +67,25 @@ public class Aankondiging implements IAankondiging {
      * @param publicatiedatum ==> De datum dat de aankondiging gemaakt is
      * @param inhoud          ==> inhoud van de aankondiging
      */
-    public Aankondiging(Gebruiker gebruiker, LocalDateTime publicatiedatum, String inhoud) {
-        this(gebruiker, publicatiedatum, inhoud, false, 0);
+    public Aankondiging(Sessie sessie,Gebruiker gebruiker, LocalDateTime publicatiedatum, String inhoud) {
+        this(sessie, gebruiker, publicatiedatum, inhoud, false, 0);
     }
 
-    public Aankondiging(Gebruiker gebruiker, LocalDateTime publicatiedatum, String tekst, boolean automatischeHerinnering, Herinnering h) {
-        this(gebruiker, publicatiedatum, tekst, automatischeHerinnering, h.getDagenVoorafInt());
+    public Aankondiging(Sessie sessie, Gebruiker gebruiker, LocalDateTime publicatiedatum, String tekst, boolean automatischeHerinnering, Herinnering h) {
+        this(sessie, gebruiker, publicatiedatum, tekst, automatischeHerinnering, h.getDagenVoorafInt());
         setHerinnering(h.getDagenVoorafInt());
     }
     //endregion
 
     //region Setters
+
+
+    public void setSessie(Sessie sessie) {
+        if(sessie == null){
+            throw new AankondigingException();
+        }
+        this.sessie = sessie;
+    }
 
     public void setGebruiker(Gebruiker gebruiker) {
         if(gebruiker == null){

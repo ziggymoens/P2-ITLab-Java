@@ -28,6 +28,9 @@ public class Inschrijving implements IInschrijving {
     @ManyToOne(fetch = FetchType.LAZY)
     private Gebruiker gebruiker;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Sessie sessie;
+
     private LocalDateTime inschrijvingsdatum;
     private boolean statusAanwezigheid = false;
     private boolean verwijderd = false;
@@ -47,7 +50,8 @@ public class Inschrijving implements IInschrijving {
      * @param inschrijvingsdatum (LocalDateTime) ==> Datum van inschrijven
      * @param statusAanwezigheid (boolean) ==> status aanwezigheid van de gebruiker
      */
-    public Inschrijving(Gebruiker gebruiker, LocalDateTime inschrijvingsdatum, boolean statusAanwezigheid) {
+    public Inschrijving(Sessie sessie, Gebruiker gebruiker, LocalDateTime inschrijvingsdatum, boolean statusAanwezigheid) {
+        setSessie(sessie);
         setGebruiker(gebruiker);
         setInschrijvingsdatum(inschrijvingsdatum);
         setStatusAanwezigheid(statusAanwezigheid);
@@ -58,13 +62,21 @@ public class Inschrijving implements IInschrijving {
      *
      * @param inschrijvingsdatum (LocalDateTime) ==> Datum van inschrijven
      */
-    public Inschrijving(Gebruiker gebruiker, LocalDateTime inschrijvingsdatum) {
-        this(gebruiker, inschrijvingsdatum, false);
+    public Inschrijving(Sessie sessie, Gebruiker gebruiker, LocalDateTime inschrijvingsdatum) {
+        this(sessie,gebruiker, inschrijvingsdatum, false);
     }
 
     //endregion
 
     //region Setters
+
+    public void setSessie(Sessie sessie) {
+        if(sessie == null){
+            throw new InschrijvingException();
+        }
+        this.sessie = sessie;
+    }
+
     private void setInschrijvingsdatum(LocalDateTime inschrijvingsdatum) {
         if (inschrijvingsdatum == null) {
             throw new InschrijvingException();

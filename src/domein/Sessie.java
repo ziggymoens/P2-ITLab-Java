@@ -34,13 +34,13 @@ public class Sessie implements ISessie {
     private boolean geopend;
     private boolean verwijderd = false;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "sessie",fetch = FetchType.LAZY)
     private List<Media> media;
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "sessie", fetch = FetchType.LAZY)
     private List<Inschrijving> inschrijvingen;
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "sessie", fetch = FetchType.LAZY)
     private List<Aankondiging> aankondigingen;
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "sessie",fetch = FetchType.LAZY)
     private List<Feedback> feedback;
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Lokaal lokaal;

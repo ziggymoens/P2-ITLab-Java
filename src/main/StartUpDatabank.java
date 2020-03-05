@@ -1,7 +1,12 @@
 package main;
 
 import domein.DomeinController;
+import domein.Gebruiker;
 import domein.PasswordUtils;
+import domein.SessieKalender;
+import domein.controllers.StartController;
+import domein.enums.Gebruikersprofielen;
+import domein.enums.Gebruikersstatus;
 import domein.interfacesDomein.ILokaal;
 import domein.interfacesDomein.ISessie;
 
@@ -9,7 +14,10 @@ import java.util.stream.Collectors;
 
 public class StartUpDatabank {
     public static void main(String[] args) {
-        DomeinController domeinController = new DomeinController();
+
+        StartController startController = new StartController();
+        DomeinController domeinController =  startController.initDomeinController();
+
 
         System.out.println(domeinController.geefISessiesHuidigeKalender().stream().map(ISessie::toString).collect(Collectors.joining("\n")));
 
