@@ -101,8 +101,8 @@ public class InfoGebruikerController extends AnchorPane {
      }else {
             Alert alertConf = new Alert(Alert.AlertType.CONFIRMATION);
             alertConf.setTitle("Bevestig verwijderen van gebruiker:");
-            alertConf.setHeaderText(tableViewGebruikers.getSelectionModel().getSelectedItem().toString());
-            alertConf.setContentText("close");
+            alertConf.setHeaderText(String.format("Wil je de %s %s verwijderen?",tableViewGebruikers.getSelectionModel().getSelectedItem().getGebruikersprofiel().toString() ,tableViewGebruikers.getSelectionModel().getSelectedItem().toString()));
+            alertConf.setContentText(String.format("Als je het verwijderen wil bevestigen, klik OK.%nAls je het verwijderen wil annuleren klik cancel."));
             Optional<ButtonType> antwoord = alertConf.showAndWait();
             if (antwoord.get() == ButtonType.CANCEL) {
                 event.consume();
