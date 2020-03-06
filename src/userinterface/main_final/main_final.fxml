@@ -10,6 +10,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -338,13 +339,13 @@
                   <VBox prefHeight="200.0" prefWidth="290.0">
                      <children>
                         <Label alignment="CENTER" prefWidth="290.0" text="Gebruiker" />
-                        <TextField prefWidth="290.0" />
+                        <TextField fx:id="txtGebr" prefWidth="290.0" />
                         <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false" />
                         <Label alignment="CENTER" prefWidth="290.0" text="Publicatie datum" />
-                        <TextField prefWidth="290.0" />
+                        <TextField fx:id="txtPub" prefWidth="290.0" />
                         <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false" />
-                        <Label alignment="CENTER" prefWidth="290.0" text="Automatische herinnnering" />
-                        <TextField prefWidth="290.0" />
+                        <Label alignment="CENTER" prefWidth="290.0" text="Automatische herinnnering (dagen)" />
+                        <ChoiceBox fx:id="cbAutom" prefWidth="290.0" />
                         <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false" />
                      </children>
                      <HBox.margin>
@@ -354,7 +355,7 @@
                   <VBox prefHeight="200.0" prefWidth="290.0">
                      <children>
                         <Label alignment="CENTER" prefWidth="290.0" text="Inhoud" />
-                        <TextArea maxWidth="299.0" prefHeight="147.0" prefWidth="299.0">
+                        <TextArea fx:id="txfInhoud" maxWidth="299.0" prefHeight="147.0" prefWidth="299.0">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
@@ -387,19 +388,13 @@
             </HBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="apFeedback" layoutX="806.0" layoutY="295.0" minHeight="200.0" minWidth="580.0" prefHeight="210.0" prefWidth="581.0">
+      <AnchorPane fx:id="apFeedback" layoutX="806.0" layoutY="295.0" minHeight="200.0" minWidth="580.0" prefHeight="210.0" prefWidth="581.0" visible="false">
          <children>
             <HBox prefHeight="165.0" prefWidth="580.0">
                <children>
                   <VBox prefHeight="200.0" prefWidth="290.0">
                      <children>
                         <Label alignment="CENTER" prefWidth="290.0" text="Gebruiker" />
-                        <TextField prefWidth="290.0" />
-                        <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false" />
-                        <Label alignment="CENTER" prefWidth="290.0" text="Publicatie datum" />
-                        <TextField prefWidth="290.0" />
-                        <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false" />
-                        <Label alignment="CENTER" prefWidth="290.0" text="Automatische herinnnering" />
                         <TextField prefWidth="290.0" />
                         <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false" />
                      </children>
@@ -447,33 +442,20 @@
          <children>
             <HBox prefHeight="165.0" prefWidth="580.0">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="290.0">
+                  <VBox prefHeight="200.0" prefWidth="580.0">
                      <children>
-                        <Label alignment="CENTER" prefWidth="290.0" text="Gebruiker" />
+                        <Label alignment="CENTER" prefWidth="580.0" text="Gebruiker" />
                         <TextField prefWidth="290.0" />
-                        <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false" />
-                        <Label alignment="CENTER" prefWidth="290.0" text="Publicatie datum" />
+                        <Label prefWidth="580.0" text="Verkeerde input" textFill="RED" visible="false" />
+                        <Label alignment="CENTER" prefWidth="580.0" text="Inschrijvingsdatum" />
                         <TextField prefWidth="290.0" />
-                        <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false" />
-                        <Label alignment="CENTER" prefWidth="290.0" text="Automatische herinnnering" />
+                        <Label prefWidth="580.0" text="Verkeerde input" textFill="RED" visible="false" />
+                        <Label alignment="CENTER" prefWidth="580.0" text="Aanwezig" />
                         <TextField prefWidth="290.0" />
-                        <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false" />
+                        <Label prefWidth="580.0" text="Verkeerde input" textFill="RED" visible="false" />
                      </children>
                      <HBox.margin>
                         <Insets right="5.0" />
-                     </HBox.margin>
-                  </VBox>
-                  <VBox prefHeight="200.0" prefWidth="290.0">
-                     <children>
-                        <Label alignment="CENTER" prefWidth="290.0" text="Inhoud" />
-                        <TextArea maxWidth="299.0" prefHeight="147.0" prefWidth="299.0">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </TextArea>
-                     </children>
-                     <HBox.margin>
-                        <Insets left="5.0" />
                      </HBox.margin>
                   </VBox>
                </children>
@@ -505,28 +487,22 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="290.0">
                      <children>
-                        <Label alignment="CENTER" prefWidth="290.0" text="Gebruiker" />
-                        <TextField prefWidth="290.0" />
-                        <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false" />
-                        <Label alignment="CENTER" prefWidth="290.0" text="Publicatie datum" />
-                        <TextField prefWidth="290.0" />
-                        <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false" />
-                        <Label alignment="CENTER" prefWidth="290.0" text="Automatische herinnnering" />
-                        <TextField prefWidth="290.0" />
+                        <Label alignment="CENTER" prefWidth="290.0" text="Mediatype" />
+                        <ChoiceBox fx:id="cbmedia" prefWidth="290.0" />
+                        <Label alignment="CENTER" prefWidth="290.0" text="URL">
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin></Label>
+                        <TextField fx:id="txtMedia" prefWidth="290.0" />
                         <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false" />
                      </children>
                      <HBox.margin>
                         <Insets right="5.0" />
                      </HBox.margin>
                   </VBox>
-                  <VBox prefHeight="200.0" prefWidth="290.0">
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="290.0">
                      <children>
-                        <Label alignment="CENTER" prefWidth="290.0" text="Inhoud" />
-                        <TextArea maxWidth="299.0" prefHeight="147.0" prefWidth="299.0">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </TextArea>
+                        <ImageView fx:id="imgmedia" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                      <HBox.margin>
                         <Insets left="5.0" />
