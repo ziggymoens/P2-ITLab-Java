@@ -1,6 +1,5 @@
 package userinterface.startUp;
 
-import domein.DomeinController;
 import domein.PasswordUtils;
 import domein.controllers.StartController;
 import domein.interfacesDomein.IGebruiker;
@@ -17,7 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import language.I18N;
 import main.ITLab;
-import userinterface.main.MainScreenController;
+import userinterface.ongebruikt.main.MainScreenController;
 
 import java.io.IOException;
 
