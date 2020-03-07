@@ -1,6 +1,6 @@
 package userinterface.ongebruikt.sessie;
 
-import domein.DomeinController;
+import domein.controllers.DomeinController;
 import domein.interfacesDomein.*;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;

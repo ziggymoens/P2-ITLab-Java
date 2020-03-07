@@ -1,6 +1,6 @@
 package userinterface.ongebruikt.gebruiker;
 
-import domein.DomeinController;
+import domein.controllers.DomeinController;
 import domein.enums.Gebruikersprofielen;
 import domein.interfacesDomein.IGebruiker;
 import javafx.beans.value.ObservableValue;

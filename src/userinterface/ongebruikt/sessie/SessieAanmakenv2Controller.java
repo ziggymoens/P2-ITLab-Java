@@ -1,5 +1,5 @@
 package userinterface.ongebruikt.sessie;
-import domein.DomeinController;
+import domein.controllers.DomeinController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

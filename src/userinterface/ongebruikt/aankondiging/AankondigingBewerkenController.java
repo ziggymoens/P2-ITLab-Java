@@ -1,6 +1,6 @@
 package userinterface.ongebruikt.aankondiging;
 
-import domein.DomeinController;
+import domein.controllers.DomeinController;
 import domein.interfacesDomein.IAankondiging;
 import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.ISessie;

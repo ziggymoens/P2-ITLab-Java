@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="800.0" prefWidth="1400.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane fx:id="pButtonBar" prefHeight="35.0" prefWidth="1400.0" style="-fx-background-color: lightgrey;">
          <children>
@@ -30,21 +30,21 @@
       </Pane>
       <VBox layoutX="39.0" layoutY="44.0">
          <children>
-            <HBox>
+            <HBox prefHeight="25.0">
                <children>
-                  <ChoiceBox fx:id="choiceBoxMaand" prefHeight="27.0" prefWidth="126.0">
+                  <ChoiceBox fx:id="choiceBoxMaand" prefHeight="25.0" prefWidth="131.0">
                      <HBox.margin>
-                        <Insets right="10.0" />
+                        <Insets right="5.0" />
                      </HBox.margin>
                   </ChoiceBox>
-                  <ChoiceBox fx:id="choiceBoxJaar" prefHeight="27.0" prefWidth="76.0">
+                  <ChoiceBox fx:id="choiceBoxJaar" prefHeight="25.0" prefWidth="100.0">
                      <HBox.margin>
-                        <Insets left="10.0" right="10.0" />
+                        <Insets />
                      </HBox.margin>
                   </ChoiceBox>
-                  <Button fx:id="btnToevoegenSessie" mnemonicParsing="false" text="+">
+                  <Button fx:id="btnToevoegenSessie" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="+">
                      <HBox.margin>
-                        <Insets left="10.0" />
+                        <Insets left="5.0" />
                      </HBox.margin>
                   </Button>
                </children>
@@ -52,23 +52,34 @@
                   <Insets bottom="15.0" top="5.0" />
                </VBox.margin>
             </HBox>
-            <TextField fx:id="txtSearchBar" prefHeight="25.0" prefWidth="276.0" />
+            <HBox prefHeight="25.0" prefWidth="276.0">
+               <children>
+                  <ChoiceBox fx:id="choiceBoxZoeken" prefWidth="90.0">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </ChoiceBox>
+                  <Pane prefHeight="25.0" prefWidth="180.0">
+                     <children>
+                        <ChoiceBox fx:id="choiceBoxStatus" prefHeight="25.0" prefWidth="175.0" visible="false" />
+                        <TextField fx:id="txtSearchBar" prefHeight="25.0" prefWidth="182.0" promptText="zoek" />
+                     </children>
+                  </Pane>
+               </children>
+            </HBox>
             <TableView fx:id="tableViewSessie" prefHeight="360.0" prefWidth="276.0">
                <columns>
-                  <TableColumn fx:id="tcTitel" maxWidth="150.0" minWidth="141.0" prefWidth="141.0" text="Titel" />
-                  <TableColumn fx:id="tcStart" maxWidth="76.0" minWidth="50.0" prefWidth="76.0" text="Start" />
-                  <TableColumn fx:id="tcPersonen" maxWidth="75.0" minWidth="16.8836669921875" prefWidth="58.0" text="p." />
+                  <TableColumn fx:id="titel" editable="false" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Titel" />
+                  <TableColumn fx:id="startSessie" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Start" />
+                  <TableColumn fx:id="maximumAantalPlaatsen" editable="false" maxWidth="30.0" minWidth="30.0" prefWidth="30.0" text="p." />
                </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
                <VBox.margin>
                   <Insets top="15.0" />
                </VBox.margin>
             </TableView>
          </children>
       </VBox>
-      <VBox layoutX="339.0" layoutY="43.0" prefHeight="446.0" prefWidth="448.0">
+      <VBox fx:id="vboxSessieDetail" layoutX="339.0" layoutY="43.0" prefHeight="446.0" prefWidth="448.0">
          <children>
             <Label fx:id="lblTitelSessie" alignment="CENTER" prefHeight="29.0" prefWidth="467.0" text="SESSIE">
                <font>
@@ -88,7 +99,7 @@
                                           <Insets bottom="3.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <TextField fx:id="txtTitelSessie" prefHeight="25.0" prefWidth="210.0" />
+                                    <TextField fx:id="txtTitelSessie" editable="false" prefHeight="25.0" prefWidth="210.0" />
                                     <Label fx:id="lblErrorTitel" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="236.0" text="Label" textFill="RED" visible="false" />
                                  </children>
                                  <VBox.margin>
@@ -102,7 +113,7 @@
                                           <Insets bottom="3.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <TextField fx:id="txtStartSessie" prefHeight="25.0" prefWidth="210.0" />
+                                    <TextField fx:id="txtStartSessie" editable="false" prefHeight="25.0" prefWidth="210.0" />
                                     <Label fx:id="lblErrorStartSessje" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="294.0" text="Label" textFill="RED" visible="false" />
                                  </children>
                                  <VBox.margin>
@@ -116,7 +127,7 @@
                                           <Insets bottom="3.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <TextField fx:id="txtEindSessie" prefHeight="25.0" prefWidth="210.0" />
+                                    <TextField fx:id="txtEindSessie" editable="false" prefHeight="25.0" prefWidth="210.0" />
                                     <Label fx:id="lblErrorEindeSessie" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="322.0" text="Label" textFill="RED" visible="false" />
                                  </children>
                                  <VBox.margin>
@@ -137,7 +148,7 @@
                                           <Insets bottom="3.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <TextField fx:id="txtGastsprekerSessie" prefHeight="25.0" prefWidth="210.0" />
+                                    <TextField fx:id="txtGastsprekerSessie" editable="false" prefHeight="25.0" prefWidth="210.0" />
                                     <Label fx:id="lblErrorGastspreker" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="236.0" text="Label" textFill="RED" visible="false" />
                                  </children>
                                  <VBox.margin>
@@ -151,7 +162,7 @@
                                           <Insets bottom="3.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <TextField fx:id="txtVerantwoordelijkeSessie" prefHeight="25.0" prefWidth="210.0" />
+                                    <TextField fx:id="txtVerantwoordelijkeSessie" editable="false" prefHeight="25.0" prefWidth="210.0" />
                                     <Label fx:id="lblErrorVerantwoordelijke" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="255.0" text="Label" textFill="RED" visible="false" />
                                  </children>
                                  <VBox.margin>
@@ -165,7 +176,7 @@
                                           <Insets bottom="3.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <TextField fx:id="txtLokaalSessie" prefHeight="25.0" prefWidth="210.0" />
+                                    <TextField fx:id="txtLokaalSessie" editable="false" prefHeight="25.0" prefWidth="210.0" />
                                     <Label fx:id="lblErrorLokaal" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="250.0" text="Label" textFill="RED" visible="false" />
                                  </children>
                                  <VBox.margin>
@@ -190,11 +201,11 @@
                               <Insets bottom="3.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="txtMaxPlaatsenSessie" alignment="CENTER" prefHeight="25.0" prefWidth="210.0" />
+                        <TextField fx:id="txtMaxPlaatsenSessie" alignment="CENTER" editable="false" prefHeight="25.0" prefWidth="210.0" />
                         <Label fx:id="lblErrorMaxPlaatsen" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="18.0" prefWidth="211.0" text="Label" textFill="RED" visible="false" />
                      </children>
                   </VBox>
-                  <CheckBox fx:id="checkBoxCapaciteitSessie" mnemonicParsing="false" prefHeight="17.0" prefWidth="182.0" text="Maximum capaciteit lokaal">
+                  <CheckBox fx:id="checkBoxCapaciteitSessie" disable="true" mnemonicParsing="false" prefHeight="17.0" prefWidth="182.0" text="Maximum capaciteit lokaal">
                      <HBox.margin>
                         <Insets left="15.0" top="20.0" />
                      </HBox.margin>
@@ -204,14 +215,15 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </HBox>
-            <HBox prefHeight="29.0" prefWidth="450.0">
+            <HBox alignment="CENTER" prefHeight="29.0" prefWidth="450.0">
                <children>
-                  <Button fx:id="btnBewerkenSessie" mnemonicParsing="false" prefWidth="200.0" text="bewerken">
-                     <HBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="btnVerwijderenSessie" mnemonicParsing="false" prefWidth="200.0" text="verwijderen">
+                  <Pane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="btnBewerkenSessie" mnemonicParsing="false" prefWidth="200.0" text="Wijzig" />
+                        <Button fx:id="btnOpslaanSessie" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Opslaan" visible="false" />
+                     </children>
+                  </Pane>
+                  <Button fx:id="btnVerwijderenSessie" mnemonicParsing="false" prefWidth="200.0" text="Verwijder">
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
@@ -537,4 +549,4 @@
          </children>
       </Pane>
    </children>
-</AnchorPane>
+</fx:root>

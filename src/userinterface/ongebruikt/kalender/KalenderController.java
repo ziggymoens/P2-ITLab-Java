@@ -1,6 +1,6 @@
 package userinterface.ongebruikt.kalender;
 
-import domein.DomeinController;
+import domein.controllers.DomeinController;
 import domein.interfacesDomein.ISessie;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

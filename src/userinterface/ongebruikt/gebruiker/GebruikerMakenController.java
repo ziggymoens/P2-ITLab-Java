@@ -1,6 +1,6 @@
 package userinterface.ongebruikt.gebruiker;
 
-import domein.DomeinController;
+import domein.controllers.DomeinController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;

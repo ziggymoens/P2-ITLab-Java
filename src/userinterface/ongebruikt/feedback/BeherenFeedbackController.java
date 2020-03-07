@@ -1,6 +1,6 @@
 package userinterface.ongebruikt.feedback;
 
-import domein.DomeinController;
+import domein.controllers.DomeinController;
 import domein.interfacesDomein.IFeedback;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

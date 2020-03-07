@@ -1,6 +1,6 @@
 package userinterface.ongebruikt.media;
 
-import domein.DomeinController;
+import domein.controllers.DomeinController;
 import domein.interfacesDomein.IMedia;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

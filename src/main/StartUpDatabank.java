@@ -1,12 +1,8 @@
 package main;
 
-import domein.DomeinController;
-import domein.Gebruiker;
+import domein.controllers.DomeinController;
 import domein.PasswordUtils;
-import domein.SessieKalender;
 import domein.controllers.StartController;
-import domein.enums.Gebruikersprofielen;
-import domein.enums.Gebruikersstatus;
 import domein.interfacesDomein.ILokaal;
 import domein.interfacesDomein.ISessie;
 

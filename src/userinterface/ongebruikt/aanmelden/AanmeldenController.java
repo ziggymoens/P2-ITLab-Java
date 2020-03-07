@@ -1,6 +1,6 @@
 package userinterface.ongebruikt.aanmelden;
 
-import domein.DomeinController;
+import domein.controllers.DomeinController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
 

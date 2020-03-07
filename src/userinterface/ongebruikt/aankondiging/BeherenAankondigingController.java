@@ -1,6 +1,6 @@
 package userinterface.ongebruikt.aankondiging;
 
-import domein.DomeinController;
+import domein.controllers.DomeinController;
 import domein.interfacesDomein.IAankondiging;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

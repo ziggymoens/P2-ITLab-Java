@@ -1,6 +1,6 @@
 package userinterface.ongebruikt.inschrijvingen;
 
-import domein.DomeinController;
+import domein.controllers.DomeinController;
 import domein.interfacesDomein.IInschrijving;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

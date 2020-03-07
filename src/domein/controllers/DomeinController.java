@@ -1,10 +1,7 @@
-package domein;
+package domein.controllers;
 
 
-import domein.controllers.GebruikerController;
-import domein.controllers.HoofdverantwoordelijkeController;
-import domein.controllers.ITypeController;
-import domein.controllers.VerantwoordelijkeController;
+import domein.*;
 import domein.enums.Gebruikersprofielen;
 import domein.enums.Gebruikersstatus;
 import domein.enums.MediaTypes;
@@ -59,6 +56,11 @@ public class DomeinController {
         return huidigeSessieKalender.geefAlleAcademieJaren();
     }
 
+    public List<String> geefMaanden(){
+        String[] maanden = {"Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"};
+        return Arrays.asList(maanden);
+    }
+
     private int geefAcademiejaar(LocalDate date) {
         int jaar = LocalDate.now().getYear() - 2000;
         int aj = 0;
@@ -72,6 +74,11 @@ public class DomeinController {
     //endregion
 
     //region Sessie
+    public List<String> geefFilterOpties(){
+        String[] keuzeVoorZoeken = {"Titel", "Stad", "Status"};
+        return Arrays.asList(keuzeVoorZoeken);
+    }
+
     public List<ISessie> geefISessiesHuidigeKalender() {
         return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender(academiejaar);
     }
