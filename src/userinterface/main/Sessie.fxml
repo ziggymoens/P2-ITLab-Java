@@ -17,8 +17,17 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root prefHeight="800.0" prefWidth="1400.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
+      <Pane fx:id="pButtonBar" prefHeight="35.0" prefWidth="1400.0" style="-fx-background-color: lightgrey;">
+         <children>
+            <Button fx:id="btnSessie" layoutX="57.0" layoutY="5.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="100.0" text="Sessie" />
+            <Button fx:id="btnGebruiker" layoutX="167.0" layoutY="5.0" mnemonicParsing="false" prefWidth="100.0" text="Gebruiker" />
+            <Button fx:id="btnSessiekalender" layoutX="288.0" layoutY="5.0" mnemonicParsing="false" prefWidth="100.0" text="Kalender" />
+            <Label layoutX="1174.0" layoutY="5.0" prefHeight="25.0" text="ingeschreven als: " />
+            <Button fx:id="btnIngelogd" layoutX="1268.0" layoutY="5.0" mnemonicParsing="false" prefHeight="25.0" text="bert van bertelgem" />
+         </children>
+      </Pane>
       <VBox layoutX="39.0" layoutY="44.0">
          <children>
             <HBox>
@@ -45,11 +54,11 @@
             </HBox>
             <TextField fx:id="txtSearchBar" prefHeight="25.0" prefWidth="276.0" />
             <TableView fx:id="tableViewSessie" prefHeight="360.0" prefWidth="276.0">
-              <columns>
-                <TableColumn fx:id="tcTitel" maxWidth="150.0" minWidth="141.0" prefWidth="141.0" text="Titel" />
-                <TableColumn fx:id="tcStart" maxWidth="76.0" minWidth="50.0" prefWidth="76.0" text="Start" />
+               <columns>
+                  <TableColumn fx:id="tcTitel" maxWidth="150.0" minWidth="141.0" prefWidth="141.0" text="Titel" />
+                  <TableColumn fx:id="tcStart" maxWidth="76.0" minWidth="50.0" prefWidth="76.0" text="Start" />
                   <TableColumn fx:id="tcPersonen" maxWidth="75.0" minWidth="16.8836669921875" prefWidth="58.0" text="p." />
-              </columns>
+               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
@@ -239,97 +248,7 @@
             <Insets top="10.0" />
          </padding>
       </VBox>
-      <Pane prefHeight="35.0" prefWidth="1400.0" style="-fx-background-color: lightgrey;">
-         <children>
-            <Button fx:id="btnSessie" layoutX="57.0" layoutY="5.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="100.0" text="Sessie" />
-            <Button fx:id="btnGebruiker" layoutX="167.0" layoutY="5.0" mnemonicParsing="false" prefWidth="100.0" text="Gebruiker" />
-            <Button fx:id="btnSessiekalender" layoutX="288.0" layoutY="5.0" mnemonicParsing="false" prefWidth="100.0" text="Kalender" />
-            <Label layoutX="1174.0" layoutY="5.0" prefHeight="25.0" text="ingeschreven als: " />
-            <Button fx:id="btnIngelogd" layoutX="1268.0" layoutY="5.0" mnemonicParsing="false" prefHeight="25.0" text="bert van bertelgem" />
-         </children>
-      </Pane>
-      <Pane fx:id="pLokaal" layoutY="556.0">
-         <children>
-            <HBox fx:id="hBoxOnderaan" alignment="CENTER" prefHeight="215.0" prefWidth="1400.0">
-               <children>
-                  <VBox fx:id="vBoxOnderLinks" alignment="CENTER" prefHeight="215.0" prefWidth="243.0">
-                     <children>
-                        <ComboBox fx:id="choiceBox1Onder" prefWidth="200.0" promptText="Stad">
-                           <VBox.margin>
-                              <Insets right="20.0" />
-                           </VBox.margin>
-                        </ComboBox>
-                        <ComboBox fx:id="choiceBox2Onder" prefWidth="200.0" promptText="Gebouw">
-                           <VBox.margin>
-                              <Insets right="20.0" top="20.0" />
-                           </VBox.margin>
-                        </ComboBox>
-                        <ComboBox fx:id="choiceBoxOnder3" prefWidth="200.0" promptText="Verdieping">
-                           <VBox.margin>
-                              <Insets right="20.0" top="20.0" />
-                           </VBox.margin>
-                        </ComboBox>
-                        <ComboBox fx:id="choiceBox4Onder" prefWidth="200.0" promptText="Capaciteit">
-                           <VBox.margin>
-                              <Insets right="20.0" top="20.0" />
-                           </VBox.margin>
-                        </ComboBox>
-                     </children>
-                  </VBox>
-                  <TableView fx:id="tableViewOnderaan" prefHeight="215.0" prefWidth="809.0" />
-                  <Button fx:id="btnKiezen" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="81.0" prefWidth="55.0" text="Kiezen">
-                     <HBox.margin>
-                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
-         </children>
-      </Pane>
-      <Pane fx:id="pGebruiker" layoutY="556.0" visible="false">
-         <children>
-            <HBox fx:id="hBoxOnderaan1" alignment="CENTER" prefHeight="215.0" prefWidth="1400.0">
-               <children>
-                  <VBox fx:id="vBoxOnderLinks1" alignment="CENTER" prefHeight="200.0" prefWidth="137.0">
-                     <children>
-                        <ComboBox fx:id="choiceBox1Onder1" prefWidth="150.0" promptText="Stad">
-                           <VBox.margin>
-                              <Insets right="20.0" top="20.0" />
-                           </VBox.margin>
-                        </ComboBox>
-                        <ComboBox fx:id="choiceBox2Onder1" prefWidth="150.0" promptText="Gebouw">
-                           <VBox.margin>
-                              <Insets right="20.0" top="20.0" />
-                           </VBox.margin>
-                        </ComboBox>
-                        <ComboBox fx:id="choiceBoxOnder31" prefWidth="150.0" promptText="Verdieping">
-                           <VBox.margin>
-                              <Insets right="20.0" top="20.0" />
-                           </VBox.margin>
-                        </ComboBox>
-                        <ComboBox fx:id="choiceBox4Onder1" prefWidth="150.0" promptText="Capaciteit">
-                           <VBox.margin>
-                              <Insets right="20.0" top="20.0" />
-                           </VBox.margin>
-                        </ComboBox>
-                     </children>
-                  </VBox>
-                  <TableView fx:id="tableViewOnderaan1" prefHeight="222.0" prefWidth="928.0">
-                     <columns>
-                        <TableColumn prefWidth="75.0" text="C1" />
-                        <TableColumn prefWidth="124.0" text="C2" />
-                     </columns>
-                  </TableView>
-                  <Button fx:id="btnKiezen1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="81.0" prefWidth="55.0" text="Kiezen">
-                     <HBox.margin>
-                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
-         </children>
-      </Pane>
-      <AnchorPane fx:id="apAankondiging" layoutX="806.0" layoutY="295.0" minHeight="200.0" minWidth="580.0" prefHeight="210.0" prefWidth="581.0" visible="false">
+      <AnchorPane fx:id="apAankondiging" layoutX="806.0" layoutY="295.0" minHeight="200.0" minWidth="580.0" prefHeight="210.0" prefWidth="581.0">
          <children>
             <HBox prefHeight="165.0" prefWidth="580.0">
                <children>
@@ -478,7 +397,7 @@
             </HBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="apMedia" layoutX="806.0" layoutY="295.0" minHeight="200.0" minWidth="580.0" prefHeight="210.0" prefWidth="581.0">
+      <AnchorPane fx:id="apMedia" layoutX="806.0" layoutY="295.0" minHeight="200.0" minWidth="580.0" prefHeight="210.0" prefWidth="581.0" visible="false">
          <children>
             <HBox prefHeight="150.0" prefWidth="580.0">
                <children>
@@ -529,5 +448,93 @@
             </HBox>
          </children>
       </AnchorPane>
+      <Pane fx:id="pLokaal" layoutY="556.0">
+         <children>
+            <HBox fx:id="hBoxOnderaan" alignment="CENTER" prefHeight="215.0" prefWidth="1400.0">
+               <children>
+                  <VBox fx:id="vBoxOnderLinks" alignment="CENTER" prefHeight="215.0" prefWidth="243.0">
+                     <children>
+                        <ComboBox fx:id="choiceBox1Onder" prefWidth="200.0" promptText="Stad">
+                           <VBox.margin>
+                              <Insets right="20.0" />
+                           </VBox.margin>
+                        </ComboBox>
+                        <ComboBox fx:id="choiceBox2Onder" prefWidth="200.0" promptText="Gebouw">
+                           <VBox.margin>
+                              <Insets right="20.0" top="20.0" />
+                           </VBox.margin>
+                        </ComboBox>
+                        <ComboBox fx:id="choiceBoxOnder3" prefWidth="200.0" promptText="Verdieping">
+                           <VBox.margin>
+                              <Insets right="20.0" top="20.0" />
+                           </VBox.margin>
+                        </ComboBox>
+                        <ComboBox fx:id="choiceBox4Onder" prefWidth="200.0" promptText="Capaciteit">
+                           <VBox.margin>
+                              <Insets right="20.0" top="20.0" />
+                           </VBox.margin>
+                        </ComboBox>
+                     </children>
+                  </VBox>
+                  <TableView fx:id="tableViewOnderaan" prefHeight="215.0" prefWidth="809.0">
+                     <columns>
+                        <TableColumn prefWidth="210.0" text="Lokaal" />
+                        <TableColumn prefWidth="150.0" text="Stad" />
+                        <TableColumn prefWidth="150.0" text="Gebouw" />
+                        <TableColumn prefWidth="150.0" text="Verdieping" />
+                        <TableColumn prefWidth="150.0" text="Capaciteit" />
+                     </columns></TableView>
+                  <Button fx:id="btnKiezen" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="81.0" prefWidth="55.0" text="Kiezen">
+                     <HBox.margin>
+                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </Pane>
+      <Pane fx:id="pGebruiker" layoutY="556.0" visible="false">
+         <children>
+            <HBox fx:id="hBoxOnderaan1" alignment="CENTER" prefHeight="215.0" prefWidth="1400.0">
+               <children>
+                  <VBox fx:id="vBoxOnderLinks1" alignment="CENTER" prefHeight="200.0" prefWidth="137.0">
+                     <children>
+                        <ComboBox fx:id="choiceBox1Onder1" prefWidth="150.0" promptText="Stad">
+                           <VBox.margin>
+                              <Insets right="20.0" top="20.0" />
+                           </VBox.margin>
+                        </ComboBox>
+                        <ComboBox fx:id="choiceBox2Onder1" prefWidth="150.0" promptText="Gebouw">
+                           <VBox.margin>
+                              <Insets right="20.0" top="20.0" />
+                           </VBox.margin>
+                        </ComboBox>
+                        <ComboBox fx:id="choiceBoxOnder31" prefWidth="150.0" promptText="Verdieping">
+                           <VBox.margin>
+                              <Insets right="20.0" top="20.0" />
+                           </VBox.margin>
+                        </ComboBox>
+                        <ComboBox fx:id="choiceBox4Onder1" prefWidth="150.0" promptText="Capaciteit">
+                           <VBox.margin>
+                              <Insets right="20.0" top="20.0" />
+                           </VBox.margin>
+                        </ComboBox>
+                     </children>
+                  </VBox>
+                  <TableView fx:id="tableViewOnderaan1" prefHeight="222.0" prefWidth="928.0">
+                     <columns>
+                        <TableColumn prefWidth="75.0" text="C1" />
+                        <TableColumn prefWidth="124.0" text="C2" />
+                     </columns>
+                  </TableView>
+                  <Button fx:id="btnKiezen1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="81.0" prefWidth="55.0" text="Kiezen">
+                     <HBox.margin>
+                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </Pane>
    </children>
-</fx:root>
+</AnchorPane>
