@@ -1,6 +1,7 @@
 package userinterface.main;
 
 import domein.controllers.DomeinController;
+import domein.controllers.HoofdverantwoordelijkeController;
 import domein.interfacesDomein.ISessie;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -9,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
@@ -16,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
@@ -24,6 +27,7 @@ import java.util.stream.Collectors;
 
 public class SessieController extends AnchorPane {
     private DomeinController domeinController;
+    private HoofdverantwoordelijkeController hoofdverantwoordelijkeController;
 
     //region buttonBar FXML
     @FXML
@@ -238,6 +242,8 @@ public class SessieController extends AnchorPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
+        btnGebruiker.setOnAction(this::openenGebruikerController);
+
         choiceBoxJaar.setItems(FXCollections.observableArrayList(domeinController.geefAcademiejaren()));
         choiceBoxMaand.setItems(FXCollections.observableArrayList(domeinController.geefMaanden()));
         choiceBoxZoeken.setItems(FXCollections.observableArrayList(domeinController.geefFilterOpties()));
@@ -278,6 +284,14 @@ public class SessieController extends AnchorPane {
 
         btnBewerkenSessie.setOnAction(this::bewerkenSessie);
         btnOpslaanSessie.setOnAction(this::opslaanSessie);
+    }
+
+    private void openenGebruikerController(ActionEvent actionEvent) {
+        Scene scene = new Scene(new GebruikerController(this.hoofdverantwoordelijkeController));
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
     }
 
 

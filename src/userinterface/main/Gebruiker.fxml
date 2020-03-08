@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<fx:root prefHeight="800.0" prefWidth="1400.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+    <Pane fx:id="pButtonBar" prefHeight="35.0" prefWidth="1400.0" style="-fx-background-color: lightgrey;">
+        <children>
+            <Button fx:id="btnSessie" layoutX="57.0" layoutY="5.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="100.0" text="Sessie" />
+            <Button fx:id="btnGebruiker" layoutX="167.0" layoutY="5.0" mnemonicParsing="false" prefWidth="100.0" text="Gebruiker" />
+            <Button fx:id="btnSessiekalender" layoutX="288.0" layoutY="5.0" mnemonicParsing="false" prefWidth="100.0" text="Kalender" />
+            <Label layoutX="1174.0" layoutY="5.0" prefHeight="25.0" text="ingelogd als:" />
+            <Button fx:id="btnIngelogd" layoutX="1268.0" layoutY="5.0" mnemonicParsing="false" prefHeight="25.0" text="bert van bertelgem" />
+        </children>
+    </Pane>
+      <VBox alignment="CENTER" layoutX="27.0" layoutY="43.0" minHeight="765.0" minWidth="1354.0" prefHeight="765.0" prefWidth="1354.0">
+         <children>
+            <HBox prefWidth="548.0">
+               <children>
+            
+                                <VBox prefHeight="374.0" prefWidth="570.0">
+                        <children>
+                        <Label text="Filter lijst:">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Label>
+                            <HBox>
+                                <children>
+                              <ComboBox fx:id="comboBoxType" prefWidth="90.0" promptText="Type">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </ComboBox>
+                              <ComboBox fx:id="comboBoxStatus" prefWidth="90.0" promptText="Status">
+                                 <HBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </HBox.margin>
+                              </ComboBox>
+                                    <Button fx:id="toevoegenGebruiker" mnemonicParsing="false" prefHeight="27.0" prefWidth="46.0" text="+">
+                                        <HBox.margin>
+                                            <Insets left="10.0" />
+                                        </HBox.margin>
+                              </Button>
+                                </children>
+                                <VBox.margin>
+                                    <Insets bottom="15.0" />
+                                </VBox.margin>
+                            </HBox>
+                            <TextField fx:id="txtFieldSearchBar" maxWidth="-Infinity" minWidth="10.0" prefHeight="27.0" prefWidth="267.0" promptText="Zoek...">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                            <TableView fx:id="tableViewGebruiker" prefHeight="350.0" prefWidth="527.0">
+                                <columns>
+                                    <TableColumn fx:id="TVnaam" maxWidth="178.68321990966797" minWidth="-1.0" prefWidth="144.71083641052246" text="Naam" />
+                                    <TableColumn fx:id="TVgebruikersnaamChamilo" maxWidth="315.5083236694336" minWidth="21.3167724609375" prefWidth="109.96951293945312" text="Gebruikersnaam Chamilo" />
+                                    <TableColumn fx:id="TVtype" maxWidth="210.030517578125" minWidth="0.0" prefWidth="0.0" text="Type" />
+                              <TableColumn fx:id="TVstatus" maxWidth="192.0" minWidth="13.457305908203125" prefWidth="192.0" text="Status" />
+                                </columns>
+                                <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                </columnResizePolicy>
+                                <VBox.margin>
+                                    <Insets top="15.0" />
+                                </VBox.margin>
+                            </TableView>
+                        </children>
+                     <HBox.margin>
+                        <Insets right="50.0" />
+                     </HBox.margin>
+                    </VBox>
+                    <VBox prefHeight="520.0" prefWidth="448.0">
+                        <children>
+                            <Label alignment="CENTER" prefHeight="29.0" prefWidth="467.0" text="GEBRUIKER">
+                                <font>
+                                    <Font size="24.0" />
+                                </font>
+                            </Label>
+                            <VBox prefWidth="448.0">
+                                <children>
+                                      <VBox prefHeight="476.0" prefWidth="210.0">
+                                          <children>
+                                    <HBox>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <children>
+                                                    <VBox prefHeight="82.0" prefWidth="448.0">
+                                                        <children>
+                                                            <Label alignment="CENTER" minHeight="0.0" minWidth="210.0" prefHeight="17.0" prefWidth="505.0" text="Naam">
+                                                                <VBox.margin>
+                                                                    <Insets bottom="3.0" />
+                                                                </VBox.margin>
+                                                            </Label>
+                                                            <TextField fx:id="txtFieldGebruiker" prefHeight="27.0" prefWidth="390.0" />
+                                                            <Label fx:id="lblErrorNaam" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="463.0" text="Label" textFill="RED" visible="false" />
+                                                        </children>
+                                             <HBox.margin>
+                                                <Insets bottom="1.0" />
+                                             </HBox.margin>
+                                                    </VBox>
+                                       </children>
+                                    </HBox>
+                                              <VBox prefHeight="73.0" prefWidth="448.0">
+                                                  <children>
+                                                      <Label alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="22.0" prefWidth="448.0" text="Gebuikersnaam Chamilo">
+                                                          <VBox.margin>
+                                                              <Insets bottom="3.0" />
+                                                          </VBox.margin>
+                                                      </Label>
+                                                      <TextField fx:id="txtFieldGebruikersnaam" prefHeight="27.0" prefWidth="223.0" />
+                                                      <Label fx:id="TVgebuikersnaamChamilo" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="522.0" text="Label" textFill="RED" visible="false" />
+                                                  </children>
+                                                  <VBox.margin>
+                                                      <Insets bottom="1.0" />
+                                                  </VBox.margin>
+                                              </VBox>
+                                              <VBox prefHeight="78.0" prefWidth="448.0">
+                                                  <children>
+                                                      <Label alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="613.0" text="Type">
+                                                          <VBox.margin>
+                                                              <Insets bottom="3.0" />
+                                                          </VBox.margin>
+                                                      </Label>
+                                                      <TextField fx:id="txtFieldType" prefHeight="27.0" prefWidth="223.0" />
+                                                      <Label fx:id="lblErrorTypeGebruiker" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="574.0" text="Label" textFill="RED" visible="false" />
+                                                  </children>
+                                                  <VBox.margin>
+                                                      <Insets bottom="1.0" />
+                                                  </VBox.margin>
+                                              </VBox>
+                                    <VBox layoutX="10.0" layoutY="188.0" prefHeight="81.0" prefWidth="448.0">
+                                       <children>
+                                          <Label alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="613.0" text="Status">
+                                             <VBox.margin>
+                                                <Insets bottom="3.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <TextField fx:id="txtFieldStatus" prefHeight="27.0" prefWidth="223.0" />
+                                          <Label fx:id="lblErrorStatusGebruiker" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="574.0" text="Label" textFill="RED" visible="false" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="1.0" />
+                                       </VBox.margin>
+                                    </VBox>
+                                          </children>
+                                      </VBox>
+                                </children>
+                            </VBox>
+                            <HBox prefHeight="29.0" prefWidth="450.0">
+                                <children>
+                                    <Button fx:id="btnWijzigen" mnemonicParsing="false" prefWidth="200.0" text="Wijzigen">
+                                        <HBox.margin>
+                                            <Insets left="10.0" right="10.0" />
+                                        </HBox.margin>
+                                    </Button>
+                                    <Button fx:id="btnVerwijderen" mnemonicParsing="false" prefWidth="200.0" text="Verwijderen">
+                                        <HBox.margin>
+                                            <Insets left="10.0" right="10.0" />
+                                        </HBox.margin>
+                                    </Button>
+                                </children>
+                                <VBox.margin>
+                                    <Insets top="10.0" />
+                                </VBox.margin>
+                            </HBox>
+                            <Label fx:id="lblMessage" prefHeight="80.0" prefWidth="448.0" style="-fx-background-color: grey;" text="Label" VBox.vgrow="NEVER">
+                                <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                </padding>
+                                <VBox.margin>
+                                    <Insets top="20.0" />
+                                </VBox.margin>
+                            </Label>
+                        </children>
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                    </VBox>
+                  <VBox alignment="CENTER" prefHeight="372.0" prefWidth="299.0">
+                     <children>
+                        <ImageView fitHeight="165.0" fitWidth="177.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../storage/profielfotos/profielfoto.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </HBox>
+              <VBox fx:id="vBoxRechts" alignment="CENTER" minWidth="800.0" prefHeight="468.0" prefWidth="1354.0">
+                  <children>
+                  <Label text="SESSIES GEBRUIKER">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                      <TableView fx:id="tableViewSessiesGebruikers" prefHeight="400.0" prefWidth="800.0">
+                          <columns>
+                              <TableColumn prefWidth="75.0" text="C1" />
+                              <TableColumn prefWidth="75.0" text="C2" />
+                          </columns>
+                          <VBox.margin>
+                              <Insets />
+                          </VBox.margin>
+                      </TableView>
+                  </children>
+               <VBox.margin>
+                  <Insets bottom="50.0" left="50.0" right="50.0" />
+               </VBox.margin>
+              </VBox>
+         </children>
+      </VBox>
+        <HBox fx:id="hBoxOnderaan" alignment="CENTER" layoutY="556.0" prefHeight="215.0" prefWidth="1400.0" visible="false">
+            <children>
+                <VBox fx:id="vBoxOnderLinks" alignment="CENTER" prefHeight="200.0" prefWidth="137.0" visible="false">
+                    <children>
+                        <ComboBox fx:id="choiceBox1Onder" prefWidth="150.0" promptText="Stad">
+                            <VBox.margin>
+                                <Insets right="20.0" top="20.0" />
+                            </VBox.margin>
+                  </ComboBox>
+                        <ComboBox fx:id="choiceBox2Onder" prefWidth="150.0" promptText="Gebouw">
+                            <VBox.margin>
+                                <Insets right="20.0" top="20.0" />
+                            </VBox.margin>
+                  </ComboBox>
+                        <ComboBox fx:id="choiceBoxOnder3" prefWidth="150.0" promptText="Verdieping">
+                            <VBox.margin>
+                                <Insets right="20.0" top="20.0" />
+                            </VBox.margin>
+                  </ComboBox>
+                        <ComboBox fx:id="choiceBox4Onder" prefWidth="150.0" promptText="Capaciteit">
+                            <VBox.margin>
+                                <Insets right="20.0" top="20.0" />
+                            </VBox.margin>
+                  </ComboBox>
+                    </children>
+                </VBox>
+                <TableView fx:id="tableViewOnderaan" prefHeight="222.0" prefWidth="928.0">
+                    <columns>
+                        <TableColumn prefWidth="75.0" text="C1" />
+                        <TableColumn prefWidth="124.0" text="C2" />
+                    </columns>
+                </TableView>
+                <Button fx:id="btnKiezen" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Kiezen">
+                    <HBox.margin>
+                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                    </HBox.margin>
+            </Button>
+            </children>
+        </HBox>
+    </children>
+</fx:root>

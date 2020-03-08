@@ -24,7 +24,7 @@
             <Button fx:id="btnSessie" layoutX="57.0" layoutY="5.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="100.0" text="Sessie" />
             <Button fx:id="btnGebruiker" layoutX="167.0" layoutY="5.0" mnemonicParsing="false" prefWidth="100.0" text="Gebruiker" />
             <Button fx:id="btnSessiekalender" layoutX="288.0" layoutY="5.0" mnemonicParsing="false" prefWidth="100.0" text="Kalender" />
-            <Label layoutX="1174.0" layoutY="5.0" prefHeight="25.0" text="ingeschreven als: " />
+            <Label layoutX="1174.0" layoutY="5.0" prefHeight="25.0" text="ingelogd als:" />
             <Button fx:id="btnIngelogd" layoutX="1268.0" layoutY="5.0" mnemonicParsing="false" prefHeight="25.0" text="bert van bertelgem" />
          </children>
       </Pane>
