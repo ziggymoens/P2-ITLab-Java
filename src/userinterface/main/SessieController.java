@@ -130,7 +130,7 @@ public class SessieController extends AnchorPane {
     private VBox vBoxRechts;
 
     @FXML
-    private ChoiceBox<String> choiceBoxSessieToebehoren;
+    private RadioButton rabtnAankondiging, rabtnInschrijving, rabtnGebruiker, rabtnFeedback, rabtnLokaal, rabtnMedia;
 
     @FXML
     private TableView tableViewSessieToebehoren;
@@ -284,6 +284,7 @@ public class SessieController extends AnchorPane {
 
         btnBewerkenSessie.setOnAction(this::bewerkenSessie);
         btnOpslaanSessie.setOnAction(this::opslaanSessie);
+        radioButtons();
     }
 
     private void openenGebruikerController(ActionEvent actionEvent) {
@@ -351,5 +352,93 @@ public class SessieController extends AnchorPane {
 
     private void checkVeranderingen(){
 
+    }
+
+    private void radioButtons(){
+
+        rabtnAankondiging.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> obs, Boolean oldValue, Boolean newValue) {
+                if(newValue){
+                    rabtnGebruiker.setSelected(false);
+                    rabtnFeedback.setSelected(false);
+                    rabtnInschrijving.setSelected(false);
+                    rabtnLokaal.setSelected(false);
+                    rabtnMedia.setSelected(false);
+                    // Nieuw scherm Aankondiging maken
+                }
+            }
+        });
+        rabtnAankondiging.setSelected(true);
+
+        rabtnGebruiker.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> obs, Boolean oldValue, Boolean newValue) {
+                if(newValue){
+                    rabtnAankondiging.setSelected(false);
+                    rabtnFeedback.setSelected(false);
+                    rabtnInschrijving.setSelected(false);
+                    rabtnLokaal.setSelected(false);
+                    rabtnMedia.setSelected(false);
+                    // Nieuw scherm Gebruiker maken
+                }
+            }
+        });
+
+        rabtnFeedback.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> obs, Boolean oldValue, Boolean newValue) {
+                if(newValue){
+                    rabtnAankondiging.setSelected(false);
+                    rabtnGebruiker.setSelected(false);
+                    rabtnInschrijving.setSelected(false);
+                    rabtnLokaal.setSelected(false);
+                    rabtnMedia.setSelected(false);
+                    // Nieuw scherm Feedback maken
+                }
+            }
+        });
+
+        rabtnInschrijving.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> obs, Boolean oldValue, Boolean newValue) {
+                if(newValue){
+                    rabtnAankondiging.setSelected(false);
+                    rabtnFeedback.setSelected(false);
+                    rabtnGebruiker.setSelected(false);
+                    rabtnLokaal.setSelected(false);
+                    rabtnMedia.setSelected(false);
+                    // Nieuw scherm Inschrijving maken
+                }
+            }
+        });
+
+        rabtnLokaal.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> obs, Boolean oldValue, Boolean newValue) {
+                if(newValue){
+                    rabtnAankondiging.setSelected(false);
+                    rabtnFeedback.setSelected(false);
+                    rabtnInschrijving.setSelected(false);
+                    rabtnGebruiker.setSelected(false);
+                    rabtnMedia.setSelected(false);
+                    // Nieuw scherm Lokaal maken
+                }
+            }
+        });
+
+        rabtnMedia.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> obs, Boolean oldValue, Boolean newValue) {
+                if(newValue){
+                    rabtnAankondiging.setSelected(false);
+                    rabtnFeedback.setSelected(false);
+                    rabtnInschrijving.setSelected(false);
+                    rabtnLokaal.setSelected(false);
+                    rabtnGebruiker.setSelected(false);
+                    // Nieuw scherm Media maken
+                }
+            }
+        });
     }
 }
