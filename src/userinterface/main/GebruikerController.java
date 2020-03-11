@@ -1,13 +1,9 @@
 package userinterface.main;
 
 import domein.Gebruiker;
-import domein.SessieKalender;
 import domein.controllers.DomeinController;
 import domein.controllers.HoofdverantwoordelijkeController;
-import domein.controllers.ITypeController;
 import domein.interfacesDomein.IGebruiker;
-import domein.interfacesDomein.ISessie;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -134,7 +130,7 @@ public class GebruikerController extends AnchorPane {
 
         btnVerwijderen.setOnAction(this::verwijderen);
 
-        vulTable(FXCollections.observableArrayList(domeinController.geefIGebruikers()));
+        vulTable(FXCollections.observableArrayList(domeinController.geefAlleIGebruikers()));
         ObservableList data =  tableViewGebruiker.getItems();
         txtFieldSearchBar.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             if (oldValue != null && (newValue.length() < oldValue.length())) {
@@ -196,7 +192,7 @@ public class GebruikerController extends AnchorPane {
 
     public void refreshTable() {
         clearTable();
-        vulTable(FXCollections.observableArrayList(domeinController.geefIGebruikers()));
+        vulTable(FXCollections.observableArrayList(domeinController.geefAlleIGebruikers()));
     }
 
 }
