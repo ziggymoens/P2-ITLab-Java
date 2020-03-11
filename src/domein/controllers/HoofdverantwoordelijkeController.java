@@ -7,11 +7,9 @@ import domein.interfacesDomein.IGebruiker;
 import java.util.List;
 
 public class HoofdverantwoordelijkeController implements IVerantwoordelijkeController {
-    private DomeinController domeinController;
     private SessieKalender huidigeSessieKalender;
 
-    public HoofdverantwoordelijkeController(DomeinController domeinController){
-        this.domeinController = domeinController;
+    public HoofdverantwoordelijkeController(){
         this.huidigeSessieKalender = huidigeSessieKalender;
     }
 

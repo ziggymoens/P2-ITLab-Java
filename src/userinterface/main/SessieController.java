@@ -288,7 +288,7 @@ public class SessieController extends AnchorPane {
     }
 
     private void openenGebruikerController(ActionEvent actionEvent) {
-        Scene scene = new Scene(new GebruikerController(this.hoofdverantwoordelijkeController));
+        Scene scene = new Scene(new GebruikerController(this.domeinController));
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setResizable(false);
