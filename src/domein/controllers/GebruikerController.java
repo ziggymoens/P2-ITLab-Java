@@ -9,11 +9,12 @@ import java.util.List;
 
 public class GebruikerController implements ITypeController {
     private SessieKalender huidigeSessieKalender;
+    private Gebruiker gebruiker;
 
-    public GebruikerController(SessieKalender huidigeSessieKalender) {
+    public GebruikerController(SessieKalender huidigeSessieKalender, Gebruiker gebruiker) {
         this.huidigeSessieKalender = huidigeSessieKalender;
+        this.gebruiker = gebruiker;
     }
-
 
     @Override
     public Sessie geefSessieId(String id) {
@@ -21,7 +22,7 @@ public class GebruikerController implements ITypeController {
     }
 
     @Override
-    public List<Sessie> geefAlleSessiesHuidigeKalender() {
+    public List<Sessie> geefAlleSessiesKalender(Integer jaar) {
         return null;
     }
 
@@ -41,16 +42,6 @@ public class GebruikerController implements ITypeController {
     }
 
     @Override
-    public List<Sessie> geefAlleSessiesKalender(Integer jaar) {
-        return null;
-    }
-
-    @Override
-    public List<String> filterOpties() {
-        return null;
-    }
-
-    @Override
     public void bewerkSessie(Sessie sessie) {
 
     }
@@ -66,37 +57,32 @@ public class GebruikerController implements ITypeController {
     }
 
     @Override
-    public Gebruiker geefGebruikerId(String id) {
+    public List<Gebruiker> geefAlleGebruikersSessie(String id) {
         return null;
     }
 
     @Override
-    public List<Gebruiker> geefAlleGebruikers() {
+    public List<Gebruiker> geefAlleGerbuikersNaamSessie(String id, String naam) {
         return null;
     }
 
     @Override
-    public List<Gebruiker> geefAlleGerbuikersNaam(String naam) {
+    public List<Gebruiker> geefAlleGebuikersTypeSessie(String id, String type) {
         return null;
     }
 
     @Override
-    public List<Gebruiker> geefAlleGebuikersType(String type) {
-        return null;
+    public void maakGebruikerAan(Gebruiker gebruiker) {
+
     }
 
     @Override
-    public List<Gebruiker> geefAlleGebruikersSessie() {
-        return null;
+    public void bewerkGebruiker(Gebruiker gebruiker) {
+
     }
 
     @Override
-    public List<Gebruiker> geefAlleGerbuikersNaamSessie() {
-        return null;
-    }
+    public void verwijderGebruiker(Gebruiker gebruiker) {
 
-    @Override
-    public List<Gebruiker> geefAlleGebuikersTypeSessie() {
-        return null;
     }
 }
