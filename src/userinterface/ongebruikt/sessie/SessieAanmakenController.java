@@ -84,7 +84,7 @@ public class SessieAanmakenController extends BorderPane {
         inschrijvingen.setOnAction(this::inschrijvingen);
 
         feedback.setDisable(true);
-        if(sessie != null && sessie.isGeopend()){
+        if (sessie != null && sessie.isGeopend()) {
             geopend.setSelected(true);
             feedback.setDisable(false);
             feedback.setOnAction(this::feedback);
@@ -93,8 +93,8 @@ public class SessieAanmakenController extends BorderPane {
     }
 
     private void maakTable(String t) {
-        if(vboxTable.getChildren().size() != 0) vboxTable.getChildren().remove(0);
-        switch(t){
+        if (vboxTable.getChildren().size() != 0) vboxTable.getChildren().remove(0);
+        switch (t) {
             case "inschrijvingen":
                 vboxTable.getChildren().addAll(new BeherenInschrijvingenController(domeinController));
                 break;
@@ -124,33 +124,33 @@ public class SessieAanmakenController extends BorderPane {
         maxPlaatsen.setText(String.valueOf(sessie.getMaximumAantalPlaatsen()));
     }
 
-    private void save (ActionEvent actionEvent){
-        if(verantwoordelijke.getText().isBlank()){
+    private void save(ActionEvent actionEvent) {
+        if (verantwoordelijke.getText().isBlank()) {
             foutVerantwoordelijke.setText("Verkeerde input");
         }
-        if(naamGast.getText().isBlank()){
+        if (naamGast.getText().isBlank()) {
             foutGast.setText("Verkeerde input");
         }
-        if(titel.getText().isBlank()){
+        if (titel.getText().isBlank()) {
             foutTitel.setText("Verkeerde input");
         }
-        if(start.getText().isBlank()){
+        if (start.getText().isBlank()) {
             foutStart.setText("Verkeerde input");
         }
-        if(eind.getText().isBlank()){
+        if (eind.getText().isBlank()) {
             foutEind.setText("Verkeerde input");
         }
-        if(maxPlaatsen.getText().isBlank()){
+        if (maxPlaatsen.getText().isBlank()) {
             foutMax.setText("Verkeerde input");
-        } else{
-        nieuweSessie.add(verantwoordelijke.getText());
-        nieuweSessie.add(naamGast.getText());
-        nieuweSessie.add(titel.getText());
-        nieuweSessie.add(start.getText());
-        nieuweSessie.add(eind.getText());
-        nieuweSessie.add(maxPlaatsen.getText());
-        domeinController.maakSessieAan(nieuweSessie);
-        mainScreenController.getTabPane().getTabs().remove(mainScreenController.getTabPane().getSelectionModel().getSelectedIndex());
+        } else {
+            nieuweSessie.add(verantwoordelijke.getText());
+            nieuweSessie.add(naamGast.getText());
+            nieuweSessie.add(titel.getText());
+            nieuweSessie.add(start.getText());
+            nieuweSessie.add(eind.getText());
+            nieuweSessie.add(maxPlaatsen.getText());
+            domeinController.maakSessieAan(nieuweSessie);
+            mainScreenController.getTabPane().getTabs().remove(mainScreenController.getTabPane().getSelectionModel().getSelectedIndex());
         }
 
     }
@@ -178,7 +178,6 @@ public class SessieAanmakenController extends BorderPane {
     private void cancel(ActionEvent actionEvent) {
         mainScreenController.getTabPane().getTabs().remove(mainScreenController.getTabPane().getSelectionModel().getSelectedIndex());
     }
-
 
 
 }

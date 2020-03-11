@@ -24,11 +24,16 @@ public class SessieTableViewController extends BorderPane {
 
     @FXML
     private Button nieuweSessie, verwijderSessie, bewerkSessie, btnzoek;
-    @FXML private TableView table;
-    @FXML private TableColumn<ISessie, String> titel;
-    @FXML private TableColumn<ISessie, String> startSessie;
-    @FXML private TableColumn<ISessie, String> eindSessie;
-    @FXML private TableColumn<ISessie, String> lastColumn;
+    @FXML
+    private TableView table;
+    @FXML
+    private TableColumn<ISessie, String> titel;
+    @FXML
+    private TableColumn<ISessie, String> startSessie;
+    @FXML
+    private TableColumn<ISessie, String> eindSessie;
+    @FXML
+    private TableColumn<ISessie, String> lastColumn;
     @FXML
     private ChoiceBox<String> choiceBoxKalenderJaar;
     @FXML
@@ -80,45 +85,47 @@ public class SessieTableViewController extends BorderPane {
         eindSessie.setCellValueFactory(new PropertyValueFactory<>("eindeSessie"));
         lastColumn.setCellValueFactory(new PropertyValueFactory<>("maximumAantalPlaatsen"));
 
-        if(domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("VERANTWOORDELIJKE")) {
+        if (domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("VERANTWOORDELIJKE")) {
             sessies = FXCollections.observableArrayList(domeinController.geefISessiesVanGebruiker(isessies));
-        } else {sessies= FXCollections.observableArrayList(isessies);}
+        } else {
+            sessies = FXCollections.observableArrayList(isessies);
+        }
         //System.out.println(sessies);
 
         table.setItems(sessies);
         table.getColumns().addAll(titel, startSessie, eindSessie, lastColumn);
-        if(!table.getItems().isEmpty() ||table.getItems() != null){
+        if (!table.getItems().isEmpty() || table.getItems() != null) {
             table.getSelectionModel().select(0);
             domeinController.setHuidigeISessie(sessies.get(0));
         }
     }
 
     private void filterGent(ActionEvent actionEvent) {
-        if(gent.isSelected()){
+        if (gent.isSelected()) {
             aalst.setDisable(true);
             vulTable(domeinController.geefISessiesGent());
-        }else if(!gent.isSelected()){
+        } else if (!gent.isSelected()) {
             aalst.setDisable(false);
             vulTable(this.domeinController.geefISessiesHuidigeKalender());
         }
     }
 
     private void filterAalst(ActionEvent actionEvent) {
-        if(aalst.isSelected()){
+        if (aalst.isSelected()) {
             gent.setDisable(true);
             vulTable(this.domeinController.geefISessiesAalst());
-        }else {
+        } else {
             gent.setDisable(false);
             vulTable(this.domeinController.geefISessiesHuidigeKalender());
         }
     }
 
     private void filterOpen(ActionEvent actionEvent) {
-        if(open.isSelected()){
+        if (open.isSelected()) {
             geopend.setDisable(true);
             nietGeopend.setDisable(true);
             vulTable(this.domeinController.geefISessiesHuidigeKalender());
-        }else if(!open.isSelected()){
+        } else if (!open.isSelected()) {
             geopend.setDisable(false);
             nietGeopend.setDisable(false);
             vulTable(this.domeinController.geefISessiesHuidigeKalender());
@@ -126,11 +133,11 @@ public class SessieTableViewController extends BorderPane {
     }
 
     private void filterGeopend(ActionEvent actionEvent) {
-        if(geopend.isSelected()){
+        if (geopend.isSelected()) {
             nietGeopend.setDisable(true);
             open.setDisable(true);
             vulTable(this.domeinController.geefISessiesHuidigeKalender());
-        }else if(!geopend.isSelected()){
+        } else if (!geopend.isSelected()) {
             nietGeopend.setDisable(false);
             open.setDisable(false);
             vulTable(this.domeinController.geefISessiesHuidigeKalender());
@@ -138,11 +145,11 @@ public class SessieTableViewController extends BorderPane {
     }
 
     private void filterNietGeopend(ActionEvent actionEvent) {
-        if(nietGeopend.isSelected()){
+        if (nietGeopend.isSelected()) {
             geopend.setDisable(true);
             open.setDisable(true);
             vulTable(this.domeinController.geefISessiesHuidigeKalender());
-        }else if(!nietGeopend.isSelected()){
+        } else if (!nietGeopend.isSelected()) {
             geopend.setDisable(false);
             open.setDisable(false);
             vulTable(this.domeinController.geefISessiesHuidigeKalender());
@@ -155,7 +162,7 @@ public class SessieTableViewController extends BorderPane {
     private void bewerkSessie(ActionEvent actionEvent) {
         Tab tab = new Tab("Bewerk Sessie");
         tab.setClosable(true);
-        tab.setContent(new SessieBewerkenController((ISessie)table.getSelectionModel().getSelectedItem(), domeinController, mainScreenController));
+        tab.setContent(new SessieBewerkenController((ISessie) table.getSelectionModel().getSelectedItem(), domeinController, mainScreenController));
         mainScreenController.addTab(tab);
         mainScreenController.getTabPane().getSelectionModel().select(tab);
     }

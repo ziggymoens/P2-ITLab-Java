@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import userinterface.ongebruikt.main.MainScreenController;
+
 import java.io.IOException;
 import java.util.Optional;
 
@@ -69,8 +70,8 @@ public class InfoGebruikerController extends AnchorPane {
         zoekKnop.setOnAction(this::zoekKnop);
         verwijderKnop.setOnAction(this::bevestigVerwijderGebruiker);
 
-        ObservableList data =  tableViewGebruikers.getItems();
-            txtFieldUser.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+        ObservableList data = tableViewGebruikers.getItems();
+        txtFieldUser.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             if (oldValue != null && (newValue.length() < oldValue.length())) {
                 tableViewGebruikers.setItems(data);
             }
@@ -92,16 +93,16 @@ public class InfoGebruikerController extends AnchorPane {
     }
 
     private void bevestigVerwijderGebruiker(ActionEvent event) {
-        if(tableViewGebruikers.getSelectionModel().getSelectedItem().getGebruikersprofiel().toString().equalsIgnoreCase(Gebruikersprofielen.HOOFDVERANTWOORDELIJKE.toString())){
+        if (tableViewGebruikers.getSelectionModel().getSelectedItem().getGebruikersprofiel().toString().equalsIgnoreCase(Gebruikersprofielen.HOOFDVERANTWOORDELIJKE.toString())) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("FOUT BIJ VERWIJDEREN");
             alert.setHeaderText("HOOFDVERANTWOORDELIJKE KAN NIET VERWIJDERD WORDEN");
             alert.setContentText("Het is niet mogelijk om de hoofdgebruiker te verwijderen. \nIndien u dit wenst, doe dit via de Database");
             Optional<ButtonType> antwoord = alert.showAndWait();
-     }else {
+        } else {
             Alert alertConf = new Alert(Alert.AlertType.CONFIRMATION);
             alertConf.setTitle("Bevestig verwijderen van gebruiker:");
-            alertConf.setHeaderText(String.format("Wil je de %s %s verwijderen?",tableViewGebruikers.getSelectionModel().getSelectedItem().getGebruikersprofiel().toString() ,tableViewGebruikers.getSelectionModel().getSelectedItem().toString()));
+            alertConf.setHeaderText(String.format("Wil je de %s %s verwijderen?", tableViewGebruikers.getSelectionModel().getSelectedItem().getGebruikersprofiel().toString(), tableViewGebruikers.getSelectionModel().getSelectedItem().toString()));
             alertConf.setContentText(String.format("Als je het verwijderen wil bevestigen, klik OK.%nAls je het verwijderen wil annuleren klik cancel."));
             Optional<ButtonType> antwoord = alertConf.showAndWait();
             if (antwoord.get() == ButtonType.CANCEL) {
@@ -139,7 +140,7 @@ public class InfoGebruikerController extends AnchorPane {
         TVtype.setCellValueFactory(new PropertyValueFactory<>("gebruikersprofiel"));
         tableViewGebruikers.setItems(FXCollections.observableArrayList(observableList));
         tableViewGebruikers.getColumns().addAll(TVnaamGebruiker, TVgebruikersnaamChamilo, TVstatus, TVtype);
-        if(tableViewGebruikers.getSelectionModel() != null)
+        if (tableViewGebruikers.getSelectionModel() != null)
             tableViewGebruikers.getSelectionModel().select(0);
     }
 
@@ -164,9 +165,9 @@ public class InfoGebruikerController extends AnchorPane {
     @FXML
     void filterGeblokkeerdStatus(ActionEvent event) {
         clearTable();
-        if(!statusFilterActief.isSelected() && !statusFilterNietActief.isSelected()){
+        if (!statusFilterActief.isSelected() && !statusFilterNietActief.isSelected()) {
             vulTable(FXCollections.observableArrayList(domeinController.geefAlleGeblokkeerdeGebruikers()));
-        }else if(statusFilterActief.isSelected()){
+        } else if (statusFilterActief.isSelected()) {
             tableViewGebruikers.setItems(FXCollections.observableArrayList(domeinController.geefAlleGeblokkeerdeGebruikers()));
             tableViewGebruikers.setItems(FXCollections.observableArrayList(domeinController.geefAlleActieveGebruikers()));
         }
@@ -196,7 +197,7 @@ public class InfoGebruikerController extends AnchorPane {
         vulTable(FXCollections.observableArrayList(domeinController.geefAlleVerantwoordelijkeGebruikers()));
     }
 
-    public void clearTable(){
+    public void clearTable() {
         tableViewGebruikers.getColumns().clear();
     }
 
@@ -204,7 +205,6 @@ public class InfoGebruikerController extends AnchorPane {
         clearTable();
         vulTable(FXCollections.observableArrayList(domeinController.geefIGebruikers()));
     }
-
 
 
 }

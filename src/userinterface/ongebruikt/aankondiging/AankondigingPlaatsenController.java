@@ -9,7 +9,10 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import userinterface.ongebruikt.main.MainScreenController;
 
@@ -38,7 +41,7 @@ public class AankondigingPlaatsenController extends AnchorPane {
     @FXML
     private Button voegToe;
 
-    public AankondigingPlaatsenController(DomeinController domeinController, MainScreenController mainScreenController, ISessie sessie){
+    public AankondigingPlaatsenController(DomeinController domeinController, MainScreenController mainScreenController, ISessie sessie) {
         this.domeinController = domeinController;
         this.mainScreenController = mainScreenController;
         this.sessie = sessie;
@@ -60,7 +63,7 @@ public class AankondigingPlaatsenController extends AnchorPane {
         voegToe.setOnAction(this::voegAankondigingToe);
     }
 
-    private void startFXML(){
+    private void startFXML() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AankondigingPlaatsen.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -72,22 +75,22 @@ public class AankondigingPlaatsenController extends AnchorPane {
         }
     }
 
-    private void sessiesInit(){
-        if(domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("HOOFDVERANTWOORDELIJKE"))
+    private void sessiesInit() {
+        if (domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("HOOFDVERANTWOORDELIJKE"))
             sessieList.setItems(FXCollections.observableList(domeinController.geefISessiesHuidigeKalender()));
-        if(domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("VERANTWOORDELIJKE"))
+        if (domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("VERANTWOORDELIJKE"))
             sessieList.setItems(FXCollections.observableList(domeinController.geefISessiesVanGebruiker()));
         sessieList.setValue(sessie);
     }
 
-    private void gebruikersInit(){
+    private void gebruikersInit() {
         gebruikersList.setItems(FXCollections.observableList(domeinController.geefIGebruikers()));
         gebruikersList.setValue(domeinController.geefIGebruiker());
-        if(!domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("HOOFDVERANTWOORDELIJKE"))
+        if (!domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("HOOFDVERANTWOORDELIJKE"))
             gebruikersList.setDisable(true);
     }
 
-    private void voegAankondigingToe(ActionEvent actionEvent){
+    private void voegAankondigingToe(ActionEvent actionEvent) {
         String keuze = herinneringKeuze.getSelectionModel().selectedItemProperty().getValue().toString();
         boolean herinnering = false;
         Map<String, Integer> herinneringsMap = new HashMap<>();
@@ -96,7 +99,7 @@ public class AankondigingPlaatsenController extends AnchorPane {
         herinneringsMap.put("3 dagen", 3);
         herinneringsMap.put("7 dagen", 7);
         int dagenHerinnering = herinneringsMap.get(keuze);
-        if(automatischeHerinnering.isSelected())
+        if (automatischeHerinnering.isSelected())
             herinnering = true;
         domeinController.addAankondigingSessie(sessieList.getValue().getSessieId(), gebruikersList.getValue().getGebruikersnaam(), aankondigingTekst.getText(), herinnering, dagenHerinnering);
         /*mainScreenController.getTabPane().getTabs().remove(3);

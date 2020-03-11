@@ -1,6 +1,5 @@
 package userinterface.main;
 
-import domein.SessieKalender;
 import domein.controllers.DomeinController;
 import domein.controllers.HoofdverantwoordelijkeController;
 import domein.interfacesDomein.IGebruiker;
@@ -8,12 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -119,7 +113,7 @@ public class GebruikerController extends AnchorPane {
     @FXML
     private Button btnKiezen;
 
-    public GebruikerController(HoofdverantwoordelijkeController hoofdverantwoordelijkeController){
+    public GebruikerController(HoofdverantwoordelijkeController hoofdverantwoordelijkeController) {
         this.hoofdverantwoordelijkeController = hoofdverantwoordelijkeController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Gebruiker.fxml"));
         loader.setRoot(this);
@@ -142,7 +136,7 @@ public class GebruikerController extends AnchorPane {
         TVstatus.setCellValueFactory(new PropertyValueFactory<>("status"));
         tableViewGebruiker.setItems(FXCollections.observableArrayList(observableArrayList));
         tableViewGebruiker.getColumns().addAll(TVnaam, TVgebruikersnaamChamilo, TVtype, TVstatus);
-        if(tableViewGebruiker.getSelectionModel() != null){
+        if (tableViewGebruiker.getSelectionModel() != null) {
             tableViewGebruiker.getSelectionModel().select(0);
         }
     }

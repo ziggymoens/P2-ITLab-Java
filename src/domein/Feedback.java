@@ -57,7 +57,7 @@ public class Feedback implements IFeedback {
     //region Setters
 
     public void setSessie(Sessie sessie) {
-        if(sessie == null){
+        if (sessie == null) {
             throw new FeedbackException();
         }
         this.sessie = sessie;
@@ -124,6 +124,7 @@ public class Feedback implements IFeedback {
     public String toString() {
         return String.format("%s - %s", feedbackId, gebruiker.getNaam());
     }
+
     @Override
     public String toString_Compleet() {
         return String.format("Feedback: %s%nGeplaatst door: %s%nInhoud: %s%n", feedbackId, gebruiker.getNaam(), tekst);

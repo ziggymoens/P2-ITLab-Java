@@ -1,6 +1,6 @@
 package exceptions.domein;
 
-public class SessieException extends IllegalArgumentException{
+public class SessieException extends IllegalArgumentException {
     public SessieException() {
         super();
     }

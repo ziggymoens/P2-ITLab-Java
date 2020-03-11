@@ -16,8 +16,8 @@ import javafx.scene.layout.VBox;
 import userinterface.ongebruikt.aankondiging.BeherenAankondigingController;
 import userinterface.ongebruikt.feedback.BeherenFeedbackController;
 import userinterface.ongebruikt.inschrijvingen.BeherenInschrijvingenController;
-import userinterface.ongebruikt.media.BeherenMediaController;
 import userinterface.ongebruikt.main.MainScreenController;
+import userinterface.ongebruikt.media.BeherenMediaController;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
@@ -126,7 +126,7 @@ public class SessieBewerkenController extends BorderPane {
         lblaankondigingen.setText(lblaankondigingen.getText() + " " + domeinController.geefHuidigeISessie().getIAankondigingenSessie().size());
         lblfeedback.setText(lblfeedback.getText() + " " + domeinController.geefHuidigeISessie().getIFeedbackSessie().size());
         lblinschrijvingen.setText(lblinschrijvingen.getText() + " " + domeinController.geefHuidigeISessie().getIIngeschrevenGebruikers().size());
-        lblmedia.setText(lblmedia.getText() + " " + domeinController.geefHuidigeISessie().getIMediaBijSessie().size());;
+        lblmedia.setText(lblmedia.getText() + " " + domeinController.geefHuidigeISessie().getIMediaBijSessie().size());
 
         maakTable("inschrijvingen");
 
@@ -137,7 +137,7 @@ public class SessieBewerkenController extends BorderPane {
         inschrijvingen.setOnAction(this::inschrijvingen);
 
         feedback.setDisable(true);
-        if(sessie != null && sessie.isGeopend()){
+        if (sessie != null && sessie.isGeopend()) {
             geopend.setSelected(true);
             feedback.setDisable(false);
             feedback.setOnAction(this::feedback);
@@ -146,8 +146,8 @@ public class SessieBewerkenController extends BorderPane {
     }
 
     private void maakTable(String t) {
-        if(vboxTable.getChildren().size() != 0) vboxTable.getChildren().remove(0);
-        switch(t){
+        if (vboxTable.getChildren().size() != 0) vboxTable.getChildren().remove(0);
+        switch (t) {
             case "inschrijvingen":
                 vboxTable.getChildren().addAll(new BeherenInschrijvingenController(domeinController));
                 break;
@@ -170,7 +170,7 @@ public class SessieBewerkenController extends BorderPane {
     }
 
     private void kijkenVoorAanpassingen(String var, String t1) {
-        veranderingenMap.put(var,t1);
+        veranderingenMap.put(var, t1);
     }
 
     private void geefDetails(ISessie sessie) {
@@ -183,7 +183,7 @@ public class SessieBewerkenController extends BorderPane {
         maxPlaatsen.setText(String.valueOf(sessie.getMaximumAantalPlaatsen()));
     }
 
-    private void save (ActionEvent actionEvent){
+    private void save(ActionEvent actionEvent) {
 /*        if(sessie.getLokaal().getAantalPlaatsen() - (sessie.getLokaal().getAantalPlaatsen() - sessie.getBeschikbarePlaatsen()) < 0){
             Alert alert = new Alert(Alert.AlertType.ERROR, "DUS JIJ WILT MIJN KOEKJE STELEN? MAG NIET!!",ButtonType.CLOSE);
             maxPlaatsen.setText(String.valueOf(sessie.getMaximumAantalPlaatsen()));
@@ -216,7 +216,6 @@ public class SessieBewerkenController extends BorderPane {
     private void cancel(ActionEvent actionEvent) {
         Tab selectedTab = mainScreenController.getTabPane().getTabs().remove(mainScreenController.getTabPane().getSelectionModel().getSelectedIndex());
     }
-
 
 
 }

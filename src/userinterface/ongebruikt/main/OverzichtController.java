@@ -28,10 +28,10 @@ public class OverzichtController<T> extends AnchorPane {
         }
     }
 
-    public void initTable(ObservableList<T> obj){
+    public void initTable(ObservableList<T> obj) {
         System.out.println(obj.stream().map(s -> s.toString()).collect(Collectors.joining("\n")));
-        Method[] methods  = obj.get(0).getClass().getMethods();
-        for (Method method : methods){
+        Method[] methods = obj.get(0).getClass().getMethods();
+        for (Method method : methods) {
             System.out.println(method.getName());
             tableView.getColumns().add(new TableColumn<>(method.getName()));
         }

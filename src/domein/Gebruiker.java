@@ -2,11 +2,13 @@ package domein;
 
 import domein.enums.Gebruikersprofielen;
 import domein.enums.Gebruikersstatus;
-import domein.interfacesDomein.*;
+import domein.interfacesDomein.IGebruiker;
 import exceptions.domein.GebruikerException;
 import language.Talen;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -144,20 +146,20 @@ public class Gebruiker implements IGebruiker {
     }
 
     private void setAantalInlogPogingen(int aantalInlogPogingen) {
-        if (aantalInlogPogingen < 0){
+        if (aantalInlogPogingen < 0) {
             throw new GebruikerException();
         }
-        if (aantalInlogPogingen > 3){
+        if (aantalInlogPogingen > 3) {
             setStatus(Gebruikersstatus.GEBLOKKEERD);
         }
         this.aantalInlogPogingen = aantalInlogPogingen;
     }
 
-    public void addInlogPoging(){
-        setAantalInlogPogingen(aantalInlogPogingen+1);
+    public void addInlogPoging() {
+        setAantalInlogPogingen(aantalInlogPogingen + 1);
     }
 
-    public void setIngelogd(){
+    public void setIngelogd() {
         this.laatstIngelogd = LocalDateTime.now();
     }
 

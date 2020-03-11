@@ -22,7 +22,7 @@ public class KalenderGegevens {
 
     private int[] aantalDagen366 = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     private int[] aantalDagen365 = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    private String[] afkortingMaand = {"jan", "feb", "maa", "apr", "mei","jun", "jul", "aug", "sep", "okt", "nov", "dec"};
+    private String[] afkortingMaand = {"jan", "feb", "maa", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"};
     private String[] ms = {"januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"};
     private List<String> naam = Arrays.asList(ms);
 
@@ -43,50 +43,50 @@ public class KalenderGegevens {
         this.jaar = jaar;
     }
 
-    public int aantalDagen(){
+    public int aantalDagen() {
         if (jaar % 4 == 0) {
             return aantalDagen366[maand - 1];
-        }else{
+        } else {
             return aantalDagen365[maand - 1];
         }
     }
 
-    public int startDag(){
-        return startdagen.get(jaar)[maand-1];
+    public int startDag() {
+        return startdagen.get(jaar)[maand - 1];
     }
 
-    public String geefNaamMaand(){
-        return naam.get(maand-1);
+    public String geefNaamMaand() {
+        return naam.get(maand - 1);
     }
 
-    public String afkorting(){
-        return afkortingMaand[maand-1];
+    public String afkorting() {
+        return afkortingMaand[maand - 1];
     }
 
     public int geefNummerMaand() {
         return maand;
     }
 
-    public KalenderGegevens volgendeMaand(){
-        if (maand + 1 == 13){
-            return new KalenderGegevens(1, jaar+1);
+    public KalenderGegevens volgendeMaand() {
+        if (maand + 1 == 13) {
+            return new KalenderGegevens(1, jaar + 1);
         }
         return new KalenderGegevens(maand + 1, jaar);
     }
 
-    public KalenderGegevens vorigeMaand(){
-        if (maand - 1 == 0){
-            return new KalenderGegevens(12, jaar-1);
+    public KalenderGegevens vorigeMaand() {
+        if (maand - 1 == 0) {
+            return new KalenderGegevens(12, jaar - 1);
         }
         return new KalenderGegevens(maand - 1, jaar);
     }
 
-    public KalenderGegevens volgendJaar(){
-        return new KalenderGegevens(maand, jaar+1);
+    public KalenderGegevens volgendJaar() {
+        return new KalenderGegevens(maand, jaar + 1);
     }
 
-    public KalenderGegevens vorigJaar(){
-        return new KalenderGegevens(maand, jaar-1);
+    public KalenderGegevens vorigJaar() {
+        return new KalenderGegevens(maand, jaar - 1);
     }
 
     public int geefJaar() {

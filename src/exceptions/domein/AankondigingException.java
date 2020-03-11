@@ -1,6 +1,6 @@
 package exceptions.domein;
 
-public class AankondigingException extends  IllegalArgumentException {
+public class AankondigingException extends IllegalArgumentException {
     public AankondigingException() {
         super();
     }

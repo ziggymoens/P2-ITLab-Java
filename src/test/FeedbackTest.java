@@ -27,36 +27,36 @@ public class FeedbackTest {
 
     //region beforeAll
     @BeforeAll
-    public static void before(){
+    public static void before() {
         gebruiker = new Gebruiker("862361jv", "Jonathan Vanden Eynden", GEBRUIKER, ACTIEF);
-        lokaal = new Lokaal("GSCB.3.049","AUDITORIUM", 50);
+        lokaal = new Lokaal("GSCB.3.049", "AUDITORIUM", 50);
         sessie = new Sessie("Titel sessie", LocalDateTime.now().plusSeconds(1), LocalDateTime.now().plusMinutes(30), lokaal, gebruiker);
     }
     //endregion
 
-    private static Stream<Arguments> opsommingGeldigeWaarden(){
+    private static Stream<Arguments> opsommingGeldigeWaarden() {
         return Stream.of(Arguments.of(gebruiker, "inhoud"),
                 Arguments.of(gebruiker, "geldige inhoud"));
     }
 
-    private static Stream<Arguments> opsommingOngeldigeWaarden(){
+    private static Stream<Arguments> opsommingOngeldigeWaarden() {
         return Stream.of(Arguments.of(gebruiker, ""),
                 Arguments.of(gebruiker, null));
     }
 
     @ParameterizedTest
     @MethodSource("opsommingGeldigeWaarden")
-    public void maakFeedbackGeldigeWaarden_Slaagt(Gebruiker gebruiker, String tekst){
-        Feedback feedback = new Feedback(sessie,gebruiker, tekst);
+    public void maakFeedbackGeldigeWaarden_Slaagt(Gebruiker gebruiker, String tekst) {
+        Feedback feedback = new Feedback(sessie, gebruiker, tekst);
         assertEquals(gebruiker, feedback.getGebruiker());
         assertEquals(tekst, feedback.getTekst());
     }
 
     @ParameterizedTest
     @MethodSource("opsommingOngeldigeWaarden")
-    public void maakFeedbackOngeldigeWaarden_GooitException(Gebruiker gebruiker, String tekst){
+    public void maakFeedbackOngeldigeWaarden_GooitException(Gebruiker gebruiker, String tekst) {
         Assertions.assertThrows(FeedbackException.class, () -> {
-           new Feedback(sessie,gebruiker, tekst);
+            new Feedback(sessie, gebruiker, tekst);
         });
     }
 }

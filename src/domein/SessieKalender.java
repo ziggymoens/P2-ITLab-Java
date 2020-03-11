@@ -39,7 +39,7 @@ public class SessieKalender {
         em.getTransaction().commit();
     }
 
-    public void updateSessie(Sessie sessie){
+    public void updateSessie(Sessie sessie) {
 
     }
 
@@ -56,6 +56,10 @@ public class SessieKalender {
 
     public List<Sessie> geefAlleSessiesKalender(int academiejaar) {
         return (List<Sessie>) em.createQuery("select s from Sessie s where s.verwijderd = false and academiejaar = ?1").setParameter(1, academiejaar).getResultList();
+    }
+
+    public List<Sessie> geefAlleSessiesKalenderVanGebruiker(int academiejaar, Gebruiker gebruiker) {
+        return (List<Sessie>) em.createQuery("select s from Sessie s where s.verwijderd = false and academiejaar = ?1 and verantwoordelijke = ?2").setParameter(1, academiejaar).setParameter(2, gebruiker).getResultList();
     }
     //endregion
 
@@ -81,9 +85,9 @@ public class SessieKalender {
         //return (Lokaal) em.createQuery("select l from Lokaal l where lokaalCode = ?1").setParameter(1, lokaalCode).getResultList().get(0);
     }
 
-    public List<Lokaal> geefLokaalByCampus(String campus){
+    public List<Lokaal> geefLokaalByCampus(String campus) {
         String afkorting = Campussen.valueOf(campus).getAfkorting();
-        return (List<Lokaal>) geefAlleLokalen().stream().filter(l -> l.getLokaalCode().matches(String.format("G%s.*", afkorting))).collect(Collectors.toList());
+        return geefAlleLokalen().stream().filter(l -> l.getLokaalCode().matches(String.format("G%s.*", afkorting))).collect(Collectors.toList());
     }
     //endregion
 
@@ -92,6 +96,10 @@ public class SessieKalender {
         em.getTransaction().begin();
         em.persist(gebruiker);
         em.getTransaction().commit();
+    }
+
+    public void updateGebruiker(Gebruiker gebruiker) {
+
     }
 
     public void verwijderGebruiker(Gebruiker gebruiker) {
@@ -112,10 +120,6 @@ public class SessieKalender {
 //    public List<Gebruiker> geefAlleActieveGebruikers(){
 //        return (List<Gebruiker>) em.createQuery("select g from Gebruiker g where g.status = 'actief'").getResultList();
 //    }
-
-    public List<Sessie> geefSessiesVanGebruiker(Gebruiker gebruiker) {
-        return (List<Sessie>)em.createQuery("select s from Sessie s where verantwoordelijke = ?1").setParameter(1, gebruiker).getResultList();
-    }
     //endregion
 
     //region Aankondiging

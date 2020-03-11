@@ -1,9 +1,9 @@
 package test;
+
 import domein.Gebruiker;
 import domein.Inschrijving;
 import domein.Lokaal;
 import domein.Sessie;
-import domein.enums.LokaalTypes;
 import exceptions.domein.InschrijvingException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -20,12 +20,12 @@ public class InschrijvingTest {
     private static Lokaal lokaal;
 
     @BeforeAll
-    public static void before(){
+    public static void before() {
         gebruiker = new Gebruiker("TestGebruiker", "123456tp", "GEBRUIKER", "ACTIEF");
         sessie = new Sessie("titel", LocalDateTime.now().plusMinutes(30), LocalDateTime.now().plusMinutes(200), new Lokaal("ABC", "AUDITORIUM", 200), gebruiker);
     }
 
-    private static Stream<Arguments> opsommingGeldigeWaarden(){
+    private static Stream<Arguments> opsommingGeldigeWaarden() {
         return Stream.of(Arguments.of(gebruiker, LocalDateTime.now(), true),
                 Arguments.of(gebruiker, LocalDateTime.now(), false),
                 Arguments.of(gebruiker, LocalDateTime.now(), true),
@@ -34,22 +34,22 @@ public class InschrijvingTest {
 
     @ParameterizedTest
     @MethodSource("opsommingGeldigeWaarden")
-    public void maakInschrijvingGeldigeGegevens_Slaagt(Gebruiker gebruiker, LocalDateTime inschrijvingsdatum, boolean statusAanwezigheid){
-        Inschrijving inschrijving = new Inschrijving(sessie,gebruiker, inschrijvingsdatum, statusAanwezigheid);
+    public void maakInschrijvingGeldigeGegevens_Slaagt(Gebruiker gebruiker, LocalDateTime inschrijvingsdatum, boolean statusAanwezigheid) {
+        Inschrijving inschrijving = new Inschrijving(sessie, gebruiker, inschrijvingsdatum, statusAanwezigheid);
         Assertions.assertEquals(inschrijvingsdatum, inschrijving.getInschrijvingsdatum());
         Assertions.assertEquals(statusAanwezigheid, inschrijving.isStatusAanwezigheid());
     }
 
-    private static Stream<Arguments> opsommingOngeldigeWaarden(){
+    private static Stream<Arguments> opsommingOngeldigeWaarden() {
         return Stream.of(Arguments.of(null, LocalDateTime.now(), true),
                 Arguments.of(gebruiker, null, true));
     }
 
     @ParameterizedTest
     @MethodSource("opsommingOngeldigeWaarden")
-    public void maakInschrijvingOngeldigeGegevens_GooitException(Gebruiker gebruiker, LocalDateTime inschrijvingsdatum, boolean statusAanwezigheid){
+    public void maakInschrijvingOngeldigeGegevens_GooitException(Gebruiker gebruiker, LocalDateTime inschrijvingsdatum, boolean statusAanwezigheid) {
         Assertions.assertThrows(InschrijvingException.class, () -> {
-            new Inschrijving(sessie,gebruiker, inschrijvingsdatum, statusAanwezigheid);
+            new Inschrijving(sessie, gebruiker, inschrijvingsdatum, statusAanwezigheid);
         });
     }
 

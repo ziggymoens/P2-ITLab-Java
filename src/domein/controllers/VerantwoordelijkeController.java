@@ -9,65 +9,27 @@ import java.util.List;
 
 public class VerantwoordelijkeController implements ITypeController {
     private SessieKalender huidigeSessieKalender;
+    private Gebruiker gebruiker;
+    private int aj;
 
-    public VerantwoordelijkeController(SessieKalender huidigeSessieKalender){
+    public VerantwoordelijkeController(SessieKalender huidigeSessieKalender, Gebruiker gebruiker) {
         this.huidigeSessieKalender = huidigeSessieKalender;
-    }
-
-
-    @Override
-    public void bewerkSessie(Sessie sessie) {
-
-    }
-
-    @Override
-    public void verwijderSessie(Sessie sessie) {
-
-    }
-
-    @Override
-    public void maakSessieAan(Sessie sessie) {
-
-    }
-
-    @Override
-    public Gebruiker geefGebruikerId(String id) {
-        return null;
-    }
-
-    @Override
-    public List<Gebruiker> geefAlleGebruikers() {
-        return null;
-    }
-
-    @Override
-    public List<Gebruiker> geefAlleGerbuikersNaam(String naam) {
-        return null;
-    }
-
-    @Override
-    public List<Gebruiker> geefAlleGebuikersType(String type) {
-        return null;
-    }
-
-    @Override
-    public List<Gebruiker> geefAlleGebruikersSessie() {
-        return null;
-    }
-
-    @Override
-    public List<Gebruiker> geefAlleGerbuikersNaamSessie() {
-        return null;
-    }
-
-    @Override
-    public List<Gebruiker> geefAlleGebuikersTypeSessie() {
-        return null;
+        this.gebruiker = gebruiker;
     }
 
     @Override
     public Sessie geefSessieId(String id) {
-        return null;
+        return geefAlleSessiesKalender(aj)
+                .stream()
+                .filter(e -> e.getVerantwoordelijke().getGebruikersnaam().equals(gebruiker.getGebruikersnaam()))
+                .filter(e -> e.getSessieId().equals(id))
+                .findFirst().orElse(null);
+    }
+
+    @Override
+    public List<Sessie> geefAlleSessiesKalender(Integer jaar) {
+        aj = jaar;
+        return huidigeSessieKalender.geefAlleSessiesKalenderVanGebruiker(jaar,gebruiker);
     }
 
     @Override
@@ -86,12 +48,47 @@ public class VerantwoordelijkeController implements ITypeController {
     }
 
     @Override
-    public List<Sessie> geefAlleSessiesKalender(Integer jaar) {
+    public void bewerkSessie(Sessie sessie) {
+
+    }
+
+    @Override
+    public void verwijderSessie(Sessie sessie) {
+
+    }
+
+    @Override
+    public void maakSessieAan(Sessie sessie) {
+
+    }
+
+    @Override
+    public List<Gebruiker> geefAlleGebruikersSessie(String id) {
         return null;
     }
 
     @Override
-    public List<String> filterOpties() {
+    public List<Gebruiker> geefAlleGerbuikersNaamSessie(String id, String naam) {
         return null;
+    }
+
+    @Override
+    public List<Gebruiker> geefAlleGebuikersTypeSessie(String id, String type) {
+        return null;
+    }
+
+    @Override
+    public void maakGebruikerAan(Gebruiker gebruiker) {
+
+    }
+
+    @Override
+    public void bewerkGebruiker(Gebruiker gebruiker) {
+
+    }
+
+    @Override
+    public void verwijderGebruiker(Gebruiker gebruiker) {
+
     }
 }

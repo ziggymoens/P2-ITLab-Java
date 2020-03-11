@@ -2,8 +2,6 @@ package domein.controllers;
 
 
 import domein.*;
-import domein.enums.Gebruikersprofielen;
-import domein.enums.Gebruikersstatus;
 import domein.enums.MediaTypes;
 import domein.interfacesDomein.*;
 
@@ -20,8 +18,8 @@ public class DomeinController {
     private ITypeController typeController;
     private SessieKalender huidigeSessieKalender;
     private Sessie huidigeSessie;
-    private Gebruiker huidigeGebruiker;
-    public static int academiejaar;
+    public Gebruiker huidigeGebruiker;
+    public int academiejaar;
     //endregion
 
     //region Constructor
@@ -33,16 +31,16 @@ public class DomeinController {
     }
 
     private void setTypeController() {
-        switch (huidigeGebruiker.getGebruikersprofiel().toString()){
+        switch (huidigeGebruiker.getGebruikersprofiel().toString()) {
             default:
             case "GEBRUIKER":
-                typeController = new GebruikerController(huidigeSessieKalender);
+                typeController = new GebruikerController(huidigeSessieKalender, huidigeGebruiker);
                 break;
             case "VERANTWOORDELIJKE":
-                typeController = new VerantwoordelijkeController(huidigeSessieKalender);
+                typeController = new VerantwoordelijkeController(huidigeSessieKalender, huidigeGebruiker);
                 break;
             case "HOOFDVERANTWOORDELIJKE":
-                typeController = new HoofdverantwoordelijkeController(huidigeSessieKalender);
+                typeController = new HoofdverantwoordelijkeController(huidigeSessieKalender, huidigeGebruiker);
                 break;
         }
     }
@@ -53,12 +51,12 @@ public class DomeinController {
         return huidigeSessieKalender.geefAlleAcademieJaren();
     }
 
-    public void setAcademiejaar(LocalDate jaar){
+    public void setAcademiejaar(LocalDate jaar) {
         new DomeinController(huidigeGebruiker, huidigeSessieKalender, jaar);
         System.gc();
     }
 
-    public List<String> geefMaanden(){
+    public List<String> geefMaanden() {
         String[] maanden = {"Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"};
         return Arrays.asList(maanden);
     }
@@ -76,15 +74,17 @@ public class DomeinController {
     //endregion
 
     //region Sessie
-    public List<String> geefFilterOpties(){
-        return typeController.filterOpties();
+    public List<String> geefFilterOpties() {
+        String[] keuzeVoorZoeken = {"Titel", "Stad", "Status"};
+        return Arrays.asList(keuzeVoorZoeken);
+
     }
 
     public List<ISessie> geefISessiesHuidigeKalender() {
         return (List<ISessie>) (Object) typeController.geefAlleSessiesKalender(academiejaar);
     }
 
-    public List<ISessie> geefISessiesAcademiejaar(Integer academiejaar) {
+    public List<ISessie> geefISessiesOpAcademiejaar(Integer academiejaar) {
         return (List<ISessie>) (Object) typeController.geefAlleSessiesKalender(academiejaar);
     }
 
@@ -92,15 +92,15 @@ public class DomeinController {
         return (List<ISessie>) (Object) typeController.geefAlleSessiesDatum(date);
     }
 
-    public ISessie geefISessieById(String id){
+    public ISessie geefISessieOpId(String id) {
         return typeController.geefSessieId(id);
     }
 
-    public ISessie geefHuidigeISessie(){
+    public ISessie geefHuidigeISessie() {
         return huidigeSessie;
     }
 
-    public List<ISessie>geefISessieLocatie(String locatie) {
+    public List<ISessie> geefISessieOpLocatie(String locatie) {
         return (List<ISessie>) (Object) typeController.geefAlleSessiesLocatie(locatie);
     }
 
@@ -112,7 +112,7 @@ public class DomeinController {
     }
 
     public void pasSessieAan(Map<String, String> nieuweMap) {
-        huidigeSessie.updateSessie(nieuweMap, (List<ILokaal>)(Object)huidigeSessieKalender.geefAlleLokalen());
+        huidigeSessie.updateSessie(nieuweMap, (List<ILokaal>) (Object) huidigeSessieKalender.geefAlleLokalen());
         typeController.bewerkSessie(huidigeSessie);
     }
 
@@ -121,8 +121,11 @@ public class DomeinController {
     }
 
     public void setHuidigeISessie(ISessie sessie) {
-        if(sessie == null){ this.huidigeSessie = null;}
-        else {this.huidigeSessie = typeController.geefSessieId(sessie.getSessieId());}
+        if (sessie == null) {
+            this.huidigeSessie = null;
+        } else {
+            this.huidigeSessie = typeController.geefSessieId(sessie.getSessieId());
+        }
     }
 
 
@@ -136,54 +139,37 @@ public class DomeinController {
     //endregion
 
     //region Gebruiker
-    public IGebruiker geefIGebruiker() {
-        return (IGebruiker) huidigeGebruiker;
+    public IGebruiker geefIGebruikerOpId(String id) {
+        return huidigeSessieKalender.geefGebruikerById(id);
     }
 
-    public List<IGebruiker> geefIGebruikers() {
-        return (List<IGebruiker>)(Object) huidigeSessieKalender.geefAlleGebruikers();
+    public List<IGebruiker> geefAlleIGebruikers() {
+        return (List<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers();
     }
 
-    public List<IGebruiker> geefAlleActieveGebruikers(){
-        return (List<IGebruiker>) (Object)huidigeSessieKalender.geefAlleGebruikers()
-                .stream()
-                .filter(g -> g.getStatus().toString().equals(Gebruikersstatus.ACTIEF.toString()))
-                .collect(Collectors.toList());
-    }
-
-    public List<IGebruiker> geefAlleNietActieveGebruikers(){
-        return (List<IGebruiker>) (Object)huidigeSessieKalender.geefAlleGebruikers()
-                .stream()
-                .filter(g -> g.getStatus().toString().equals(Gebruikersstatus.NIET_ACTIEF.toString()))
-                .collect(Collectors.toList());
-    }
-
-    public List<IGebruiker> geefAlleGeblokkeerdeGebruikers(){
-        return (List<IGebruiker>) (Object)huidigeSessieKalender.geefAlleGebruikers()
-                .stream()
-                .filter(g -> g.getStatus().toString().equals(Gebruikersstatus.GEBLOKKEERD.toString()))
-                .collect(Collectors.toList());
-    }
-
-    public List<IGebruiker> geefAlleGewoneGebruikers(){
+    public List<IGebruiker> geefIGerbuikersOpNaam(String naam) {
         return (List<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers()
                 .stream()
-                .filter(g -> g.getGebruikersprofiel().toString().equals(Gebruikersprofielen.GEBRUIKER.toString()))
+                .filter(e -> e.getNaam().matches("(\\.*)" + naam + "(\\.*)"))
                 .collect(Collectors.toList());
     }
 
-    public List<IGebruiker> geefAlleVerantwoordelijkeGebruikers(){
+    public List<IGebruiker> geefIGebuikersOpType(String type) {
         return (List<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers()
                 .stream()
-                .filter(g -> g.getGebruikersprofiel().toString().equals(Gebruikersprofielen.VERANTWOORDELIJKE.toString()))
+                .filter(e -> e.getGebruikersprofiel().toString().equals(type))
                 .collect(Collectors.toList());
     }
 
-    public List<IGebruiker> geefAlleHoofdverantwoordelijkeGebruikers(){
+    public List<IGebruiker> geefIGebruikersOpStatus(String status) {
         return (List<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers()
                 .stream()
-                .filter(g -> g.getGebruikersprofiel().toString().equals(Gebruikersprofielen.HOOFDVERANTWOORDELIJKE.toString()))
+                .filter(e -> e.getStatus().toString().equals(status))
                 .collect(Collectors.toList());
+    }
+
+    public IGebruiker geefHuidigeIGebruiker() {
+        return huidigeGebruiker;
     }
 
     public void setHuidigeGebruiker(String gebruikersnaam) {
@@ -191,7 +177,15 @@ public class DomeinController {
     }
 
     public void verwijderGebruiker(IGebruiker gebruiker) {
-        huidigeSessieKalender.verwijderGebruiker((Gebruiker) gebruiker);
+        typeController.verwijderGebruiker((Gebruiker) gebruiker);
+    }
+
+    public void bewerkGebruiker(IGebruiker gebruiker) {
+        typeController.verwijderGebruiker((Gebruiker) gebruiker);
+    }
+
+    public void maakGebruikerAan(IGebruiker gebruiker) {
+        typeController.verwijderGebruiker((Gebruiker) gebruiker);
     }
     //endregion
 
@@ -200,11 +194,11 @@ public class DomeinController {
         return (List<ILokaal>) (Object) huidigeSessieKalender.geefAlleLokalen();
     }
 
-    public ILokaal geefLokaalSessie(){
-        return (ILokaal)(Object)huidigeSessie.getLokaal();
+    public ILokaal geefLokaalSessie() {
+        return huidigeSessie.getLokaal();
     }
 
-    public List<ILokaal> geefLokalenVanCampus(String campus){
+    public List<ILokaal> geefLokalenVanCampus(String campus) {
         return (List<ILokaal>) (Object) huidigeSessieKalender.geefLokaalByCampus(campus.toUpperCase());
     }
     //endregion
@@ -214,8 +208,8 @@ public class DomeinController {
         return (List<IMedia>) (Object) huidigeSessieKalender.geefAlleMediaVanSessie(huidigeSessie.getSessieId());
     }
 
-    public List<IMedia> geefIMedia(){
-        return (List<IMedia>)(Object)huidigeSessieKalender.geefAlleMedia();
+    public List<IMedia> geefIMedia() {
+        return (List<IMedia>) (Object) huidigeSessieKalender.geefAlleMedia();
     }
 
     public void maakNieuweMedia(ISessie sessie, IGebruiker gebruiker, String type, String locatie) {
@@ -224,8 +218,8 @@ public class DomeinController {
     //endregion
 
     //region Aankondiging
-    public List<IAankondiging> geefAlleAankondigingenVanHuidigeSessie(){
-        return (List<IAankondiging>)(Object)huidigeSessieKalender.geefAlleAankondigingenVanSessie(huidigeSessie.getSessieId());
+    public List<IAankondiging> geefAlleAankondigingenVanHuidigeSessie() {
+        return (List<IAankondiging>) (Object) huidigeSessieKalender.geefAlleAankondigingenVanSessie(huidigeSessie.getSessieId());
     }
 
     public void addAankondigingSessie(String sessieId, String gebruikersnaam, String text, boolean automatischeHerinnering, int dagenHerinnering) {
@@ -246,18 +240,18 @@ public class DomeinController {
     //endregion
 
     //region Inschrijving
-    public List<IInschrijving> geefAlleInschrijvingenVanHuidigeSessie(){
-        return (List<IInschrijving>)(Object)huidigeSessieKalender.geefAlleInschrijvingenVanSessie(huidigeSessie.getSessieId());
+    public List<IInschrijving> geefAlleInschrijvingenVanHuidigeSessie() {
+        return (List<IInschrijving>) (Object) huidigeSessieKalender.geefAlleInschrijvingenVanSessie(huidigeSessie.getSessieId());
     }
 
-    public List<IInschrijving> geefAlleInschrijvingen(){
-        return (List<IInschrijving>)(Object)huidigeSessieKalender.geefAlleInschrijvingen();
+    public List<IInschrijving> geefAlleInschrijvingen() {
+        return (List<IInschrijving>) (Object) huidigeSessieKalender.geefAlleInschrijvingen();
     }
     //endregion
 
     //region Feedback
-    public List<IFeedback> geefAlleFeedbackVanHuidigeSessie(){
-        return (List<IFeedback>)(Object)huidigeSessieKalender.geefAlleFeedbackVanSessie(huidigeSessie.getSessieId());
+    public List<IFeedback> geefAlleFeedbackVanHuidigeSessie() {
+        return (List<IFeedback>) (Object) huidigeSessieKalender.geefAlleFeedbackVanSessie(huidigeSessie.getSessieId());
     }
     //endregion
 }

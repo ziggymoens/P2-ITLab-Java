@@ -1,7 +1,7 @@
 package main;
 
-import domein.controllers.DomeinController;
 import domein.PasswordUtils;
+import domein.controllers.DomeinController;
 import domein.controllers.StartController;
 import domein.interfacesDomein.ILokaal;
 import domein.interfacesDomein.ISessie;
@@ -12,11 +12,10 @@ public class StartUpDatabank {
     public static void main(String[] args) {
 
         StartController startController = new StartController();
-        DomeinController domeinController =  startController.initDomeinController();
+        DomeinController domeinController = startController.initDomeinController();
 
 
         System.out.println(domeinController.geefISessiesHuidigeKalender().stream().map(ISessie::toString).collect(Collectors.joining("\n")));
-
 
 
         domeinController.setHuidigeGebruiker("758095zm");

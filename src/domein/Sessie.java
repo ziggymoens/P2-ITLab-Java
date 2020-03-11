@@ -34,17 +34,17 @@ public class Sessie implements ISessie {
     private boolean geopend;
     private boolean verwijderd = false;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "sessie",fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sessie", fetch = FetchType.LAZY)
     private List<Media> media;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "sessie", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sessie", fetch = FetchType.LAZY)
     private List<Inschrijving> inschrijvingen;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "sessie", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sessie", fetch = FetchType.LAZY)
     private List<Aankondiging> aankondigingen;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "sessie",fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sessie", fetch = FetchType.LAZY)
     private List<Feedback> feedback;
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Lokaal lokaal;
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Gebruiker verantwoordelijke;
 
     //endregion
@@ -180,23 +180,23 @@ public class Sessie implements ISessie {
     @Override
     public List<IMedia> getIMediaBijSessie() {
 
-        return (List<IMedia>)(Object)this.media;
+        return (List<IMedia>) (Object) this.media;
     }
 
     @Override
     public List<IInschrijving> getIIngeschrevenGebruikers() {
-        return (List<IInschrijving>)(Object)this.inschrijvingen;
+        return (List<IInschrijving>) (Object) this.inschrijvingen;
     }
 
     @Override
     public List<IAankondiging> getIAankondigingenSessie() {
-       return (List<IAankondiging>)(Object)this.aankondigingen;
+        return (List<IAankondiging>) (Object) this.aankondigingen;
     }
 
     @Override
     public List<IFeedback> getIFeedbackSessie() {
 
-        return (List<IFeedback>)(Object)this.feedback;
+        return (List<IFeedback>) (Object) this.feedback;
     }
 
     @Override
@@ -388,7 +388,7 @@ public class Sessie implements ISessie {
 
     @Override
     public int getAantalAanwezigen() {
-        return (int) inschrijvingen.stream().filter(i -> i.isStatusAanwezigheid()).collect(Collectors.toList()).size();
+        return inschrijvingen.stream().filter(i -> i.isStatusAanwezigheid()).collect(Collectors.toList()).size();
     }
 
     @Override
@@ -401,9 +401,9 @@ public class Sessie implements ISessie {
         return String.format("%02d:%02d: %s", startSessie.getHour(), startSessie.getMinute(), getTitel());
     }
 
-    public void updateSessie(Map<String, String> veranderingenMap, List<ILokaal> lokaal){
+    public void updateSessie(Map<String, String> veranderingenMap, List<ILokaal> lokaal) {
         veranderingenMap.forEach((key, value) -> {
-            switch(key){
+            switch (key) {
                 case "naamverantwoordelijke":
                     setNaamGastspreker(value);
                     break;
@@ -415,7 +415,7 @@ public class Sessie implements ISessie {
                     break;
                 case "lokaal":
                     String[] str = value.split(",");
-                    setLokaal((Lokaal)lokaal.stream().filter(e -> e.getLokaalCode().equals(str[0])).findFirst().orElse(null));
+                    setLokaal((Lokaal) lokaal.stream().filter(e -> e.getLokaalCode().equals(str[0])).findFirst().orElse(null));
                     break;
                 case "start":
                     //s.setStartSessie(LocalDateTime.parse(value));
@@ -447,8 +447,8 @@ public class Sessie implements ISessie {
         inschrijvingen.remove(inschrijvingOud);
     }
 
-    public String[] toArray (){
-          String [] arr = new String []{titel, startSessie.toString(), eindeSessie.toString(),Integer.toString(maximumAantalPlaatsen), Integer.toString(academiejaar), Boolean.toString(geopend)};
+    public String[] toArray() {
+        String[] arr = new String[]{titel, startSessie.toString(), eindeSessie.toString(), Integer.toString(maximumAantalPlaatsen), Integer.toString(academiejaar), Boolean.toString(geopend)};
         return arr;
     }
 }

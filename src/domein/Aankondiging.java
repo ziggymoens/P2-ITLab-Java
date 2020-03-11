@@ -63,11 +63,12 @@ public class Aankondiging implements IAankondiging {
         setAutomatischeHerinnering(automatischeHerinnering);
         setGebruiker(gebruiker);
     }
+
     /**
      * @param publicatiedatum ==> De datum dat de aankondiging gemaakt is
      * @param inhoud          ==> inhoud van de aankondiging
      */
-    public Aankondiging(Sessie sessie,Gebruiker gebruiker, LocalDateTime publicatiedatum, String inhoud) {
+    public Aankondiging(Sessie sessie, Gebruiker gebruiker, LocalDateTime publicatiedatum, String inhoud) {
         this(sessie, gebruiker, publicatiedatum, inhoud, false, 0);
     }
 
@@ -81,14 +82,14 @@ public class Aankondiging implements IAankondiging {
 
 
     public void setSessie(Sessie sessie) {
-        if(sessie == null){
+        if (sessie == null) {
             throw new AankondigingException();
         }
         this.sessie = sessie;
     }
 
     public void setGebruiker(Gebruiker gebruiker) {
-        if(gebruiker == null){
+        if (gebruiker == null) {
             throw new HerinneringException();
         }
         this.gebruiker = gebruiker;
@@ -109,7 +110,7 @@ public class Aankondiging implements IAankondiging {
     }
 
     public void setHerinnering(int dagenVooraf) {
-        if(dagenVooraf < 0)
+        if (dagenVooraf < 0)
             throw new HerinneringException();
         Herinnering herinnering = new Herinnering(dagenVooraf);
         if (automatischeHerinnering && herinnering == null) {
@@ -164,7 +165,9 @@ public class Aankondiging implements IAankondiging {
     }
 
     @Override
-    public IGebruiker getIGebruiker(){ return gebruiker;}
+    public IGebruiker getIGebruiker() {
+        return gebruiker;
+    }
 
     public Gebruiker getGebruiker() {
         return gebruiker;
@@ -196,9 +199,10 @@ public class Aankondiging implements IAankondiging {
     public String toString() {
         return String.format("%s - %s", aankondigingsId, gebruiker.getNaam());
     }
+
     @Override
     public String toString_Compleet() {
-        return String.format("Aankondiging: %s%nGeplaatst door: %s%nGeplaats op: %s%nAutomatische herinnering? %s%nInhoud: %s%n", aankondigingsId, gebruiker.getNaam(), publicatiedatum.toString(), automatischeHerinnering? String.format("ja%nAantal dagen voor de sessie: %d%n", herinnering.getDagenVoorafInt()):"nee", inhoud);
+        return String.format("Aankondiging: %s%nGeplaatst door: %s%nGeplaats op: %s%nAutomatische herinnering? %s%nInhoud: %s%n", aankondigingsId, gebruiker.getNaam(), publicatiedatum.toString(), automatischeHerinnering ? String.format("ja%nAantal dagen voor de sessie: %d%n", herinnering.getDagenVoorafInt()) : "nee", inhoud);
     }
     //endregion
 }

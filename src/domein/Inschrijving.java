@@ -63,7 +63,7 @@ public class Inschrijving implements IInschrijving {
      * @param inschrijvingsdatum (LocalDateTime) ==> Datum van inschrijven
      */
     public Inschrijving(Sessie sessie, Gebruiker gebruiker, LocalDateTime inschrijvingsdatum) {
-        this(sessie,gebruiker, inschrijvingsdatum, false);
+        this(sessie, gebruiker, inschrijvingsdatum, false);
     }
 
     //endregion
@@ -71,7 +71,7 @@ public class Inschrijving implements IInschrijving {
     //region Setters
 
     public void setSessie(Sessie sessie) {
-        if(sessie == null){
+        if (sessie == null) {
             throw new InschrijvingException();
         }
         this.sessie = sessie;
@@ -159,7 +159,7 @@ public class Inschrijving implements IInschrijving {
         return String.format("%s - %s", inschrijvingsId, gebruiker.getNaam());
     }
 
-    public String toString_inschrijvingsDatum(){
+    public String toString_inschrijvingsDatum() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return String.format("%s", inschrijvingsdatum.format(formatter));
     }

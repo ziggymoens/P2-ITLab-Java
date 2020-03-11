@@ -23,7 +23,7 @@ public class GebruikerTest {
                 Arguments.of("Test Persoon", "123456tp", "NIETSNUT", ""));
     }
 
-    private static Stream<Arguments> opsommingGeldigeWaarden(){
+    private static Stream<Arguments> opsommingGeldigeWaarden() {
         return Stream.of(Arguments.of("Test Persoon", "123456tp", "GEBRUIKER", "ACTIEF"),
                 Arguments.of("Test Persoon", "123456tp", "VERANTWOORDELIJKE", "ACTIEF"),
                 Arguments.of("Test Persoon", "123456tp", "HOOFDVERANTWOORDELIJKE", "ACTIEF"),
@@ -33,13 +33,13 @@ public class GebruikerTest {
 
     @ParameterizedTest
     @MethodSource("opsommingOngeldigeWaarden")
-    public void maakGebruikerAanZonderProfielFotoFouteWaarden_GooitException(String naam, String gebruikersnaam, String type, String status){
+    public void maakGebruikerAanZonderProfielFotoFouteWaarden_GooitException(String naam, String gebruikersnaam, String type, String status) {
         Assertions.assertThrows(GebruikerException.class, () -> new Gebruiker(naam, gebruikersnaam, type, status));
     }
 
     @ParameterizedTest
     @MethodSource("opsommingGeldigeWaarden")
-    public void maakGebruikerAanZonderProfielFotoCorrecteWaarden_Slaagt(String naam, String gebruikersnaam, String type, String status){
+    public void maakGebruikerAanZonderProfielFotoCorrecteWaarden_Slaagt(String naam, String gebruikersnaam, String type, String status) {
         Gebruiker gebruiker = new Gebruiker(naam, gebruikersnaam, type, status);
         Assertions.assertEquals(naam, gebruiker.getNaam());
         Assertions.assertEquals(gebruikersnaam, gebruiker.getGebruikersnaam());

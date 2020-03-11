@@ -29,7 +29,7 @@ import java.time.format.DateTimeFormatter;
 
 public class MainScreenController extends AnchorPane {
     @FXML
-    private MenuItem newSessie, openSessie, deleteSessie,addAankondiging, addFeedback, addInschrijving, addMedia, gebruikerMaakGebruiker, gebruikerOpenGebruiker, gebruikerVerwijderGebruiker,about, help, gebruikerGegevens, gebruikerInstellingen, gebruikerUitloggen, gebruikerAfsluiten, openKalender;
+    private MenuItem newSessie, openSessie, deleteSessie, addAankondiging, addFeedback, addInschrijving, addMedia, gebruikerMaakGebruiker, gebruikerOpenGebruiker, gebruikerVerwijderGebruiker, about, help, gebruikerGegevens, gebruikerInstellingen, gebruikerUitloggen, gebruikerAfsluiten, openKalender;
     @FXML
     private RadioMenuItem taalN, taalE, taalF;
     @FXML
@@ -91,7 +91,7 @@ public class MainScreenController extends AnchorPane {
         tabPane.getSelectionModel().select(tab);
     }
 
-    private void nieuweSessie(ActionEvent actionEvent){
+    private void nieuweSessie(ActionEvent actionEvent) {
         Tab tab = new Tab("Aanmaken Sessie");
         tab.setClosable(true);
         tab.setContent(new SessieAanmakenv2Controller(domeinController, this));
@@ -100,11 +100,11 @@ public class MainScreenController extends AnchorPane {
 
     }
 
-    private void verwijderSessie(ActionEvent actionEvent){
+    private void verwijderSessie(ActionEvent actionEvent) {
         new SessieTableViewController(domeinController, this);
     }
 
-    private void gebruikerOpenGebruiker(ActionEvent actionEvent){
+    private void gebruikerOpenGebruiker(ActionEvent actionEvent) {
         Tab tab = new Tab();
         tab.setContent(new InfoGebruikerController(domeinController, this));
         tab.setText("Gebruiker");
@@ -112,7 +112,7 @@ public class MainScreenController extends AnchorPane {
         addTab(tab);
     }
 
-    public Tab maakNieuwTab(Node node){
+    public Tab maakNieuwTab(Node node) {
         Tab tab = new Tab();
         tab.setContent(node);
         tab.setClosable(true);
@@ -120,14 +120,14 @@ public class MainScreenController extends AnchorPane {
         return tab;
     }
 
-    public void kalenderTonen(ActionEvent event){
+    public void kalenderTonen(ActionEvent event) {
         Tab tab = new Tab();
         tab.setContent(new KalenderController(domeinController, this));
         tab.setText("Kalender");
         addTab(tab);
     }
 
-    public void openAankondiging(ActionEvent event){
+    public void openAankondiging(ActionEvent event) {
         ISessie sessie = domeinController.geefISessieById("S1920-000002");
         /*Tab tab = new Tab();
         tab.setContent(new AankondigingPlaatsenController(domeinController, this, sessie));
@@ -142,16 +142,16 @@ public class MainScreenController extends AnchorPane {
         tabPane.getSelectionModel().select(tab);
     }
 
-    public void addTab(Tab tab){
+    public void addTab(Tab tab) {
         tabPane.getTabs().add(tab);
         tabPane.getSelectionModel().select(tab);
     }
 
-    public BorderPane geefMainBP(){
+    public BorderPane geefMainBP() {
         return mainTabBP;
     }
 
-    public TabPane getTabPane (){
+    public TabPane getTabPane() {
         return this.tabPane;
     }
 }

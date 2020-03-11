@@ -22,7 +22,7 @@ public class AanmeldenController extends BorderPane {
         }
     }
 
-    public void aanmelden(){
+    public void aanmelden() {
 
     }
 }

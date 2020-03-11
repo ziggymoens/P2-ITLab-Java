@@ -75,14 +75,14 @@ public class NieuweMediaController extends AnchorPane {
 
     private void save(ActionEvent event) {
         if (!openFile.isDisable()) {
-            domeinController.maakNieuweMedia(sessie.getSelectionModel().getSelectedItem(), gebruiker.getSelectionModel().getSelectedItem(),type.getSelectionModel().getSelectedItem(), file.getName());
+            domeinController.maakNieuweMedia(sessie.getSelectionModel().getSelectedItem(), gebruiker.getSelectionModel().getSelectedItem(), type.getSelectionModel().getSelectedItem(), file.getName());
         }
-        if (!fileURL.isDisable()){
-            domeinController.maakNieuweMedia(sessie.getSelectionModel().getSelectedItem(), gebruiker.getSelectionModel().getSelectedItem(),type.getSelectionModel().getSelectedItem(), fileURL.getText());
+        if (!fileURL.isDisable()) {
+            domeinController.maakNieuweMedia(sessie.getSelectionModel().getSelectedItem(), gebruiker.getSelectionModel().getSelectedItem(), type.getSelectionModel().getSelectedItem(), fileURL.getText());
         }
     }
 
-    private void FileExplorer(ActionEvent event){
+    private void FileExplorer(ActionEvent event) {
         Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Media Toevoegen");
@@ -129,7 +129,7 @@ public class NieuweMediaController extends AnchorPane {
         type.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                switch (t1){
+                switch (t1) {
                     case "URL":
                         fileURL.setDisable(false);
                         openFile.setDisable(true);

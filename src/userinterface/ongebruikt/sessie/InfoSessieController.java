@@ -20,7 +20,7 @@ import userinterface.ongebruikt.media.NieuweMediaController;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
-public class  InfoSessieController extends AnchorPane {
+public class InfoSessieController extends AnchorPane {
     private ISessie sessie;
     private DomeinController domeinController;
 
@@ -33,7 +33,7 @@ public class  InfoSessieController extends AnchorPane {
     @FXML
     private ListView<IAankondiging> listViewAankondigingen;
     @FXML
-    private Button infoMedia,nieuwMedia, bewerkenMedia, infoFeedback,nieuwFeedback,bewerkenFeedback, infoInschrijving, nieuwInschrijving,bewerkenInschrijving, infoAankondiging, voegAankondigingToe, bewerkenAankondiging;
+    private Button infoMedia, nieuwMedia, bewerkenMedia, infoFeedback, nieuwFeedback, bewerkenFeedback, infoInschrijving, nieuwInschrijving, bewerkenInschrijving, infoAankondiging, voegAankondigingToe, bewerkenAankondiging;
     @FXML
     private TextField sessieId, naamGast, maxPlaatsen, lokaal, start, eind, verantwoordelijke, titel;
     @FXML
@@ -144,7 +144,7 @@ public class  InfoSessieController extends AnchorPane {
 
              */
         }
-        if(media.getTypeString().equals("FOTO")){
+        if (media.getTypeString().equals("FOTO")) {
             imageView = new ImageView();
             Image image = new Image("storage/profielfotos/profielfoto.png");
             imageView.setImage(image);

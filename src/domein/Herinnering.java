@@ -51,7 +51,7 @@ public class Herinnering implements IHerinnering {
      * @param dagenVooraf (int) ==> aantal dagen voordien dat de herinnering moet verstuurd worden
      */
     public Herinnering(int dagenVooraf) {
-        this(Arrays.stream(HerinneringTijdstippen.values()).filter(t -> t.getDagen() == dagenVooraf).findFirst().orElse(null ));
+        this(Arrays.stream(HerinneringTijdstippen.values()).filter(t -> t.getDagen() == dagenVooraf).findFirst().orElse(null));
     }
     //endregion
 

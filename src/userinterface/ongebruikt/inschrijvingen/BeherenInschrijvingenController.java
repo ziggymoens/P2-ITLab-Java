@@ -16,12 +16,16 @@ import java.io.IOException;
 
 public class BeherenInschrijvingenController extends AnchorPane {
     private DomeinController domeinController;
-    private ObservableList<IInschrijving>inschrijvingen;
+    private ObservableList<IInschrijving> inschrijvingen;
 
-    @FXML private TableView table;
-    @FXML private TableColumn<IInschrijving, String> gebruiker;
-    @FXML private TableColumn<IInschrijving, String> inschrijvingsdatum;
-    @FXML private TableColumn<IInschrijving, String> statusAanwezigheid;
+    @FXML
+    private TableView table;
+    @FXML
+    private TableColumn<IInschrijving, String> gebruiker;
+    @FXML
+    private TableColumn<IInschrijving, String> inschrijvingsdatum;
+    @FXML
+    private TableColumn<IInschrijving, String> statusAanwezigheid;
 
     @FXML
     private Button nieuw, verwijder, bewerken;
@@ -40,7 +44,7 @@ public class BeherenInschrijvingenController extends AnchorPane {
         vulTable();
     }
 
-    private void vulTable(){
+    private void vulTable() {
         table.getColumns().clear();
 
         gebruiker.setCellValueFactory(new PropertyValueFactory<>("gebruiker"));
@@ -50,7 +54,7 @@ public class BeherenInschrijvingenController extends AnchorPane {
         inschrijvingen = FXCollections.observableArrayList(domeinController.geefAlleInschrijvingenVanHuidigeSessie());
 
         table.setItems(inschrijvingen);
-        table.getColumns().addAll(gebruiker,inschrijvingsdatum,statusAanwezigheid);
+        table.getColumns().addAll(gebruiker, inschrijvingsdatum, statusAanwezigheid);
         table.getSelectionModel().select(0);
     }
 

@@ -1,4 +1,5 @@
 package userinterface.ongebruikt.sessie;
+
 import domein.controllers.DomeinController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -60,8 +61,8 @@ public class SessieAanmakenv2Controller extends BorderPane {
         cancel.setOnAction(this::cancel);
     }
 
-    private void save (ActionEvent actionEvent){
-        if(testOpFouten() >= 0) {
+    private void save(ActionEvent actionEvent) {
+        if (testOpFouten() >= 0) {
             domeinController.maakSessieAan(nieuweSessie);
             mainScreenController.getTabPane().getTabs().remove(mainScreenController.getTabPane().getSelectionModel().getSelectedIndex());
         }
@@ -75,52 +76,50 @@ public class SessieAanmakenv2Controller extends BorderPane {
         int tempint = 0;
         nieuweSessie = new ArrayList<>();
 
-        if(verantwoordelijke.getText().isBlank()){
+        if (verantwoordelijke.getText().isBlank()) {
             tempint--;
             foutVerantwoordelijke.setText("Verkeerde input");
-        } else{
+        } else {
             foutVerantwoordelijke.setText("");
             nieuweSessie.add(verantwoordelijke.getText());
         }
-        if(naamGast.getText().isBlank()){
+        if (naamGast.getText().isBlank()) {
             tempint--;
             foutGast.setText("Verkeerde input");
-        } else{
+        } else {
             foutGast.setText("");
             nieuweSessie.add(naamGast.getText());
         }
-        if(titel.getText().isBlank()){
+        if (titel.getText().isBlank()) {
             tempint--;
             foutTitel.setText("Verkeerde input");
-        } else{
+        } else {
             foutTitel.setText("");
             nieuweSessie.add(titel.getText());
         }
-        if(start.getText().isBlank()){
+        if (start.getText().isBlank()) {
             tempint--;
             foutStart.setText("Verkeerde input");
-        } else{
+        } else {
             foutStart.setText("");
             nieuweSessie.add(start.getText());
         }
-        if(eind.getText().isBlank()){
+        if (eind.getText().isBlank()) {
             tempint--;
             foutEind.setText("Verkeerde input");
-        } else{
+        } else {
             foutEind.setText("");
             nieuweSessie.add(eind.getText());
         }
-        if(maxPlaatsen.getText().isBlank()){
+        if (maxPlaatsen.getText().isBlank()) {
             tempint--;
             foutMax.setText("Verkeerde input");
-        } else{
+        } else {
             foutMax.setText("");
             nieuweSessie.add(maxPlaatsen.getText());
         }
         return tempint;
     }
-
-
 
 
 }

@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 public class HerinneringTest {
 
     //region opsommingGeldigeWaarden
-    private static Stream<Arguments> opsommingGeldigeWaarden(){
+    private static Stream<Arguments> opsommingGeldigeWaarden() {
         return Stream.of(Arguments.of(0),
                 Arguments.of(1),
                 Arguments.of(2),
@@ -25,14 +25,14 @@ public class HerinneringTest {
     //region maakHerinneringGeldigeGegevens
     @ParameterizedTest
     @MethodSource("opsommingGeldigeWaarden")
-    public void maakHerinneringGeldigeGegevens_Slaagt(int dagenVooraf){
+    public void maakHerinneringGeldigeGegevens_Slaagt(int dagenVooraf) {
         Herinnering herinnering = new Herinnering(dagenVooraf);
         Assertions.assertEquals(dagenVooraf, herinnering.getDagenVoorafInt());
     }
     //endregion
 
     //region opsommingOngeldigeWaarden
-    private static Stream<Arguments> opsommingOngeldigeWaarden(){
+    private static Stream<Arguments> opsommingOngeldigeWaarden() {
         return Stream.of(Arguments.of(-3),
                 Arguments.of(5),
                 Arguments.of(6),
@@ -45,7 +45,7 @@ public class HerinneringTest {
     //region maak herinnering ongeldige gegevens
     @ParameterizedTest
     @MethodSource("opsommingOngeldigeWaarden")
-    public void maakHerinneringOngeldigeGegevens_GooitException(int dagenVooraf){
+    public void maakHerinneringOngeldigeGegevens_GooitException(int dagenVooraf) {
         Assertions.assertThrows(HerinneringException.class, () -> new Herinnering(dagenVooraf));
     }
     //endregion

@@ -356,19 +356,19 @@ public class SessieController extends AnchorPane {
         btnOpslaanSessie.setVisible(false);
         List<Node> n = vboxSessieDetail.getChildren();
         List<String> s = n.stream().filter(e -> e instanceof TextField).map(e -> ((TextField) e).getText()).collect(Collectors.toList());
-        s.stream().forEach(e -> System.out.println(e.toString()));
+        s.stream().forEach(e -> System.out.println(e));
     }
 
-    private void checkVeranderingen(){
+    private void checkVeranderingen() {
 
     }
 
-    private void radioButtons(){
+    private void radioButtons() {
 
         rabtnAankondiging.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> obs, Boolean oldValue, Boolean newValue) {
-                if(newValue){
+                if (newValue) {
                     rabtnGebruiker.setSelected(false);
                     rabtnFeedback.setSelected(false);
                     rabtnInschrijving.setSelected(false);
@@ -383,7 +383,7 @@ public class SessieController extends AnchorPane {
         rabtnGebruiker.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> obs, Boolean oldValue, Boolean newValue) {
-                if(newValue){
+                if (newValue) {
                     rabtnAankondiging.setSelected(false);
                     rabtnFeedback.setSelected(false);
                     rabtnInschrijving.setSelected(false);
@@ -397,7 +397,7 @@ public class SessieController extends AnchorPane {
         rabtnFeedback.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> obs, Boolean oldValue, Boolean newValue) {
-                if(newValue){
+                if (newValue) {
                     rabtnAankondiging.setSelected(false);
                     rabtnGebruiker.setSelected(false);
                     rabtnInschrijving.setSelected(false);
@@ -411,7 +411,7 @@ public class SessieController extends AnchorPane {
         rabtnInschrijving.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> obs, Boolean oldValue, Boolean newValue) {
-                if(newValue){
+                if (newValue) {
                     rabtnAankondiging.setSelected(false);
                     rabtnFeedback.setSelected(false);
                     rabtnGebruiker.setSelected(false);
@@ -425,7 +425,7 @@ public class SessieController extends AnchorPane {
         rabtnLokaal.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> obs, Boolean oldValue, Boolean newValue) {
-                if(newValue){
+                if (newValue) {
                     rabtnAankondiging.setSelected(false);
                     rabtnFeedback.setSelected(false);
                     rabtnInschrijving.setSelected(false);
@@ -439,7 +439,7 @@ public class SessieController extends AnchorPane {
         rabtnMedia.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> obs, Boolean oldValue, Boolean newValue) {
-                if(newValue){
+                if (newValue) {
                     rabtnAankondiging.setSelected(false);
                     rabtnFeedback.setSelected(false);
                     rabtnInschrijving.setSelected(false);

@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.collections.*?>
-<?import javafx.geometry.*?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="1400.0" type="AnchorPane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import java.lang.String?>
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0"
+         prefWidth="1400.0" type="AnchorPane" xmlns="http://javafx.com/javafx/10.0.2-internal"
+         xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <ChoiceBox fx:id="sessieList" layoutX="419.0" layoutY="99.0" prefHeight="26.0" prefWidth="562.0" />
-        <ChoiceBox fx:id="gebruikersList" layoutX="419.0" layoutY="143.0" prefHeight="26.0" prefWidth="562.0" />
+        <ChoiceBox fx:id="sessieList" layoutX="419.0" layoutY="99.0" prefHeight="26.0" prefWidth="562.0"/>
+        <ChoiceBox fx:id="gebruikersList" layoutX="419.0" layoutY="143.0" prefHeight="26.0" prefWidth="562.0"/>
         <Label layoutX="419.0" layoutY="250.0" text="Pas aankondiging aan:">
             <padding>
-                <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-            </padding></Label>
-        <TextArea fx:id="aankondigingTekst" layoutX="419.0" layoutY="276.0" prefHeight="200.0" prefWidth="562.0" />
-        <CheckBox fx:id="automatischeHerinnering" layoutX="419.0" layoutY="207.0" mnemonicParsing="false" text="Automatische herinnering" />
+                <Insets bottom="4.0" left="4.0" right="4.0" top="4.0"/>
+            </padding>
+        </Label>
+        <TextArea fx:id="aankondigingTekst" layoutX="419.0" layoutY="276.0" prefHeight="200.0" prefWidth="562.0"/>
+        <CheckBox fx:id="automatischeHerinnering" layoutX="419.0" layoutY="207.0" mnemonicParsing="false"
+                  text="Automatische herinnering"/>
         <ChoiceBox fx:id="herinneringKeuze" layoutX="615.0" layoutY="203.0" prefWidth="150.0" value="1 dag">
             <items>
                 <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="1 dag" />
-                    <String fx:value="2 dagen" />
-                    <String fx:value="3 dagen" />
-                    <String fx:value="7 dagen" />
+                    <String fx:value="1 dag"/>
+                    <String fx:value="2 dagen"/>
+                    <String fx:value="3 dagen"/>
+                    <String fx:value="7 dagen"/>
                 </FXCollections>
             </items>
         </ChoiceBox>
-        <Button fx:id="voegToe" layoutX="620.0" layoutY="491.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="160.0" text="Bewerken" />
+        <Button fx:id="voegToe" layoutX="620.0" layoutY="491.0" mnemonicParsing="false" prefHeight="26.0"
+                prefWidth="160.0" text="Bewerken"/>
         <Label layoutX="419.0" layoutY="43.0" prefHeight="18.0" prefWidth="562.0" text="Aankondiging">
             <padding>
-                <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                <Insets bottom="4.0" left="4.0" right="4.0" top="4.0"/>
             </padding>
             <font>
-                <Font size="24.0" />
+                <Font size="24.0"/>
             </font>
         </Label>
     </children>

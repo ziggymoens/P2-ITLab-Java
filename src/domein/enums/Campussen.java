@@ -10,5 +10,7 @@ public enum Campussen {
         this.afkorting = afk;
     }
 
-    public String getAfkorting() { return afkorting; }
+    public String getAfkorting() {
+        return afkorting;
+    }
 }

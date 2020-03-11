@@ -64,7 +64,7 @@ public class Media implements IMedia {
      * @param locatie (String) ==> locatie van het mediaobject in het project
      */
     public Media(Sessie sessie, Gebruiker gebruiker, String locatie) {
-        this(sessie,gebruiker, locatie, MediaTypes.ONBEKEND);
+        this(sessie, gebruiker, locatie, MediaTypes.ONBEKEND);
     }
 
     /**
@@ -73,7 +73,7 @@ public class Media implements IMedia {
      * @param locatie (String) ==> locatie van het mediaobject in het project
      * @param type    (String) ==> type van media
      */
-    public Media(Sessie sessie,Gebruiker gebruiker, String locatie, String type) {
+    public Media(Sessie sessie, Gebruiker gebruiker, String locatie, String type) {
         this(sessie, gebruiker, locatie, Arrays.stream(MediaTypes.values()).filter(t -> t.toString().equals(type)).findFirst().orElse(MediaTypes.ONBEKEND));
     }
     //endregion
@@ -81,7 +81,7 @@ public class Media implements IMedia {
     //region Setters
 
     public void setSessie(Sessie sessie) {
-        if(sessie==null){
+        if (sessie == null) {
             throw new MediaException();
         }
         this.sessie = sessie;
@@ -96,7 +96,7 @@ public class Media implements IMedia {
     private void setType(MediaTypes type) {
         if (type == null)
             throw new MediaException();
-        if(Arrays.stream(MediaTypes.values()).filter(g -> g.toString().equals(type.toString())).findFirst().orElse(null) == null){
+        if (Arrays.stream(MediaTypes.values()).filter(g -> g.toString().equals(type.toString())).findFirst().orElse(null) == null) {
             throw new MediaException();
         }
         this.type = type;
@@ -164,6 +164,7 @@ public class Media implements IMedia {
     public String toString() {
         return String.format("%s - %s", mediaId, gebruiker.getNaam());
     }
+
     @Override
     public String toString_Compleet() {
         return String.format("Media: %s%nGeupload door: %s%nMediatype: %s%n", mediaId, gebruiker.getNaam(), type);

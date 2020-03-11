@@ -11,7 +11,7 @@ public class GebruikerController implements ITypeController {
     private SessieKalender huidigeSessieKalender;
 
     public GebruikerController(SessieKalender huidigeSessieKalender) {
-       this.huidigeSessieKalender = huidigeSessieKalender;
+        this.huidigeSessieKalender = huidigeSessieKalender;
     }
 
 

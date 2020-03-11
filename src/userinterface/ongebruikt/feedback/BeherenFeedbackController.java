@@ -16,16 +16,19 @@ import java.io.IOException;
 
 public class BeherenFeedbackController extends AnchorPane {
     private DomeinController domeinController;
-    private ObservableList<IFeedback>feedback;
+    private ObservableList<IFeedback> feedback;
 
-    @FXML private TableView table;
-    @FXML private TableColumn<IFeedback, String> gebruiker;
-    @FXML private TableColumn<IFeedback, String> tekst;
+    @FXML
+    private TableView table;
+    @FXML
+    private TableColumn<IFeedback, String> gebruiker;
+    @FXML
+    private TableColumn<IFeedback, String> tekst;
 
     @FXML
     private Button nieuw, verwijder, bewerken;
 
-    public BeherenFeedbackController (DomeinController dc) {
+    public BeherenFeedbackController(DomeinController dc) {
         this.domeinController = dc;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("BeherenFeedback.fxml"));
         loader.setRoot(this);
@@ -39,7 +42,7 @@ public class BeherenFeedbackController extends AnchorPane {
         vulTable();
     }
 
-    private void vulTable(){
+    private void vulTable() {
         table.getColumns().clear();
 
         gebruiker.setCellValueFactory(new PropertyValueFactory<>("gebruiker"));

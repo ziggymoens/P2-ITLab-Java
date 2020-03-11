@@ -13,7 +13,7 @@ public class StartController {
     private Gebruiker gebruiker;
 
     public StartController() {
-  /*      this.academiejaar = geefAcademiejaar(); //why?*/
+        /*      this.academiejaar = geefAcademiejaar(); //why?*/
         sessieKalender = new SessieKalender();
         //SessieKalenderDataInit sessieKalenderDataInit = new SessieKalenderDataInit(sessieKalender);
     }
@@ -30,14 +30,14 @@ public class StartController {
     }*/
 
     public List<IGebruiker> geefIGebruikers() {
-        return (List<IGebruiker>)(Object) sessieKalender.geefAlleGebruikers();
+        return (List<IGebruiker>) (Object) sessieKalender.geefAlleGebruikers();
     }
 
-    public void setHuidigeGebruiker(String gebruiker){
+    public void setHuidigeGebruiker(String gebruiker) {
         this.gebruiker = (Gebruiker) geefIGebruikers().stream().filter(g -> g.getGebruikersnaam().equals(gebruiker)).findFirst().orElse(null);
     }
 
-    public DomeinController initDomeinController(){
+    public DomeinController initDomeinController() {
         return new DomeinController(gebruiker, sessieKalender, LocalDate.now());
     }
 }

@@ -53,7 +53,7 @@ public class Talen {
     private static void setBundle() {
         try {
             Talen.bundle = ResourceBundle.getBundle(location, getLocale());
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new TalenException();
         }
     }

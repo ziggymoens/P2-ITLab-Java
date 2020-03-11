@@ -22,7 +22,7 @@ public class InloggenController extends BorderPane {
         }
     }
 
-    public void inloggen(){
+    public void inloggen() {
         //doorsturen naar Sessies bekijken
     }
 }

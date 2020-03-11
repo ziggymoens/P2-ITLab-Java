@@ -15,20 +15,25 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import userinterface.ongebruikt.main.MainScreenController;
 
-
 import java.io.IOException;
 
 public class BeherenAankondigingController extends AnchorPane {
     private DomeinController domeinController;
-    private ObservableList<IAankondiging>aankondiging;
+    private ObservableList<IAankondiging> aankondiging;
     private MainScreenController mainScreenController;
 
-    @FXML private TableView<IAankondiging> table;
-    @FXML private TableColumn<IAankondiging, String> gebruiker;
-    @FXML private TableColumn<IAankondiging, String> publicatiedatum;
-    @FXML private TableColumn<IAankondiging, String> inhoud;
-    @FXML private TableColumn<IAankondiging, String> automatischeHerinnering;
-    @FXML private TableColumn<IAankondiging, String> herinnering;
+    @FXML
+    private TableView<IAankondiging> table;
+    @FXML
+    private TableColumn<IAankondiging, String> gebruiker;
+    @FXML
+    private TableColumn<IAankondiging, String> publicatiedatum;
+    @FXML
+    private TableColumn<IAankondiging, String> inhoud;
+    @FXML
+    private TableColumn<IAankondiging, String> automatischeHerinnering;
+    @FXML
+    private TableColumn<IAankondiging, String> herinnering;
 
     @FXML
     private Button nieuw, verwijder, bewerken;
@@ -50,7 +55,7 @@ public class BeherenAankondigingController extends AnchorPane {
         bewerken.setOnAction(this::bewerkAankondiging);
     }
 
-    private void vulTable(){
+    private void vulTable() {
         table.getColumns().clear();
 
         gebruiker.setCellValueFactory(new PropertyValueFactory<>("gebruiker"));
@@ -62,11 +67,11 @@ public class BeherenAankondigingController extends AnchorPane {
         aankondiging = FXCollections.observableArrayList(domeinController.geefAlleAankondigingenVanHuidigeSessie());
 
         table.setItems(aankondiging);
-        table.getColumns().addAll(gebruiker,publicatiedatum,inhoud,automatischeHerinnering,herinnering);
+        table.getColumns().addAll(gebruiker, publicatiedatum, inhoud, automatischeHerinnering, herinnering);
         table.getSelectionModel().select(0);
     }
 
-    private void nieuweAankondiging(ActionEvent actionEvent){
+    private void nieuweAankondiging(ActionEvent actionEvent) {
         Tab tab = new Tab();
         tab.setContent(new AankondigingPlaatsenController(domeinController, mainScreenController, domeinController.geefHuidigeISessie()));
         tab.setText("Nieuwe Aankondiging");

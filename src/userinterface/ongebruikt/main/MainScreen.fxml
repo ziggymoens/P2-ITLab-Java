@@ -1,103 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.RadioMenuItem?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <MenuBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="1080.0">
-         <menus>
-            <Menu mnemonicParsing="false" text="Sessie">
-               <items>
-                  <MenuItem fx:id="newSessie" mnemonicParsing="false" text="Nieuwe sessie..." />
-                  <MenuItem fx:id="openSessie" mnemonicParsing="false" text="Open sessie..." />
-                  <Menu mnemonicParsing="false" text="Voeg toe aan sessie...">
-                     <items>
-                        <MenuItem fx:id="addAankondiging" mnemonicParsing="false" text="Aankondiging" />
-                        <MenuItem fx:id="addFeedback" mnemonicParsing="false" text="Feedback" />
-                        <MenuItem fx:id="addInschrijving" mnemonicParsing="false" text="Inschrijving" />
-                        <MenuItem fx:id="addMedia" mnemonicParsing="false" text="Media" />
-                     </items>
-                  </Menu>
-                  <MenuItem fx:id="deleteSessie" mnemonicParsing="false" text="Verwijder sessie..." />
-               </items>
-            </Menu>
-            <Menu fx:id="menuGebruiker" mnemonicParsing="false" text="Gebruiker">
-               <items>
-                  <MenuItem fx:id="gebruikerMaakGebruiker" mnemonicParsing="false" text="Maak gebruiker" />
-                  <MenuItem fx:id="gebruikerOpenGebruiker" mnemonicParsing="false" text="Open gebruiker..." />
-                  <MenuItem fx:id="gebruikerVerwijderGebruiker" mnemonicParsing="false" text="Verwijder gebruiker" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Sessiekalender">
-               <items>
-                  <MenuItem fx:id="openKalender" mnemonicParsing="false" text="Open kalender..." />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-               <items>
-                  <MenuItem fx:id="about" mnemonicParsing="false" text="About" />
-                  <MenuItem fx:id="help" mnemonicParsing="false" text="Help" />
-                  <Menu mnemonicParsing="false" text="talen">
+<?import javafx.scene.layout.*?>
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0"
+         prefWidth="1400.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <MenuBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="1080.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="Sessie">
                     <items>
-                        <RadioMenuItem fx:id="taalN" mnemonicParsing="false" selected="true" text="Nederlands" />
-                        <RadioMenuItem fx:id="taalE" mnemonicParsing="false" text="English" />
-                        <RadioMenuItem fx:id="taalF" mnemonicParsing="false" text="français" />
+                        <MenuItem fx:id="newSessie" mnemonicParsing="false" text="Nieuwe sessie..."/>
+                        <MenuItem fx:id="openSessie" mnemonicParsing="false" text="Open sessie..."/>
+                        <Menu mnemonicParsing="false" text="Voeg toe aan sessie...">
+                            <items>
+                                <MenuItem fx:id="addAankondiging" mnemonicParsing="false" text="Aankondiging"/>
+                                <MenuItem fx:id="addFeedback" mnemonicParsing="false" text="Feedback"/>
+                                <MenuItem fx:id="addInschrijving" mnemonicParsing="false" text="Inschrijving"/>
+                                <MenuItem fx:id="addMedia" mnemonicParsing="false" text="Media"/>
+                            </items>
+                        </Menu>
+                        <MenuItem fx:id="deleteSessie" mnemonicParsing="false" text="Verwijder sessie..."/>
                     </items>
-                  </Menu>
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
-      <TabPane fx:id="tabPane" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="875.0" minWidth="1400.0" prefHeight="875.0" prefWidth="1400.0">
-        <tabs>
-          <Tab fx:id="mainTab" closable="false" text="IT-Lab">
-               <content>
-                  <BorderPane fx:id="mainTabBP" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="739.0" prefWidth="1400.0" />
-               </content></Tab>
-        </tabs>
-      </TabPane>
-      <MenuBar layoutX="1058.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" prefWidth="342.0">
-         <menus>
-            <Menu fx:id="menuAccount" mnemonicParsing="false" text="ingelogd als: xxx">
-               <items>
-                  <MenuItem disable="true" mnemonicParsing="false">
-                     <graphic>
-                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <ImageView fx:id="profielFoto" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                                 <HBox.margin>
-                                    <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
-                                 </HBox.margin>
-                              </ImageView>
-                              <VBox prefHeight="200.0" prefWidth="100.0">
-                                 <children>
-                                    <Label fx:id="gebruikersnaam" alignment="CENTER" text="Label" textAlignment="CENTER" />
-                                    <Label fx:id="laatst" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Label" />
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                     </graphic>
-                  </MenuItem>
-                  <MenuItem fx:id="gebruikerGegevens" mnemonicParsing="false" text="Gegevens..." />
-                  <MenuItem fx:id="gebruikerInstellingen" mnemonicParsing="false" text="Instellingen..." />
-                  <MenuItem fx:id="gebruikerUitloggen" mnemonicParsing="false" text="Uitloggen..." />
-                  <MenuItem fx:id="gebruikerAfsluiten" mnemonicParsing="false" text="Afsluiten" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
-   </children>
+                </Menu>
+                <Menu fx:id="menuGebruiker" mnemonicParsing="false" text="Gebruiker">
+                    <items>
+                        <MenuItem fx:id="gebruikerMaakGebruiker" mnemonicParsing="false" text="Maak gebruiker"/>
+                        <MenuItem fx:id="gebruikerOpenGebruiker" mnemonicParsing="false" text="Open gebruiker..."/>
+                        <MenuItem fx:id="gebruikerVerwijderGebruiker" mnemonicParsing="false"
+                                  text="Verwijder gebruiker"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Sessiekalender">
+                    <items>
+                        <MenuItem fx:id="openKalender" mnemonicParsing="false" text="Open kalender..."/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem fx:id="about" mnemonicParsing="false" text="About"/>
+                        <MenuItem fx:id="help" mnemonicParsing="false" text="Help"/>
+                        <Menu mnemonicParsing="false" text="talen">
+                            <items>
+                                <RadioMenuItem fx:id="taalN" mnemonicParsing="false" selected="true" text="Nederlands"/>
+                                <RadioMenuItem fx:id="taalE" mnemonicParsing="false" text="English"/>
+                                <RadioMenuItem fx:id="taalF" mnemonicParsing="false" text="français"/>
+                            </items>
+                        </Menu>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <TabPane fx:id="tabPane" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="875.0"
+                 minWidth="1400.0" prefHeight="875.0" prefWidth="1400.0">
+            <tabs>
+                <Tab fx:id="mainTab" closable="false" text="IT-Lab">
+                    <content>
+                        <BorderPane fx:id="mainTabBP" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="739.0"
+                                    prefWidth="1400.0"/>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+        <MenuBar layoutX="1058.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" prefWidth="342.0">
+            <menus>
+                <Menu fx:id="menuAccount" mnemonicParsing="false" text="ingelogd als: xxx">
+                    <items>
+                        <MenuItem disable="true" mnemonicParsing="false">
+                            <graphic>
+                                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                    <children>
+                                        <ImageView fx:id="profielFoto" fitHeight="60.0" fitWidth="60.0"
+                                                   pickOnBounds="true" preserveRatio="true">
+                                            <HBox.margin>
+                                                <Insets bottom="10.0" left="30.0" right="10.0" top="10.0"/>
+                                            </HBox.margin>
+                                        </ImageView>
+                                        <VBox prefHeight="200.0" prefWidth="100.0">
+                                            <children>
+                                                <Label fx:id="gebruikersnaam" alignment="CENTER" text="Label"
+                                                       textAlignment="CENTER"/>
+                                                <Label fx:id="laatst" maxHeight="1.7976931348623157E308"
+                                                       maxWidth="1.7976931348623157E308" text="Label"/>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="gebruikerGegevens" mnemonicParsing="false" text="Gegevens..."/>
+                        <MenuItem fx:id="gebruikerInstellingen" mnemonicParsing="false" text="Instellingen..."/>
+                        <MenuItem fx:id="gebruikerUitloggen" mnemonicParsing="false" text="Uitloggen..."/>
+                        <MenuItem fx:id="gebruikerAfsluiten" mnemonicParsing="false" text="Afsluiten"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </children>
 </fx:root>

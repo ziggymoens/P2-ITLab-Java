@@ -37,7 +37,7 @@ public class AankondigingBewerkenController extends AnchorPane {
     @FXML
     private Button voegToe;
 
-    public AankondigingBewerkenController(DomeinController domeinController, MainScreenController mainScreenController, ISessie sessie, IAankondiging aankondiging){
+    public AankondigingBewerkenController(DomeinController domeinController, MainScreenController mainScreenController, ISessie sessie, IAankondiging aankondiging) {
         this.domeinController = domeinController;
         this.mainScreenController = mainScreenController;
         this.aankondiging = aankondiging;
@@ -46,14 +46,14 @@ public class AankondigingBewerkenController extends AnchorPane {
         sessiesInit();
         gebruikersInit();
         aankondigingTekst.setText(aankondiging.getInhoud());
-        if(aankondiging.isAutomatischeHerinnering()){
+        if (aankondiging.isAutomatischeHerinnering()) {
             automatischeHerinnering.setSelected(true);
             //herinneringKeuze.setValue(aankondiging.getIHerinnering().getDagenVoorafInt());
         }
     }
 
 
-    public void startFXML(){
+    public void startFXML() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AankondigingPlaatsen.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -65,13 +65,13 @@ public class AankondigingBewerkenController extends AnchorPane {
         }
     }
 
-    public void sessiesInit(){
+    public void sessiesInit() {
         sessieList.setItems(FXCollections.observableList(domeinController.geefISessiesHuidigeKalender()));
         sessieList.setValue(sessie);
         sessieList.setDisable(true);
     }
 
-    public void gebruikersInit(){
+    public void gebruikersInit() {
         gebruikersList.setItems(FXCollections.observableList(domeinController.geefIGebruikers()));
         gebruikersList.setValue(sessie.getVerantwoordelijke());
         gebruikersList.setDisable(true);

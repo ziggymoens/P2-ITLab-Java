@@ -16,11 +16,14 @@ import java.io.IOException;
 
 public class BeherenMediaController extends AnchorPane {
     private DomeinController domeinController;
-    private ObservableList<IMedia>media;
+    private ObservableList<IMedia> media;
 
-    @FXML private TableView table;
-    @FXML private TableColumn<IMedia, String> type;
-    @FXML private TableColumn<IMedia, String> locatie;
+    @FXML
+    private TableView table;
+    @FXML
+    private TableColumn<IMedia, String> type;
+    @FXML
+    private TableColumn<IMedia, String> locatie;
 
     @FXML
     private Button nieuw, verwijder, bewerken;
@@ -39,7 +42,7 @@ public class BeherenMediaController extends AnchorPane {
         vulTable();
     }
 
-    private void vulTable(){
+    private void vulTable() {
         table.getColumns().clear();
 
         type.setCellValueFactory(new PropertyValueFactory<>("type"));

@@ -9,5 +9,7 @@ public enum HerinneringTijdstippen {
         this.dagen = dagen;
     }
 
-    public int getDagen() { return dagen; }
+    public int getDagen() {
+        return dagen;
+    }
 }

@@ -15,14 +15,14 @@
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
         <properties>
-            <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://52.233.199.3:1433;databaseName=ITLab" />
-            <property name="javax.persistence.jdbc.user" value="ziggy.moens" />
-            <property name="javax.persistence.jdbc.password" value="C0165.974d77" />
+            <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://52.233.199.3:1433;databaseName=ITLab"/>
+            <property name="javax.persistence.jdbc.user" value="ziggy.moens"/>
+            <property name="javax.persistence.jdbc.password" value="C0165.974d77"/>
             <property name="javax.persistence.schema-generation.database.action" value=""/>
-            <property name="hibernate.id.new_generator_mappings" value="true" />
-            <property name="hibernate.format_sql" value="true" />
-            <property name="hibernate.use_sql_comments" value="true" />
+            <property name="hibernate.id.new_generator_mappings" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.use_sql_comments" value="true"/>
             <property name="hibernate.show_sql" value="false"/>
             <property name="hibernate.globally_quoted_identifiers" value="true"/>
         </properties>
