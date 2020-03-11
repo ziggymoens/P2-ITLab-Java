@@ -9,11 +9,10 @@ import java.util.List;
 public interface ITypeController {
 
     Sessie geefSessieId(String id);
-    List<Sessie> geefAlleSessiesHuidigeKalender();
+    List<Sessie> geefAlleSessiesKalender(Integer jaar);
     List<Sessie> geefAlleSessiesTitel(String titel);
     List<Sessie> geefAlleSessiesDatum(LocalDate datum);
     List<Sessie> geefAlleSessiesLocatie(String locatie);
-    List<Sessie> geefAlleSessiesKalender(Integer jaar);
 
     List<String> filterOpties();
 

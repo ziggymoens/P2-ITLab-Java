@@ -1,5 +1,6 @@
 package domein.controllers;
 
+import domein.Gebruiker;
 import domein.Sessie;
 import domein.SessieKalender;
 
@@ -46,6 +47,56 @@ public class GebruikerController implements ITypeController {
 
     @Override
     public List<String> filterOpties() {
+        return null;
+    }
+
+    @Override
+    public void bewerkSessie(Sessie sessie) {
+
+    }
+
+    @Override
+    public void verwijderSessie(Sessie sessie) {
+
+    }
+
+    @Override
+    public void maakSessieAan(Sessie sessie) {
+
+    }
+
+    @Override
+    public Gebruiker geefGebruikerId(String id) {
+        return null;
+    }
+
+    @Override
+    public List<Gebruiker> geefAlleGebruikers() {
+        return null;
+    }
+
+    @Override
+    public List<Gebruiker> geefAlleGerbuikersNaam(String naam) {
+        return null;
+    }
+
+    @Override
+    public List<Gebruiker> geefAlleGebuikersType(String type) {
+        return null;
+    }
+
+    @Override
+    public List<Gebruiker> geefAlleGebruikersSessie() {
+        return null;
+    }
+
+    @Override
+    public List<Gebruiker> geefAlleGerbuikersNaamSessie() {
+        return null;
+    }
+
+    @Override
+    public List<Gebruiker> geefAlleGebuikersTypeSessie() {
         return null;
     }
 }

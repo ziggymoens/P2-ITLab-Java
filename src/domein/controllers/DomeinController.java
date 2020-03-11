@@ -21,14 +21,14 @@ public class DomeinController {
     private SessieKalender huidigeSessieKalender;
     private Sessie huidigeSessie;
     private Gebruiker huidigeGebruiker;
-    private int academiejaar;
+    public static int academiejaar;
     //endregion
 
     //region Constructor
-    public DomeinController(Gebruiker gebruiker, SessieKalender sessieKalender) {
+    public DomeinController(Gebruiker gebruiker, SessieKalender sessieKalender, LocalDate academiejaar) {
         this.huidigeGebruiker = gebruiker;
         this.huidigeSessieKalender = sessieKalender;
-        this.academiejaar = geefAcademiejaar(LocalDate.now());
+        this.academiejaar = geefAcademiejaar(academiejaar);
         setTypeController();
     }
 
@@ -53,12 +53,17 @@ public class DomeinController {
         return huidigeSessieKalender.geefAlleAcademieJaren();
     }
 
+    public void setAcademiejaar(LocalDate jaar){
+        new DomeinController(huidigeGebruiker, huidigeSessieKalender, jaar);
+        System.gc();
+    }
+
     public List<String> geefMaanden(){
         String[] maanden = {"Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"};
         return Arrays.asList(maanden);
     }
 
-    private int geefAcademiejaar(LocalDate date) {
+    private static int geefAcademiejaar(LocalDate date) {
         int jaar = LocalDate.now().getYear() - 2000;
         int aj = 0;
         if (LocalDate.now().getMonthValue() < 9) {
@@ -72,69 +77,62 @@ public class DomeinController {
 
     //region Sessie
     public List<String> geefFilterOpties(){
-        typeController.
+        return typeController.filterOpties();
     }
 
     public List<ISessie> geefISessiesHuidigeKalender() {
-        return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender(academiejaar);
+        return (List<ISessie>) (Object) typeController.geefAlleSessiesKalender(academiejaar);
     }
 
     public List<ISessie> geefISessiesAcademiejaar(Integer academiejaar) {
-        return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender(academiejaar);
+        return (List<ISessie>) (Object) typeController.geefAlleSessiesKalender(academiejaar);
     }
 
     public List<ISessie> geefISessiesOpDag(LocalDate date) {
-        return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender(geefAcademiejaar(date)).stream().filter(s -> s.getStartSessie().getDayOfYear() == date.getDayOfYear() && s.getStartSessie().getYear()==date.getYear()).collect(Collectors.toList());
+        return (List<ISessie>) (Object) typeController.geefAlleSessiesDatum(date);
     }
 
     public ISessie geefISessieById(String id){
-        return (ISessie)(Object)huidigeSessieKalender.geefSessieById(id);
+        return typeController.geefSessieId(id);
     }
 
     public ISessie geefHuidigeISessie(){
-        return (ISessie)(Object)huidigeSessieKalender.geefSessieById(huidigeSessie.getSessieId());
+        return huidigeSessie;
     }
 
-    public List<ISessie> geefISessiesVanGebruiker() {
+    public List<ISessie>geefISessieLocatie(String locatie) {
+        return (List<ISessie>) (Object) typeController.geefAlleSessiesLocatie(locatie);
+    }
+
+    public void maakSessieAan(List<String> sessie) {
+        //iterator
+        Sessie s = new Sessie(sessie.get(0), LocalDateTime.parse(sessie.get(1)), LocalDateTime.parse(sessie.get(2)),
+                huidigeSessieKalender.geefLokaalById(sessie.get(3)), huidigeSessieKalender.geefGebruikerById(sessie.get(4)));
+        typeController.maakSessieAan(s);
+    }
+
+    public void pasSessieAan(Map<String, String> nieuweMap) {
+        huidigeSessie.updateSessie(nieuweMap, (List<ILokaal>)(Object)huidigeSessieKalender.geefAlleLokalen());
+        typeController.bewerkSessie(huidigeSessie);
+    }
+
+    public void verwijderSessie(ISessie sessie) {
+        typeController.verwijderSessie((Sessie) sessie);
+    }
+
+    public void setHuidigeISessie(ISessie sessie) {
+        if(sessie == null){ this.huidigeSessie = null;}
+        else {this.huidigeSessie = typeController.geefSessieId(sessie.getSessieId());}
+    }
+
+
+    /* public List<ISessie> geefISessiesVanGebruiker() {
         return (List<ISessie>) (Object) huidigeSessieKalender.geefSessiesVanGebruiker(huidigeGebruiker);
     }
 
     public List<ISessie> geefISessiesVanGebruiker(List<ISessie> sessies) {
         return sessies.stream().filter(e -> e.getVerantwoordelijke().equals(huidigeGebruiker)).collect(Collectors.toList());
-    }
-
-    public List<ISessie>geefISessiesAalst() {
-        return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender(academiejaar)
-                .stream()
-                .filter(e -> e.getLokaal().getLokaalCode().matches("GA\\.+"))
-                .collect(Collectors.toList());
-    }
-
-    public List<ISessie>geefISessiesGent() {
-        return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalender(academiejaar)
-                .stream()
-                .filter(e -> e.getLokaal().getLokaalCode().matches("GS\\.+"))
-                .collect(Collectors.toList());
-    }
-
-    public void maakSessieAan(List<String> sessie) {
-        //iterator
-        huidigeSessieKalender.voegSessieToe(new Sessie(sessie.get(0), LocalDateTime.parse(sessie.get(1)), LocalDateTime.parse(sessie.get(2)), huidigeSessieKalender.geefLokaalById(sessie.get(3)), huidigeSessieKalender.geefGebruikerById(sessie.get(4))));
-    }
-
-    public void pasSessieAan(Map<String, String> nieuweMap) {
-        huidigeSessie.updateSessie(nieuweMap, (List<ILokaal>)(Object)huidigeSessieKalender.geefAlleLokalen());
-        huidigeSessieKalender.updateSessie(huidigeSessie);
-    }
-
-    public void verwijderSessie(ISessie sessie) {
-        huidigeSessieKalender.verwijderSessie((Sessie) sessie);
-    }
-
-    public void setHuidigeISessie(ISessie t1) {
-        if(t1 == null){ this.huidigeSessie = null;}
-        else {this.huidigeSessie = huidigeSessieKalender.geefSessieById(t1.getSessieId());}
-    }
+    }*/
     //endregion
 
     //region Gebruiker

@@ -4,6 +4,7 @@ import domein.Gebruiker;
 import domein.SessieKalender;
 import domein.interfacesDomein.IGebruiker;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class StartController {
@@ -37,6 +38,6 @@ public class StartController {
     }
 
     public DomeinController initDomeinController(){
-        return new DomeinController(gebruiker, sessieKalender);
+        return new DomeinController(gebruiker, sessieKalender, LocalDate.now());
     }
 }

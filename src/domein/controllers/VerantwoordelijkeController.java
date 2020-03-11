@@ -7,7 +7,7 @@ import domein.SessieKalender;
 import java.time.LocalDate;
 import java.util.List;
 
-public class VerantwoordelijkeController implements ITypeVerantwoordelijkeController {
+public class VerantwoordelijkeController implements ITypeController {
     private SessieKalender huidigeSessieKalender;
 
     public VerantwoordelijkeController(SessieKalender huidigeSessieKalender){
@@ -67,11 +67,6 @@ public class VerantwoordelijkeController implements ITypeVerantwoordelijkeContro
 
     @Override
     public Sessie geefSessieId(String id) {
-        return null;
-    }
-
-    @Override
-    public List<Sessie> geefAlleSessiesHuidigeKalender() {
         return null;
     }
 

@@ -5,9 +5,11 @@ import domein.Sessie;
 import domein.SessieKalender;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class HoofdverantwoordelijkeController implements ITypeVerantwoordelijkeController {
+public class HoofdverantwoordelijkeController implements ITypeController {
     private SessieKalender huidigeSessieKalender;
 
     public HoofdverantwoordelijkeController(SessieKalender huidigeSessieKalender){
@@ -17,37 +19,43 @@ public class HoofdverantwoordelijkeController implements ITypeVerantwoordelijkeC
 
     @Override
     public void bewerkSessie(Sessie sessie) {
-
+        huidigeSessieKalender.updateSessie(sessie);
     }
 
     @Override
     public void verwijderSessie(Sessie sessie) {
-
+        huidigeSessieKalender.verwijderSessie(sessie);
     }
 
     @Override
     public void maakSessieAan(Sessie sessie) {
-
+        huidigeSessieKalender.voegSessieToe(sessie);
     }
 
     @Override
     public Gebruiker geefGebruikerId(String id) {
-        return null;
+        return huidigeSessieKalender.geefGebruikerById(id);
     }
 
     @Override
     public List<Gebruiker> geefAlleGebruikers() {
-        return null;
+        return huidigeSessieKalender.geefAlleGebruikers();
     }
 
     @Override
     public List<Gebruiker> geefAlleGerbuikersNaam(String naam) {
-        return null;
+        return huidigeSessieKalender.geefAlleGebruikers()
+                .stream()
+                .filter(e -> e.getNaam().matches("(\\.*)"+naam+"(\\.*)"))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Gebruiker> geefAlleGebuikersType(String type) {
-        return null;
+        return huidigeSessieKalender.geefAlleGebruikers()
+                .stream()
+                .filter(e -> e.getGebruikersprofiel().toString().equals(type))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -67,36 +75,49 @@ public class HoofdverantwoordelijkeController implements ITypeVerantwoordelijkeC
 
     @Override
     public Sessie geefSessieId(String id) {
-        return null;
+        return huidigeSessieKalender.geefSessieById(id);
     }
 
-    @Override
-    public List<Sessie> geefAlleSessiesHuidigeKalender() {
-        return null;
-    }
 
     @Override
     public List<Sessie> geefAlleSessiesTitel(String titel) {
-        return null;
+        return geefAlleSessiesKalender(DomeinController.academiejaar).stream().filter(e -> e.getTitel().matches("(\\.*)"+titel+"(\\.*)")).collect(Collectors.toList());
     }
 
     @Override
     public List<Sessie> geefAlleSessiesDatum(LocalDate datum) {
-        return null;
+        return geefAlleSessiesKalender(DomeinController.academiejaar).stream().filter(s -> s.getStartSessie().getDayOfYear() == datum.getDayOfYear() && s.getStartSessie().getYear()==datum.getYear()).collect(Collectors.toList());
     }
 
     @Override
     public List<Sessie> geefAlleSessiesLocatie(String locatie) {
-        return null;
+        List<Sessie> sessies = null;
+        switch (locatie){
+            case "Gent":
+                sessies = geefAlleSessiesKalender(DomeinController.academiejaar)
+                        .stream()
+                        .filter(e -> e.getLokaal().getLokaalCode().matches("GS\\.+"))
+                        .collect(Collectors.toList());
+
+                break;
+            case "Aalst":
+                sessies = geefAlleSessiesKalender(DomeinController.academiejaar)
+                        .stream()
+                        .filter(e -> e.getLokaal().getLokaalCode().matches("GA\\.+"))
+                        .collect(Collectors.toList());
+                break;
+        }
+        return sessies;
     }
 
     @Override
     public List<Sessie> geefAlleSessiesKalender(Integer jaar) {
-        return null;
+        return huidigeSessieKalender.geefAlleSessiesKalender(DomeinController.academiejaar);
     }
 
     @Override
     public List<String> filterOpties() {
-        return null;
+        String[] keuzeVoorZoeken = {"Titel", "Stad", "Status"};
+        return Arrays.asList(keuzeVoorZoeken);
     }
 }
