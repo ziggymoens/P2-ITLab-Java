@@ -11,6 +11,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -136,6 +137,8 @@ public class GebruikerController extends AnchorPane {
             throw new RuntimeException();
         }
 
+        btnVerwijderen.setOnAction(this::verwijderen);
+
         vulTable(FXCollections.observableArrayList(domeinController.geefIGebruikers()));
         ObservableList data =  tableViewGebruiker.getItems();
         txtFieldSearchBar.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
@@ -157,6 +160,12 @@ public class GebruikerController extends AnchorPane {
             }
             tableViewGebruiker.setItems(subentries);
         });
+    }
+
+    private void verwijderen(ActionEvent actionEvent) {
+        Gebruiker geb = (Gebruiker) tableViewGebruiker.getSelectionModel().getSelectedItem();
+        domeinController.verwijderGebruiker(geb);
+        refreshTable();
     }
 
     private void vulTable(ObservableList<IGebruiker> observableArrayList) {
@@ -188,6 +197,7 @@ public class GebruikerController extends AnchorPane {
     public void clearTable(){
         tableViewGebruiker.getColumns().clear();
     }
+
 
     public void refreshTable() {
         clearTable();
