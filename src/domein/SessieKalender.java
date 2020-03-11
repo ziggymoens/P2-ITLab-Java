@@ -1,6 +1,7 @@
 package domein;
 
 import domein.enums.Campussen;
+import domein.interfacesDomein.IGebruiker;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -113,8 +114,8 @@ public class SessieKalender {
         //return (Gebruiker) em.createQuery("select g from Gebruiker g where gebruikersnaam = ?1").setParameter(1, gebruikerId).getResultList().get(0);
     }
 
-    public List<Gebruiker> geefAlleGebruikers() {
-        return (List<Gebruiker>) em.createQuery("select g from Gebruiker g where g.verwijderd = false order by g.gebruikersprofiel DESC, g.naam, g.gebruikersnaam").getResultList();
+    public List<IGebruiker> geefAlleGebruikers() {
+        return (List<IGebruiker>) em.createQuery("select g from Gebruiker g where g.verwijderd = false order by g.gebruikersprofiel DESC, g.naam, g.gebruikersnaam").getResultList();
     }
 
 //    public List<Gebruiker> geefAlleActieveGebruikers(){

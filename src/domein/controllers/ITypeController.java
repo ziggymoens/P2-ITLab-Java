@@ -1,11 +1,5 @@
 package domein.controllers;
 
-import domein.Gebruiker;
-import domein.Sessie;
-
-import java.time.LocalDate;
-import java.util.List;
-
 public interface ITypeController {
 
     Sessie geefSessieId(String id);

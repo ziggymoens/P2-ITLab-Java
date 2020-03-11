@@ -1,10 +1,17 @@
 package userinterface.main;
 
+import domein.Gebruiker;
+import domein.SessieKalender;
 import domein.controllers.DomeinController;
 import domein.controllers.HoofdverantwoordelijkeController;
+import domein.controllers.ITypeController;
 import domein.interfacesDomein.IGebruiker;
+import domein.interfacesDomein.ISessie;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -113,8 +120,8 @@ public class GebruikerController extends AnchorPane {
     @FXML
     private Button btnKiezen;
 
-    public GebruikerController(HoofdverantwoordelijkeController hoofdverantwoordelijkeController) {
-        this.hoofdverantwoordelijkeController = hoofdverantwoordelijkeController;
+    public GebruikerController(DomeinController domeinController){
+        this.domeinController = domeinController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Gebruiker.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -124,20 +131,72 @@ public class GebruikerController extends AnchorPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
-//        System.out.println(hoofdverantwoordelijkeController.geefIGebruikers());
-        //vulTable(FXCollections.observableArrayList(hoofdverantwoordelijkeController.geefIGebruikers()));
+
+        btnVerwijderen.setOnAction(this::verwijderen);
+
+        vulTable(FXCollections.observableArrayList(domeinController.geefIGebruikers()));
+        ObservableList data =  tableViewGebruiker.getItems();
+        txtFieldSearchBar.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if (oldValue != null && (newValue.length() < oldValue.length())) {
+                tableViewGebruiker.setItems(data);
+            }
+            String value = newValue.toLowerCase();
+            ObservableList<IGebruiker> subentries = FXCollections.observableArrayList();
+
+            long count = tableViewGebruiker.getColumns().stream().count();
+            for (int i = 0; i < tableViewGebruiker.getItems().size(); i++) {
+                for (int j = 0; j < count; j++) {
+                    String entry = "" + tableViewGebruiker.getColumns().get(j).getCellData(i);
+                    if (entry.toLowerCase().contains(value)) {
+                        subentries.add(tableViewGebruiker.getItems().get(i));
+                        break;
+                    }
+                }
+            }
+            tableViewGebruiker.setItems(subentries);
+        });
+    }
+
+    private void verwijderen(ActionEvent actionEvent) {
+        Gebruiker geb = (Gebruiker) tableViewGebruiker.getSelectionModel().getSelectedItem();
+        domeinController.verwijderGebruiker(geb);
+        refreshTable();
     }
 
     private void vulTable(ObservableList<IGebruiker> observableArrayList) {
-        tableViewGebruiker.getColumns().clear();
+        clearTable();
         TVnaam.setCellValueFactory(new PropertyValueFactory<>("naam"));
         TVgebruikersnaamChamilo.setCellValueFactory(new PropertyValueFactory<>("gebruikersnaam"));
         TVtype.setCellValueFactory(new PropertyValueFactory<>("gebruikersprofiel"));
         TVstatus.setCellValueFactory(new PropertyValueFactory<>("status"));
         tableViewGebruiker.setItems(FXCollections.observableArrayList(observableArrayList));
         tableViewGebruiker.getColumns().addAll(TVnaam, TVgebruikersnaamChamilo, TVtype, TVstatus);
-        if (tableViewGebruiker.getSelectionModel() != null) {
+        if(tableViewGebruiker.getSelectionModel() != null){
             tableViewGebruiker.getSelectionModel().select(0);
+            vulDetails((Gebruiker) tableViewGebruiker.getSelectionModel().getSelectedItem());
         }
+
+        tableViewGebruiker.getSelectionModel().selectedItemProperty().addListener((observableValue, gebruiker, t1) -> {
+            vulDetails((Gebruiker) t1);
+        });
     }
+
+    public void vulDetails(Gebruiker geb){
+        geb = (Gebruiker) tableViewGebruiker.getSelectionModel().getSelectedItem();
+        txtFieldGebruiker.setText(geb.getNaam());
+        txtFieldGebruikersnaam.setText(geb.getGebruikersnaam());
+        txtFieldStatus.setText(geb.getStatus().toString());
+        txtFieldType.setText(geb.getGebruikersprofiel().toString());
+    }
+
+    public void clearTable(){
+        tableViewGebruiker.getColumns().clear();
+    }
+
+
+    public void refreshTable() {
+        clearTable();
+        vulTable(FXCollections.observableArrayList(domeinController.geefIGebruikers()));
+    }
+
 }
