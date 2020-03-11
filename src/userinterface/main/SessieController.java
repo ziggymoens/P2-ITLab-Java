@@ -46,11 +46,11 @@ public class SessieController extends AnchorPane {
     //region sessieTable FXML
     @FXML
     private ChoiceBox<String> choiceBoxMaand;
+
     @FXML
     private ChoiceBox<String> choiceBoxJaar;
     @FXML
     private Button btnToevoegenSessie;
-
     @FXML
     private ChoiceBox<String> choiceBoxZoeken;
     @FXML
@@ -243,6 +243,7 @@ public class SessieController extends AnchorPane {
             throw new RuntimeException();
         }
         btnGebruiker.setOnAction(this::openenGebruikerController);
+        btnSessiekalender.setOnAction(this::openSessieKalender);
 
         choiceBoxJaar.setItems(FXCollections.observableArrayList(domeinController.geefAcademiejaren()));
         choiceBoxMaand.setItems(FXCollections.observableArrayList(domeinController.geefMaanden()));
@@ -285,6 +286,14 @@ public class SessieController extends AnchorPane {
         btnBewerkenSessie.setOnAction(this::bewerkenSessie);
         btnOpslaanSessie.setOnAction(this::opslaanSessie);
         radioButtons();
+    }
+
+    private void openSessieKalender(ActionEvent actionEvent) {
+        Scene scene = new Scene(new SessieKalenderController());
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
     }
 
     private void openenGebruikerController(ActionEvent actionEvent) {

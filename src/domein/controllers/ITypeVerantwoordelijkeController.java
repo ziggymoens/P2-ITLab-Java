@@ -3,20 +3,9 @@ package domein.controllers;
 import domein.Gebruiker;
 import domein.Sessie;
 
-import java.time.LocalDate;
 import java.util.List;
 
-public interface ITypeController {
-
-    Sessie geefSessieId(String id);
-    List<Sessie> geefAlleSessiesHuidigeKalender();
-    List<Sessie> geefAlleSessiesTitel(String titel);
-    List<Sessie> geefAlleSessiesDatum(LocalDate datum);
-    List<Sessie> geefAlleSessiesLocatie(String locatie);
-    List<Sessie> geefAlleSessiesKalender(Integer jaar);
-
-    List<String> filterOpties();
-
+public interface ITypeVerantwoordelijkeController extends  ITypeController{
     void bewerkSessie(Sessie sessie);
     void verwijderSessie(Sessie sessie);
     void maakSessieAan(Sessie sessie);

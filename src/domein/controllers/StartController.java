@@ -1,9 +1,9 @@
 package domein.controllers;
 
-import domein.*;
+import domein.Gebruiker;
+import domein.SessieKalender;
 import domein.interfacesDomein.IGebruiker;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class StartController {
@@ -12,12 +12,12 @@ public class StartController {
     private Gebruiker gebruiker;
 
     public StartController() {
-        this.academiejaar = geefAcademiejaar(LocalDate.now());
+  /*      this.academiejaar = geefAcademiejaar(); //why?*/
         sessieKalender = new SessieKalender();
         //SessieKalenderDataInit sessieKalenderDataInit = new SessieKalenderDataInit(sessieKalender);
     }
 
-    private int geefAcademiejaar(LocalDate date) {
+/*    private int geefAcademiejaar() { //why?
         int jaar = LocalDate.now().getYear() - 2000;
         int aj = 0;
         if (LocalDate.now().getMonthValue() < 9) {
@@ -26,14 +26,14 @@ public class StartController {
             aj = Integer.parseInt(String.format("%d%d", jaar, jaar + 1));
         }
         return aj;
-    }
+    }*/
 
     public List<IGebruiker> geefIGebruikers() {
         return (List<IGebruiker>)(Object) sessieKalender.geefAlleGebruikers();
     }
 
     public void setHuidigeGebruiker(String gebruiker){
-        this.gebruiker = (Gebruiker) geefIGebruikers().stream().filter(g -> g.getGebruikersnaam().equals("758095zm")).findFirst().orElse(null);
+        this.gebruiker = (Gebruiker) geefIGebruikers().stream().filter(g -> g.getGebruikersnaam().equals(gebruiker)).findFirst().orElse(null);
     }
 
     public DomeinController initDomeinController(){

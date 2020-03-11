@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class DomeinController {
+
     //region Variabelen
     private ITypeController typeController;
     private SessieKalender huidigeSessieKalender;
@@ -26,29 +27,25 @@ public class DomeinController {
     //region Constructor
     public DomeinController(Gebruiker gebruiker, SessieKalender sessieKalender) {
         this.huidigeGebruiker = gebruiker;
-        //setTypeController();
+        this.huidigeSessieKalender = sessieKalender;
         this.academiejaar = geefAcademiejaar(LocalDate.now());
-        huidigeSessieKalender = sessieKalender;
+        setTypeController();
     }
-/*
+
     private void setTypeController() {
         switch (huidigeGebruiker.getGebruikersprofiel().toString()){
             default:
             case "GEBRUIKER":
-                typeController = new GebruikerController();
+                typeController = new GebruikerController(huidigeSessieKalender);
                 break;
             case "VERANTWOORDELIJKE":
-                typeController = new VerantwoordelijkeController();
+                typeController = new VerantwoordelijkeController(huidigeSessieKalender);
                 break;
             case "HOOFDVERANTWOORDELIJKE":
-                typeController = new HoofdverantwoordelijkeController();
+                typeController = new HoofdverantwoordelijkeController(huidigeSessieKalender);
                 break;
         }
     }
-
- */
-
-
     //endregion
 
     //region Academiejaar
@@ -75,8 +72,7 @@ public class DomeinController {
 
     //region Sessie
     public List<String> geefFilterOpties(){
-        String[] keuzeVoorZoeken = {"Titel", "Stad", "Status"};
-        return Arrays.asList(keuzeVoorZoeken);
+        typeController.
     }
 
     public List<ISessie> geefISessiesHuidigeKalender() {
