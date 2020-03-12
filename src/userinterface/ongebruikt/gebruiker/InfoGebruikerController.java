@@ -55,7 +55,7 @@ public class InfoGebruikerController extends AnchorPane {
 
         //tableViewGebruikers = new TableView<>();
 
-        vulTable(FXCollections.observableArrayList(domeinController.geefIGebruikers()));
+        vulTable(FXCollections.observableArrayList(domeinController.geefAlleIGebruikers()));
 
         typeFilterAll.setOnAction(this::filterAllTypes);
         typeFilterGebruiker.setOnAction(this::filterGebruikersType);
@@ -129,7 +129,7 @@ public class InfoGebruikerController extends AnchorPane {
 
     @FXML
     void filterActiefStatus(ActionEvent event) {
-        vulTable(FXCollections.observableArrayList(domeinController.geefAlleActieveGebruikers()));
+        vulTable(FXCollections.observableArrayList(domeinController.geefIGebruikersOpStatus("Actief")));
     }
 
     private void vulTable(ObservableList<IGebruiker> observableList) {
@@ -146,7 +146,7 @@ public class InfoGebruikerController extends AnchorPane {
 
     @FXML
     void filterAllTypes(ActionEvent event) {
-        vulTable(FXCollections.observableArrayList(domeinController.geefIGebruikers()));
+        vulTable(FXCollections.observableArrayList(domeinController.geefAlleIGebruikers()));
         typeFilterAll.setSelected(true);
         typeFilterHoofdverantwoordelijke.setSelected(true);
         typeFilterVerantwoordelijke.setSelected(true);
@@ -155,7 +155,7 @@ public class InfoGebruikerController extends AnchorPane {
 
     @FXML
     void filterAllStatus(ActionEvent event) {
-        vulTable(FXCollections.observableArrayList(domeinController.geefIGebruikers()));
+        vulTable(FXCollections.observableArrayList(domeinController.geefAlleIGebruikers()));
         statusFilterAll.setSelected(true);
         statusFilterActief.setSelected(true);
         statusFilterGeblokkeerd.setSelected(true);
@@ -166,35 +166,35 @@ public class InfoGebruikerController extends AnchorPane {
     void filterGeblokkeerdStatus(ActionEvent event) {
         clearTable();
         if (!statusFilterActief.isSelected() && !statusFilterNietActief.isSelected()) {
-            vulTable(FXCollections.observableArrayList(domeinController.geefAlleGeblokkeerdeGebruikers()));
+            vulTable(FXCollections.observableArrayList(domeinController.geefIGebruikersOpStatus("GEBLOKKEERD")));
         } else if (statusFilterActief.isSelected()) {
-            tableViewGebruikers.setItems(FXCollections.observableArrayList(domeinController.geefAlleGeblokkeerdeGebruikers()));
-            tableViewGebruikers.setItems(FXCollections.observableArrayList(domeinController.geefAlleActieveGebruikers()));
+            tableViewGebruikers.setItems(FXCollections.observableArrayList(domeinController.geefIGebruikersOpStatus("GEBLOKKEERD")));
+            tableViewGebruikers.setItems(FXCollections.observableArrayList(domeinController.geefIGebruikersOpStatus("ACTIEF")));
         }
     }
 
     @FXML
     void filterGebruikersType(ActionEvent event) {
         clearTable();
-        vulTable(FXCollections.observableArrayList(domeinController.geefAlleGewoneGebruikers()));
+        vulTable(FXCollections.observableArrayList(domeinController.geefIGebruikersOpType("GEBRUIKER")));
     }
 
     @FXML
     void filterHoofdverantwoordelijkeType(ActionEvent event) {
         clearTable();
-        vulTable(FXCollections.observableArrayList(domeinController.geefAlleHoofdverantwoordelijkeGebruikers()));
+        vulTable(FXCollections.observableArrayList(domeinController.geefIGebruikersOpType("HOOFDVERANTWOORDELIJKE")));
     }
 
     @FXML
     void filterNietActiefStatus(ActionEvent event) {
         clearTable();
-        vulTable(FXCollections.observableArrayList(domeinController.geefAlleNietActieveGebruikers()));
+        vulTable(FXCollections.observableArrayList(domeinController.geefIGebruikersOpStatus("NIET_ACTIEF")));
     }
 
     @FXML
     void filterVerantwoordelijkeType(ActionEvent event) {
         clearTable();
-        vulTable(FXCollections.observableArrayList(domeinController.geefAlleVerantwoordelijkeGebruikers()));
+        vulTable(FXCollections.observableArrayList(domeinController.geefIGebruikersOpType("VERANTWOORDELIJKE")));
     }
 
     public void clearTable() {
@@ -203,7 +203,7 @@ public class InfoGebruikerController extends AnchorPane {
 
     public void refreshTable() {
         clearTable();
-        vulTable(FXCollections.observableArrayList(domeinController.geefIGebruikers()));
+        vulTable(FXCollections.observableArrayList(domeinController.geefAlleIGebruikers()));
     }
 
 

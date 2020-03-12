@@ -16,7 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import language.I18N;
 import main.ITLab;
-import userinterface.main.SessieController;
+import userinterface.main.MainController;
 
 import java.io.IOException;
 
@@ -98,7 +98,7 @@ public class StartUpController extends AnchorPane {
             } else {
                 ITLab.primaryStage.close();
                 startController.setHuidigeGebruiker(gebruiker.getGebruikersnaam());
-                Scene scene = new Scene(new SessieController(startController.initDomeinController()));
+                Scene scene = new Scene(new MainController(startController.initDomeinController()));
                 Stage stage = new Stage();
                 stage.setScene(scene);
                 stage.setResizable(false);

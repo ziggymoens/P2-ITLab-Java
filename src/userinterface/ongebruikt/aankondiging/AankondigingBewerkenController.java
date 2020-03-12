@@ -72,7 +72,7 @@ public class AankondigingBewerkenController extends AnchorPane {
     }
 
     public void gebruikersInit() {
-        gebruikersList.setItems(FXCollections.observableList(domeinController.geefIGebruikers()));
+        gebruikersList.setItems(FXCollections.observableList(domeinController.geefAlleIGebruikers()));
         gebruikersList.setValue(sessie.getVerantwoordelijke());
         gebruikersList.setDisable(true);
     }

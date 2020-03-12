@@ -76,17 +76,17 @@ public class AankondigingPlaatsenController extends AnchorPane {
     }
 
     private void sessiesInit() {
-        if (domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("HOOFDVERANTWOORDELIJKE"))
+        if (domeinController.geefHuidigeIGebruiker().getGebruikersprofiel().toString().equals("HOOFDVERANTWOORDELIJKE"))
             sessieList.setItems(FXCollections.observableList(domeinController.geefISessiesHuidigeKalender()));
-        if (domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("VERANTWOORDELIJKE"))
-            sessieList.setItems(FXCollections.observableList(domeinController.geefISessiesVanGebruiker()));
+        if (domeinController.geefHuidigeIGebruiker().getGebruikersprofiel().toString().equals("VERANTWOORDELIJKE"))
+            sessieList.setItems(FXCollections.observableList(domeinController.geefISessiesHuidigeKalender()));
         sessieList.setValue(sessie);
     }
 
     private void gebruikersInit() {
-        gebruikersList.setItems(FXCollections.observableList(domeinController.geefIGebruikers()));
-        gebruikersList.setValue(domeinController.geefIGebruiker());
-        if (!domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("HOOFDVERANTWOORDELIJKE"))
+        gebruikersList.setItems(FXCollections.observableList(domeinController.geefAlleIGebruikers()));
+        gebruikersList.setValue(domeinController.geefHuidigeIGebruiker());
+        if (!domeinController.geefHuidigeIGebruiker().getGebruikersprofiel().toString().equals("HOOFDVERANTWOORDELIJKE"))
             gebruikersList.setDisable(true);
     }
 

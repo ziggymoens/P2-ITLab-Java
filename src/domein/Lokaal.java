@@ -7,6 +7,7 @@ import exceptions.domein.LokaalException;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -21,6 +22,12 @@ public class Lokaal implements ILokaal {
 
     private int aantalPlaatsen;
     private boolean verwijderd = false;
+    @Transient
+    private String stad;
+    @Transient
+    private String gebouw;
+    @Transient
+    private String verdieping;
     private LokaalTypes type;
     //endregion
 
@@ -67,6 +74,27 @@ public class Lokaal implements ILokaal {
     public void setLokaalType(String type) {
         this.type = Arrays.stream(LokaalTypes.values()).filter(t -> t.toString().equals(type)).findFirst().orElse(null);
     }
+    private void setVerdieping() {
+        if (!lokaalCode.startsWith("G")){
+            this.verdieping = "Onbekend";
+        } else { this.verdieping =  lokaalCode.substring(5,6);}
+    }
+
+    private void setGebouw() {
+        if (!lokaalCode.startsWith("G")){
+            this.gebouw =  "Onbekend";
+        } else{ this.gebouw = lokaalCode.substring(4,5);}
+    }
+
+    private void setStad() {
+        if (!lokaalCode.startsWith("G")){
+            this.stad = "Onbekend";
+        } else if(lokaalCode.matches("GS(.)+")){
+            this.stad = "Gent";
+        } else if(lokaalCode.matches("GA(.)+")){
+            this.stad =  "Aalst";
+        }
+    }
 
     //endregion
 
@@ -75,8 +103,27 @@ public class Lokaal implements ILokaal {
         return lokaalCode;
     }
 
+    public String getType(){
+        return type.toString();
+    }
+
     public int getAantalPlaatsen() {
         return aantalPlaatsen;
+    }
+
+    public String getStad(){
+        setStad();
+        return stad;
+    }
+
+    public String getGebouw(){
+        setGebouw();
+        return gebouw;
+    }
+
+    public String getVerdieping(){
+        setVerdieping();
+        return verdieping;
     }
     //endregion
 

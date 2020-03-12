@@ -31,7 +31,6 @@ public interface ISessie {
 
     String getSessieId();
 
-    //endregion
     Map<String, Object> gegevensDetails();
 
     int getAantalAanwezigen();

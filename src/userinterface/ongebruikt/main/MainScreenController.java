@@ -59,12 +59,12 @@ public class MainScreenController extends AnchorPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
-        menuAccount.setText(String.format("Ingelogd als: %s", domeinController.geefIGebruiker().getNaam()));
-        gebruiker = domeinController.geefIGebruiker();
+        menuAccount.setText(String.format("Ingelogd als: %s", domeinController.geefHuidigeIGebruiker().getNaam()));
+        gebruiker = domeinController.geefHuidigeIGebruiker();
         gebruikersnaam.setText(gebruiker.getNaam());
         Image image = new Image("storage/profielfotos/profielfoto.png");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        laatst.setText(domeinController.geefIGebruiker().getLaatstIngelogd().format(formatter));
+        laatst.setText(domeinController.geefHuidigeIGebruiker().getLaatstIngelogd().format(formatter));
         this.profielFoto.setImage(image);
         openSessie.setOnAction(this::openSessie);
         openKalender.setOnAction(this::kalenderTonen);
@@ -128,7 +128,7 @@ public class MainScreenController extends AnchorPane {
     }
 
     public void openAankondiging(ActionEvent event) {
-        ISessie sessie = domeinController.geefISessieById("S1920-000002");
+        ISessie sessie = domeinController.geefISessieOpId("S1920-000002");
         /*Tab tab = new Tab();
         tab.setContent(new AankondigingPlaatsenController(domeinController, this, sessie));
         tab.setText("Nieuwe Aankondiging");

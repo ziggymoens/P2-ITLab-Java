@@ -7,9 +7,7 @@ import domein.interfacesDomein.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class DomeinController {
@@ -147,14 +145,14 @@ public class DomeinController {
         return (List<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers();
     }
 
-    public List<IGebruiker> geefIGerbuikersOpNaam(String naam) {
+    public List<IGebruiker> geefIGebruikersOpNaam(String naam) {
         return (List<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers()
                 .stream()
                 .filter(e -> e.getNaam().matches("(\\.*)" + naam + "(\\.*)"))
                 .collect(Collectors.toList());
     }
 
-    public List<IGebruiker> geefIGebuikersOpType(String type) {
+    public List<IGebruiker> geefIGebruikersOpType(String type) {
         return (List<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers()
                 .stream()
                 .filter(e -> e.getGebruikersprofiel().toString().equals(type))
@@ -200,6 +198,34 @@ public class DomeinController {
 
     public List<ILokaal> geefLokalenVanCampus(String campus) {
         return (List<ILokaal>) (Object) huidigeSessieKalender.geefLokaalByCampus(campus.toUpperCase());
+    }
+
+    public Set<String> geefSteden(){
+        Set<String> set = new HashSet<>();
+        huidigeSessieKalender.geefAlleLokalen().stream().forEach(e -> set.add(e.getStad()));
+        return set;
+    }
+
+    public Set<String> geefGebouwen(){
+        Set<String> set = new HashSet<>();
+        huidigeSessieKalender.geefAlleLokalen().stream().forEach(e -> set.add(e.getGebouw()));
+        return set;
+    }
+
+    public Set<String> geefVerdiepingen(){
+        Set<String> set = new HashSet<>();
+        huidigeSessieKalender.geefAlleLokalen().stream().forEach(e -> set.add(e.getVerdieping()));
+        return set;
+    }
+
+    public List<String> geefCapaciteiten(){
+        List <String> capaciteiten = new ArrayList<>();
+        capaciteiten.add("0 - 50");
+        capaciteiten.add("50 - 100");
+        capaciteiten.add("100 - 150");
+        capaciteiten.add("150 - 200");
+        capaciteiten.add("200+");
+        return capaciteiten;
     }
     //endregion
 
@@ -256,6 +282,8 @@ public class DomeinController {
     //endregion
 }
 
+
+    //region extras
 /* vorige dc
     public List<ISessie> getISessies() {
         return ((List<ISessie>)(Object)sessieKalenderController.getSessies());
@@ -402,5 +430,5 @@ public class DomeinController {
         return (List<ILokaal>)(Object) sessieKalenderController.getLokalen().stream().collect(Collectors.toList());
     }
 }
+ */
 //endregion
-*/

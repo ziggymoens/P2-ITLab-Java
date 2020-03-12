@@ -7,18 +7,19 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import userinterface.sessie.lokaal.BeherenLokaalController;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
@@ -28,20 +29,6 @@ import java.util.stream.Collectors;
 public class SessieController extends AnchorPane {
     private DomeinController domeinController;
     private HoofdverantwoordelijkeController hoofdverantwoordelijkeController;
-
-    //region buttonBar FXML
-    @FXML
-    private Pane pButtonBar;
-
-    @FXML
-    private Button btnSessie;
-    @FXML
-    private Button btnGebruiker;
-    @FXML
-    private Button btnSessiekalender;
-    @FXML
-    private Button btnIngelogd;
-    //endregion FMXL
 
     //region sessieTable FXML
     @FXML
@@ -124,13 +111,17 @@ public class SessieController extends AnchorPane {
     private Label lblMessage;
     //endregion
 
+    //region Pane onderaan FXML
+    @FXML private Pane pOnderaan;
+    //endregion
+
     //region tijdelijk
     //region media, feedback, aankondiging en inschrijving FXML
     @FXML
     private VBox vBoxRechts;
 
     @FXML
-    private RadioButton rabtnAankondiging, rabtnInschrijving, rabtnGebruiker, rabtnFeedback, rabtnLokaal, rabtnMedia;
+    private RadioButton rabtnAankondiging, rabtnInschrijving, rabtnFeedback, rabtnMedia;
 
     @FXML
     private TableView tableViewSessieToebehoren;
@@ -242,8 +233,6 @@ public class SessieController extends AnchorPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
-        btnGebruiker.setOnAction(this::openenGebruikerController);
-        btnSessiekalender.setOnAction(this::openSessieKalender);
 
         choiceBoxJaar.setItems(FXCollections.observableArrayList(domeinController.geefAcademiejaren()));
         choiceBoxMaand.setItems(FXCollections.observableArrayList(domeinController.geefMaanden()));
@@ -286,22 +275,8 @@ public class SessieController extends AnchorPane {
         btnBewerkenSessie.setOnAction(this::bewerkenSessie);
         btnOpslaanSessie.setOnAction(this::opslaanSessie);
         radioButtons();
-    }
 
-    private void openSessieKalender(ActionEvent actionEvent) {
-        Scene scene = new Scene(new SessieKalenderController());
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
-    }
-
-    private void openenGebruikerController(ActionEvent actionEvent) {
-        Scene scene = new Scene(new GebruikerController(this.domeinController));
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
+        pOnderaan.getChildren().addAll( new BeherenLokaalController(domeinController));
     }
 
 
@@ -346,7 +321,12 @@ public class SessieController extends AnchorPane {
         txtMaxPlaatsenSessie.setEditable(true);
         txtGastsprekerSessie.setEditable(true);
         txtVerantwoordelijkeSessie.setEditable(true);
-
+        txtLokaalSessie.onMouseClickedProperty().addListener(new ChangeListener<EventHandler<? super MouseEvent>>() {
+            @Override
+            public void changed(ObservableValue<? extends EventHandler<? super MouseEvent>> observableValue, EventHandler<? super MouseEvent> eventHandler, EventHandler<? super MouseEvent> t1) {
+                vulTableLokalen();
+            }
+        });
     }
 
     private void opslaanSessie(ActionEvent actionEvent) {
@@ -359,6 +339,9 @@ public class SessieController extends AnchorPane {
         s.stream().forEach(e -> System.out.println(e));
     }
 
+    private void vulTableLokalen(){
+    }
+
     private void checkVeranderingen() {
 
     }
@@ -369,10 +352,8 @@ public class SessieController extends AnchorPane {
             @Override
             public void changed(ObservableValue<? extends Boolean> obs, Boolean oldValue, Boolean newValue) {
                 if (newValue) {
-                    rabtnGebruiker.setSelected(false);
                     rabtnFeedback.setSelected(false);
                     rabtnInschrijving.setSelected(false);
-                    rabtnLokaal.setSelected(false);
                     rabtnMedia.setSelected(false);
                     // Nieuw scherm Aankondiging maken
                 }
@@ -380,28 +361,12 @@ public class SessieController extends AnchorPane {
         });
         rabtnAankondiging.setSelected(true);
 
-        rabtnGebruiker.selectedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> obs, Boolean oldValue, Boolean newValue) {
-                if (newValue) {
-                    rabtnAankondiging.setSelected(false);
-                    rabtnFeedback.setSelected(false);
-                    rabtnInschrijving.setSelected(false);
-                    rabtnLokaal.setSelected(false);
-                    rabtnMedia.setSelected(false);
-                    // Nieuw scherm Gebruiker maken
-                }
-            }
-        });
-
         rabtnFeedback.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> obs, Boolean oldValue, Boolean newValue) {
                 if (newValue) {
                     rabtnAankondiging.setSelected(false);
-                    rabtnGebruiker.setSelected(false);
                     rabtnInschrijving.setSelected(false);
-                    rabtnLokaal.setSelected(false);
                     rabtnMedia.setSelected(false);
                     // Nieuw scherm Feedback maken
                 }
@@ -414,24 +379,8 @@ public class SessieController extends AnchorPane {
                 if (newValue) {
                     rabtnAankondiging.setSelected(false);
                     rabtnFeedback.setSelected(false);
-                    rabtnGebruiker.setSelected(false);
-                    rabtnLokaal.setSelected(false);
                     rabtnMedia.setSelected(false);
                     // Nieuw scherm Inschrijving maken
-                }
-            }
-        });
-
-        rabtnLokaal.selectedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> obs, Boolean oldValue, Boolean newValue) {
-                if (newValue) {
-                    rabtnAankondiging.setSelected(false);
-                    rabtnFeedback.setSelected(false);
-                    rabtnInschrijving.setSelected(false);
-                    rabtnGebruiker.setSelected(false);
-                    rabtnMedia.setSelected(false);
-                    // Nieuw scherm Lokaal maken
                 }
             }
         });
@@ -443,8 +392,6 @@ public class SessieController extends AnchorPane {
                     rabtnAankondiging.setSelected(false);
                     rabtnFeedback.setSelected(false);
                     rabtnInschrijving.setSelected(false);
-                    rabtnLokaal.setSelected(false);
-                    rabtnGebruiker.setSelected(false);
                     // Nieuw scherm Media maken
                 }
             }

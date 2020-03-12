@@ -40,8 +40,8 @@ public class NieuweMediaController extends AnchorPane {
         this.domeinController = domeinController;
         startFXML();
         initChoiceboxes();
-        gebruiker.setValue(domeinController.geefIGebruiker());
-        if (!domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("HOOFDVERANTWOORDELIJKE")) {
+        gebruiker.setValue(domeinController.geefHuidigeIGebruiker());
+        if (!domeinController.geefHuidigeIGebruiker().getGebruikersprofiel().toString().equals("HOOFDVERANTWOORDELIJKE")) {
             gebruiker.setDisable(true);
         }
         initButtons();
@@ -55,8 +55,8 @@ public class NieuweMediaController extends AnchorPane {
         initChoiceboxes();
         sessie.setValue(domeinController.geefISessiesHuidigeKalender().stream().filter(s1 -> s1.getSessieId().equals(s1.getSessieId())).findFirst().orElse(null));
         sessie.setDisable(true);
-        gebruiker.setValue(domeinController.geefIGebruiker());
-        if (!domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("HOOFDVERANTWOORDELIJKE")) {
+        gebruiker.setValue(domeinController.geefHuidigeIGebruiker());
+        if (!domeinController.geefHuidigeIGebruiker().getGebruikersprofiel().toString().equals("HOOFDVERANTWOORDELIJKE")) {
             gebruiker.setDisable(true);
         }
         initButtons();
@@ -119,12 +119,12 @@ public class NieuweMediaController extends AnchorPane {
     }
 
     private void initChoiceboxes() {
-        if (domeinController.geefIGebruiker().getGebruikersprofiel().toString().equals("VERANTWOORDELIJKE")) {
-            sessie.setItems(FXCollections.observableArrayList(domeinController.geefISessiesVanGebruiker()));
+        if (domeinController.geefHuidigeIGebruiker().getGebruikersprofiel().toString().equals("VERANTWOORDELIJKE")) {
+            sessie.setItems(FXCollections.observableArrayList(domeinController.geefISessiesHuidigeKalender()));
         } else {
             sessie.setItems(FXCollections.observableArrayList((domeinController.geefISessiesHuidigeKalender())));
         }
-        gebruiker.setItems(FXCollections.observableArrayList(domeinController.geefIGebruikers()));
+        gebruiker.setItems(FXCollections.observableArrayList(domeinController.geefAlleIGebruikers()));
         type.setItems(FXCollections.observableArrayList(domeinController.geefMediaTypes()));
         type.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
