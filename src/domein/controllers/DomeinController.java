@@ -2,6 +2,8 @@ package domein.controllers;
 
 
 import domein.*;
+import domein.enums.Gebruikersprofielen;
+import domein.enums.Gebruikersstatus;
 import domein.enums.MediaTypes;
 import domein.interfacesDomein.*;
 
@@ -203,6 +205,11 @@ public class DomeinController {
 
     public void maakGebruikerAan(IGebruiker gebruiker) {
         typeController.verwijderGebruiker((Gebruiker) gebruiker);
+    }
+
+    public void maakNieuweGebruiker(String naam, String gebruikersnaam, Gebruikersprofielen gebruikersprofiel, Gebruikersstatus gebruikersstatus){
+        Gebruiker gebruiker = new Gebruiker(naam, gebruikersnaam, gebruikersprofiel, gebruikersstatus);
+        huidigeSessieKalender.voegGebruikerToe(gebruiker);
     }
     //endregion
 

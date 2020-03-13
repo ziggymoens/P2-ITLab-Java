@@ -19,12 +19,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import org.mockito.internal.matchers.Null;
 
 import java.io.IOException;
 
 public class GebruikerController extends AnchorPane {
     private HoofdverantwoordelijkeController hoofdverantwoordelijkeController;
     private DomeinController domeinController;
+    private boolean comboBoxTypeChanged, comboBoxStatusChanged;
 
     @FXML
     private Pane pButtonBar;
@@ -49,6 +51,12 @@ public class GebruikerController extends AnchorPane {
 
     @FXML
     private ComboBox<Gebruikersstatus> comboBoxStatus;
+
+    @FXML
+    private ComboBox<Gebruikersprofielen> comboBoxTypeGebruiker;
+
+    @FXML
+    private ComboBox<Gebruikersstatus> comboBoxStatusGebruiker;
 
     @FXML
     private Button toevoegenGebruiker;
@@ -99,26 +107,7 @@ public class GebruikerController extends AnchorPane {
     private TableView<ISessie> tableViewSessiesGebruikers;
 
     @FXML
-    private HBox hBoxOnderaan;
-
-    @FXML
-    private VBox vBoxOnderLinks;
-
-    @FXML
-    private ComboBox<?> choiceBox1Onder;
-
-    @FXML
-    private ComboBox<?> choiceBox2Onder;
-
-    @FXML
-    private ComboBox<?> choiceBoxOnder3;
-
-    @FXML
-    private ComboBox<?> choiceBox4Onder;
-
-    @FXML
-    private TableView<?> tableViewOnderaan;
-
+    private TableColumn<ISessie, String> titel, startSessie, aantalVrijePlaatsen, aantalInschrijvingen;
     @FXML
     private Button btnKiezen;
 
@@ -134,9 +123,12 @@ public class GebruikerController extends AnchorPane {
             throw new RuntimeException();
         }
         vulTableGebruikers(FXCollections.observableArrayList(domeinController.geefAlleIGebruikers()));
+        //vulTableSessies();
 
         btnVerwijderen.setOnAction(this::verwijderen);
-        btnFilterConfirm.setOnAction(this::filterStatusEnType);
+        btnFilterConfirm.setOnAction(this::filter);
+        btnWijzigen.setOnAction(this::wijzigGebruiker);
+        toevoegenGebruiker.setOnAction(this::maakNieuweGebruiker);
 
         comboBoxStatus.setItems(FXCollections.observableArrayList(Gebruikersstatus.values()));
         comboBoxType.setItems(FXCollections.observableArrayList(Gebruikersprofielen.values()));
@@ -144,24 +136,17 @@ public class GebruikerController extends AnchorPane {
         zoek();
     }
 
-    private void filterStatusEnType(ActionEvent actionEvent) {
-        String status = comboBoxStatus.getValue().toString();
-        String type = comboBoxType.getValue().toString();
-        if(status == null && !type.isBlank()){
-            status = "";
-        }
-        if(type == null){
-            type = "";
-        }
-
-        if(!status.isBlank() && !type.isBlank()){
-            vulTableGebruikers(FXCollections.observableArrayList(domeinController.geefIGebruikersOpTypeEnStatus(type, status)));
-        }else if(!status.isBlank()){
-            vulTableGebruikers(FXCollections.observableArrayList(domeinController.geefIGebruikersOpStatus(status)));
-        }else if(!type.isBlank()){
-            vulTableGebruikers(FXCollections.observableArrayList(domeinController.geefIGebruikersOpType(type)));
-        }else{
+    private void filter(ActionEvent actionEvent) {
+        Gebruikersstatus comboStatus = comboBoxStatus.getSelectionModel().getSelectedItem();
+        Gebruikersprofielen comboType = comboBoxType.getSelectionModel().getSelectedItem();
+        if(comboStatus == null && comboType == null){
             vulTableGebruikers(FXCollections.observableArrayList(domeinController.geefAlleIGebruikers()));
+        }else if(comboType == null && comboStatus != null){
+            vulTableGebruikers(FXCollections.observableArrayList(domeinController.geefIGebruikersOpStatus(comboStatus.toString())));
+        }else if(comboStatus == null && comboType != null){
+            vulTableGebruikers(FXCollections.observableArrayList(domeinController.geefIGebruikersOpType(comboType.toString())));
+        }else{
+            vulTableGebruikers(FXCollections.observableArrayList(domeinController.geefIGebruikersOpTypeEnStatus(comboType.toString(), comboStatus.toString())));
         }
     }
 
@@ -213,22 +198,69 @@ public class GebruikerController extends AnchorPane {
         });
     }
 
-    private void vulTableSessies(){
+    private void wijzigGebruiker(ActionEvent actionEvent){
+        txtFieldGebruiker.setEditable(true);
+        txtFieldGebruikersnaam.setEditable(true);
+        comboBoxTypeGebruiker.setItems(FXCollections.observableArrayList(Gebruikersprofielen.values()));
+        comboBoxStatusGebruiker.setItems(FXCollections.observableArrayList(Gebruikersstatus.values()));
+        btnWijzigen.setText("Opslaan");
 
+        //btnWijzigen.setOnAction(this::UpdateGebruiker);
     }
 
-    public void vulDetails(Gebruiker geb){
-        geb = (Gebruiker) tableViewGebruiker.getSelectionModel().getSelectedItem();
-        txtFieldGebruiker.setText(geb.getNaam());
-        txtFieldGebruikersnaam.setText(geb.getGebruikersnaam());
-        txtFieldStatus.setText(geb.getStatus().toString());
-        txtFieldType.setText(geb.getGebruikersprofiel().toString());
+    private void UpdateGebruiker(ActionEvent actionEvent) { //UPDATE?
+        domeinController.verwijderGebruiker(tableViewGebruiker.getSelectionModel().getSelectedItem());
+        domeinController.maakNieuweGebruiker(txtFieldGebruiker.getText(), txtFieldGebruikersnaam.getText(), comboBoxTypeGebruiker.getSelectionModel().getSelectedItem(), comboBoxStatusGebruiker.getSelectionModel().getSelectedItem());
+        vulTableGebruikers(FXCollections.observableArrayList(domeinController.geefAlleIGebruikers()));
+    }
+
+    private void maakNieuweGebruiker(ActionEvent actionEvent){
+        btnWijzigen.setText("Opslaan");
+        clearDetails();
+        txtFieldGebruiker.setEditable(true);
+        txtFieldGebruikersnaam.setEditable(true);
+        comboBoxTypeGebruiker.setItems(FXCollections.observableArrayList(Gebruikersprofielen.values()));
+        comboBoxStatusGebruiker.setItems(FXCollections.observableArrayList(Gebruikersstatus.values()));
+        domeinController.maakNieuweGebruiker(txtFieldGebruiker.getText(), txtFieldGebruikersnaam.getText(), comboBoxTypeGebruiker.getSelectionModel().getSelectedItem(), comboBoxStatusGebruiker.getSelectionModel().getSelectedItem());
+        refreshTable();
+    }
+
+    private void vulTableSessies(){
+        tableViewSessiesGebruikers.getColumns().clear();
+
+        titel.setCellValueFactory(new PropertyValueFactory<>("Titel"));
+        startSessie.setCellValueFactory(new PropertyValueFactory<>("Start sessie"));
+        aantalInschrijvingen.setCellValueFactory(new PropertyValueFactory<>("Aantal inschrijvingen"));
+        aantalVrijePlaatsen.setCellValueFactory(new PropertyValueFactory<>("Aantal vrije plaatsen"));
+
+        tableViewSessiesGebruikers.setItems(FXCollections.observableArrayList(domeinController.geefISessiesHuidigeKalender()));
+        tableViewSessiesGebruikers.getColumns().addAll(titel, startSessie, aantalInschrijvingen, aantalVrijePlaatsen);
+        if (!tableViewSessiesGebruikers.getItems().isEmpty() || tableViewSessiesGebruikers.getItems() != null) {
+            tableViewSessiesGebruikers.getSelectionModel().select(0);
+            domeinController.setHuidigeISessie(domeinController.geefISessiesHuidigeKalender().get(0));
+        }
+    }
+
+    public void vulDetails(Gebruiker gebruiker){
+        gebruiker = (Gebruiker) tableViewGebruiker.getSelectionModel().getSelectedItem();
+        txtFieldGebruiker.setText(gebruiker.getNaam());
+        txtFieldGebruikersnaam.setText(gebruiker.getGebruikersnaam());
+        comboBoxStatusGebruiker.setItems(FXCollections.observableArrayList(gebruiker.getStatus()));
+        comboBoxStatusGebruiker.getSelectionModel().selectFirst();
+        comboBoxTypeGebruiker.setItems(FXCollections.observableArrayList(gebruiker.getGebruikersprofiel()));
+        comboBoxTypeGebruiker.getSelectionModel().selectFirst();
     }
 
     public void clearTableGebruikers(){
         tableViewGebruiker.getColumns().clear();
     }
 
+    public void clearDetails(){
+        txtFieldGebruiker.clear();
+        txtFieldGebruikersnaam.clear();
+        txtFieldStatus.clear();
+        txtFieldType.clear();
+    }
 
     public void refreshTable() {
         clearTableGebruikers();

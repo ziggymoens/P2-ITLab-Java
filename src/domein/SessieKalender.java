@@ -100,7 +100,9 @@ public class SessieKalender {
     }
 
     public void updateGebruiker(Gebruiker gebruiker) {
-
+        em.getTransaction().begin();
+        em.remove(gebruiker);
+        em.getTransaction().commit();
     }
 
     public void verwijderGebruiker(Gebruiker gebruiker) {

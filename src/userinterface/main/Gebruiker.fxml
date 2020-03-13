@@ -11,21 +11,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <fx:root prefHeight="800.0" prefWidth="1400.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Pane fx:id="pButtonBar" prefHeight="35.0" prefWidth="1400.0" style="-fx-background-color: lightgrey;">
-            <children>
-                <Button fx:id="btnSessie" layoutX="57.0" layoutY="5.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="100.0" text="Sessie" />
-                <Button fx:id="btnGebruiker" layoutX="167.0" layoutY="5.0" mnemonicParsing="false" prefWidth="100.0" text="Gebruiker" />
-                <Button fx:id="btnSessiekalender" layoutX="288.0" layoutY="5.0" mnemonicParsing="false" prefWidth="100.0" text="Kalender" />
-                <Label layoutX="1174.0" layoutY="5.0" prefHeight="25.0" text="ingelogd als:" />
-                <Button fx:id="btnIngelogd" layoutX="1268.0" layoutY="5.0" mnemonicParsing="false" prefHeight="25.0" text="bert van bertelgem" />
-            </children>
-        </Pane>
         <VBox alignment="CENTER" layoutX="27.0" layoutY="43.0" minHeight="765.0" minWidth="1354.0" prefHeight="765.0" prefWidth="1354.0">
             <children>
                 <HBox prefWidth="548.0">
@@ -92,16 +82,16 @@
                                 <Insets right="50.0" />
                             </HBox.margin>
                         </VBox>
-                        <VBox prefHeight="520.0" prefWidth="448.0">
+                        <VBox alignment="CENTER" prefHeight="520.0" prefWidth="448.0">
                             <children>
                                 <Label alignment="CENTER" prefHeight="29.0" prefWidth="467.0" text="GEBRUIKER">
                                     <font>
                                         <Font size="24.0" />
                                     </font>
                                 </Label>
-                                <VBox prefWidth="448.0">
+                                <VBox alignment="CENTER" prefWidth="448.0">
                                     <children>
-                                        <VBox prefHeight="476.0" prefWidth="210.0">
+                                        <VBox alignment="CENTER" prefHeight="476.0" prefWidth="210.0">
                                             <children>
                                                 <HBox>
                                                     <VBox.margin>
@@ -115,7 +105,7 @@
                                                                         <Insets bottom="3.0" />
                                                                     </VBox.margin>
                                                                 </Label>
-                                                                <TextField fx:id="txtFieldGebruiker" prefHeight="27.0" prefWidth="390.0" />
+                                                                <TextField fx:id="txtFieldGebruiker" editable="false" prefHeight="27.0" prefWidth="390.0" />
                                                                 <Label fx:id="lblErrorNaam" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="463.0" text="Label" textFill="RED" visible="false" />
                                                             </children>
                                                             <HBox.margin>
@@ -124,46 +114,44 @@
                                                         </VBox>
                                                     </children>
                                                 </HBox>
-                                                <VBox prefHeight="73.0" prefWidth="448.0">
+                                                <VBox alignment="CENTER" prefHeight="73.0" prefWidth="448.0">
                                                     <children>
                                                         <Label alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="22.0" prefWidth="448.0" text="Gebuikersnaam Chamilo">
                                                             <VBox.margin>
                                                                 <Insets bottom="3.0" />
                                                             </VBox.margin>
                                                         </Label>
-                                                        <TextField fx:id="txtFieldGebruikersnaam" prefHeight="27.0" prefWidth="223.0" />
-                                                        <Label fx:id="TVgebuikersnaamChamilo" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="522.0" text="Label" textFill="RED" visible="false" />
+                                                        <TextField fx:id="txtFieldGebruikersnaam" editable="false" prefHeight="27.0" prefWidth="223.0" />
                                                     </children>
                                                     <VBox.margin>
-                                                        <Insets bottom="1.0" />
+                                                        <Insets />
                                                     </VBox.margin>
                                                 </VBox>
-                                                <VBox prefHeight="78.0" prefWidth="448.0">
+                                                <VBox alignment="CENTER" prefHeight="78.0" prefWidth="448.0">
                                                     <children>
                                                         <Label alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="613.0" text="Type">
                                                             <VBox.margin>
                                                                 <Insets bottom="3.0" />
                                                             </VBox.margin>
                                                         </Label>
-                                                        <TextField fx:id="txtFieldType" prefHeight="27.0" prefWidth="223.0" />
-                                                        <Label fx:id="lblErrorTypeGebruiker" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="574.0" text="Label" textFill="RED" visible="false" />
+                                          <ComboBox fx:id="comboBoxTypeGebruiker" prefHeight="27.0" prefWidth="241.0" />
                                                     </children>
                                                     <VBox.margin>
-                                                        <Insets bottom="1.0" />
+                                                        <Insets bottom="2.0" />
                                                     </VBox.margin>
                                                 </VBox>
-                                                <VBox layoutX="10.0" layoutY="188.0" prefHeight="81.0" prefWidth="448.0">
+                                                <VBox alignment="CENTER" layoutX="10.0" layoutY="188.0" prefHeight="81.0" prefWidth="448.0">
                                                     <children>
                                                         <Label alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="613.0" text="Status">
                                                             <VBox.margin>
                                                                 <Insets bottom="3.0" />
                                                             </VBox.margin>
                                                         </Label>
-                                                        <TextField fx:id="txtFieldStatus" prefHeight="27.0" prefWidth="223.0" />
+                                          <ComboBox fx:id="comboBoxStatusGebruiker" prefHeight="27.0" prefWidth="241.0" />
                                                         <Label fx:id="lblErrorStatusGebruiker" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="574.0" text="Label" textFill="RED" visible="false" />
                                                     </children>
                                                     <VBox.margin>
-                                                        <Insets bottom="1.0" />
+                                                        <Insets bottom="2.0" />
                                                     </VBox.margin>
                                                 </VBox>
                                             </children>
@@ -224,10 +212,12 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <TableView fx:id="tableViewSessiesGebruikers" prefHeight="247.0" prefWidth="1254.0">
+                        <TableView fx:id="tableViewSessiesGebruikers" prefHeight="247.0" prefWidth="1250.0">
                             <columns>
-                                <TableColumn prefWidth="75.0" text="C1" />
-                                <TableColumn prefWidth="75.0" text="C2" />
+                                <TableColumn minWidth="312.5" prefWidth="75.0" text="Titel" />
+                                <TableColumn minWidth="312.5" prefWidth="75.0" text="Start sessie" />
+                        <TableColumn minWidth="312.5" prefWidth="75.0" text="Aantal inschrijvingen" />
+                        <TableColumn minWidth="312.5" prefWidth="75.0" text="Aantal vrije plaatsen" />
                             </columns>
                             <VBox.margin>
                                 <Insets />
@@ -281,4 +271,3 @@
         </HBox>
     </children>
 </fx:root>
-
