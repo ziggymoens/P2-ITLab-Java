@@ -166,6 +166,13 @@ public class DomeinController {
                 .collect(Collectors.toList());
     }
 
+    public List<IGebruiker> geefIGebruikersOpTypeEnStatus(String type, String status) {
+        return (List<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers()
+                .stream()
+                .filter(e -> e.getStatus().toString().equals(status) && e.getGebruikersprofiel().toString().equals(type))
+                .collect(Collectors.toList());
+    }
+
     public IGebruiker geefHuidigeIGebruiker() {
         return huidigeGebruiker;
     }

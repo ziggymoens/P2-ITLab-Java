@@ -3,7 +3,10 @@ package userinterface.main;
 import domein.Gebruiker;
 import domein.controllers.DomeinController;
 import domein.controllers.HoofdverantwoordelijkeController;
+import domein.enums.Gebruikersprofielen;
+import domein.enums.Gebruikersstatus;
 import domein.interfacesDomein.IGebruiker;
+import domein.interfacesDomein.ISessie;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,10 +42,13 @@ public class GebruikerController extends AnchorPane {
     private Button btnIngelogd;
 
     @FXML
-    private ComboBox<?> comboBoxType;
+    private Button btnFilterConfirm;
 
     @FXML
-    private ComboBox<?> comboBoxStatus;
+    private ComboBox<Gebruikersprofielen> comboBoxType;
+
+    @FXML
+    private ComboBox<Gebruikersstatus> comboBoxStatus;
 
     @FXML
     private Button toevoegenGebruiker;
@@ -90,7 +96,7 @@ public class GebruikerController extends AnchorPane {
     private VBox vBoxRechts;
 
     @FXML
-    private TableView<?> tableViewSessiesGebruikers;
+    private TableView<ISessie> tableViewSessiesGebruikers;
 
     @FXML
     private HBox hBoxOnderaan;
@@ -127,10 +133,39 @@ public class GebruikerController extends AnchorPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
+        vulTableGebruikers(FXCollections.observableArrayList(domeinController.geefAlleIGebruikers()));
 
         btnVerwijderen.setOnAction(this::verwijderen);
+        btnFilterConfirm.setOnAction(this::filterStatusEnType);
 
-        vulTable(FXCollections.observableArrayList(domeinController.geefAlleIGebruikers()));
+        comboBoxStatus.setItems(FXCollections.observableArrayList(Gebruikersstatus.values()));
+        comboBoxType.setItems(FXCollections.observableArrayList(Gebruikersprofielen.values()));
+
+        zoek();
+    }
+
+    private void filterStatusEnType(ActionEvent actionEvent) {
+        String status = comboBoxStatus.getValue().toString();
+        String type = comboBoxType.getValue().toString();
+        if(status == null && !type.isBlank()){
+            status = "";
+        }
+        if(type == null){
+            type = "";
+        }
+
+        if(!status.isBlank() && !type.isBlank()){
+            vulTableGebruikers(FXCollections.observableArrayList(domeinController.geefIGebruikersOpTypeEnStatus(type, status)));
+        }else if(!status.isBlank()){
+            vulTableGebruikers(FXCollections.observableArrayList(domeinController.geefIGebruikersOpStatus(status)));
+        }else if(!type.isBlank()){
+            vulTableGebruikers(FXCollections.observableArrayList(domeinController.geefIGebruikersOpType(type)));
+        }else{
+            vulTableGebruikers(FXCollections.observableArrayList(domeinController.geefAlleIGebruikers()));
+        }
+    }
+
+    private void zoek(){
         ObservableList data =  tableViewGebruiker.getItems();
         txtFieldSearchBar.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             if (oldValue != null && (newValue.length() < oldValue.length())) {
@@ -159,15 +194,16 @@ public class GebruikerController extends AnchorPane {
         refreshTable();
     }
 
-    private void vulTable(ObservableList<IGebruiker> observableArrayList) {
-        clearTable();
+    private void vulTableGebruikers(ObservableList<IGebruiker> observableArrayList) {
+        clearTableGebruikers();
         TVnaam.setCellValueFactory(new PropertyValueFactory<>("naam"));
         TVgebruikersnaamChamilo.setCellValueFactory(new PropertyValueFactory<>("gebruikersnaam"));
         TVtype.setCellValueFactory(new PropertyValueFactory<>("gebruikersprofiel"));
         TVstatus.setCellValueFactory(new PropertyValueFactory<>("status"));
         tableViewGebruiker.setItems(FXCollections.observableArrayList(observableArrayList));
         tableViewGebruiker.getColumns().addAll(TVnaam, TVgebruikersnaamChamilo, TVtype, TVstatus);
-        if(tableViewGebruiker.getSelectionModel() != null){
+
+        if(tableViewGebruiker.getSelectionModel().getSelectedItem() != null){
             tableViewGebruiker.getSelectionModel().select(0);
             vulDetails((Gebruiker) tableViewGebruiker.getSelectionModel().getSelectedItem());
         }
@@ -175,6 +211,10 @@ public class GebruikerController extends AnchorPane {
         tableViewGebruiker.getSelectionModel().selectedItemProperty().addListener((observableValue, gebruiker, t1) -> {
             vulDetails((Gebruiker) t1);
         });
+    }
+
+    private void vulTableSessies(){
+
     }
 
     public void vulDetails(Gebruiker geb){
@@ -185,14 +225,14 @@ public class GebruikerController extends AnchorPane {
         txtFieldType.setText(geb.getGebruikersprofiel().toString());
     }
 
-    public void clearTable(){
+    public void clearTableGebruikers(){
         tableViewGebruiker.getColumns().clear();
     }
 
 
     public void refreshTable() {
-        clearTable();
-        vulTable(FXCollections.observableArrayList(domeinController.geefAlleIGebruikers()));
+        clearTableGebruikers();
+        vulTableGebruikers(FXCollections.observableArrayList(domeinController.geefAlleIGebruikers()));
     }
-
 }
+
