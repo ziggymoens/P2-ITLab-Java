@@ -56,7 +56,19 @@ public class DomeinController {
 
     public List<String> geefMaanden() {
         String[] maanden = {"Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"};
+        // {"January","February","March","April","May","June","July","August","September","October","November","December"};
         return Arrays.asList(maanden);
+    }
+
+    public String vergelijkMaanden (){
+        String[] maanden = {"Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"};
+        String [] months = {"January","February","March","April","May","June","July","August","September","October","November","December"};
+        String huidigeMaand = huidigeSessie.getStartSessie().getMonth().toString();
+        for(int i = 0; i < months.length; i++){
+            if(months[i].toLowerCase().equals(huidigeMaand.toLowerCase()))
+                huidigeMaand = maanden[i];
+        }
+        return huidigeMaand;
     }
 
     private static int geefAcademiejaar(LocalDate date) {

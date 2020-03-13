@@ -52,7 +52,7 @@
                         </ChoiceBox>
                         <Pane prefHeight="25.0" prefWidth="180.0">
                             <children>
-                                <ChoiceBox fx:id="choiceBoxStatus" prefHeight="25.0" prefWidth="175.0" visible="false" />
+                                <ChoiceBox fx:id="choiceBoxFilter" prefHeight="25.0" prefWidth="175.0" visible="false" />
                                 <TextField fx:id="txtSearchBar" prefHeight="25.0" prefWidth="182.0" promptText="zoek" />
                             </children>
                         </Pane>
@@ -208,13 +208,16 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="29.0" prefWidth="450.0">
                     <children>
-                        <Pane prefHeight="200.0" prefWidth="200.0">
+                        <Pane prefWidth="210.0">
                             <children>
-                                <Button fx:id="btnBewerkenSessie" mnemonicParsing="false" prefWidth="200.0" text="Wijzig" />
-                                <Button fx:id="btnOpslaanSessie" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Opslaan" visible="false" />
+                                <Button fx:id="btnBewerkenSessie" mnemonicParsing="false" prefWidth="210.0" text="Wijzig" />
+                                <Button fx:id="btnOpslaanSessie" mnemonicParsing="false" prefHeight="25.0" prefWidth="210.0" text="Opslaan" visible="false" />
                             </children>
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
                         </Pane>
-                        <Button fx:id="btnVerwijderenSessie" mnemonicParsing="false" prefWidth="200.0" text="Verwijder">
+                        <Button fx:id="btnVerwijderenSessie" mnemonicParsing="false" prefWidth="210.0" text="Verwijder">
                             <HBox.margin>
                                 <Insets left="10.0" right="10.0" />
                             </HBox.margin>

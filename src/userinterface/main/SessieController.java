@@ -41,7 +41,7 @@ public class SessieController extends AnchorPane {
     @FXML
     private ChoiceBox<String> choiceBoxZoeken;
     @FXML
-    private ChoiceBox<String> choiceBoxStatus;
+    private ChoiceBox<String> choiceBoxFilter;
     @FXML
     private TextField txtSearchBar;
 
@@ -234,22 +234,36 @@ public class SessieController extends AnchorPane {
             throw new RuntimeException();
         }
 
+        sessieTable();
+
         choiceBoxJaar.setItems(FXCollections.observableArrayList(domeinController.geefAcademiejaren()));
+        choiceBoxJaar.setValue(((Integer)domeinController.academiejaar).toString());
+/*        choiceBoxJaar.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                int aj = Integer.parseInt(t1.substring(0,5));
+                String temp = domeinController.geefHuidigeIGebruiker().getGebruikersnaam();
+                domeinController.setAcademiejaar(//castStringnrDate);
+                domeinController.setHuidigeGebruiker(temp);
+            }
+        });*/
         choiceBoxMaand.setItems(FXCollections.observableArrayList(domeinController.geefMaanden()));
+        choiceBoxMaand.setValue(domeinController.vergelijkMaanden());
         choiceBoxZoeken.setItems(FXCollections.observableArrayList(domeinController.geefFilterOpties()));
+        choiceBoxZoeken.setValue(domeinController.geefFilterOpties().get(0));
         choiceBoxZoeken.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                if (t1.equals("Status")) {
-                    txtSearchBar.setVisible(false);
-                    choiceBoxStatus.setVisible(true);
-                } else {
+                if (t1.equals("Titel")) {
                     txtSearchBar.setVisible(true);
-                    choiceBoxStatus.setVisible(false);
+                    choiceBoxFilter.setVisible(false);
+                } else {
+                    txtSearchBar.setVisible(false);
+                    choiceBoxFilter.setVisible(true);
                 }
             }
         });
-        sessieTable();
+
         tableViewSessie.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessie>() {
             @Override
             public void changed(ObservableValue<? extends ISessie> observableValue, ISessie iSessie, ISessie t1) {
