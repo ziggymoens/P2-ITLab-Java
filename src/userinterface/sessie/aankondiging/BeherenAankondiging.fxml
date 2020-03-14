@@ -3,23 +3,23 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<fx:root fx:id="apAankondiging" maxWidth="0.0" prefHeight="460.0" prefWidth="580.0" type="AnchorPane"
-         xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+
+<fx:root fx:id="apAankondiging" maxWidth="0.0" prefHeight="460.0" prefWidth="580.0" type="AnchorPane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <VBox prefHeight="460.0" prefWidth="580.0">
             <children>
-                <TableView fx:id="tableViewSessieToebehoren" prefHeight="220.0" prefWidth="580.0">
+                <TableView fx:id="table" prefHeight="220.0" prefWidth="580.0">
                     <VBox.margin>
-                        <Insets bottom="10.0"/>
+                        <Insets bottom="10.0" />
                     </VBox.margin>
                     <columns>
-                        <TableColumn prefWidth="75.0" text="Gebruiker"/>
-                        <TableColumn prefWidth="188.00006103515625" text="Publicatie Datum"/>
-                        <TableColumn prefWidth="81.5999755859375" text="Autom. herrinering"/>
-                        <TableColumn prefWidth="75.0" text="Dagen op voorhand"/>
+                        <TableColumn fx:id="tbcGebruiker" prefWidth="75.0" text="Gebruiker" />
+                        <TableColumn fx:id="tbcDatum" prefWidth="188.00006103515625" text="Publicatie Datum" />
+                        <TableColumn fx:id="tbcAutoHerinnering" prefWidth="81.5999755859375" text="Autom. herrinering" />
+                        <TableColumn fx:id="tbcHerinnering" prefWidth="75.0" text="Dagen op voorhand" />
                     </columns>
                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                     </columnResizePolicy>
                 </TableView>
                 <VBox prefHeight="220.0" prefWidth="580.0">
@@ -28,59 +28,67 @@
                             <children>
                                 <VBox prefHeight="200.0" prefWidth="290.0">
                                     <children>
-                                        <Label alignment="CENTER" prefWidth="290.0" text="Gebruiker"/>
-                                        <TextField fx:id="txtGebr" prefWidth="290.0"/>
-                                        <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false"/>
-                                        <Label alignment="CENTER" prefWidth="290.0" text="Publicatie datum"/>
-                                        <TextField fx:id="txtPub" prefWidth="290.0"/>
-                                        <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false"/>
-                                        <Label alignment="CENTER" prefWidth="290.0"
-                                               text="Automatische herinnnering (dagen)"/>
-                                        <ChoiceBox fx:id="cbAutom" prefWidth="290.0"/>
-                                        <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false"/>
+                                        <Label alignment="CENTER" prefWidth="290.0" text="Gebruiker" />
+                                        <TextField fx:id="txtGebr" editable="false" prefWidth="290.0" />
+                                        <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false" />
+                                        <Label alignment="CENTER" prefWidth="290.0" text="Publicatie datum" />
+                                        <TextField fx:id="txtPub" editable="false" prefWidth="290.0" />
+                                        <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false" />
+                                        <Label alignment="CENTER" prefWidth="290.0" text="Automatische herinnnering (dagen)" />
+                                        <ChoiceBox fx:id="cbAutom" disable="true" prefWidth="290.0" />
+                                        <Label prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false" />
                                     </children>
                                     <HBox.margin>
-                                        <Insets right="5.0"/>
+                                        <Insets right="5.0" />
                                     </HBox.margin>
                                 </VBox>
                                 <VBox prefHeight="200.0" prefWidth="290.0">
                                     <children>
-                                        <Label alignment="CENTER" prefWidth="290.0" text="Inhoud"/>
-                                        <TextArea fx:id="txfInhoud" maxWidth="299.0" prefHeight="147.0"
-                                                  prefWidth="299.0">
+                                        <Label alignment="CENTER" prefWidth="290.0" text="Inhoud" />
+                                        <TextArea fx:id="txfInhoud" editable="false" maxWidth="299.0" prefHeight="147.0" prefWidth="299.0">
                                             <VBox.margin>
-                                                <Insets/>
+                                                <Insets />
                                             </VBox.margin>
                                         </TextArea>
                                     </children>
                                     <HBox.margin>
-                                        <Insets left="5.0"/>
+                                        <Insets left="5.0" />
                                     </HBox.margin>
                                 </VBox>
                             </children>
                         </HBox>
-                        <HBox alignment="CENTER" prefHeight="35.0" prefWidth="580.0">
+                        <HBox alignment="CENTER" prefHeight="27.0" prefWidth="580.0">
                             <children>
-                                <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="190.0" text="Wijzig">
+                        <Pane prefWidth="190.0">
+                           <children>
+                                      <Button fx:id="btnBewerkenAankondiging" mnemonicParsing="false" prefHeight="27.0" prefWidth="180.0" text="Wijzig" />
+                              <Button fx:id="btnOpslaanAankondiging" mnemonicParsing="false" prefHeight="27.0" prefWidth="180.0" text="Opslaan" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Pane>
+                                <Button fx:id="btnNieuweAankondiging" mnemonicParsing="false" prefHeight="27.0" prefWidth="190.0" text="Nieuw">
                                     <HBox.margin>
-                                        <Insets right="10.0"/>
+                                        <Insets left="10.0" right="10.0" />
                                     </HBox.margin>
                                 </Button>
-                                <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="190.0" text="Nieuw">
+                                <Button fx:id="btnVerwijderAankondiging" mnemonicParsing="false" prefHeight="27.0" prefWidth="190.0" text="Verwijder">
                                     <HBox.margin>
-                                        <Insets left="10.0" right="10.0"/>
-                                    </HBox.margin>
-                                </Button>
-                                <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="190.0" text="Verwijder">
-                                    <HBox.margin>
-                                        <Insets left="10.0"/>
+                                        <Insets left="10.0" />
                                     </HBox.margin>
                                 </Button>
                             </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                         </HBox>
                     </children>
                     <VBox.margin>
-                        <Insets top="10.0"/>
+                        <Insets top="10.0" />
                     </VBox.margin>
                 </VBox>
             </children>

@@ -19,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import userinterface.sessie.aankondiging.BeherenAankondigingController;
 import userinterface.sessie.lokaal.BeherenLokaalController;
 
 import java.io.IOException;
@@ -382,7 +383,8 @@ public class SessieController extends AnchorPane implements IObserverSessie {
                     rabtnFeedback.setSelected(false);
                     rabtnInschrijving.setSelected(false);
                     rabtnMedia.setSelected(false);
-                    // Nieuw scherm Aankondiging maken
+                    apAankondiging.getChildren().removeAll();
+                    apAankondiging.getChildren().addAll( new BeherenAankondigingController(domeinController));
                 }
             }
         });

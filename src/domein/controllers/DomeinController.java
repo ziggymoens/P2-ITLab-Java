@@ -4,6 +4,7 @@ package domein.controllers;
 import domein.*;
 import domein.enums.Gebruikersprofielen;
 import domein.enums.Gebruikersstatus;
+import domein.enums.HerinneringTijdstippen;
 import domein.enums.MediaTypes;
 import domein.interfacesDomein.*;
 
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class DomeinController {
 
@@ -379,6 +381,22 @@ public class DomeinController {
 
     public void huidigeGebruikerIngelogd() {
         huidigeGebruiker.setIngelogd();
+    }
+
+    public List<String> geefHerinneringsTijdstippen(){
+        return Arrays.stream(HerinneringTijdstippen.values()).map(Enum::toString).collect(Collectors.toList());
+    }
+
+    public void maakAankondigingAan(Aankondiging aankondiging, Sessie sessie){
+        typeController.maakAankondigingAan(aankondiging, sessie);
+    }
+
+    public void bewerkAankondiging(Aankondiging aankondiging){
+        typeController.bewerkAankondiging(aankondiging);
+    }
+
+    public void verwijderAankondiging(Aankondiging aankondiging){
+        typeController.verwijderAankondiging(aankondiging);
     }
     //endregion
 

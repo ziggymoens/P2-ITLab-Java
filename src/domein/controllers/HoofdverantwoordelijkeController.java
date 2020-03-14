@@ -1,5 +1,6 @@
 package domein.controllers;
 
+import domein.Aankondiging;
 import domein.Gebruiker;
 import domein.Sessie;
 import domein.SessieKalender;
@@ -61,6 +62,21 @@ public class HoofdverantwoordelijkeController implements ITypeController {
     @Override
     public void verwijderGebruiker(Gebruiker gebruiker) {
         huidigeSessieKalender.verwijderGebruiker(gebruiker);
+    }
+
+    @Override
+    public void maakAankondigingAan(Aankondiging aankondiging, Sessie sessie) {
+        huidigeSessieKalender.voegAankondigingToe(aankondiging, sessie);
+    }
+
+    @Override
+    public void bewerkAankondiging(Aankondiging aankondiging) {
+
+    }
+
+    @Override
+    public void verwijderAankondiging(Aankondiging aankondiging) {
+        huidigeSessieKalender.verwijderAankondiging(aankondiging);
     }
 
     @Override
