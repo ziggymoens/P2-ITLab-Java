@@ -104,6 +104,13 @@ public class DomeinController {
         return (List<ISessie>) (Object) typeController.geefAlleSessiesDatum(date);
     }
 
+    public List<ISessie> geefISessiesGebruiker(Gebruiker gebruiker, String gebruikersnaam){
+        return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleInschrijvingen()
+                .stream()
+                .filter(sessie -> sessie.getGebruiker().equals(gebruiker.getGebruikersnaam()))
+                .collect(Collectors.toList());
+    }
+
     public ISessie geefISessieOpId(String id) {
         return typeController.geefSessieId(id);
     }

@@ -201,7 +201,7 @@ public class SessieKalender {
     }
 
     public List<Inschrijving> geefAlleInschrijvingen() {
-        return (List<Inschrijving>) em.createQuery("select f from Feedback f where f.verwijderd = false").getResultList();
+        return (List<Inschrijving>) em.createQuery("select i from Inschrijving i where i.verwijderd = false").getResultList();
     }
 
     public List<Inschrijving> geefAlleInschrijvingenVanSessie(String sessie) {

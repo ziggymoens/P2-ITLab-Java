@@ -123,7 +123,6 @@ public class GebruikerController extends AnchorPane {
             throw new RuntimeException();
         }
         vulTableGebruikers(FXCollections.observableArrayList(domeinController.geefAlleIGebruikers()));
-        //vulTableSessies();
 
         btnVerwijderen.setOnAction(this::verwijderen);
         btnFilterConfirm.setOnAction(this::filter);
@@ -191,10 +190,12 @@ public class GebruikerController extends AnchorPane {
         if(tableViewGebruiker.getSelectionModel().getSelectedItem() != null){
             tableViewGebruiker.getSelectionModel().select(0);
             vulDetails((Gebruiker) tableViewGebruiker.getSelectionModel().getSelectedItem());
+            //vulTableSessies((Gebruiker) tableViewGebruiker.getSelectionModel().getSelectedItem());
         }
 
         tableViewGebruiker.getSelectionModel().selectedItemProperty().addListener((observableValue, gebruiker, t1) -> {
             vulDetails((Gebruiker) t1);
+           // vulTableSessies((Gebruiker) t1);
         });
     }
 
@@ -225,7 +226,7 @@ public class GebruikerController extends AnchorPane {
         refreshTable();
     }
 
-    private void vulTableSessies(){
+    private void vulTableSessies(Gebruiker gebruiker){
         tableViewSessiesGebruikers.getColumns().clear();
 
         titel.setCellValueFactory(new PropertyValueFactory<>("Titel"));
@@ -233,7 +234,7 @@ public class GebruikerController extends AnchorPane {
         aantalInschrijvingen.setCellValueFactory(new PropertyValueFactory<>("Aantal inschrijvingen"));
         aantalVrijePlaatsen.setCellValueFactory(new PropertyValueFactory<>("Aantal vrije plaatsen"));
 
-        tableViewSessiesGebruikers.setItems(FXCollections.observableArrayList(domeinController.geefISessiesHuidigeKalender()));
+       // tableViewSessiesGebruikers.setItems(FXCollections.observableArrayList(domeinController.geefISessiesGebruiker(gebruiker)));
         tableViewSessiesGebruikers.getColumns().addAll(titel, startSessie, aantalInschrijvingen, aantalVrijePlaatsen);
         if (!tableViewSessiesGebruikers.getItems().isEmpty() || tableViewSessiesGebruikers.getItems() != null) {
             tableViewSessiesGebruikers.getSelectionModel().select(0);
@@ -249,6 +250,9 @@ public class GebruikerController extends AnchorPane {
         comboBoxStatusGebruiker.getSelectionModel().selectFirst();
         comboBoxTypeGebruiker.setItems(FXCollections.observableArrayList(gebruiker.getGebruikersprofiel()));
         comboBoxTypeGebruiker.getSelectionModel().selectFirst();
+
+        System.out.println(domeinController.geefISessiesGebruiker(gebruiker, gebruiker.getGebruikersnaam()));
+        System.out.println(gebruiker);
     }
 
     public void clearTableGebruikers(){
