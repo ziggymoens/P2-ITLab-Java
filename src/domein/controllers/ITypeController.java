@@ -1,5 +1,6 @@
 package domein.controllers;
 
+import domein.Aankondiging;
 import domein.Gebruiker;
 import domein.Sessie;
 
@@ -35,4 +36,10 @@ public interface ITypeController {
     void bewerkGebruiker(Gebruiker gebruiker);
 
     void verwijderGebruiker(Gebruiker gebruiker);
+
+    void maakAankondigingAan(Aankondiging aankondiging, Sessie sessie);
+
+    void bewerkAankondiging(Aankondiging aankondiging);
+
+    void verwijderAankondiging(Aankondiging aankondiging);
 }

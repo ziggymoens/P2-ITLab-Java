@@ -69,6 +69,7 @@ public class Herinnering implements IHerinnering {
     //endregion
 
     //region Getters
+    @Override
     public HerinneringTijdstippen getDagenVooraf() {
         return dagenVooraf;
     }

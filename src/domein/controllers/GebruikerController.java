@@ -1,5 +1,6 @@
 package domein.controllers;
 
+import domein.Aankondiging;
 import domein.Gebruiker;
 import domein.Sessie;
 import domein.SessieKalender;
@@ -83,6 +84,21 @@ public class GebruikerController implements ITypeController {
 
     @Override
     public void verwijderGebruiker(Gebruiker gebruiker) {
+
+    }
+
+    @Override
+    public void maakAankondigingAan(Aankondiging aankondiging, Sessie sessie) {
+
+    }
+
+    @Override
+    public void bewerkAankondiging(Aankondiging aankondiging) {
+
+    }
+
+    @Override
+    public void verwijderAankondiging(Aankondiging aankondiging) {
 
     }
 }
