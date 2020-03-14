@@ -16,10 +16,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import org.mockito.internal.matchers.Null;
 
 import java.io.IOException;
 
@@ -189,12 +187,12 @@ public class GebruikerController extends AnchorPane {
 
         if(tableViewGebruiker.getSelectionModel().getSelectedItem() != null){
             tableViewGebruiker.getSelectionModel().select(0);
-            vulDetails((Gebruiker) tableViewGebruiker.getSelectionModel().getSelectedItem());
+            vulDetails(tableViewGebruiker.getSelectionModel().getSelectedItem());
             //vulTableSessies((Gebruiker) tableViewGebruiker.getSelectionModel().getSelectedItem());
         }
 
         tableViewGebruiker.getSelectionModel().selectedItemProperty().addListener((observableValue, gebruiker, t1) -> {
-            vulDetails((Gebruiker) t1);
+            vulDetails(t1);
            // vulTableSessies((Gebruiker) t1);
         });
     }
@@ -242,17 +240,14 @@ public class GebruikerController extends AnchorPane {
         }
     }
 
-    public void vulDetails(Gebruiker gebruiker){
-        gebruiker = (Gebruiker) tableViewGebruiker.getSelectionModel().getSelectedItem();
+    public void vulDetails(IGebruiker gebruiker){
+        gebruiker = tableViewGebruiker.getSelectionModel().getSelectedItem();
         txtFieldGebruiker.setText(gebruiker.getNaam());
         txtFieldGebruikersnaam.setText(gebruiker.getGebruikersnaam());
         comboBoxStatusGebruiker.setItems(FXCollections.observableArrayList(gebruiker.getStatus()));
         comboBoxStatusGebruiker.getSelectionModel().selectFirst();
         comboBoxTypeGebruiker.setItems(FXCollections.observableArrayList(gebruiker.getGebruikersprofiel()));
         comboBoxTypeGebruiker.getSelectionModel().selectFirst();
-
-        System.out.println(domeinController.geefISessiesGebruiker(gebruiker, gebruiker.getGebruikersnaam()));
-        System.out.println(gebruiker);
     }
 
     public void clearTableGebruikers(){

@@ -26,9 +26,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SessieController extends AnchorPane {
+public class SessieController extends AnchorPane implements IObserverSessie {
     private DomeinController domeinController;
     private HoofdverantwoordelijkeController hoofdverantwoordelijkeController;
+    private ISessie sessie;
 
     //region sessieTable FXML
     @FXML
@@ -235,56 +236,7 @@ public class SessieController extends AnchorPane {
         }
 
         sessieTable();
-
-        choiceBoxJaar.setItems(FXCollections.observableArrayList(domeinController.geefAcademiejaren()));
-        choiceBoxJaar.setValue(((Integer)domeinController.academiejaar).toString());
-/*        choiceBoxJaar.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                int aj = Integer.parseInt(t1.substring(0,5));
-                String temp = domeinController.geefHuidigeIGebruiker().getGebruikersnaam();
-                domeinController.setAcademiejaar(//castStringnrDate);
-                domeinController.setHuidigeGebruiker(temp);
-            }
-        });*/
-        choiceBoxMaand.setItems(FXCollections.observableArrayList(domeinController.geefMaanden()));
-        choiceBoxMaand.setValue(domeinController.vergelijkMaanden());
-        choiceBoxZoeken.setItems(FXCollections.observableArrayList(domeinController.geefFilterOpties()));
-        choiceBoxZoeken.setValue(domeinController.geefFilterOpties().get(0));
-        choiceBoxZoeken.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                if (t1.equals("Titel")) {
-                    txtSearchBar.setVisible(true);
-                    choiceBoxFilter.setVisible(false);
-                } else {
-                    txtSearchBar.setVisible(false);
-                    choiceBoxFilter.setVisible(true);
-                }
-            }
-        });
-
-        tableViewSessie.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessie>() {
-            @Override
-            public void changed(ObservableValue<? extends ISessie> observableValue, ISessie iSessie, ISessie t1) {
-                domeinController.setHuidigeISessie(t1);
-                checkVeranderingen();
-                checkBoxCapaciteitSessie.setDisable(true);
-                vulDetails();
-            }
-        });
-
-        checkBoxCapaciteitSessie.selectedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
-                if (t1) {
-                    txtMaxPlaatsenSessie.setEditable(false);
-                    txtMaxPlaatsenSessie.setText(Integer.toString(domeinController.geefHuidigeISessie().getMaximumAantalPlaatsen()));
-                } else {
-                    txtMaxPlaatsenSessie.setEditable(true);
-                }
-            }
-        });
+        activeerFilters();
 
         btnBewerkenSessie.setOnAction(this::bewerkenSessie);
         btnOpslaanSessie.setOnAction(this::opslaanSessie);
@@ -292,7 +244,6 @@ public class SessieController extends AnchorPane {
 
         pOnderaan.getChildren().addAll( new BeherenLokaalController(domeinController));
     }
-
 
     private void sessieTable() {
         tableViewSessie.getColumns().clear();
@@ -303,11 +254,34 @@ public class SessieController extends AnchorPane {
 
         tableViewSessie.setItems(FXCollections.observableArrayList(domeinController.geefISessiesHuidigeKalender()));
         tableViewSessie.getColumns().addAll(titel, startSessie, maximumAantalPlaatsen);
+
+        selectInTable();
+    }
+
+    private void selectInTable() {
+       tableViewSessie.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessie>() { //fout lus
+            @Override
+            public void changed(ObservableValue<? extends ISessie> observableValue, ISessie iSessie, ISessie t1) {
+                System.out.println("methode listener");
+                System.out.println(Thread.currentThread().getStackTrace()[1]);
+                System.out.println(Thread.currentThread().getStackTrace()[2]);
+                System.out.println(Thread.currentThread().getStackTrace()[3] + "\n");
+                if(iSessie != null)
+                    domeinController.geefHuidigeISessie().remove(SessieController.this);
+                domeinController.setHuidigeISessie(t1);
+                domeinController.geefHuidigeISessie().add(SessieController.this);
+                checkBoxCapaciteitSessie.setDisable(true);
+                vulDetails();
+            }
+        });
+
         if (!tableViewSessie.getItems().isEmpty() || tableViewSessie.getItems() != null) {
-            tableViewSessie.getSelectionModel().select(0);
-            domeinController.setHuidigeISessie(domeinController.geefISessiesHuidigeKalender().get(0));
+            if(domeinController.geefHuidigeISessie() != null){
+                tableViewSessie.getSelectionModel().select(domeinController.geefHuidigeISessie());
+            }else{
+                tableViewSessie.getSelectionModel().select(0);
+            }
         }
-        vulDetails();
     }
 
     private void vulDetails() {
@@ -320,6 +294,18 @@ public class SessieController extends AnchorPane {
         txtGastsprekerSessie.setText(domeinController.geefHuidigeISessie().getNaamGastspreker());
         txtVerantwoordelijkeSessie.setText(domeinController.geefHuidigeISessie().getVerantwoordelijke().getNaam());
         txtLokaalSessie.setText(domeinController.geefHuidigeISessie().getLokaal().getLokaalCode());
+        checkBoxCapaciteitSessie.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                if (t1) {
+                    txtMaxPlaatsenSessie.setEditable(false);
+                    txtMaxPlaatsenSessie.setText(Integer.toString(domeinController.geefHuidigeISessie().getMaximumAantalPlaatsen()));
+                } else {
+                    txtMaxPlaatsenSessie.setEditable(true);
+                }
+            }
+        });
+
     }
 
     private void bewerkenSessie(ActionEvent actionEvent) {
@@ -353,11 +339,38 @@ public class SessieController extends AnchorPane {
         s.stream().forEach(e -> System.out.println(e));
     }
 
-    private void vulTableLokalen(){
+    private void activeerFilters() {
+
+        choiceBoxJaar.setItems(FXCollections.observableArrayList(domeinController.geefAcademiejaren()));
+        choiceBoxJaar.setValue(((Integer)domeinController.academiejaar).toString());
+/*        choiceBoxJaar.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                int aj = Integer.parseInt(t1.substring(0,5));
+                String temp = domeinController.geefHuidigeIGebruiker().getGebruikersnaam();
+                domeinController.setAcademiejaar(//castStringnrDate);
+                domeinController.setHuidigeGebruiker(temp);
+            }
+        });*/
+        choiceBoxMaand.setItems(FXCollections.observableArrayList(domeinController.geefMaanden()));
+        choiceBoxMaand.setValue(domeinController.vergelijkMaanden());
+        choiceBoxZoeken.setItems(FXCollections.observableArrayList(domeinController.geefFilterOpties()));
+        choiceBoxZoeken.setValue(domeinController.geefFilterOpties().get(0));
+        choiceBoxZoeken.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                if (t1.equals("Titel")) {
+                    txtSearchBar.setVisible(true);
+                    choiceBoxFilter.setVisible(false);
+                } else {
+                    txtSearchBar.setVisible(false);
+                    choiceBoxFilter.setVisible(true);
+                }
+            }
+        });
     }
 
-    private void checkVeranderingen() {
-
+    private void vulTableLokalen(){
     }
 
     private void radioButtons() {
@@ -410,5 +423,11 @@ public class SessieController extends AnchorPane {
                 }
             }
         });
+    }
+
+    @Override
+    public void update(ISessie sessie) {
+        domeinController.setHuidigeISessie(sessie);
+        sessieTable();
     }
 }

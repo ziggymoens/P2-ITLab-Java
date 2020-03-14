@@ -8,36 +8,63 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <fx:root fx:id="apLokaal" maxHeight="215.0" prefHeight="215.0" prefWidth="1400.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <HBox fx:id="hBoxOnderaan" alignment="CENTER" prefHeight="250.0" prefWidth="1400.0">
             <children>
-                <VBox fx:id="vBoxOnderLinks" alignment="CENTER" prefHeight="215.0" prefWidth="243.0">
+                <VBox fx:id="vBoxOnderLinks" alignment="CENTER" prefHeight="215.0" prefWidth="230.0">
                     <children>
                         <ComboBox fx:id="cbStad" prefWidth="200.0" promptText="Stad">
                             <VBox.margin>
-                                <Insets right="20.0" />
+                                <Insets />
                             </VBox.margin>
                         </ComboBox>
                         <ComboBox fx:id="cbGebouw" prefWidth="200.0" promptText="Gebouw">
                             <VBox.margin>
-                                <Insets right="20.0" top="20.0" />
+                                <Insets top="20.0" />
                             </VBox.margin>
                         </ComboBox>
                         <ComboBox fx:id="cbVerdieping" prefWidth="200.0" promptText="Verdieping">
                             <VBox.margin>
-                                <Insets right="20.0" top="20.0" />
+                                <Insets top="20.0" />
                             </VBox.margin>
                         </ComboBox>
                         <ComboBox fx:id="cbCapaciteit" prefWidth="200.0" promptText="Capaciteit">
                             <VBox.margin>
-                                <Insets right="20.0" top="20.0" />
+                                <Insets top="20.0" />
                             </VBox.margin>
                         </ComboBox>
                     </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
                 </VBox>
-                <TableView fx:id="table" maxHeight="215.0" prefHeight="215.0" prefWidth="809.0">
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <children>
+                  <Button fx:id="btnFilter" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" text="Filter">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="btnReset" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" text="Reset">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+                <TableView fx:id="table" maxHeight="215.0" prefHeight="215.0" prefWidth="810.0">
                     <columns>
                         <TableColumn fx:id="lokaalCode" prefWidth="210.0" text="Lokaal" />
                         <TableColumn fx:id="stad" prefWidth="150.0" text="Stad" />
@@ -49,10 +76,10 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                     </columnResizePolicy>
                 </TableView>
-                <Button fx:id="btnKiezen" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="81.0" prefWidth="55.0" text="Kiezen">
-                    <HBox.margin>
-                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-                    </HBox.margin>
+                <Button fx:id="btnKiezen" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Kiezen">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
                 </Button>
             </children>
         </HBox>

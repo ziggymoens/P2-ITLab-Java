@@ -18,7 +18,7 @@ public class DomeinController {
     private ITypeController typeController;
     private SessieKalender huidigeSessieKalender;
     private Sessie huidigeSessie;
-    public Gebruiker huidigeGebruiker;
+    private Gebruiker huidigeGebruiker;
     public int academiejaar;
     //endregion
 
@@ -89,7 +89,12 @@ public class DomeinController {
     public List<String> geefFilterOpties() {
         String[] keuzeVoorZoeken = {"Titel", "Stad", "Status"};
         return Arrays.asList(keuzeVoorZoeken);
+    }
 
+    public void update(Sessie sessie){
+        System.out.println(huidigeSessie.toStringCompleet());
+        this.huidigeSessie = sessie;
+        System.out.println(huidigeSessie.toStringCompleet());
     }
 
     public List<ISessie> geefISessiesHuidigeKalender() {
@@ -140,11 +145,11 @@ public class DomeinController {
     }
 
     public void setHuidigeISessie(ISessie sessie) {
-        if (sessie == null) {
-            this.huidigeSessie = null;
-        } else {
-            this.huidigeSessie = typeController.geefSessieId(sessie.getSessieId());
-        }
+        System.out.println("methode setHuidigeSessie");
+        System.out.println(Thread.currentThread().getStackTrace()[1]);
+        System.out.println(Thread.currentThread().getStackTrace()[2]);
+        System.out.println(sessie.getTitel() + "\n");
+        this.huidigeSessie = typeController.geefSessieId(sessie.getSessieId());
     }
 
 
@@ -225,6 +230,11 @@ public class DomeinController {
         return (List<ILokaal>) (Object) huidigeSessieKalender.geefAlleLokalen();
     }
 
+    public void pasLokaalAan(ILokaal lokaal){
+        huidigeSessie.setLokaal((Lokaal)lokaal);
+        huidigeSessieKalender.updateSessie(huidigeSessie);
+    }
+
     public ILokaal geefLokaalSessie() {
         return huidigeSessie.getLokaal();
     }
@@ -235,30 +245,104 @@ public class DomeinController {
 
     public Set<String> geefSteden(){
         Set<String> set = new HashSet<>();
+        set.add("--Stad--");
         huidigeSessieKalender.geefAlleLokalen().stream().forEach(e -> set.add(e.getStad()));
         return set;
     }
 
     public Set<String> geefGebouwen(){
         Set<String> set = new HashSet<>();
+        set.add("--Gebouw--");
         huidigeSessieKalender.geefAlleLokalen().stream().forEach(e -> set.add(e.getGebouw()));
         return set;
     }
 
     public Set<String> geefVerdiepingen(){
         Set<String> set = new HashSet<>();
+        set.add("--Verdieping--");
         huidigeSessieKalender.geefAlleLokalen().stream().forEach(e -> set.add(e.getVerdieping()));
         return set;
     }
 
     public List<String> geefCapaciteiten(){
         List <String> capaciteiten = new ArrayList<>();
-        capaciteiten.add("0 - 50");
-        capaciteiten.add("50 - 100");
+        capaciteiten.add("--Capaciteit--");
+        capaciteiten.add("000 - 050");
+        capaciteiten.add("050 - 100");
         capaciteiten.add("100 - 150");
         capaciteiten.add("150 - 200");
         capaciteiten.add("200+");
         return capaciteiten;
+    }
+
+    public List<ILokaal> filterLokaal(Map<String,String> filter){
+        List<List<ILokaal>> gefiltered = new ArrayList<>();
+        filter.keySet().stream().forEach(e -> {
+            switch(e){
+                case "stad":
+                    gefiltered.add(filterOpStad(filter.get(e)));
+                    break;
+                case "gebouw":
+                    gefiltered.add(filterOpGebouw(filter.get(e)));
+                    break;
+                case "verdieping":
+                    gefiltered.add(filterOpVerdieping(filter.get(e)));
+                    break;
+                case "capaciteit":
+                    gefiltered.add(filterOpCapaciteit(filter.get(e)));
+                    break;
+            }
+        });
+        Collection<ILokaal> temp = new ArrayList<>();
+        for(int i = gefiltered.size()-1; i >= 1;i--){
+            gefiltered.get(i-1).retainAll(gefiltered.get(i));
+        }
+        return gefiltered.get(0);
+    }
+
+    private List<ILokaal> filterOpStad(String filter){
+        return geefILokalen().stream().filter(lokaal -> lokaal.getStad().equals(filter)).collect(Collectors.toList());
+    }
+
+    private List<ILokaal> filterOpGebouw(String filter){
+        return geefILokalen().stream().filter(lokaal -> lokaal.getGebouw().equals(filter)).collect(Collectors.toList());
+    }
+
+    private List<ILokaal> filterOpVerdieping(String filter){
+        return geefILokalen().stream().filter(lokaal -> lokaal.getVerdieping().equals(filter)).collect(Collectors.toList());
+    }
+
+    private List<ILokaal> filterOpCapaciteit(String filter){ //#SmallBrainCode
+        int min = 0, max = 0;
+        switch(filter){
+            default:
+            case "0 - 50":
+                min = 0;
+                max = 49;
+                break;
+            case "50 - 100":
+                min = 50;
+                max = 99;
+                break;
+            case "100 - 150":
+                min = 100;
+                max = 149;
+                break;
+            case "150 - 200":
+                min = 150;
+                max = 199;
+                break;
+            case "200+":
+                min = 200;
+                max = Integer.MAX_VALUE;
+                break;
+        }
+        final int minFinal = min;
+        final int maxFinal = max;
+        return geefILokalen()
+                .stream()
+                .filter(lokaal -> lokaal.getAantalPlaatsen() > minFinal && lokaal.getAantalPlaatsen() < maxFinal)
+                .collect(Collectors.toList());
     }
     //endregion
 

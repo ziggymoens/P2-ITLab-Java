@@ -1,5 +1,7 @@
 package domein.interfacesDomein;
 
+import userinterface.main.IObserverSessie;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -38,4 +40,8 @@ public interface ISessie {
     int getBeschikbarePlaatsen();
 
     String toString_Kalender();
+
+    void add(IObserverSessie observers);
+    void remove(IObserverSessie observers);
+    void notifyObservers();
 }
