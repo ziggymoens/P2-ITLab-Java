@@ -12,7 +12,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class DomeinController {
 
@@ -165,6 +164,10 @@ public class DomeinController {
     //endregion
 
     //region Gebruiker
+    public void updateGebruiker(String naam, String gebruikersnaam, Gebruikersstatus status, Gebruikersprofielen profiel){
+        huidigeGebruiker.update(naam, gebruikersnaam, status, profiel);
+    }
+
     public IGebruiker geefIGebruikerOpId(String id) {
         return huidigeSessieKalender.geefGebruikerById(id);
     }

@@ -101,7 +101,7 @@ public class SessieKalender {
 
     public void updateGebruiker(Gebruiker gebruiker) {
         em.getTransaction().begin();
-        em.remove(gebruiker);
+        //em.persist(gebruiker.update();
         em.getTransaction().commit();
     }
 

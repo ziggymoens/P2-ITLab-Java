@@ -203,15 +203,17 @@ public class GebruikerController extends AnchorPane {
         comboBoxTypeGebruiker.setItems(FXCollections.observableArrayList(Gebruikersprofielen.values()));
         comboBoxStatusGebruiker.setItems(FXCollections.observableArrayList(Gebruikersstatus.values()));
         btnWijzigen.setText("Opslaan");
-
-        //btnWijzigen.setOnAction(this::UpdateGebruiker);
+        btnWijzigen.setOnAction(this::updateGebruiker);
     }
 
-    private void UpdateGebruiker(ActionEvent actionEvent) { //UPDATE?
-        domeinController.verwijderGebruiker(tableViewGebruiker.getSelectionModel().getSelectedItem());
-        domeinController.maakNieuweGebruiker(txtFieldGebruiker.getText(), txtFieldGebruikersnaam.getText(), comboBoxTypeGebruiker.getSelectionModel().getSelectedItem(), comboBoxStatusGebruiker.getSelectionModel().getSelectedItem());
-        vulTableGebruikers(FXCollections.observableArrayList(domeinController.geefAlleIGebruikers()));
+    public void updateGebruiker(ActionEvent actionEvent){
+        domeinController.updateGebruiker(txtFieldGebruiker.getText(), txtFieldGebruikersnaam.getText(),
+                comboBoxStatusGebruiker.getSelectionModel().getSelectedItem(),
+                comboBoxTypeGebruiker.getSelectionModel().getSelectedItem());
+        btnWijzigen.setText("Wijzigen");
     }
+
+
 
     private void maakNieuweGebruiker(ActionEvent actionEvent){
         btnWijzigen.setText("Opslaan");

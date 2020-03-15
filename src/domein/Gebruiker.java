@@ -207,6 +207,15 @@ public class Gebruiker implements IGebruiker {
 
     //endregion
 
+    //region methodes
+    public void update(String naam, String gebruikersnaam, Gebruikersstatus status, Gebruikersprofielen profiel){
+        setNaam(naam);
+        setGebruikersnaam(gebruikersnaam);
+        setStatus(status);
+        setGebruikersprofiel(profiel);
+    }
+    //endregion
+
     //region toString
 
     @Override
