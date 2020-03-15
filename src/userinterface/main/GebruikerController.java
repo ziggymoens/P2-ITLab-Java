@@ -222,8 +222,15 @@ public class GebruikerController extends AnchorPane {
         txtFieldGebruikersnaam.setEditable(true);
         comboBoxTypeGebruiker.setItems(FXCollections.observableArrayList(Gebruikersprofielen.values()));
         comboBoxStatusGebruiker.setItems(FXCollections.observableArrayList(Gebruikersstatus.values()));
-        domeinController.maakNieuweGebruiker(txtFieldGebruiker.getText(), txtFieldGebruikersnaam.getText(), comboBoxTypeGebruiker.getSelectionModel().getSelectedItem(), comboBoxStatusGebruiker.getSelectionModel().getSelectedItem());
+        btnWijzigen.setOnAction(this::gebruikerAanmaken);
         refreshTable();
+    }
+
+    private void gebruikerAanmaken(ActionEvent actionEvent) {
+        domeinController.maakNieuweGebruiker(txtFieldGebruiker.getText(), txtFieldGebruikersnaam.getText(),
+                comboBoxTypeGebruiker.getSelectionModel().getSelectedItem(),
+                comboBoxStatusGebruiker.getSelectionModel().getSelectedItem());
+        btnWijzigen.setText("Wijzigen");
     }
 
     private void vulTableSessies(Gebruiker gebruiker){
@@ -257,10 +264,8 @@ public class GebruikerController extends AnchorPane {
     }
 
     public void clearDetails(){
-        txtFieldGebruiker.clear();
-        txtFieldGebruikersnaam.clear();
-        txtFieldStatus.clear();
-        txtFieldType.clear();
+        txtFieldGebruiker.setText("");
+        txtFieldGebruikersnaam.setText("");
     }
 
     public void refreshTable() {

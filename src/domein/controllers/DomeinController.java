@@ -113,7 +113,7 @@ public class DomeinController {
     public List<ISessie> geefISessiesGebruiker(Gebruiker gebruiker, String gebruikersnaam){
         return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleInschrijvingen()
                 .stream()
-                .filter(sessie -> sessie.getGebruiker().equals(gebruiker.getGebruikersnaam()))
+                .filter(sessie -> sessie.getGebruiker().equals(gebruiker))
                 .collect(Collectors.toList());
     }
 
