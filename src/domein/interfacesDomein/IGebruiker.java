@@ -1,8 +1,5 @@
 package domein.interfacesDomein;
 
-import domein.enums.Gebruikersprofielen;
-import domein.enums.Gebruikersstatus;
-
 import java.time.LocalDateTime;
 
 public interface IGebruiker {
@@ -10,9 +7,9 @@ public interface IGebruiker {
 
     String getGebruikersnaam();
 
-    Gebruikersstatus getStatus();
+    String getStatus();
 
-    Gebruikersprofielen getGebruikersprofiel();
+    String getGebruikersprofiel();
 
     byte[] getProfielfoto();
 

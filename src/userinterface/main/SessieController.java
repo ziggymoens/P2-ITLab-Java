@@ -268,9 +268,9 @@ public class SessieController extends AnchorPane implements IObserverSessie {
                 System.out.println(Thread.currentThread().getStackTrace()[2]);
                 System.out.println(Thread.currentThread().getStackTrace()[3] + "\n");
                 if(iSessie != null)
-                    domeinController.geefHuidigeISessie().remove(SessieController.this);
+                    domeinController.removeSessieObserver(SessieController.this);
                 domeinController.setHuidigeISessie(t1);
-                domeinController.geefHuidigeISessie().add(SessieController.this);
+                domeinController.addSessieObserver(SessieController.this);
                 checkBoxCapaciteitSessie.setDisable(true);
                 vulDetails();
             }

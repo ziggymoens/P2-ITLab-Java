@@ -1,9 +1,9 @@
 package userinterface.main;
 
-import domein.Gebruiker;
+import domein.gebruiker.Gebruiker;
 import domein.controllers.DomeinController;
 import domein.controllers.HoofdverantwoordelijkeController;
-import domein.enums.Gebruikersprofielen;
+import domein.enums.Gebruikersprofiel;
 import domein.enums.Gebruikersstatus;
 import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.ISessie;
@@ -20,6 +20,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class GebruikerController extends AnchorPane {
     private HoofdverantwoordelijkeController hoofdverantwoordelijkeController;
@@ -45,16 +47,16 @@ public class GebruikerController extends AnchorPane {
     private Button btnFilterConfirm;
 
     @FXML
-    private ComboBox<Gebruikersprofielen> comboBoxType;
+    private ComboBox<Gebruikersprofiel> comboBoxType;
 
     @FXML
     private ComboBox<Gebruikersstatus> comboBoxStatus;
 
     @FXML
-    private ComboBox<Gebruikersprofielen> comboBoxTypeGebruiker;
+    private ComboBox<String> comboBoxTypeGebruiker;
 
     @FXML
-    private ComboBox<Gebruikersstatus> comboBoxStatusGebruiker;
+    private ComboBox<String> comboBoxStatusGebruiker;
 
     @FXML
     private Button toevoegenGebruiker;
@@ -128,14 +130,14 @@ public class GebruikerController extends AnchorPane {
         toevoegenGebruiker.setOnAction(this::maakNieuweGebruiker);
 
         comboBoxStatus.setItems(FXCollections.observableArrayList(Gebruikersstatus.values()));
-        comboBoxType.setItems(FXCollections.observableArrayList(Gebruikersprofielen.values()));
+        comboBoxType.setItems(FXCollections.observableArrayList(Gebruikersprofiel.values()));
 
         zoek();
     }
 
     private void filter(ActionEvent actionEvent) {
         Gebruikersstatus comboStatus = comboBoxStatus.getSelectionModel().getSelectedItem();
-        Gebruikersprofielen comboType = comboBoxType.getSelectionModel().getSelectedItem();
+        Gebruikersprofiel comboType = comboBoxType.getSelectionModel().getSelectedItem();
         if(comboStatus == null && comboType == null){
             vulTableGebruikers(FXCollections.observableArrayList(domeinController.geefAlleIGebruikers()));
         }else if(comboType == null && comboStatus != null){
@@ -200,8 +202,8 @@ public class GebruikerController extends AnchorPane {
     private void wijzigGebruiker(ActionEvent actionEvent){
         txtFieldGebruiker.setEditable(true);
         txtFieldGebruikersnaam.setEditable(true);
-        comboBoxTypeGebruiker.setItems(FXCollections.observableArrayList(Gebruikersprofielen.values()));
-        comboBoxStatusGebruiker.setItems(FXCollections.observableArrayList(Gebruikersstatus.values()));
+        comboBoxTypeGebruiker.setItems(FXCollections.observableArrayList(Arrays.stream(Gebruikersprofiel.values()).map(Enum::toString).collect(Collectors.toList())));
+        comboBoxStatusGebruiker.setItems(FXCollections.observableArrayList(Arrays.stream(Gebruikersstatus.values()).map(Enum::toString).collect(Collectors.toList())));
         btnWijzigen.setText("Opslaan");
         btnWijzigen.setOnAction(this::updateGebruiker);
     }
@@ -220,8 +222,8 @@ public class GebruikerController extends AnchorPane {
         clearDetails();
         txtFieldGebruiker.setEditable(true);
         txtFieldGebruikersnaam.setEditable(true);
-        comboBoxTypeGebruiker.setItems(FXCollections.observableArrayList(Gebruikersprofielen.values()));
-        comboBoxStatusGebruiker.setItems(FXCollections.observableArrayList(Gebruikersstatus.values()));
+        comboBoxTypeGebruiker.setItems(FXCollections.observableArrayList(Arrays.stream(Gebruikersprofiel.values()).map(Enum::toString).collect(Collectors.toList())));
+        comboBoxStatusGebruiker.setItems(FXCollections.observableArrayList(Arrays.stream(Gebruikersstatus.values()).map(Enum::toString).collect(Collectors.toList())));
         btnWijzigen.setOnAction(this::gebruikerAanmaken);
         refreshTable();
     }

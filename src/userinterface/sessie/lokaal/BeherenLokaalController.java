@@ -23,7 +23,10 @@ public class BeherenLokaalController extends AnchorPane {
     private TableColumn<ILokaal, String> lokaalCode, stad, gebouw, verdieping, aantalPlaatsen;
 
     @FXML
-    private ComboBox<String> cbStad, cbGebouw, cbVerdieping, cbCapaciteit;
+    private ComboBox<String> cbStad, cbGebouw, cbCapaciteit;
+
+    @FXML
+    private ComboBox<Integer> cbVerdieping;
 
     @FXML
     private Button btnReset, btnKiezen, btnFilter;
@@ -80,15 +83,18 @@ public class BeherenLokaalController extends AnchorPane {
         }
     }
 
+    /*
+    Placeholders!!
+     */
     private void vulComboBoxes() {
         cbStad.setItems(FXCollections.observableArrayList(domeinController.geefSteden()).sorted());
-        cbStad.getSelectionModel().selectFirst();
+        //cbStad.getSelectionModel().selectFirst();
         cbGebouw.setItems(FXCollections.observableArrayList(domeinController.geefGebouwen()).sorted());
-        cbGebouw.getSelectionModel().selectFirst();
+        //cbGebouw.getSelectionModel().selectFirst();
         cbVerdieping.setItems(FXCollections.observableArrayList(domeinController.geefVerdiepingen()).sorted());
-        cbVerdieping.getSelectionModel().selectFirst();
-        cbCapaciteit.setItems(FXCollections.observableArrayList(domeinController.geefCapaciteiten()).sorted());
-        cbCapaciteit.getSelectionModel().selectFirst();
+        //cbVerdieping.getSelectionModel().selectFirst();
+        //cbCapaciteit.setItems(FXCollections.observableArrayList(domeinController.geefCapaciteiten()).sorted());
+        //cbCapaciteit.getSelectionModel().selectFirst();
     }
 
     private void zetButtonsActief() {
@@ -108,7 +114,7 @@ public class BeherenLokaalController extends AnchorPane {
     private void zetFiltersActief(ActionEvent actionEvent) {
         String stad = cbStad.getSelectionModel().getSelectedItem();
         String gebouw = cbGebouw.getSelectionModel().getSelectedItem();
-        String verdieping = cbVerdieping.getSelectionModel().getSelectedItem();
+        int verdieping = cbVerdieping.getSelectionModel().getSelectedItem();
         String capaciteit = cbCapaciteit.getSelectionModel().getSelectedItem();
         if(stad.matches("-(.)*")){
             stad = null;
@@ -116,16 +122,19 @@ public class BeherenLokaalController extends AnchorPane {
         if(gebouw.matches("-(.)*")){
             gebouw = null;
         }
+        /*
         if(verdieping.matches("-(.)*")){
             verdieping = null;
         }
+
+         */
         if(capaciteit.matches("-(.)*")){
             capaciteit = null;
         }
         Map<String, String> filters = new HashMap<>();
         filters.put("stad",stad);
         filters.put("gebouw",gebouw);
-        filters.put("verdieping",verdieping);
+        //filters.put("verdieping",verdieping);
         filters.put("capaciteit",capaciteit);
         filters.values().removeIf(Objects::isNull);
         if(filters.keySet().isEmpty()){ vulTable();}
@@ -133,7 +142,7 @@ public class BeherenLokaalController extends AnchorPane {
     }
 
     private void kiezen(ActionEvent actionEvent) {
-        domeinController.pasLokaalAan((ILokaal) table.getSelectionModel().getSelectedItem());
+        //domeinController.pasLokaalAan((ILokaal) table.getSelectionModel().getSelectedItem());
     }
 
 }

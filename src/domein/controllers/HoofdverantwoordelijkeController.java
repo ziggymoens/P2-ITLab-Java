@@ -1,15 +1,15 @@
 package domein.controllers;
 
 import domein.Aankondiging;
-import domein.Gebruiker;
-import domein.Sessie;
+import domein.gebruiker.Gebruiker;
+import domein.sessie.Sessie;
 import domein.SessieKalender;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class HoofdverantwoordelijkeController implements ITypeController {
+public class HoofdverantwoordelijkeController extends ITypeController {
     private SessieKalender huidigeSessieKalender;
     private Gebruiker gebruiker;
     private int aj;
@@ -18,11 +18,12 @@ public class HoofdverantwoordelijkeController implements ITypeController {
         this.huidigeSessieKalender = huidigeSessieKalender;
         this.gebruiker = gebruiker;
     }
-
+/*
     @Override
     public void bewerkSessie(Sessie sessie) {
         huidigeSessieKalender.updateSessie(sessie);
     }
+ */
 
     @Override
     public void verwijderSessie(Sessie sessie) {
@@ -56,8 +57,15 @@ public class HoofdverantwoordelijkeController implements ITypeController {
 
     @Override
     public void bewerkGebruiker(Gebruiker gebruiker) {
+
+    }
+/*
+    @Override
+    public void bewerkGebruiker(Gebruiker gebruiker) {
         huidigeSessieKalender.updateGebruiker(gebruiker);
     }
+
+ */
 
     @Override
     public void verwijderGebruiker(Gebruiker gebruiker) {
@@ -80,6 +88,41 @@ public class HoofdverantwoordelijkeController implements ITypeController {
     }
 
     @Override
+    public Gebruiker geefGebruikerId(String id) {
+        return null;
+    }
+
+    @Override
+    public List<Gebruiker> geefAlleGebruikers() {
+        return null;
+    }
+
+    @Override
+    public List<Gebruiker> geefAlleGerbuikersNaam(String naam) {
+        return null;
+    }
+
+    @Override
+    public List<Gebruiker> geefAlleGebuikersType(String type) {
+        return null;
+    }
+
+    @Override
+    public List<Gebruiker> geefAlleGebruikersSessie() {
+        return null;
+    }
+
+    @Override
+    public List<Gebruiker> geefAlleGerbuikersNaamSessie() {
+        return null;
+    }
+
+    @Override
+    public List<Gebruiker> geefAlleGebuikersTypeSessie() {
+        return null;
+    }
+
+    @Override
     public Sessie geefSessieId(String id) {
         return huidigeSessieKalender.geefSessieById(id);
     }
@@ -96,23 +139,15 @@ public class HoofdverantwoordelijkeController implements ITypeController {
 
     @Override
     public List<Sessie> geefAlleSessiesLocatie(String locatie) {
-        List<Sessie> sessies = null;
-        switch (locatie) {
-            case "Gent":
-                sessies = geefAlleSessiesKalender(aj)
-                        .stream()
-                        .filter(e -> e.getLokaal().getLokaalCode().matches("GS\\.+"))
-                        .collect(Collectors.toList());
+        return geefAlleSessiesKalender(aj)
+                .stream()
+                .filter(s -> s.getLokaal().getStad().equals(locatie.toUpperCase()))
+                .collect(Collectors.toList());
+    }
 
-                break;
-            case "Aalst":
-                sessies = geefAlleSessiesKalender(aj)
-                        .stream()
-                        .filter(e -> e.getLokaal().getLokaalCode().matches("GA\\.+"))
-                        .collect(Collectors.toList());
-                break;
-        }
-        return sessies;
+    @Override
+    public void bewerkSessie(Sessie sessie) {
+        throw new UnsupportedOperationException();
     }
 
     @Override

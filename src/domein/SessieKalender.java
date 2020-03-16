@@ -1,7 +1,9 @@
 package domein;
 
-import domein.enums.Campussen;
+import domein.enums.Campus;
+import domein.gebruiker.Gebruiker;
 import domein.interfacesDomein.IGebruiker;
+import domein.sessie.Sessie;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -40,9 +42,6 @@ public class SessieKalender {
         em.getTransaction().commit();
     }
 
-    public void updateSessie(Sessie sessie) {
-
-    }
 
     public void verwijderSessie(Sessie sessie) {
         em.getTransaction().begin();
@@ -87,7 +86,7 @@ public class SessieKalender {
     }
 
     public List<Lokaal> geefLokaalByCampus(String campus) {
-        String afkorting = Campussen.valueOf(campus).getAfkorting();
+        String afkorting = Campus.valueOf(campus).getCode();
         return geefAlleLokalen().stream().filter(l -> l.getLokaalCode().matches(String.format("G%s.*", afkorting))).collect(Collectors.toList());
     }
     //endregion
@@ -96,12 +95,6 @@ public class SessieKalender {
     public void voegGebruikerToe(Gebruiker gebruiker) {
         em.getTransaction().begin();
         em.persist(gebruiker);
-        em.getTransaction().commit();
-    }
-
-    public void updateGebruiker(Gebruiker gebruiker) {
-        em.getTransaction().begin();
-        //em.persist(gebruiker.update();
         em.getTransaction().commit();
     }
 
@@ -117,7 +110,7 @@ public class SessieKalender {
     }
 
     public List<IGebruiker> geefAlleGebruikers() {
-        return (List<IGebruiker>) em.createQuery("select g from Gebruiker g where g.verwijderd = false order by g.gebruikersprofiel DESC, g.naam, g.gebruikersnaam").getResultList();
+        return (List<IGebruiker>) em.createQuery("select g from Gebruiker g where g.verwijderd = false order by g.naam, g.gebruikersnaam").getResultList();
     }
 
 //    public List<Gebruiker> geefAlleActieveGebruikers(){
@@ -262,6 +255,53 @@ public class SessieKalender {
 
     public List<Herinnering> geefAlleHerinneringenVanSessie(String sessie) {
         return geefSessieById(sessie).getAankondigingen().stream().filter(Aankondiging::isAutomatischeHerinnering).map(Aankondiging::getHerinnering).collect(Collectors.toList());
+    }
+    //endregion
+
+    //region UPDATE
+    public void updateSessie(Sessie sessie, List<Object> gegevens) {
+        em.getTransaction().begin();
+        sessie.update(gegevens);
+        em.getTransaction().commit();
+    }
+
+    public void updateGebruiker(Gebruiker gebruiker, List<String> gegevens) {
+        em.getTransaction().begin();
+        gebruiker.update(gegevens);
+        em.getTransaction().commit();
+    }
+
+    public void updateAankondiging(Aankondiging aankondiging, List<Object> gegevens) {
+        em.getTransaction().begin();
+        aankondiging.update(gegevens);
+        em.getTransaction().commit();
+    }
+
+    public void updateFeedback(Feedback feedback, List<Object> gegevens) {
+        em.getTransaction().begin();
+        feedback.update(gegevens);
+        em.getTransaction().commit();
+    }
+
+    public void updateHerinnering(Herinnering herinnering, int gegevens) {
+        herinnering.update(gegevens);
+        em.getTransaction().commit();
+    }
+
+    public void updateInschrijving(Inschrijving inschrijving, List<Object> gegevens) {
+        em.getTransaction().begin();
+        inschrijving.update(gegevens);
+        em.getTransaction().commit();
+    }
+    public void updateLokaal(Lokaal lokaal, List<Object> gegevens) {
+        lokaal.update(gegevens);
+        em.getTransaction().commit();
+    }
+
+    public void updateMedia(Media media, List<Object> gegevens) {
+        em.getTransaction().begin();
+        media.update(gegevens);
+        em.getTransaction().commit();
     }
     //endregion
 }

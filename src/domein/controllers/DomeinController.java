@@ -2,11 +2,13 @@ package domein.controllers;
 
 
 import domein.*;
-import domein.enums.Gebruikersprofielen;
-import domein.enums.Gebruikersstatus;
-import domein.enums.HerinneringTijdstippen;
-import domein.enums.MediaTypes;
+import domein.enums.HerinneringTijdstip;
+import domein.enums.MediaType;
+import domein.gebruiker.Gebruiker;
 import domein.interfacesDomein.*;
+import domein.Lokaal;
+import domein.sessie.Sessie;
+import userinterface.main.IObserverSessie;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -32,17 +34,15 @@ public class DomeinController {
     }
 
     private void setTypeController() {
-        switch (huidigeGebruiker.getGebruikersprofiel().toString()) {
-            default:
-            case "GEBRUIKER":
-                typeController = new GebruikerController(huidigeSessieKalender, huidigeGebruiker);
-                break;
+        switch (huidigeGebruiker.getGebruikersprofiel()) {
             case "VERANTWOORDELIJKE":
                 typeController = new VerantwoordelijkeController(huidigeSessieKalender, huidigeGebruiker);
                 break;
             case "HOOFDVERANTWOORDELIJKE":
                 typeController = new HoofdverantwoordelijkeController(huidigeSessieKalender, huidigeGebruiker);
                 break;
+            default:
+                throw new RuntimeException();
         }
     }
     //endregion
@@ -135,11 +135,13 @@ public class DomeinController {
                 huidigeSessieKalender.geefLokaalById(sessie.get(3)), huidigeSessieKalender.geefGebruikerById(sessie.get(4)));
         typeController.maakSessieAan(s);
     }
-
+/*
     public void pasSessieAan(Map<String, String> nieuweMap) {
         huidigeSessie.updateSessie(nieuweMap, (List<ILokaal>) (Object) huidigeSessieKalender.geefAlleLokalen());
         typeController.bewerkSessie(huidigeSessie);
     }
+
+ */
 
     public void verwijderSessie(ISessie sessie) {
         typeController.verwijderSessie((Sessie) sessie);
@@ -164,8 +166,10 @@ public class DomeinController {
     //endregion
 
     //region Gebruiker
-    public void updateGebruiker(String naam, String gebruikersnaam, Gebruikersstatus status, Gebruikersprofielen profiel){
-        huidigeGebruiker.update(naam, gebruikersnaam, status, profiel);
+    public void updateGebruiker(String naam, String gebruikersnaam, String status, String profiel){
+        List<String> gegevens = new ArrayList<>();
+        gegevens.addAll(Arrays.asList(naam, gebruikersnaam, status, profiel));
+        huidigeGebruiker.update(gegevens);
     }
 
     public IGebruiker geefIGebruikerOpId(String id) {
@@ -224,7 +228,7 @@ public class DomeinController {
         typeController.verwijderGebruiker((Gebruiker) gebruiker);
     }
 
-    public void maakNieuweGebruiker(String naam, String gebruikersnaam, Gebruikersprofielen gebruikersprofiel, Gebruikersstatus gebruikersstatus){
+    public void maakNieuweGebruiker(String naam, String gebruikersnaam, String gebruikersprofiel, String gebruikersstatus){
         Gebruiker gebruiker = new Gebruiker(naam, gebruikersnaam, gebruikersprofiel, gebruikersstatus);
         huidigeSessieKalender.voegGebruikerToe(gebruiker);
     }
@@ -235,10 +239,15 @@ public class DomeinController {
         return (List<ILokaal>) (Object) huidigeSessieKalender.geefAlleLokalen();
     }
 
+    /*
+    ???
+
     public void pasLokaalAan(ILokaal lokaal){
         huidigeSessie.setLokaal((Lokaal)lokaal);
         huidigeSessieKalender.updateSessie(huidigeSessie);
     }
+
+     */
 
     public ILokaal geefLokaalSessie() {
         return huidigeSessie.getLokaal();
@@ -262,13 +271,14 @@ public class DomeinController {
         return set;
     }
 
-    public Set<String> geefVerdiepingen(){
-        Set<String> set = new HashSet<>();
-        set.add("--Verdieping--");
+    public Set<Integer> geefVerdiepingen(){
+        Set<Integer> set = new HashSet<>();
         huidigeSessieKalender.geefAlleLokalen().stream().forEach(e -> set.add(e.getVerdieping()));
         return set;
     }
 
+    /*
+    2 inputvelden voor minimum en maximum cap.
     public List<String> geefCapaciteiten(){
         List <String> capaciteiten = new ArrayList<>();
         capaciteiten.add("--Capaciteit--");
@@ -279,6 +289,8 @@ public class DomeinController {
         capaciteiten.add("200+");
         return capaciteiten;
     }
+
+     */
 
     public List<ILokaal> filterLokaal(Map<String,String> filter){
         List<List<ILokaal>> gefiltered = new ArrayList<>();
@@ -291,10 +303,14 @@ public class DomeinController {
                     gefiltered.add(filterOpGebouw(filter.get(e)));
                     break;
                 case "verdieping":
-                    gefiltered.add(filterOpVerdieping(filter.get(e)));
+                    gefiltered.add(filterOpVerdieping(Integer.parseInt(filter.get(e))));
                     break;
-                case "capaciteit":
+                /*case "capaciteit":
                     gefiltered.add(filterOpCapaciteit(filter.get(e)));
+                    break;
+
+                 */
+                default:
                     break;
             }
         });
@@ -313,9 +329,12 @@ public class DomeinController {
         return geefILokalen().stream().filter(lokaal -> lokaal.getGebouw().equals(filter)).collect(Collectors.toList());
     }
 
-    private List<ILokaal> filterOpVerdieping(String filter){
-        return geefILokalen().stream().filter(lokaal -> lokaal.getVerdieping().equals(filter)).collect(Collectors.toList());
+    private List<ILokaal> filterOpVerdieping(int filter){
+        return geefILokalen().stream().filter(lokaal -> lokaal.getVerdieping() == filter).collect(Collectors.toList());
     }
+
+    /*
+    2 velden met min en max waarde
 
     private List<ILokaal> filterOpCapaciteit(String filter){ //#SmallBrainCode
         int min = 0, max = 0;
@@ -349,6 +368,7 @@ public class DomeinController {
                 .filter(lokaal -> lokaal.getAantalPlaatsen() > minFinal && lokaal.getAantalPlaatsen() < maxFinal)
                 .collect(Collectors.toList());
     }
+     */
     //endregion
 
     //region Media
@@ -379,7 +399,7 @@ public class DomeinController {
     }
 
     public List<String> geefMediaTypes() {
-        return Arrays.stream(MediaTypes.values()).map(Enum::toString).collect(Collectors.toList());
+        return Arrays.stream(MediaType.values()).map(Enum::toString).collect(Collectors.toList());
     }
 
     public void huidigeGebruikerIngelogd() {
@@ -387,7 +407,7 @@ public class DomeinController {
     }
 
     public List<String> geefHerinneringsTijdstippen(){
-        return Arrays.stream(HerinneringTijdstippen.values()).map(Enum::toString).collect(Collectors.toList());
+        return Arrays.stream(HerinneringTijdstip.values()).map(Enum::toString).collect(Collectors.toList());
     }
 
     public void maakAankondigingAan(Aankondiging aankondiging, Sessie sessie){
@@ -417,156 +437,13 @@ public class DomeinController {
     public List<IFeedback> geefAlleFeedbackVanHuidigeSessie() {
         return (List<IFeedback>) (Object) huidigeSessieKalender.geefAlleFeedbackVanSessie(huidigeSessie.getSessieId());
     }
+
+    public void removeSessieObserver(IObserverSessie observer) {
+        huidigeSessie.remove(observer);
+    }
+
+    public void addSessieObserver(IObserverSessie observer) {
+        huidigeSessie.add(observer);
+    }
     //endregion
 }
-
-
-    //region extras
-/* vorige dc
-    public List<ISessie> getISessies() {
-        return ((List<ISessie>)(Object)sessieKalenderController.getSessies());
-    }
-
-    public List<ISessie> getSessieObservableList(ISessieKalender selectedItem) {
-        return (List<ISessie>)(Object)sessieKalenderController.geefSessiesVanJaar(selectedItem.getAcademiajaar());
-    }
-
-    public void setActieveGebruiker(String username){
-        gebruiker = sessieKalenderController.getGebruikerByID(username);
-    }
-
-    public IGebruiker geefIGebruiker(){
-        setActieveGebruiker("758095zm");
-        return (IGebruiker) gebruiker;
-    }
-
-    public List<ISessieKalender> getISessieKalenders() {
-        return (List<ISessieKalender>) (Object) sessieKalenderController.getSessieKalenders();
-    }
-
-    public void pasSessieAan(){
-
-    }
-
-    public List<ISessie> geefSessiesOpDag(LocalDate date) {
-        return sessieKalenderController.geefSessiesOpDag(date);
-    }
-
-    public List<IGebruiker> geefIGebruikers(){
-        return (List<IGebruiker>) (Object)sessieKalenderController.geefGebruikers();
-    }
-
-    public List<String> geefNamenGebruikers(){
-        return sessieKalenderController.geefNamenGebruikers();
-    }
-
-    public void verwijderSessie (ISessie sessie){
-        sessieKalenderController.verwijderSessie(sessie);
-    }
-
-    public void addAankondigingSessie(String sessieid, String gebruikersnaam, String tekst, boolean herinnering, int dagen){
-        sessieKalenderController.addAankondigingSessie(sessieid, gebruikersnaam, tekst, herinnering, dagen);
-    }
-
-    public List<String> geefMediaTypes() {
-        return Arrays.stream(MediaTypes.values()).map(Enum::toString).collect(Collectors.toList());
-    }
-
-    public String geefProfielGebruiker() {
-        return gebruiker.getGebruikersprofiel().toString();
-    }
-
-    public List<ISessie> geefSessiesVanGebruiker() {
-        return (List<ISessie>)(Object)sessieKalenderController.geefSessiesVanGebruiker(gebruiker);
-    }
-
-
-    public void pasSessieAan(ISessie sessie, Map<String, String> veranderingenMap){
-        Sessie s = sessieKalenderController.getSessies().stream().filter(e -> e.getSessieId().equals(sessie.getSessieId())).findFirst().orElse(null);
-        veranderingenMap.forEach((key, value) -> {
-            switch(key){
-                case "naamverantwoordelijke":
-                    s.setNaamGastspreker(value);
-                    break;
-                case "titel":
-                    s.setTitel(value);
-                    break;
-                case "naamGastspreker":
-                    s.setNaamGastspreker(value);
-                    break;
-                case "lokaal":
-                    String[] str = value.split(",");
-                    s.setLokaal(sessieKalenderController.getLokalen().stream().filter(e -> e.getLokaalCode().equals(str[0])).findFirst().orElse(null));
-                    break;
-                case "start":
-                    //s.setStartSessie(LocalDateTime.parse(value));
-                    break;
-                case "eind":
-                    //s.setEindeSessie(LocalDateTime.parse(value));
-                    break;
-                case "maxPlaatsen":
-                    s.setMaximumAantalPlaatsen(Integer.parseInt(value));
-                    break;
-            }
-
-        });
-            sessieKalenderController.updateSessie((Sessie)sessie, s);
-/*         veranderingenMap.entrySet().stream().forEach( (k,v) -> {
-            switch(k){
-                case "naamverantwoordelijke":
-
-                    break;
-                case "titel":
-                    break;
-                case "naamGastspreker":
-                    s.setNaamGastspreker(v);
-                    break;
-                case "lokaal":
-                    break;
-                case "start":
-                    break;
-                case "eind":
-                    break;
-                case "maxPlaatsen":
-                    break;
-            }
-
-        });
-       HashMap<String, String> map = veranderingenMap;
-        for (HashMap.Entry<String,String> entry : map.entrySet()) {
-            switch (entry.getKey()){
-                case "naamverantwoordelijke":
-                    break;
-                case "titel":
-                    break;
-                case "naamGastspreker":
-                    s.setNaamGastspreker(entry.getValue());
-                    break;
-                case "lokaal":
-                    break;
-                case "start":
-                    break;
-                case "eind":
-                    break;
-                case "maxPlaatsen":
-                    break;
-            }
-        }
-    }
-
-    public void maakNieuweMedia(ISessie sessie, IGebruiker gebruiker, String type, String name) {
-        Sessie s = sessieKalenderController.getSessieById(sessie.getSessieId());
-        Gebruiker g = sessieKalenderController.getGebruikerByID(gebruiker.getGebruikersnaam());
-        Media m = new Media(g, name, type);
-        sessieKalenderController.addMediaSessie(s, m);
-    }
-
-    public void verwijderGebruiker(IGebruiker gebruiker) {
-        sessieKalenderController.verwijderGebruiker(gebruiker);
-    }
-    public List<ILokaal> getLokalen() {
-        return (List<ILokaal>)(Object) sessieKalenderController.getLokalen().stream().collect(Collectors.toList());
-    }
-}
- */
-//endregion

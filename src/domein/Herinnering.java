@@ -1,12 +1,13 @@
 package domein;
 
-import domein.enums.HerinneringTijdstippen;
+import domein.enums.HerinneringTijdstip;
 import domein.interfacesDomein.IHerinnering;
 import exceptions.domein.HerinneringException;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -24,7 +25,8 @@ public class Herinnering implements IHerinnering {
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d")})
     private String herinneringsId;
 
-    private HerinneringTijdstippen dagenVooraf;
+    @Enumerated(EnumType.ORDINAL)
+    private HerinneringTijdstip dagenVooraf;
     private boolean verwijderd = false;
     //endregion
 
@@ -41,7 +43,7 @@ public class Herinnering implements IHerinnering {
      *
      * @param dagenVooraf (HerinneringTijdstippen) ==> aantal dagen voordien dat de herinnering moet verstuurd worden
      */
-    public Herinnering(HerinneringTijdstippen dagenVooraf) {
+    public Herinnering(HerinneringTijdstip dagenVooraf) {
         setDagenVooraf(dagenVooraf);
     }
 
@@ -51,12 +53,12 @@ public class Herinnering implements IHerinnering {
      * @param dagenVooraf (int) ==> aantal dagen voordien dat de herinnering moet verstuurd worden
      */
     public Herinnering(int dagenVooraf) {
-        this(Arrays.stream(HerinneringTijdstippen.values()).filter(t -> t.getDagen() == dagenVooraf).findFirst().orElse(null));
+        this(Arrays.stream(HerinneringTijdstip.values()).filter(t -> t.getDagen() == dagenVooraf).findFirst().orElse(null));
     }
     //endregion
 
     //region Setters
-    private void setDagenVooraf(HerinneringTijdstippen dagenVooraf) {
+    private void setDagenVooraf(HerinneringTijdstip dagenVooraf) {
         if (dagenVooraf == null) {
             throw new HerinneringException();
         }
@@ -70,7 +72,7 @@ public class Herinnering implements IHerinnering {
 
     //region Getters
     @Override
-    public HerinneringTijdstippen getDagenVooraf() {
+    public HerinneringTijdstip getDagenVooraf() {
         return dagenVooraf;
     }
 
@@ -104,6 +106,18 @@ public class Herinnering implements IHerinnering {
     @Override
     public String toString() {
         return String.format("Herinnering: %s%nDagen vooraf: %d%n", herinneringsId, dagenVooraf.getDagen());
+    }
+
+    /**
+     *
+     * @param gegevens (int aantalDagen)
+     */
+    public void update(int gegevens) {
+        try {
+            setDagenVooraf(Arrays.stream(HerinneringTijdstip.values()).filter(t -> t.getDagen() == gegevens).findFirst().orElse(null));
+        }catch (Exception e){
+            throw new HerinneringException("Update");
+        }
     }
     //endregion
 }

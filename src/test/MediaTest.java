@@ -1,9 +1,9 @@
 package test;
 
-import domein.Gebruiker;
+import domein.gebruiker.Gebruiker;
 import domein.Media;
-import domein.Sessie;
-import domein.enums.MediaTypes;
+import domein.sessie.Sessie;
+import domein.enums.MediaType;
 import exceptions.domein.MediaException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-import static domein.enums.Gebruikersprofielen.GEBRUIKER;
+import static domein.enums.Gebruikersprofiel.GEBRUIKER;
 import static domein.enums.Gebruikersstatus.ACTIEF;
 
 //TODO --> nakijken leeg type bij aanmaken media
@@ -52,7 +52,7 @@ public class MediaTest {
 
     @ParameterizedTest
     @MethodSource("opsommingOngeldigeWaarden")
-    public void maakMediaOngeldigeWaarden_GooitException(Gebruiker gebruiker, String locatie, MediaTypes type) {
+    public void maakMediaOngeldigeWaarden_GooitException(Gebruiker gebruiker, String locatie, MediaType type) {
         Assertions.assertThrows(MediaException.class, () -> {
             new Media(sessie, gebruiker, locatie, type);
         });

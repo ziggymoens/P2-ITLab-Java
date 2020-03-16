@@ -1,45 +1,114 @@
 package domein.controllers;
 
 import domein.Aankondiging;
-import domein.Gebruiker;
-import domein.Sessie;
+import domein.gebruiker.Gebruiker;
+import domein.sessie.Sessie;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public interface ITypeController {
+public abstract class ITypeController {
 
-    Sessie geefSessieId(String id);
 
-    List<Sessie> geefAlleSessiesKalender(Integer jaar);
+    public Sessie geefSessieId(String id) {
+        return null;
+    }
 
-    List<Sessie> geefAlleSessiesTitel(String titel);
+    public List<Sessie> geefAlleSessiesKalender(Integer jaar) {
+        return null;
+    }
 
-    List<Sessie> geefAlleSessiesDatum(LocalDate datum);
+    public List<Sessie> geefAlleSessiesTitel(String titel) {
+        return null;
+    }
 
-    List<Sessie> geefAlleSessiesLocatie(String locatie);
+    public List<Sessie> geefAlleSessiesDatum(LocalDate datum) {
+        return null;
+    }
 
-    void bewerkSessie(Sessie sessie);
+    public List<Sessie> geefAlleSessiesLocatie(String locatie) {
+        return null;
+    }
 
-    void verwijderSessie(Sessie sessie);
+    public void bewerkSessie(Sessie sessie) {
 
-    void maakSessieAan(Sessie sessie);
+    }
 
-    List<Gebruiker> geefAlleGebruikersSessie(String id); // geef alle gebruikers bij bepaalde sessie
+    public void verwijderSessie(Sessie sessie) {
 
-    List<Gebruiker> geefAlleGerbuikersNaamSessie(String id, String naam); //filter bij sessie op naam gebruiker
+    }
 
-    List<Gebruiker> geefAlleGebuikersTypeSessie(String id, String type); //filter bij sessie op type gebruiker
+    public void maakSessieAan(Sessie sessie) {
 
-    void maakGebruikerAan(Gebruiker gebruiker);
+    }
 
-    void bewerkGebruiker(Gebruiker gebruiker);
+    public List<Gebruiker> geefAlleGebruikersSessie(String id) // geef alle gebruikers bij bepaalde sessie
+    {
+        return null;
+    }
 
-    void verwijderGebruiker(Gebruiker gebruiker);
+    public List<Gebruiker> geefAlleGerbuikersNaamSessie(String id, String naam) //filter bij sessie op naam gebruiker
+    {
+        return null;
+    }
 
-    void maakAankondigingAan(Aankondiging aankondiging, Sessie sessie);
+    public List<Gebruiker> geefAlleGebuikersTypeSessie(String id, String type) //filter bij sessie op type gebruiker
+    {
+        return null;
+    }
 
-    void bewerkAankondiging(Aankondiging aankondiging);
+    public void maakGebruikerAan(Gebruiker gebruiker) {
 
-    void verwijderAankondiging(Aankondiging aankondiging);
+    }
+
+    public void bewerkGebruiker(Gebruiker gebruiker) {
+
+    }
+
+    public void verwijderGebruiker(Gebruiker gebruiker) {
+
+    }
+
+    public void maakAankondigingAan(Aankondiging aankondiging, Sessie sessie) {
+
+    }
+
+    public void bewerkAankondiging(Aankondiging aankondiging) {
+
+    }
+
+    public void verwijderAankondiging(Aankondiging aankondiging) {
+
+    }
+
+    public Gebruiker geefGebruikerId(String id) {
+        return null;
+    }
+
+    public List<Gebruiker> geefAlleGebruikers() {
+        return null;
+    }
+
+    public List<Gebruiker> geefAlleGerbuikersNaam(String naam) {
+        return null;
+    }
+
+    public List<Gebruiker> geefAlleGebuikersType(String type) {
+        return null;
+    }
+
+    public List<Gebruiker> geefAlleGebruikersSessie() // geef alle gebruikers bij bepaalde sessie
+    {
+        return null;
+    }
+
+    public List<Gebruiker> geefAlleGerbuikersNaamSessie() //filter bij sessie op naam gebruiker
+    {
+        return null;
+    }
+
+    public List<Gebruiker> geefAlleGebuikersTypeSessie() //filter bij sessie op type gebruiker
+    {
+        return null;
+    }
 }

@@ -1,8 +1,8 @@
 package domein.controllers;
 
-import domein.Gebruiker;
-import domein.SessieKalender;
 import domein.SessieKalenderDataInit;
+import domein.gebruiker.Gebruiker;
+import domein.SessieKalender;
 import domein.interfacesDomein.IGebruiker;
 
 import java.time.LocalDate;

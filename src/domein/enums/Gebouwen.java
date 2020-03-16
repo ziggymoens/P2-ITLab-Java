@@ -1,21 +1,19 @@
 package domein.enums;
 
-import java.util.Arrays;
-
 public enum Gebouwen {
-    SCGB("SCHOONMEERSEN"),
-    SCHC("SCHOONMEERSEN"),
-    SCHD("SCHOONMEERSEN"),
-    SCHP("SCHOONMEERSEN"),
-    AARB("AALST");
+    B_A(Campus.AALST, "B"), B_G(Campus.SCHOONMEERSEN, "B"),C(Campus.SCHOONMEERSEN, "C"),D(Campus.SCHOONMEERSEN, "D"),P(Campus.SCHOONMEERSEN, "P");
 
-    private final Campussen campus;
+    final Campus campus;
+    final String displayValue;
 
-    Gebouwen(final String campus) {
-        this.campus = Arrays.stream(Campussen.values()).filter(c -> c.toString().equals(campus)).findFirst().orElse(null);
+    Gebouwen(Campus campus, String display) {
+        this.campus = campus;
+        this.displayValue = display;
     }
-
-    public Campussen getCampus() {
+    public Campus getCampus() {
         return campus;
+    }
+    public String getDisplayValue() {
+        return displayValue;
     }
 }

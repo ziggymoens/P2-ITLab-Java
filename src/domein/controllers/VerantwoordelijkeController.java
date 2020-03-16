@@ -1,14 +1,14 @@
 package domein.controllers;
 
 import domein.Aankondiging;
-import domein.Gebruiker;
-import domein.Sessie;
+import domein.gebruiker.Gebruiker;
+import domein.sessie.Sessie;
 import domein.SessieKalender;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public class VerantwoordelijkeController implements ITypeController {
+public class VerantwoordelijkeController extends ITypeController {
     private SessieKalender huidigeSessieKalender;
     private Gebruiker gebruiker;
     private int aj;
@@ -107,4 +107,40 @@ public class VerantwoordelijkeController implements ITypeController {
     public void verwijderAankondiging(Aankondiging aankondiging) {
 
     }
+
+    @Override
+    public Gebruiker geefGebruikerId(String id) {
+        return null;
+    }
+
+    @Override
+    public List<Gebruiker> geefAlleGebruikers() {
+        return null;
+    }
+
+    @Override
+    public List<Gebruiker> geefAlleGerbuikersNaam(String naam) {
+        return null;
+    }
+
+    @Override
+    public List<Gebruiker> geefAlleGebuikersType(String type) {
+        return null;
+    }
+
+    @Override
+    public List<Gebruiker> geefAlleGebruikersSessie() {
+        return null;
+    }
+
+    @Override
+    public List<Gebruiker> geefAlleGerbuikersNaamSessie() {
+        return null;
+    }
+
+    @Override
+    public List<Gebruiker> geefAlleGebuikersTypeSessie() {
+        return null;
+    }
+
 }

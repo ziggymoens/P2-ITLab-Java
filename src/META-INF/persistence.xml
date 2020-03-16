@@ -6,12 +6,27 @@
     <persistence-unit name="ITLab" transaction-type="RESOURCE_LOCAL">
         <class>domein.Aankondiging</class>
         <class>domein.Feedback</class>
-        <class>domein.Gebruiker</class>
         <class>domein.Herinnering</class>
         <class>domein.Inschrijving</class>
         <class>domein.Lokaal</class>
         <class>domein.Media</class>
-        <class>domein.Sessie</class>
+
+        <class>domein.sessie.Sessie</class>
+        <class>domein.sessie.SessieState</class>
+        <class>domein.sessie.GeslotenState</class>
+        <class>domein.sessie.OpenState</class>
+        <class>domein.sessie.ZichtbaarState</class>
+        <class>domein.sessie.NietZichtbaarState</class>
+
+        <class>domein.gebruiker.Gebruiker</class>
+        <class>domein.gebruiker.GebruikerProfielState</class>
+        <class>domein.gebruiker.GebruikerStatusState</class>
+        <class>domein.gebruiker.ActiefStatusState</class>
+        <class>domein.gebruiker.GeblokkeerdStatusState</class>
+        <class>domein.gebruiker.NietActiefStatusState</class>
+        <class>domein.gebruiker.HoofdverantwoordelijkeState</class>
+        <class>domein.gebruiker.VerantwoordelijkeState</class>
+        <class>domein.gebruiker.GebruikerState</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
         <properties>

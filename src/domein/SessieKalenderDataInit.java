@@ -1,5 +1,8 @@
 package domein;
 
+import domein.gebruiker.Gebruiker;
+import domein.sessie.Sessie;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -15,12 +18,10 @@ public class SessieKalenderDataInit {
     private final File herinnering = new File("src/csv/Herinneringen.csv");
     private final File inschrijving = new File("src/csv/Inschrijvingen.csv");
     private final File media = new File("src/csv/Media.csv");
-    private final PasswordUtils passwordUtils;
 
     private SessieKalender sessieKalender;
 
     public SessieKalenderDataInit(SessieKalender sessieKalender) {
-        passwordUtils = new PasswordUtils();
         this.sessieKalender = sessieKalender;
 
         try {
@@ -52,7 +53,10 @@ public class SessieKalenderDataInit {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] sessie = line.split(";");
-                sessieKalender.voegSessieToe(new Sessie(sessie[0], LocalDateTime.parse(sessie[1]), LocalDateTime.parse(sessie[2]), sessieKalender.geefLokaalById(sessie[3]), sessieKalender.geefGebruikerById(sessie[4])));
+                Sessie s = new Sessie(sessie[0], LocalDateTime.parse(sessie[1]), LocalDateTime.parse(sessie[2]), sessieKalender.geefLokaalById(sessie[3]), sessieKalender.geefGebruikerById(sessie[4]));
+                sessieKalender.voegSessieToe(s);
+                s.setState(sessie[5]);
+
             }
         } catch (IOException e) {
             e.printStackTrace();

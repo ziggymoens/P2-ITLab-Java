@@ -1,13 +1,16 @@
 package domein;
 
+import domein.gebruiker.Gebruiker;
 import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.IInschrijving;
+import domein.sessie.Sessie;
 import exceptions.domein.InschrijvingException;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -162,6 +165,26 @@ public class Inschrijving implements IInschrijving {
     public String toString_inschrijvingsDatum() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return String.format("%s", inschrijvingsdatum.format(formatter));
+    }
+
+    /**
+     *
+     * @param gegevens (Gebruiker gebruiker, LocalDateTime inschrijvingsdatum, boolean aanwezigheid)
+     */
+    public void update(List<Object> gegevens) {
+        try {
+            if (gegevens.get(0) != null) {
+                setGebruiker((Gebruiker) gegevens.get(0));
+            }
+            if (gegevens.get(1) != null) {
+                setInschrijvingsdatum((LocalDateTime) gegevens.get(1));
+            }
+            if (gegevens.get(2) != null) {
+                setStatusAanwezigheid((boolean) gegevens.get(2));
+            }
+        }catch (Exception e){
+            throw new InschrijvingException("Update");
+        }
     }
 
     //endregion

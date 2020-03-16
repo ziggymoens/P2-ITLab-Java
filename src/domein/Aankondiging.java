@@ -1,14 +1,17 @@
 package domein;
 
+import domein.gebruiker.Gebruiker;
 import domein.interfacesDomein.IAankondiging;
 import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.IHerinnering;
+import domein.sessie.Sessie;
 import exceptions.domein.AankondigingException;
 import exceptions.domein.HerinneringException;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -203,6 +206,29 @@ public class Aankondiging implements IAankondiging {
     @Override
     public String toString_Compleet() {
         return String.format("Aankondiging: %s%nGeplaatst door: %s%nGeplaats op: %s%nAutomatische herinnering? %s%nInhoud: %s%n", aankondigingsId, gebruiker.getNaam(), publicatiedatum.toString(), automatischeHerinnering ? String.format("ja%nAantal dagen voor de sessie: %d%n", herinnering.getDagenVoorafInt()) : "nee", inhoud);
+    }
+
+    /**
+     *
+     * @param gegevens (String inhoud, LocalDateTime datum, boolean herinnering, Gebruiker gebruiker)
+     */
+    public void update(List<Object> gegevens) {
+        try {
+            if (gegevens.get(0) != null && !((String) gegevens.get(0)).isBlank()) {
+                setInhoud((String) gegevens.get(0));
+            }
+            if (gegevens.get(1) != null) {
+                setPublicatiedatum((LocalDateTime) gegevens.get(1));
+            }
+            if (gegevens.get(2) != null) {
+                setAutomatischeHerinnering((boolean) gegevens.get(2));
+            }
+            if (gegevens.get(3) != null) {
+                setGebruiker((Gebruiker) gegevens.get(3));
+            }
+        } catch (Exception e){
+            throw new AankondigingException("Update");
+        }
     }
     //endregion
 }

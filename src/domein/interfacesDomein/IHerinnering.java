@@ -1,11 +1,11 @@
 package domein.interfacesDomein;
 
-import domein.enums.HerinneringTijdstippen;
+import domein.enums.HerinneringTijdstip;
 
 public interface IHerinnering {
     int getDagenVoorafInt();
 
-    HerinneringTijdstippen getDagenVooraf();
+    HerinneringTijdstip getDagenVooraf();
 
     String getHerinneringsId();
 }

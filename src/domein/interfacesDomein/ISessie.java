@@ -40,8 +40,4 @@ public interface ISessie {
     int getBeschikbarePlaatsen();
 
     String toString_Kalender();
-
-    void add(IObserverSessie observers);
-    void remove(IObserverSessie observers);
-    void notifyObservers();
 }

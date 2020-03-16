@@ -1,6 +1,6 @@
 package domein.enums;
 
-public enum MediaTypes {
+public enum MediaType {
     FOTO,
     URL,
     ONBEKEND

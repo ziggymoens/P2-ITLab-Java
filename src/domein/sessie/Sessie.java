@@ -1,8 +1,14 @@
-package domein;
+package domein.sessie;
 
+import domein.*;
+import domein.enums.SessieStatus;
+import domein.gebruiker.Gebruiker;
 import domein.interfacesDomein.*;
+import domein.Lokaal;
 import exceptions.domein.SessieException;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import userinterface.main.IObserverSessie;
 
 import javax.persistence.*;
@@ -13,7 +19,7 @@ import java.util.stream.Collectors;
 @SuppressWarnings("unchecked")
 @Entity
 @Table(name = "sessie")
-public class Sessie implements ISessie {
+public class Sessie implements ISessie, SessieSubject {
     //region variabelen
     //Primairy key
     @Id
@@ -49,6 +55,10 @@ public class Sessie implements ISessie {
     private Lokaal lokaal;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Gebruiker verantwoordelijke;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private SessieState currentState;
 
     //endregion
 
@@ -129,11 +139,6 @@ public class Sessie implements ISessie {
 
     public void setVerantwoordelijke(Gebruiker verantwoordelijke) {
         this.verantwoordelijke = verantwoordelijke;
-        notifyObservers();
-    }
-
-    private void setGeopend(boolean geopend) {
-        this.geopend = geopend;
         notifyObservers();
     }
 
@@ -419,6 +424,38 @@ public class Sessie implements ISessie {
         return String.format("%02d:%02d: %s", startSessie.getHour(), startSessie.getMinute(), getTitel());
     }
 
+    /**
+     *
+     * @param gegevens (Gebruiker gebruiker, String titel, LocalDateTime start, LocalDateTime einde, Lokaal lokaal, String gastspreker)
+     */
+    public void update(List<Object> gegevens) {
+        try {
+            if (gegevens.get(0) != null) {
+                setVerantwoordelijke((Gebruiker) gegevens.get(0));
+            }
+            if (gegevens.get(1) != null && !((String) gegevens.get(1)).isBlank()) {
+                setTitel((String) gegevens.get(1));
+            }
+            if (gegevens.get(2) != null) {
+                setStartSessie((LocalDateTime) gegevens.get(2));
+            }
+            if (gegevens.get(3) != null) {
+                setEindeSessie((LocalDateTime) gegevens.get(3));
+            }
+            if (gegevens.get(4) != null) {
+                setLokaal((Lokaal) gegevens.get(4));
+            }
+            if (gegevens.get(5) != null && !((String) gegevens.get(5)).isBlank()) {
+                setNaamGastspreker((String) gegevens.get(5));
+            }
+            controleData();
+            setMaximumAantalPlaatsen(this.lokaal.getAantalPlaatsen());
+            setAcademiejaar();
+        } catch (Exception e){
+            throw new SessieException("Update");
+        }
+    }
+/*
     public void updateSessie(Map<String, String> veranderingenMap, List<ILokaal> lokaal) {
         veranderingenMap.forEach((key, value) -> {
             switch (key) {
@@ -448,6 +485,7 @@ public class Sessie implements ISessie {
 
         });
     }
+ */
 
     public void verwijderMedia(Media mediaOud) {
         media.remove(mediaOud);
@@ -475,15 +513,80 @@ public class Sessie implements ISessie {
     }
 
 
+    //region Observable
+    @Override
     public void add(IObserverSessie o) {
         this.observers.add(o);
     }
+    @Override
     public void remove(IObserverSessie o){
         this.observers.remove(o);
     }
+
     public void notifyObservers(){
         for (IObserverSessie o: observers) {
             o.update(this);
         }
     }
+    //endregion
+
+    //region State
+    public void setState(String state){
+        setState(Arrays.stream(SessieStatus.values()).filter(s -> s.toString().equals(state)).findFirst().orElse(null));
+    }
+
+    private void setState(SessieStatus status){
+        if(status == null){
+            status = SessieStatus.NIET_ZICHTBAAR;
+        }
+        switch (status){
+            case OPEN:
+                toState(new OpenState(this));
+                break;
+            case GESLOTEN:
+                toState(new GeslotenState(this));
+                break;
+            case ZICHTBAAR:
+                toState(new ZichtbaarState(this));
+                break;
+            default:
+            case NIET_ZICHTBAAR:
+                toState(new NietZichtbaarState(this));
+                break;
+        }
+    }
+
+    public void sessieZichtBaar(){
+        if(currentState.getStatus().equals("NIET ZICHTBAAR")){
+            toState(new ZichtbaarState(this));
+        }else{
+            throw new SessieException();
+        }
+    }
+    public void sessieNietZichtBaar(){
+        if(currentState.getStatus().equals("ZICHTBAAR")){
+            toState(new NietZichtbaarState(this));
+        }else{
+            throw new SessieException();
+        }
+    }
+    public void sessieOpen(){
+        if(currentState.getStatus().equals("ZICHTBAAR") || currentState.getStatus().equals("GESLOTEN")){
+            toState(new OpenState(this));
+        }else{
+            throw new SessieException();
+        }
+    }
+    public void sessieGesloten(){
+        if(currentState.getStatus().equals("OPEN") && startSessie.isBefore(LocalDateTime.now())){
+            toState(new GeslotenState(this));
+        }else{
+            throw new SessieException();
+        }
+    }
+
+    private void toState(SessieState state){
+        currentState = state;
+    }
+    //endregion
 }

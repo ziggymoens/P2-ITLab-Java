@@ -1,11 +1,12 @@
 package domein.enums;
 
-public enum LokaalTypes {
+public enum LokaalType {
     AUDITORIUM,
     LESLOKAAL,
     VERGADERZAAL,
     PC_LOKAAL,
     LAPTOPLOKAAL,
     HYBRIDE,
-    TAALLAB
+    TAALLAB,
+    IT_LAB
 }

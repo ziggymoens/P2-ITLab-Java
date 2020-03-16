@@ -6,12 +6,12 @@
     <persistence-unit name="ITLab" transaction-type="RESOURCE_LOCAL">
         <class>domein.Aankondiging</class>
         <class>domein.Feedback</class>
-        <class>domein.Gebruiker</class>
+        <class>domein.gebruiker.Gebruiker</class>
         <class>domein.Herinnering</class>
         <class>domein.Inschrijving</class>
         <class>domein.Lokaal</class>
         <class>domein.Media</class>
-        <class>domein.Sessie</class>
+        <class>domein.sessie.Sessie</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
         <properties>

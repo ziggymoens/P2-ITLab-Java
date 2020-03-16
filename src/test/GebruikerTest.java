@@ -1,6 +1,6 @@
 package test;
 
-import domein.Gebruiker;
+import domein.gebruiker.Gebruiker;
 import exceptions.domein.GebruikerException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;

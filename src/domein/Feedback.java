@@ -1,11 +1,15 @@
 package domein;
 
+import domein.gebruiker.Gebruiker;
 import domein.interfacesDomein.IFeedback;
 import domein.interfacesDomein.IGebruiker;
+import domein.sessie.Sessie;
 import exceptions.domein.FeedbackException;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -128,6 +132,23 @@ public class Feedback implements IFeedback {
     @Override
     public String toString_Compleet() {
         return String.format("Feedback: %s%nGeplaatst door: %s%nInhoud: %s%n", feedbackId, gebruiker.getNaam(), tekst);
+    }
+
+    /**
+     *
+     * @param gegevens (String inhoud, Gebruiker gebruiker)
+     */
+    public void update(List<Object> gegevens) {
+        try {
+            if (gegevens.get(0) != null && !((String) gegevens.get(0)).isBlank()) {
+                setTekst((String) gegevens.get(0));
+            }
+            if (gegevens.get(1) != null) {
+                setGebruiker((Gebruiker) gegevens.get(1));
+            }
+        }catch (Exception e){
+            throw new FeedbackException("Update");
+        }
     }
     //endregion
 }

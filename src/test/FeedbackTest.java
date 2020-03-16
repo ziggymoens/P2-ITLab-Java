@@ -1,9 +1,9 @@
 package test;
 
 import domein.Feedback;
-import domein.Gebruiker;
+import domein.gebruiker.Gebruiker;
 import domein.Lokaal;
-import domein.Sessie;
+import domein.sessie.Sessie;
 import exceptions.domein.FeedbackException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -14,7 +14,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
-import static domein.enums.Gebruikersprofielen.GEBRUIKER;
+import static domein.enums.Gebruikersprofiel.GEBRUIKER;
 import static domein.enums.Gebruikersstatus.ACTIEF;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

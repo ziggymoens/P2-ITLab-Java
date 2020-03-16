@@ -5,6 +5,6 @@ public interface ILokaal {
     int getAantalPlaatsen();
     String getStad();
     String getGebouw();
-    String getVerdieping();
+    int getVerdieping();
     String getType();
 }

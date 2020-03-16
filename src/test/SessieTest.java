@@ -1,8 +1,8 @@
 package test;
 
-import domein.Gebruiker;
+import domein.gebruiker.Gebruiker;
 import domein.Lokaal;
-import domein.Sessie;
+import domein.sessie.Sessie;
 import exceptions.domein.SessieException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;

@@ -1,14 +1,13 @@
 package domein;
 
-import domein.enums.LokaalTypes;
+import domein.enums.Gebouwen;
+import domein.enums.LokaalType;
 import domein.interfacesDomein.ILokaal;
 import exceptions.domein.LokaalException;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -22,13 +21,12 @@ public class Lokaal implements ILokaal {
 
     private int aantalPlaatsen;
     private boolean verwijderd = false;
+    @Enumerated(EnumType.STRING)
+    private Gebouwen gebouw;
     @Transient
-    private String stad;
-    @Transient
-    private String gebouw;
-    @Transient
-    private String verdieping;
-    private LokaalTypes type;
+    private int verdieping;
+    @Enumerated(EnumType.STRING)
+    private LokaalType type;
     //endregion
 
     //region Constructor
@@ -49,7 +47,9 @@ public class Lokaal implements ILokaal {
         setLokaalCode(lokaalCode);
         setLokaalType(type);
         setAantalPlaatsen(aantalPlaatsen);
+        setLokaalGegevens();
     }
+
     //endregion
 
     //region Setters
@@ -72,57 +72,58 @@ public class Lokaal implements ILokaal {
     }
 
     public void setLokaalType(String type) {
-        this.type = Arrays.stream(LokaalTypes.values()).filter(t -> t.toString().equals(type)).findFirst().orElse(null);
-    }
-    private void setVerdieping() {
-        if (!lokaalCode.startsWith("G")){
-            this.verdieping = "Onbekend";
-        } else { this.verdieping =  lokaalCode.substring(5,6);}
+        this.type = Arrays.stream(LokaalType.values()).filter(t -> t.toString().equals(type)).findFirst().orElse(null);
     }
 
-    private void setGebouw() {
-        if (!lokaalCode.startsWith("G")){
-            this.gebouw =  "Onbekend";
-        } else{ this.gebouw = lokaalCode.substring(4,5);}
-    }
-
-    private void setStad() {
-        if (!lokaalCode.startsWith("G")){
-            this.stad = "Onbekend";
-        } else if(lokaalCode.matches("GS(.)+")){
-            this.stad = "Gent";
-        } else if(lokaalCode.matches("GA(.)+")){
-            this.stad =  "Aalst";
+    private void setLokaalGegevens() {
+        String gebouw = lokaalCode.substring(4,5);
+        switch (gebouw){
+            case "B":
+                if (lokaalCode.substring(1,4).equals("SCH")){
+                    this.gebouw = Gebouwen.B_G;
+                }else{
+                    this.gebouw = Gebouwen.B_A;
+                }
+                break;
+            case "C":
+                this.gebouw = Gebouwen.C;
+                break;
+            case "D":
+                this.gebouw = Gebouwen.D;
+                break;
+            case "P":
+                this.gebouw = Gebouwen.P;
+                break;
+            default:
+                break;
         }
+        this.verdieping =  Integer.parseInt(String.valueOf(lokaalCode.charAt(5)));
     }
-
     //endregion
 
     //region Getters
+    @Override
     public String getLokaalCode() {
         return lokaalCode;
     }
-
+    @Override
     public String getType(){
         return type.toString();
     }
-
+    @Override
     public int getAantalPlaatsen() {
         return aantalPlaatsen;
     }
-
+    @Override
     public String getStad(){
-        setStad();
-        return stad;
+        return gebouw.getCampus().getStad().toString();
     }
-
-    public String getGebouw(){
-        setGebouw();
-        return gebouw;
+    @Override
+    public String getGebouw() {
+        return gebouw.toString();
     }
-
-    public String getVerdieping(){
-        setVerdieping();
+    @Override
+    public int getVerdieping(){
         return verdieping;
     }
     //endregion
@@ -146,6 +147,23 @@ public class Lokaal implements ILokaal {
     @Override
     public int hashCode() {
         return Objects.hash(lokaalCode);
+    }
+
+    public void update(List<Object> gegevens) {
+        try {
+            if (gegevens.get(0) != null && !((String) gegevens.get(0)).isBlank()) {
+                setLokaalCode((String) gegevens.get(0));
+            }
+            if (gegevens.get(1) != null && !((String) gegevens.get(1)).isBlank()) {
+                setLokaalType((String) gegevens.get(1));
+            }
+            if (gegevens.get(2) != null) {
+                setAantalPlaatsen((Integer) gegevens.get(2));
+            }
+            setLokaalGegevens();
+        }catch (Exception e){
+            throw new LokaalException("Update");
+        }
     }
     //endregion
 }
