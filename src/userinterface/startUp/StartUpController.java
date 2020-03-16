@@ -91,9 +91,6 @@ public class StartUpController extends AnchorPane {
                 ww = wachtwoordV.getText();
             }
             IGebruiker gebruiker = startController.geefIGebruikers().stream().filter(g -> g.getGebruikersnaam().equals(gebruikersnaam)).findFirst().orElse(null);
-            System.out.println(gebruiker.getGebruikersprofiel());
-            System.out.println(gebruiker.getStatus());
-
             if (gebruiker == null || !PasswordUtils.verifyUserPassword(ww, gebruiker.getWachtwoord())) {
                 error.setText("Gebruikersnaam en/of wachtwoord zijn ongeldig");
                 wachtwoord.setText("");
