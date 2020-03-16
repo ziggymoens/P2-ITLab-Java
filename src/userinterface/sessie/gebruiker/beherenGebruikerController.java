@@ -1,4 +1,4 @@
-package userinterface.sessie.gerbuiker;
+package userinterface.sessie.gebruiker;
 
 public class beherenGebruikerController {
 }

@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <AnchorPane prefHeight="250.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="userinterface.sessie.gerbuiker.BeherenGebruiker">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="userinterface.sessie.gebruiker.BeherenGebruiker">
     <children>
         <HBox fx:id="hBoxOnderaan1" alignment="CENTER_LEFT" prefHeight="250.0" prefWidth="1400.0">
             <children>
