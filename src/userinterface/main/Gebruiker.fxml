@@ -23,26 +23,26 @@
 
                         <VBox prefHeight="374.0" prefWidth="570.0">
                             <children>
-                                <Label text="Filter lijst:">
+                                <Label alignment="CENTER" prefHeight="17.0" prefWidth="558.0" text="Filter lijst:">
                                     <VBox.margin>
                                         <Insets bottom="10.0" />
                                     </VBox.margin>
                                 </Label>
                                 <HBox>
                                     <children>
-                                        <ComboBox fx:id="comboBoxType" prefWidth="90.0" promptText="Type">
+                                        <ComboBox fx:id="comboBoxType" prefHeight="27.0" prefWidth="235.0" promptText="Type">
                                             <HBox.margin>
                                                 <Insets right="10.0" />
                                             </HBox.margin>
                                         </ComboBox>
-                                        <ComboBox fx:id="comboBoxStatus" prefWidth="90.0" promptText="Status">
+                                        <ComboBox fx:id="comboBoxStatus" prefHeight="27.0" prefWidth="227.0" promptText="Status">
                                             <HBox.margin>
-                                                <Insets left="10.0" right="10.0" />
+                                                <Insets left="10.0" />
                                             </HBox.margin>
                                         </ComboBox>
-                                        <Button fx:id="toevoegenGebruiker" mnemonicParsing="false" prefHeight="27.0" prefWidth="98.0" text="+ Gebruiker">
+                                        <Button fx:id="toevoegenGebruiker" mnemonicParsing="false" prefHeight="27.0" prefWidth="119.0" text="+ Gebruiker">
                                             <HBox.margin>
-                                                <Insets left="72.0" />
+                                                <Insets left="25.0" />
                                             </HBox.margin>
                                         </Button>
                                     </children>
@@ -55,8 +55,8 @@
                                         <Insets bottom="5.0" />
                                     </VBox.margin>
                                     <children>
-                                        <TextField fx:id="txtFieldSearchBar" maxWidth="-Infinity" minWidth="10.0" prefHeight="27.0" prefWidth="267.0" promptText="Zoek..." />
-                                        <Button fx:id="btnFilterConfirm" mnemonicParsing="false" prefHeight="27.0" prefWidth="74.0" text="Filter">
+                                        <TextField fx:id="txtFieldSearchBar" maxWidth="-Infinity" minWidth="10.0" prefHeight="27.0" prefWidth="451.0" promptText="Zoek..." />
+                                        <Button fx:id="btnFilterConfirm" mnemonicParsing="false" prefHeight="27.0" prefWidth="114.0" text="Filter">
                                             <HBox.margin>
                                                 <Insets left="25.0" />
                                             </HBox.margin>
@@ -134,7 +134,7 @@
                                                                 <Insets bottom="3.0" />
                                                             </VBox.margin>
                                                         </Label>
-                                          <ComboBox fx:id="comboBoxTypeGebruiker" prefHeight="27.0" prefWidth="241.0" />
+                                          <ComboBox fx:id="comboBoxTypeGebruiker" prefHeight="27.0" prefWidth="438.0" />
                                                     </children>
                                                     <VBox.margin>
                                                         <Insets bottom="2.0" />
@@ -147,7 +147,7 @@
                                                                 <Insets bottom="3.0" />
                                                             </VBox.margin>
                                                         </Label>
-                                          <ComboBox fx:id="comboBoxStatusGebruiker" prefHeight="27.0" prefWidth="241.0" />
+                                          <ComboBox fx:id="comboBoxStatusGebruiker" prefHeight="27.0" prefWidth="443.0" />
                                                         <Label fx:id="lblErrorStatusGebruiker" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="574.0" text="Label" textFill="RED" visible="false" />
                                                     </children>
                                                     <VBox.margin>
@@ -160,14 +160,14 @@
                                 </VBox>
                                 <HBox prefHeight="29.0" prefWidth="450.0">
                                     <children>
-                                        <Button fx:id="btnWijzigen" mnemonicParsing="false" prefWidth="200.0" text="Wijzigen">
+                                        <Button fx:id="btnWijzigen" mnemonicParsing="false" prefWidth="210.0" text="Wijzigen">
                                             <HBox.margin>
-                                                <Insets left="10.0" right="10.0" />
+                                                <Insets right="10.0" />
                                             </HBox.margin>
                                         </Button>
-                                        <Button fx:id="btnVerwijderen" mnemonicParsing="false" prefWidth="200.0" text="Verwijderen">
+                                        <Button fx:id="btnVerwijderen" mnemonicParsing="false" prefWidth="210.0" text="Verwijderen">
                                             <HBox.margin>
-                                                <Insets left="10.0" right="10.0" />
+                                                <Insets left="10.0" />
                                             </HBox.margin>
                                         </Button>
                                     </children>

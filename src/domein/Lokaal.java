@@ -23,8 +23,6 @@ public class Lokaal implements ILokaal {
     private boolean verwijderd = false;
     @Enumerated(EnumType.STRING)
     private Gebouwen gebouw;
-    @Transient
-    private int verdieping;
     @Enumerated(EnumType.STRING)
     private LokaalType type;
     //endregion
@@ -97,7 +95,6 @@ public class Lokaal implements ILokaal {
             default:
                 break;
         }
-        this.verdieping =  Integer.parseInt(lokaalCode.substring(5,6));
     }
     //endregion
 
@@ -124,7 +121,7 @@ public class Lokaal implements ILokaal {
     }
     @Override
     public int getVerdieping(){
-        return this.verdieping;
+        return Integer.parseInt(lokaalCode.substring(5,6));
     }
     //endregion
 
