@@ -20,4 +20,6 @@ public interface IAankondiging {
     IGebruiker getIGebruiker();
 
     String toString_Compleet();
+
+    boolean getVerwijderd();
 }

@@ -418,8 +418,8 @@ public class DomeinController {
         typeController.bewerkAankondiging(aankondiging);
     }
 
-    public void verwijderAankondiging(Aankondiging aankondiging){
-        typeController.verwijderAankondiging(aankondiging);
+    public void verwijderAankondiging(IAankondiging aankondiging){
+        typeController.verwijderAankondiging((Aankondiging) aankondiging);
     }
     //endregion
 

@@ -20,6 +20,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import userinterface.sessie.aankondiging.BeherenAankondigingController;
+import userinterface.sessie.feedback.BeherenFeedbackController;
 import userinterface.sessie.lokaal.BeherenLokaalController;
 
 import java.io.IOException;
@@ -238,10 +239,11 @@ public class SessieController extends AnchorPane implements IObserverSessie {
 
         sessieTable();
         activeerFilters();
+        radioButtons();
 
         btnBewerkenSessie.setOnAction(this::bewerkenSessie);
         btnOpslaanSessie.setOnAction(this::opslaanSessie);
-        radioButtons();
+
 
         pOnderaan.getChildren().addAll( new BeherenLokaalController(domeinController));
     }
@@ -273,6 +275,7 @@ public class SessieController extends AnchorPane implements IObserverSessie {
                 domeinController.addSessieObserver(SessieController.this);
                 checkBoxCapaciteitSessie.setDisable(true);
                 vulDetails();
+
             }
         });
 
@@ -383,9 +386,9 @@ public class SessieController extends AnchorPane implements IObserverSessie {
                     rabtnFeedback.setSelected(false);
                     rabtnInschrijving.setSelected(false);
                     rabtnMedia.setSelected(false);
-                    apAankondiging.getChildren().removeAll();
                     apAankondiging.getChildren().addAll( new BeherenAankondigingController(domeinController));
-                }
+                } else
+                    apAankondiging.getChildren().remove(0);
             }
         });
         rabtnAankondiging.setSelected(true);

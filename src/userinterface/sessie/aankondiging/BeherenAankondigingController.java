@@ -16,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 public class BeherenAankondigingController extends AnchorPane {
     DomeinController domeinController;
@@ -72,7 +73,10 @@ public class BeherenAankondigingController extends AnchorPane {
         btnBewerkenAankondiging.setOnAction(this::bewerkenAankondiging);
         btnOpslaanAankondiging.setOnAction(this::opslaanAankondiging);
         btnNieuweAankondiging.setOnAction(this::nieuweAankondiging);
+        btnVerwijderAankondiging.setOnAction(this::verwijderAankondiging);
     }
+
+
 
 
     public void vulTable(){
@@ -96,7 +100,8 @@ public class BeherenAankondigingController extends AnchorPane {
         txtPub.setText(huidigeAankondiging.getPublicatiedatum().format( DateTimeFormatter.ofPattern("dd/MM HH:mm")));
         txfInhoud.setText(huidigeAankondiging.getInhoud());
         cbAutom.setItems(FXCollections.observableArrayList(domeinController.geefHerinneringsTijdstippen()));
-        cbAutom.setValue(huidigeAankondiging.getIHerinnering().getDagenVooraf().toString());
+        if(huidigeAankondiging.isAutomatischeHerinnering())
+            cbAutom.setValue(huidigeAankondiging.getIHerinnering().getDagenVooraf().toString());
     }
 
     private void bewerkenAankondiging(ActionEvent actionEvent) {
@@ -119,18 +124,37 @@ public class BeherenAankondigingController extends AnchorPane {
         txtPub.setEditable(false);
         txfInhoud.setEditable(false);
         cbAutom.setDisable(true);
-        //methode updateAankondiging uit dc aanroepen
+        if(btnNieuweAankondiging.isDisable()){
+            //Nieuwe aankondiging uit dc aanroepen
+            btnNieuweAankondiging.setDisable(false);
+        }else{
+            //Update methode aanroepen uit dc
+        }
     }
 
     private void nieuweAankondiging(ActionEvent actionEvent) {
-        txtGebr.setText("");
-        txtGebr.setEditable(true);
+        txtGebr.setText(domeinController.geefHuidigeIGebruiker().getNaam());
         txtPub.setText("");
         txfInhoud.setText("");
         txfInhoud.setEditable(true);
         cbAutom.setDisable(false);
         cbAutom.setValue(domeinController.geefHerinneringsTijdstippen().get(0));
-        //methode nieuweAankondiging uit dc aanroepen
+        btnNieuweAankondiging.setDisable(true);
+        btnBewerkenAankondiging.setVisible(false);
+        btnBewerkenAankondiging.setDisable(true);
+        btnOpslaanAankondiging.setVisible(true);
+        btnOpslaanAankondiging.setDisable(false);
+    }
+
+    private void verwijderAankondiging(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Verwijderen");
+        alert.setHeaderText(null);
+        alert.setContentText("Ben je zeker dat je deze aankondiging wilt verwijderen?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.get() == ButtonType.OK){
+            domeinController.verwijderAankondiging(table.getSelectionModel().getSelectedItem());
+        }
     }
 
 }
