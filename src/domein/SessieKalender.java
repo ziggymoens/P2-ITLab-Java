@@ -149,7 +149,7 @@ public class SessieKalender {
     }
 
     public List<Aankondiging> geefAlleAankondigingenVanSessie(String sessie) {
-        return geefSessieById(sessie).getAankondigingen();
+        return geefSessieById(sessie).getAankondigingen().stream().filter(a -> !a.getVerwijderd()).collect(Collectors.toList());
     }
     //endregion
 

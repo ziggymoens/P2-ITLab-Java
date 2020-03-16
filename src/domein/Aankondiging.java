@@ -165,6 +165,9 @@ public class Aankondiging implements IAankondiging {
     }
 
     @Override
+    public boolean getVerwijderd(){ return verwijderd; }
+
+    @Override
     public IGebruiker getIGebruiker() {
         return gebruiker;
     }
