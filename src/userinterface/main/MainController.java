@@ -65,13 +65,16 @@ public class MainController extends AnchorPane{
         gebruiker = domeinController.geefHuidigeIGebruiker();
         gebruikersnaam.setText(gebruiker.getNaam());
         Image image = new Image("storage/profielfotos/profielfoto.png");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
         laatst.setText(domeinController.geefHuidigeIGebruiker().getLaatstIngelogd().format(formatter));
         this.profielFoto.setImage(image);
-        btnSessie.setOnAction(this::openSessie);
-        btnGebruiker.setOnAction(this::openGebruiker);
-        btnSessiekalender.setOnAction(this::openKalender);
-        sessieTabBP.setLeft(new SessieController(domeinController));
+        //btnSessie.setOnAction(this::openSessie);
+        //btnGebruiker.setOnAction(this::openGebruiker);
+        //btnSessiekalender.setOnAction(this::openKalender);
+        openSessie();
+        openGebruiker();
+        SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
+        selectionModel.select(1);
     }
 
     private void openKalender(ActionEvent actionEvent) {
@@ -82,17 +85,17 @@ public class MainController extends AnchorPane{
         tabPane.getSelectionModel().select(tab);
     }
 
-    private void openGebruiker(ActionEvent actionEvent) {
+    private void openGebruiker() {
         Tab tab = new Tab("Gebruiker");
-        tab.setClosable(true);
+        tab.setClosable(false);
         tab.setContent(new GebruikerController(domeinController));
         tabPane.getTabs().add(tab);
         tabPane.getSelectionModel().select(tab);
     }
 
-    private void openSessie(ActionEvent actionEvent) {
+    private void openSessie() {
         Tab tab = new Tab("Sessie");
-        tab.setClosable(true);
+        tab.setClosable(false);
         tab.setContent(new SessieController(domeinController));
         tabPane.getTabs().add(tab);
         tabPane.getSelectionModel().select(tab);
@@ -102,7 +105,7 @@ public class MainController extends AnchorPane{
     public Tab maakNieuwTab(Node node) {
         Tab tab = new Tab();
         tab.setContent(node);
-        tab.setClosable(true);
+        tab.setClosable(false);
         tabPane.getTabs().add(tab);
         return tab;
     }

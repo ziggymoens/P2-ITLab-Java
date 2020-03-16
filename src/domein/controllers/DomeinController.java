@@ -259,22 +259,21 @@ public class DomeinController {
 
     public Set<String> geefSteden(){
         Set<String> set = new HashSet<>();
-        set.add("--Stad--");
         huidigeSessieKalender.geefAlleLokalen().stream().forEach(e -> set.add(e.getStad()));
         return set;
     }
 
     public Set<String> geefGebouwen(){
         Set<String> set = new HashSet<>();
-        set.add("--Gebouw--");
         huidigeSessieKalender.geefAlleLokalen().stream().forEach(e -> set.add(e.getGebouw()));
         return set;
     }
 
     public Set<Integer> geefVerdiepingen(){
-        Set<Integer> set = new HashSet<>();
-        huidigeSessieKalender.geefAlleLokalen().stream().forEach(e -> set.add(e.getVerdieping()));
-        return set;
+
+        return huidigeSessieKalender.geefAlleLokalen().stream().map(l -> {
+            return l.getVerdieping();
+        }).collect(Collectors.toSet());
     }
 
     /*

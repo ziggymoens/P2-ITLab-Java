@@ -97,7 +97,7 @@ public class Lokaal implements ILokaal {
             default:
                 break;
         }
-        this.verdieping =  Integer.parseInt(String.valueOf(lokaalCode.charAt(5)));
+        this.verdieping =  Integer.parseInt(lokaalCode.substring(5,6));
     }
     //endregion
 
@@ -124,7 +124,7 @@ public class Lokaal implements ILokaal {
     }
     @Override
     public int getVerdieping(){
-        return verdieping;
+        return this.verdieping;
     }
     //endregion
 
