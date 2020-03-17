@@ -2,6 +2,7 @@ package domein.gebruiker;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -16,6 +17,7 @@ public abstract class GebruikerProfielState implements Serializable {
     protected String profiel;
     @OneToOne()
     protected Gebruiker gebruiker;
+
 
     public GebruikerProfielState() {
     }

@@ -402,7 +402,7 @@ public class DomeinController {
     }
 
     public void huidigeGebruikerIngelogd() {
-        huidigeGebruiker.setIngelogd();
+        throw new UnsupportedOperationException();
     }
 
     public List<String> geefHerinneringsTijdstippen(){

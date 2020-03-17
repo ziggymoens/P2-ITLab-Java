@@ -1,5 +1,6 @@
 package domein;
 
+import com.sun.istack.NotNull;
 import domein.enums.HerinneringTijdstip;
 import domein.interfacesDomein.IHerinnering;
 import exceptions.domein.HerinneringException;
@@ -23,9 +24,11 @@ public class Herinnering implements IHerinnering {
             parameters = {
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.VALUE_PREFIX_PARAMETER, value = "H1920-"),
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d")})
+    @NotNull
     private String herinneringsId;
 
     @Enumerated(EnumType.ORDINAL)
+    @NotNull
     private HerinneringTijdstip dagenVooraf;
     private boolean verwijderd = false;
     //endregion
@@ -109,13 +112,12 @@ public class Herinnering implements IHerinnering {
     }
 
     /**
-     *
      * @param gegevens (int aantalDagen)
      */
     public void update(int gegevens) {
         try {
             setDagenVooraf(Arrays.stream(HerinneringTijdstip.values()).filter(t -> t.getDagen() == gegevens).findFirst().orElse(null));
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new HerinneringException("Update");
         }
     }

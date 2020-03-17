@@ -1,7 +1,10 @@
 package domein.gebruiker;
 
+import exceptions.domein.GebruikerException;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -18,6 +21,8 @@ public abstract class GebruikerStatusState implements Serializable {
     @OneToOne
     protected Gebruiker gebruiker;
 
+    protected LocalDate sinds;
+
     public GebruikerStatusState() {
     }
 
@@ -26,6 +31,7 @@ public abstract class GebruikerStatusState implements Serializable {
         this.status = status;
         this.gebruiker = gebruiker;
         this.gebruikersId = this.gebruiker.getGebruikersnaam();
+        this.sinds = LocalDate.now();
     }
 
     public String getStatus() {
@@ -44,5 +50,9 @@ public abstract class GebruikerStatusState implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(gebruikersId, status);
+    }
+
+    public LocalDate getLaatstIngelogd(){
+        return sinds;
     }
 }

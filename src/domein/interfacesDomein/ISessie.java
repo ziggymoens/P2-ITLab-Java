@@ -29,8 +29,6 @@ public interface ISessie {
 
     IGebruiker getVerantwoordelijke();
 
-    boolean isGeopend();
-
     String getSessieId();
 
     Map<String, Object> gegevensDetails();

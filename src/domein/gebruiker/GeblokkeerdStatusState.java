@@ -1,10 +1,12 @@
 package domein.gebruiker;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "geblokkeersStatusState")
 public class GeblokkeerdStatusState extends GebruikerStatusState {
+
 
     public GeblokkeerdStatusState() {
     }

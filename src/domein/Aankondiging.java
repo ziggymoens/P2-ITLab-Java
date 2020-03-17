@@ -1,5 +1,6 @@
 package domein;
 
+import com.sun.istack.NotNull;
 import domein.gebruiker.Gebruiker;
 import domein.interfacesDomein.IAankondiging;
 import domein.interfacesDomein.IGebruiker;
@@ -27,17 +28,21 @@ public class Aankondiging implements IAankondiging {
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.VALUE_PREFIX_PARAMETER, value = "A1920-"),
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d")})
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "aankondigingKey")
+    @NotNull
     //A toevoegen --> generated value
     private String aankondigingsId;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Herinnering herinnering;
     @ManyToOne(fetch = FetchType.LAZY)
+    @NotNull
     private Gebruiker gebruiker;
     @ManyToOne(fetch = FetchType.LAZY)
+    @NotNull
     private Sessie sessie;
-
+    @NotNull
     private LocalDateTime publicatiedatum;
+    @NotNull
     private String inhoud;
     private boolean automatischeHerinnering;
 

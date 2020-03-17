@@ -1,5 +1,6 @@
 package domein;
 
+import com.sun.istack.NotNull;
 import domein.enums.Gebouwen;
 import domein.enums.LokaalType;
 import domein.interfacesDomein.ILokaal;
@@ -17,13 +18,16 @@ public class Lokaal implements ILokaal {
     //region Variabelen
     //Primairy key
     @Id
+    @NotNull
     private String lokaalCode;
-
+    @NotNull
     private int aantalPlaatsen;
     private boolean verwijderd = false;
     @Enumerated(EnumType.STRING)
+    @NotNull
     private Gebouwen gebouw;
     @Enumerated(EnumType.STRING)
+    @NotNull
     private LokaalType type;
     //endregion
 
@@ -74,12 +78,12 @@ public class Lokaal implements ILokaal {
     }
 
     private void setLokaalGegevens() {
-        String gebouw = lokaalCode.substring(4,5);
-        switch (gebouw){
+        String gebouw = lokaalCode.substring(4, 5);
+        switch (gebouw) {
             case "B":
-                if (lokaalCode.substring(1,4).equals("SCH")){
+                if (lokaalCode.substring(1, 4).equals("SCH")) {
                     this.gebouw = Gebouwen.B_G;
-                }else{
+                } else {
                     this.gebouw = Gebouwen.B_A;
                 }
                 break;
@@ -103,25 +107,30 @@ public class Lokaal implements ILokaal {
     public String getLokaalCode() {
         return lokaalCode;
     }
+
     @Override
-    public String getType(){
+    public String getType() {
         return type.toString();
     }
+
     @Override
     public int getAantalPlaatsen() {
         return aantalPlaatsen;
     }
+
     @Override
-    public String getStad(){
+    public String getStad() {
         return gebouw.getCampus().getStad().toString();
     }
+
     @Override
     public String getGebouw() {
         return gebouw.toString();
     }
+
     @Override
-    public int getVerdieping(){
-        return Integer.parseInt(lokaalCode.substring(5,6));
+    public int getVerdieping() {
+        return Integer.parseInt(lokaalCode.substring(5, 6));
     }
     //endregion
 
@@ -158,7 +167,7 @@ public class Lokaal implements ILokaal {
                 setAantalPlaatsen((Integer) gegevens.get(2));
             }
             setLokaalGegevens();
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new LokaalException("Update");
         }
     }
