@@ -34,8 +34,9 @@ public class SessieController extends AnchorPane {
 
     //region sessieTable FXML
     @FXML
+    private AnchorPane apSessie;
+    @FXML
     private ChoiceBox<String> choiceBoxMaand;
-
     @FXML
     private ChoiceBox<String> choiceBoxJaar;
     @FXML
@@ -202,6 +203,7 @@ public class SessieController extends AnchorPane {
     }
 
     private void bewerkenSessie(ActionEvent actionEvent) {
+        apSessie.setLayoutY(0);
         zetVeldenBewerken(true);
         tempLokaal = domeinController.geefHuidigeISessie().getLokaal();
         tempGebruiker = domeinController.geefHuidigeIGebruiker();
