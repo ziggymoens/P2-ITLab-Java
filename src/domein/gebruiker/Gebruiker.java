@@ -46,6 +46,9 @@ public class Gebruiker implements IGebruiker, Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private GebruikerStatusState currentStatus;
+
+    private int inlogPogingen;
+    private LocalDate laatstIngelogd;
     //region Constructor
 
     /**
@@ -70,6 +73,8 @@ public class Gebruiker implements IGebruiker, Serializable {
         setCurrentStatus(gebruikersstatus);
         setProfielfoto("storage/profielfotos/profielfoto.png");
         setWachtwoord(wachtwoord);
+        this.inlogPogingen =0;
+        this.laatstIngelogd = LocalDate.now();
     }
 
     /**
@@ -248,7 +253,7 @@ public class Gebruiker implements IGebruiker, Serializable {
 
     @Override
     public LocalDate getLaatstIngelogd() {
-        return null;
+        return laatstIngelogd;
     }
 
     @Override

@@ -71,6 +71,7 @@ public class Media implements IMedia {
         setGebruiker(gebruiker);
         setLocatie(locatie);
         setType(type);
+        /*
         try {
             if (type == MediaType.FOTO) {
                 createAfbeeding(this.locatie);
@@ -78,6 +79,8 @@ public class Media implements IMedia {
         }catch (Exception e){
             e.printStackTrace();
         }
+
+         */
     }
 
     /**
