@@ -65,8 +65,8 @@ public class MainController extends AnchorPane{
         gebruiker = domeinController.geefHuidigeIGebruiker();
         gebruikersnaam.setText(gebruiker.getNaam());
         Image image = new Image("storage/profielfotos/profielfoto.png");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
-        laatst.setText(domeinController.geefHuidigeIGebruiker().getLaatstIngelogd().format(formatter));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        laatst.setText(gebruiker.getLaatstIngelogd().format(formatter));
         this.profielFoto.setImage(image);
         //btnSessie.setOnAction(this::openSessie);
         //btnGebruiker.setOnAction(this::openGebruiker);

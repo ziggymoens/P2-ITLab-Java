@@ -8,6 +8,7 @@ import java.util.Objects;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "gebruikerProfiel")
+@Table(name = "gebruikersprofiel")
 public abstract class GebruikerProfielState implements Serializable {
     private static final long serialVersionUID = -8136365267378240163L;
     @Id

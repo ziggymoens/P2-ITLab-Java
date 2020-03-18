@@ -10,6 +10,7 @@ import java.util.Objects;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "gebruikerStatus")
+@Table(name = "gebruikersstatus")
 public abstract class GebruikerStatusState implements Serializable{
     private static final long serialVersionUID = 8149175523928193745L;
 

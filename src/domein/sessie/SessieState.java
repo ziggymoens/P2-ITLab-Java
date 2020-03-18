@@ -6,6 +6,7 @@ import java.io.Serializable;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "sessieStatus")
+@Table(name = "sessiestatus")
 public abstract class SessieState implements Serializable {
 
     private static final long serialVersionUID = -3649948815265095922L;
