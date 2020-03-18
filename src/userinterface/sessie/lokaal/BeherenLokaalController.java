@@ -137,7 +137,7 @@ public class BeherenLokaalController extends AnchorPane {
         filters.put("verdieping",verdieping);
         filters.put("minCapaciteit",minCapaciteit);
         filters.put("maxCapaciteit",maxCapaciteit);
-        filters.values().removeIf(Objects::isNull);
+        filters.values().removeIf(String::isBlank);
         if(filters.keySet().isEmpty()){ vulTable();}
         else {vulTable(domeinController.filterLokaal(filters));}
     }

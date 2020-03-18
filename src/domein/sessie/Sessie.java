@@ -109,7 +109,7 @@ public class Sessie implements ISessie {
     //region Setters
     public void setTitel(String titel) {
         if (titel.isBlank()) {
-            throw new SessieException("SessieException.titel");
+            throw new SessieException("Titel;Titel mag niet leeg zijn.");
         }
         this.titel = titel;
     }
@@ -132,7 +132,7 @@ public class Sessie implements ISessie {
 
     public void setMaximumAantalPlaatsen(int maximumAantalPlaatsen) {
         if (lokaal.getAantalPlaatsen() < maximumAantalPlaatsen) {
-            throw new SessieException("SessieException.aantalPlaatsenTeVeel");
+            throw new SessieException("MaximumPlaatsen.Aantal plaatsen is overschrijd limiet lokaal.");
         }
         this.maximumAantalPlaatsen = maximumAantalPlaatsen;
 
@@ -145,7 +145,7 @@ public class Sessie implements ISessie {
 
     public void setLokaal(Lokaal lokaal) {
         if (lokaal == null) {
-            throw new SessieException("SessieException.lokaalNull");
+            throw new SessieException("Lokaal;Lokaal mag niet null zijn.");
         }
         this.lokaal = lokaal;
 

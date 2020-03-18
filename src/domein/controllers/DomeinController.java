@@ -7,6 +7,8 @@ import domein.enums.MediaType;
 import domein.gebruiker.Gebruiker;
 import domein.interfacesDomein.*;
 import domein.sessie.Sessie;
+import exceptions.domein.LokaalException;
+import exceptions.domein.SessieException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -104,6 +106,18 @@ public class DomeinController {
         objVeranderingen.add(l);
         Integer i = Integer.parseInt(veranderingen.get(6));
         typeController.bewerkSessie(huidigeSessie, objVeranderingen);
+    }
+
+    public Map<String, String> controleerDataSessie (List<String> data) {
+        Map<String, String> map = new HashMap<>();
+        try{
+
+        } catch(LokaalException lokaalEx){
+            map.put("lokaal", lokaalEx.getMessage());
+        } catch(SessieException sessieEx){
+            map.put("lokaal", sessieEx.getMessage());
+        }
+        return map;
     }
 
     public List<ISessie> geefISessiesHuidigeKalender() {

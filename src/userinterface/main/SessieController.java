@@ -14,10 +14,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import userinterface.sessie.aankondiging.BeherenAankondigingController;
@@ -27,6 +25,7 @@ import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class SessieController extends AnchorPane {
     private DomeinController domeinController;
@@ -75,7 +74,7 @@ public class SessieController extends AnchorPane {
     @FXML
     private TextField txtStartSessie;
     @FXML
-    private Label lblErrorStartSessje;
+    private Label lblErrorStartSessie;
 
     @FXML
     private TextField txtEindSessie;
@@ -116,115 +115,16 @@ public class SessieController extends AnchorPane {
     private Label lblMessage;
     //endregion
 
-    //region Pane onderaan FXML
+    //region Pane Gebruiker en Lokaal FXML
     @FXML private Pane pOnderaan;
     //endregion
 
-    //region tijdelijk
-    //region media, feedback, aankondiging en inschrijving FXML
-    @FXML
-    private VBox vBoxRechts;
-
+    //region Pane media, feedback, aankondiging en inschrijving FXML
     @FXML
     private RadioButton rabtnAankondiging, rabtnInschrijving, rabtnFeedback, rabtnMedia;
 
     @FXML
-    private TableView tableViewSessieToebehoren;
-
-    //region media
-    @FXML
-    private AnchorPane apMedia;
-
-    @FXML
-    private ChoiceBox<?> cbmedia;
-
-    @FXML
-    private TextField txtMedia;
-
-    @FXML
-    private ImageView imgmedia;
-    //endregion
-    //region feedback
-    @FXML
-    private AnchorPane apFeedback;
-    //endregion
-    //region aankondiging
-    @FXML
-    private AnchorPane apAankondiging;
-
-    @FXML
-    private TextField txtGebr;
-
-    @FXML
-    private TextField txtPub;
-
-    @FXML
-    private ChoiceBox<?> cbAutom;
-
-    @FXML
-    private TextArea txfInhoud;
-    //endregion
-    //region inschrijving
-    @FXML
-    private AnchorPane apInschrijving;
-    //endregion
-    //endregion
-
-    //region gerbuiker, lokaal FXML
-    //region lokaal
-    @FXML
-    private Pane pLokaal;
-
-    @FXML
-    private HBox hBoxOnderaan;
-
-    @FXML
-    private VBox vBoxOnderLinks;
-
-    @FXML
-    private ComboBox<String> choiceBox1Onder;
-    @FXML
-    private ComboBox<String> choiceBox2Onder;
-    @FXML
-    private ComboBox<String> choiceBox3Onder;
-    @FXML
-    private ComboBox<Integer> choiceBox4Onder;
-
-    @FXML
-    private TableView<String> tableViewOnderaan;
-
-    @FXML
-    private Button btnKiezen;
-    //endregion
-    //region gerbuiker
-    @FXML
-    private Pane pGebruiker;
-
-    @FXML
-    private HBox hBoxOnderaan1;
-
-    @FXML
-    private VBox vBoxOnderLinks1;
-
-    @FXML
-    private ComboBox<?> choiceBox1Onder1;
-
-    @FXML
-    private ComboBox<?> choiceBox2Onder1;
-
-    @FXML
-    private ComboBox<?> choiceBoxOnder31;
-
-    @FXML
-    private ComboBox<?> choiceBox4Onder1;
-
-    @FXML
-    private TableView<?> tableViewOnderaan1;
-
-    @FXML
-    private Button btnKiezen1;
-    //endregion
-    //endregion
+    private AnchorPane apRechts;
     //endregion
 
     public SessieController(DomeinController domeinController) {
@@ -322,9 +222,46 @@ public class SessieController extends AnchorPane {
         veranderingen.add(4, tempLokaal.getLokaalCode());
         veranderingen.add(5, txtGastsprekerSessie.getText());
         veranderingen.add(6, txtMaxPlaatsenSessie.getText());
-        domeinController.updateSessie(veranderingen);
-        zetVeldenBewerken(false);
-        update();
+        Map<String, String> fouten = domeinController.controleerDataSessie(veranderingen);
+        if(fouten.isEmpty()){
+            domeinController.updateSessie(veranderingen);
+            zetVeldenBewerken(false);
+            update();
+        } else {
+            String fout = "";
+            for(Map.Entry<String, String> entry : fouten.entrySet()){
+                switch(entry.getKey()){
+                    case "verantwoordelijke":
+                        this.lblErrorVerantwoordelijke.setText(entry.getValue());
+                        fout += entry.getValue();
+                        break;
+                    case "titel":
+                        this.lblErrorTitel.setText(entry.getValue());
+                        fout += entry.getValue();
+                        break;
+                    case "start":
+                        this.lblErrorStartSessie.setText(entry.getValue());
+                        fout += entry.getValue();
+                        break;
+                    case "eind":
+                        this.lblErrorEindeSessie.setText(entry.getValue());
+                        fout += entry.getValue();
+                        break;
+                    case "gastspreker":
+                        this.lblErrorGastspreker.setText(entry.getValue());
+                        fout += entry.getValue();
+                        break;
+                    case "maxPlaatsen":
+                        this.lblErrorMaxPlaatsen.setText(entry.getValue());
+                        fout += entry.getValue();
+                        break;
+                    case "lokaal":
+                        this.lblErrorLokaal.setText(entry.getValue());
+                        fout += entry.getValue();
+                        break;
+                }
+            }
+        }
 /*        List<Node> n = vboxSessieDetail.getChildren();
         List<String> s = n.stream().filter(e -> e instanceof TextField).map(e -> ((TextField) e).getText()).collect(Collectors.toList());
         s.stream().forEach(e -> System.out.println(e));*/
@@ -394,9 +331,9 @@ public class SessieController extends AnchorPane {
                     rabtnFeedback.setSelected(false);
                     rabtnInschrijving.setSelected(false);
                     rabtnMedia.setSelected(false);
-                    apAankondiging.getChildren().addAll( new BeherenAankondigingController(domeinController));
+                    apRechts.getChildren().addAll( new BeherenAankondigingController(domeinController));
                 } else
-                    apAankondiging.getChildren().remove(0);
+                    apRechts.getChildren().remove(0);
             }
         });
         rabtnAankondiging.setSelected(true);
