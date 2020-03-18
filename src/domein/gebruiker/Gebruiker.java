@@ -1,5 +1,6 @@
 package domein.gebruiker;
 
+import com.sun.istack.NotNull;
 import domein.enums.Gebruikersprofiel;
 import domein.enums.Gebruikersstatus;
 import domein.interfacesDomein.IGebruiker;
@@ -10,7 +11,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.File;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -22,20 +23,23 @@ public class Gebruiker implements IGebruiker {
     //region Variabelen
     //Primairy key
     @Id
+    @NotNull
     private String gebruikersnaam;
-
+    @NotNull
     private String naam;
+    @NotNull
     private String wachtwoord;
+
     private byte[] profielfoto;
-    private int aantalInlogPogingen;
-    private LocalDateTime laatstIngelogd = LocalDateTime.now().minusDays(4);
     private boolean verwijderd = false;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotNull
     private GebruikerProfielState currentProfiel;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotNull
     private GebruikerStatusState currentStatus;
     //region Constructor
 
@@ -60,7 +64,6 @@ public class Gebruiker implements IGebruiker {
         setCurrentProfiel(gebruikersprofiel);
         setCurrentStatus(gebruikersstatus);
         setProfielfoto("storage/profielfotos/profielfoto.png");
-        setAantalInlogPogingen(aantalInlogPogingen);
         setWachtwoord(wachtwoord);
     }
 
@@ -185,6 +188,7 @@ public class Gebruiker implements IGebruiker {
         this.verwijderd = verwijderd;
     }
 
+    /*
     private void setAantalInlogPogingen(int aantalInlogPogingen) {
         if (aantalInlogPogingen < 0) {
             throw new GebruikerException();
@@ -202,6 +206,8 @@ public class Gebruiker implements IGebruiker {
     public void setIngelogd() {
         this.laatstIngelogd = LocalDateTime.now();
     }
+
+     */
 
     public void setWachtwoord(String wachtwoord) {
         this.wachtwoord = wachtwoord;
@@ -236,8 +242,8 @@ public class Gebruiker implements IGebruiker {
     }
 
     @Override
-    public LocalDateTime getLaatstIngelogd() {
-        return laatstIngelogd;
+    public LocalDate getLaatstIngelogd() {
+        return currentStatus.getLaatstIngelogd();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package domein;
 
+import com.sun.istack.NotNull;
 import domein.gebruiker.Gebruiker;
 import domein.interfacesDomein.IFeedback;
 import domein.interfacesDomein.IGebruiker;
@@ -26,12 +27,15 @@ public class Feedback implements IFeedback {
             parameters = {
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.VALUE_PREFIX_PARAMETER, value = "F1920-"),
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d")})
+    @NotNull
     private String feedbackId;
-
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     private Sessie sessie;
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     private Gebruiker gebruiker;
+    @NotNull
     private String tekst;
     private boolean verwijderd = false;
 
@@ -135,7 +139,6 @@ public class Feedback implements IFeedback {
     }
 
     /**
-     *
      * @param gegevens (String inhoud, Gebruiker gebruiker)
      */
     public void update(List<Object> gegevens) {
@@ -146,7 +149,7 @@ public class Feedback implements IFeedback {
             if (gegevens.get(1) != null) {
                 setGebruiker((Gebruiker) gegevens.get(1));
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new FeedbackException("Update");
         }
     }

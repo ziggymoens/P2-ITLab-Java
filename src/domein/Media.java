@@ -1,5 +1,6 @@
 package domein;
 
+import com.sun.istack.NotNull;
 import domein.enums.MediaType;
 import domein.gebruiker.Gebruiker;
 import domein.interfacesDomein.IGebruiker;
@@ -27,15 +28,17 @@ public class Media implements IMedia {
             parameters = {
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.VALUE_PREFIX_PARAMETER, value = "M1920-"),
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d")})
+    @NotNull
     private String mediaId;
-
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     private Sessie sessie;
-
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     private Gebruiker gebruiker;
-
+    @NotNull
     private String locatie;
+    @NotNull
     @Enumerated(EnumType.STRING)
     private MediaType type;
     private boolean verwijderd = false;
@@ -185,8 +188,8 @@ public class Media implements IMedia {
             if (gegevens.get(2) != null && !((String) gegevens.get(0)).isBlank()) {
                 setType(Arrays.stream(MediaType.values()).filter(t -> t.toString().equals((String) gegevens.get(2))).findFirst().orElse(null));
             }
-        }catch (Exception e){
-            throw  new MediaException("Update");
+        } catch (Exception e) {
+            throw new MediaException("Update");
         }
     }
     //endregion

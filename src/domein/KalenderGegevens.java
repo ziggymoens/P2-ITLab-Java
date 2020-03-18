@@ -21,7 +21,7 @@ public class KalenderGegevens {
     private int[] aantalDagen365 = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     private String[] afkortingMaand = {"jan", "feb", "maa", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"};
     private String[] ms = {"januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"};
-    private String[] ms_en = {"January","February","March","April","May","June","July","August","September","October","November","December"};
+    private String[] ms_en = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     private List<String> naam = Arrays.asList(ms);
     private List<String> naam_en = Arrays.asList(ms_en);
 

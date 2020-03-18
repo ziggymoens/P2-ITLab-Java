@@ -1,5 +1,6 @@
 package domein;
 
+import com.sun.istack.NotNull;
 import domein.gebruiker.Gebruiker;
 import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.IInschrijving;
@@ -26,15 +27,17 @@ public class Inschrijving implements IInschrijving {
             parameters = {
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.VALUE_PREFIX_PARAMETER, value = "I1920-"),
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d")})
+    @NotNull
     private String inschrijvingsId;
-
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     private Gebruiker gebruiker;
-
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     private Sessie sessie;
-
+    @NotNull
     private LocalDateTime inschrijvingsdatum;
+    @NotNull
     private boolean statusAanwezigheid = false;
     private boolean verwijderd = false;
     //endregion
@@ -168,7 +171,6 @@ public class Inschrijving implements IInschrijving {
     }
 
     /**
-     *
      * @param gegevens (Gebruiker gebruiker, LocalDateTime inschrijvingsdatum, boolean aanwezigheid)
      */
     public void update(List<Object> gegevens) {
@@ -182,7 +184,7 @@ public class Inschrijving implements IInschrijving {
             if (gegevens.get(2) != null) {
                 setStatusAanwezigheid((boolean) gegevens.get(2));
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new InschrijvingException("Update");
         }
     }

@@ -1,6 +1,6 @@
 package domein.interfacesDomein;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public interface IGebruiker {
     String getNaam();
@@ -13,7 +13,7 @@ public interface IGebruiker {
 
     byte[] getProfielfoto();
 
-    LocalDateTime getLaatstIngelogd();
+    LocalDate getLaatstIngelogd();
 
     String getWachtwoord();
 
