@@ -43,8 +43,10 @@ public class Sessie implements ISessie, Serializable {
     private LocalDateTime eindeSessie;
     @NotNull
     private int maximumAantalPlaatsen;
-    @NotNull
-    private int academiejaar;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Academiejaar academiejaar;
+
     private boolean verwijderd = false;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sessie", fetch = FetchType.LAZY)
@@ -86,7 +88,7 @@ public class Sessie implements ISessie, Serializable {
      * @param lokaal            (Lokaal) ==> lokaal waar de sessie plaats vind
      * @param verantwoordelijke ==> de gebruiker die de sessie organiseert
      */
-    public Sessie(String titel, LocalDateTime startSessie, LocalDateTime eindeSessie, Lokaal lokaal, Gebruiker verantwoordelijke) {
+    public Sessie(String titel, LocalDateTime startSessie, LocalDateTime eindeSessie, Lokaal lokaal, Gebruiker verantwoordelijke, Academiejaar academiejaar) {
         setVerantwoordelijke(verantwoordelijke);
         setTitel(titel);
         setStartSessie(startSessie);
@@ -96,8 +98,9 @@ public class Sessie implements ISessie, Serializable {
         setMaximumAantalPlaatsen(this.lokaal.getAantalPlaatsen());
         setNaamGastspreker("Onbekend");
         initLijsten();
-        setAcademiejaar();
+        setAcademiejaar(academiejaar);
     }
+
     //endregion
 
     //region Init
@@ -159,15 +162,11 @@ public class Sessie implements ISessie, Serializable {
 
     }
 
-    private void setAcademiejaar() {
-        int jaar = startSessie.getYear() - 2000;
-        if (startSessie.getDayOfYear() < 243) {
-            academiejaar = Integer.parseInt(String.format("%d%d", jaar - 1, jaar));
-
-        } else {
-            academiejaar = Integer.parseInt(String.format("%d%d", jaar, jaar + 1));
-
+    private void setAcademiejaar(Academiejaar academiejaar) {
+        if (academiejaar == null){
+            throw new SessieException("Academiejaar");
         }
+        this.academiejaar = academiejaar;
     }
 
     //endregion
@@ -254,7 +253,7 @@ public class Sessie implements ISessie, Serializable {
     }
 
     private int getAcademiejaar() {
-        return academiejaar;
+        return academiejaar.getCode();
     }
 
     private boolean isVerwijderd() {
@@ -450,7 +449,6 @@ public class Sessie implements ISessie, Serializable {
                 setMaximumAantalPlaatsen((Integer) gegevens.get(6));
             }
             controleData();
-            setAcademiejaar();
         } catch (Exception e) {
             throw new SessieException("Update");
         }
@@ -508,7 +506,7 @@ public class Sessie implements ISessie, Serializable {
     }
 
     public String[] toArray() {
-        String[] arr = new String[]{titel, startSessie.toString(), eindeSessie.toString(), Integer.toString(maximumAantalPlaatsen), Integer.toString(academiejaar)};
+        String[] arr = new String[]{titel, startSessie.toString(), eindeSessie.toString(), Integer.toString(maximumAantalPlaatsen), String.valueOf(academiejaar.getCode())};
         return arr;
     }
 

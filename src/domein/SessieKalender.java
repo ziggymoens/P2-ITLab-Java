@@ -8,6 +8,8 @@ import domein.sessie.Sessie;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,11 +57,11 @@ public class SessieKalender {
     }
 
     public List<Sessie> geefAlleSessiesKalender(int academiejaar) {
-        return (List<Sessie>) em.createQuery("select s from Sessie s where s.verwijderd = false and academiejaar = ?1").setParameter(1, academiejaar).getResultList();
+        return (List<Sessie>) em.createQuery("select s from Sessie s where s.verwijderd = false and academiejaar = ?1").setParameter(1, getAcademiejaarById(academiejaar)).getResultList();
     }
 
     public List<Sessie> geefAlleSessiesKalenderVanGebruiker(int academiejaar, Gebruiker gebruiker) {
-        return (List<Sessie>) em.createQuery("select s from Sessie s where s.verwijderd = false and academiejaar = ?1 and verantwoordelijke = ?2").setParameter(1, academiejaar).setParameter(2, gebruiker).getResultList();
+        return (List<Sessie>) em.createQuery("select s from Sessie s where s.verwijderd = false and academiejaar = ?1 and verantwoordelijke = ?2").setParameter(1, getAcademiejaarById(academiejaar)).setParameter(2, gebruiker).getResultList();
     }
     //endregion
 
@@ -304,4 +306,19 @@ public class SessieKalender {
         em.getTransaction().commit();
     }
     //endregion
+
+    public void voegAcademieJaarToe(Academiejaar academiejaar) {
+        em.getTransaction().begin();
+        em.persist(academiejaar);
+        em.getTransaction().commit();
+    }
+
+    public Academiejaar getAcademiejaarById(int jaar){
+        return em.find(Academiejaar.class, jaar);
+    }
+
+    public Academiejaar getAcademiejaarByDate(LocalDateTime datum) {
+        LocalDate d = LocalDate.parse(datum.toString().substring(0,10));
+        return (Academiejaar) em.createQuery("select a from Academiejaar a where ?1 between start and eind").setParameter(1, d).getResultList().get(0);
+    }
 }

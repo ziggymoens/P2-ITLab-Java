@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class SessieKalenderDataInit {
@@ -18,11 +19,24 @@ public class SessieKalenderDataInit {
     private final File herinnering = new File("src/csv/Herinneringen.csv");
     private final File inschrijving = new File("src/csv/Inschrijvingen.csv");
     private final File media = new File("src/csv/Media.csv");
+    private final File academiejaar = new File("src/csv/Academiejaren.csv");
 
     private SessieKalender sessieKalender;
 
     public SessieKalenderDataInit(SessieKalender sessieKalender) {
         this.sessieKalender = sessieKalender;
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(academiejaar));
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] jaar = line.split(";");
+                sessieKalender.voegAcademieJaarToe(new Academiejaar(Integer.parseInt(jaar[0]), LocalDate.parse(jaar[1]), LocalDate.parse(jaar[2])));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("academiejaren lezen");
+        }
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(lokalen));
@@ -53,7 +67,7 @@ public class SessieKalenderDataInit {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] sessie = line.split(";");
-                Sessie s = new Sessie(sessie[0], LocalDateTime.parse(sessie[1]), LocalDateTime.parse(sessie[2]), sessieKalender.geefLokaalById(sessie[3]), sessieKalender.geefGebruikerById(sessie[4]));
+                Sessie s = new Sessie(sessie[0], LocalDateTime.parse(sessie[1]), LocalDateTime.parse(sessie[2]), sessieKalender.geefLokaalById(sessie[3]), sessieKalender.geefGebruikerById(sessie[4]), sessieKalender.getAcademiejaarByDate(LocalDateTime.parse(sessie[1])));
                 sessieKalender.voegSessieToe(s);
                 s.setState(sessie[5]);
 

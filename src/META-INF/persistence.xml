@@ -10,6 +10,7 @@
         <class>domein.Inschrijving</class>
         <class>domein.Lokaal</class>
         <class>domein.Media</class>
+        <class>domein.Academiejaar</class>
 
         <class>domein.sessie.Sessie</class>
         <class>domein.sessie.SessieState</class>
