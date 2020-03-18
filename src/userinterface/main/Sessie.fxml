@@ -256,9 +256,9 @@
                       </HBox>
                   </children>
               </VBox>
+              <AnchorPane fx:id="apRechts" layoutX="805.0" layoutY="45.0" minHeight="200.0" minWidth="580.0" prefHeight="430.0" prefWidth="580.0" />
          </children>
       </AnchorPane>
-        <AnchorPane fx:id="apRechts" layoutX="806.0" layoutY="45.0" minHeight="200.0" minWidth="580.0" prefHeight="430.0" prefWidth="580.0" />
       <AnchorPane fx:id="pOnderaan" layoutY="500.0" maxHeight="215.0" prefHeight="215.0" prefWidth="1400.0" />
     </children>
 </fx:root>
