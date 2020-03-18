@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Table(name = "sessieStatus")
+@DiscriminatorColumn(name = "sessieStatus")
 public abstract class SessieState implements Serializable {
 
     private static final long serialVersionUID = -3649948815265095922L;
@@ -14,8 +14,6 @@ public abstract class SessieState implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
-    private String status;
-
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     protected Sessie sessie;
 
@@ -23,12 +21,9 @@ public abstract class SessieState implements Serializable {
     protected SessieState() {
     }
 
-    protected SessieState(String status, Sessie sessie) {
+    protected SessieState(Sessie sessie) {
         this.sessie = sessie;
-        this.status = status;
     }
 
-    public String getStatus(){
-        return status;
-    }
+    public abstract String getStatus();
 }

@@ -30,7 +30,6 @@ public class Media implements IMedia {
                     @org.hibernate.annotations.Parameter(name = JPAIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%06d")})
     @NotNull
     private String mediaId;
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     private Sessie sessie;
     @NotNull
@@ -83,14 +82,15 @@ public class Media implements IMedia {
     public Media(Sessie sessie, Gebruiker gebruiker, String locatie, String type) {
         this(sessie, gebruiker, locatie, Arrays.stream(MediaType.values()).filter(t -> t.toString().equals(type)).findFirst().orElse(MediaType.ONBEKEND));
     }
+
+    public Media(Gebruiker gebruiker, String loc, String type) {
+        this(null, gebruiker, loc, type);
+    }
     //endregion
 
     //region Setters
 
     public void setSessie(Sessie sessie) {
-        if (sessie == null) {
-            throw new MediaException();
-        }
         this.sessie = sessie;
     }
 
