@@ -127,7 +127,7 @@ public class Lokaal implements ILokaal, Serializable {
 
     @Override
     public String getGebouw() {
-        return gebouw.toString();
+        return gebouw.getDisplayValue();
     }
 
     @Override

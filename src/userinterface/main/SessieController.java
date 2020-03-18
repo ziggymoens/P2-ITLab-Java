@@ -9,12 +9,10 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -205,12 +203,9 @@ public class SessieController extends AnchorPane {
 
     private void bewerkenSessie(ActionEvent actionEvent) {
         zetVeldenBewerken(true);
-        txtLokaalSessie.onMouseClickedProperty().addListener(new ChangeListener<EventHandler<? super MouseEvent>>() {
-            @Override
-            public void changed(ObservableValue<? extends EventHandler<? super MouseEvent>> observableValue, EventHandler<? super MouseEvent> eventHandler, EventHandler<? super MouseEvent> t1) {
-                vulTableLokalen();
-            }
-        });
+        tempLokaal = domeinController.geefHuidigeISessie().getLokaal();
+        tempGebruiker = domeinController.geefHuidigeIGebruiker();
+        txtLokaalSessie.setOnMouseClicked(e -> vulTableLokalen());
     }
 
     private void opslaanSessie(ActionEvent actionEvent) {
@@ -318,7 +313,8 @@ public class SessieController extends AnchorPane {
     }
 
     private void vulTableLokalen(){
-        pOnderaan.getChildren().remove(0);
+        if(!pOnderaan.getChildren().isEmpty())
+            pOnderaan.getChildren().remove(0);
         pOnderaan.getChildren().addAll(new BeherenLokaalController(domeinController, this));
     }
 

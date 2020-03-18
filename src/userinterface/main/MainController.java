@@ -2,7 +2,6 @@ package userinterface.main;
 
 import domein.controllers.DomeinController;
 import domein.interfacesDomein.IGebruiker;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -68,19 +67,17 @@ public class MainController extends AnchorPane{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         laatst.setText(gebruiker.getLaatstIngelogd().format(formatter));
         this.profielFoto.setImage(image);
-        //btnSessie.setOnAction(this::openSessie);
-        //btnGebruiker.setOnAction(this::openGebruiker);
-        //btnSessiekalender.setOnAction(this::openKalender);
         openSessie();
         openGebruiker();
+        openKalender();
         SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
-        selectionModel.select(1);
+        selectionModel.select(0);
     }
 
-    private void openKalender(ActionEvent actionEvent) {
+    private void openKalender() {
         Tab tab = new Tab("Kalender");
-        tab.setClosable(true);
-        tab.setContent(new SessieKalenderController());
+        tab.setClosable(false);
+        tab.setContent(new SessieKalenderController(domeinController));
         tabPane.getTabs().add(tab);
         tabPane.getSelectionModel().select(tab);
     }

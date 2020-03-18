@@ -1,11 +1,7 @@
 package domein.gebruiker;
 
-import exceptions.domein.GebruikerException;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

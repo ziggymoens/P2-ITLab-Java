@@ -12,7 +12,7 @@ import exceptions.domein.SessieException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -97,11 +97,32 @@ public class DomeinController {
         List<Object> objVeranderingen = new ArrayList<>();
         Gebruiker g = huidigeSessieKalender.geefGebruikerById(veranderingen.get(0));
         objVeranderingen.add(g);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
-        LocalDateTime start = LocalDateTime.parse(veranderingen.get(2), formatter);
+
+        String[] startarr = veranderingen.get(2).split(" ");
+        String[] startdatarr = startarr[0].split("/");
+        String[] startuurarr = startarr[1].split(":");
+        int jaar = LocalDate.now().getYear();
+        if(Integer.parseInt(startdatarr[1])<8){
+            jaar = LocalDate.now().getYear()+1;
+        }
+        LocalDate startDate = LocalDate.of(jaar, Integer.parseInt(startdatarr[1]), Integer.parseInt(startdatarr[0]));
+        LocalTime startUur = LocalTime.of(Integer.parseInt(startuurarr[0]), Integer.parseInt(startuurarr[1]));
+        LocalDateTime start = LocalDateTime.of(startDate, startUur);
         objVeranderingen.add(start);
-        LocalDateTime eind = LocalDateTime.parse(veranderingen.get(3), formatter);
+
+        String[] eindarr = veranderingen.get(3).split(" ");
+        String[] eindatarr = eindarr[0].split("/");
+        String[] einuurarr = eindarr[1].split(":");
+        int jaar1 = LocalDate.now().getYear();
+        if(Integer.parseInt(eindatarr[1])<8){
+            jaar1 = LocalDate.now().getYear()+1;
+        }
+        LocalDate eindDate = LocalDate.of(jaar, Integer.parseInt(eindatarr[1]), Integer.parseInt(eindatarr[0]));
+        LocalTime eindUur = LocalTime.of(Integer.parseInt(einuurarr[0]), Integer.parseInt(einuurarr[1]));
+        LocalDateTime eind = LocalDateTime.of(eindDate, eindUur);
         objVeranderingen.add(eind);
+        objVeranderingen.add(eind);
+
         Lokaal l = huidigeSessieKalender.geefLokaalById(veranderingen.get(4));
         objVeranderingen.add(l);
         Integer i = Integer.parseInt(veranderingen.get(6));

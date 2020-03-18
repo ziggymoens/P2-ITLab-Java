@@ -109,5 +109,6 @@ public class StartUpController extends AnchorPane {
                 stage.show();
             }
         }
+
     }
 }
