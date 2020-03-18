@@ -172,12 +172,17 @@ public class DomeinController {
         return (List<ISessie>) (Object) typeController.geefAlleSessiesLocatie(locatie);
     }
 
+    public List<ISessie> geefAlleSessiesKalenderVanGebruiker(Gebruiker gebruiker){
+        return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalenderVanGebruiker(academiejaar, gebruiker);
+    }
+
     public void maakSessieAan(List<String> sessie) {
         //iterator
         Sessie s = new Sessie(sessie.get(0), LocalDateTime.parse(sessie.get(1)), LocalDateTime.parse(sessie.get(2)),
                 huidigeSessieKalender.geefLokaalById(sessie.get(3)), huidigeSessieKalender.geefGebruikerById(sessie.get(4)), huidigeSessieKalender.getAcademiejaarByDate(LocalDateTime.parse(sessie.get(1))));
         typeController.maakSessieAan(s);
     }
+
 
     public void verwijderSessie(ISessie sessie) {
         typeController.verwijderSessie((Sessie) sessie);

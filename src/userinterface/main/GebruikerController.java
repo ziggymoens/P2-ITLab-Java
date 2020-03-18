@@ -107,7 +107,7 @@ public class GebruikerController extends AnchorPane {
     private TableView<ISessie> tableViewSessiesGebruikers;
 
     @FXML
-    private TableColumn<ISessie, String> titel, startSessie, aantalVrijePlaatsen, aantalInschrijvingen;
+    private TableColumn<ISessie, String> titel, startSessie, maximumAantalPlaatsen;
     @FXML
     private Button btnKiezen;
 
@@ -190,12 +190,14 @@ public class GebruikerController extends AnchorPane {
         if(tableViewGebruiker.getSelectionModel().getSelectedItem() != null){
             tableViewGebruiker.getSelectionModel().select(0);
             vulDetails(tableViewGebruiker.getSelectionModel().getSelectedItem());
-            //vulTableSessies((Gebruiker) tableViewGebruiker.getSelectionModel().getSelectedItem());
+            vulTableSessies((Gebruiker) tableViewGebruiker.getSelectionModel().getSelectedItem());
         }
 
         tableViewGebruiker.getSelectionModel().selectedItemProperty().addListener((observableValue, gebruiker, t1) -> {
-            vulDetails(t1);
-           // vulTableSessies((Gebruiker) t1);
+            if(t1 != null) {
+                vulDetails(t1);
+                vulTableSessies((Gebruiker) t1);
+            }
         });
     }
 
@@ -238,13 +240,12 @@ public class GebruikerController extends AnchorPane {
     private void vulTableSessies(Gebruiker gebruiker){
         tableViewSessiesGebruikers.getColumns().clear();
 
-        titel.setCellValueFactory(new PropertyValueFactory<>("Titel"));
-        startSessie.setCellValueFactory(new PropertyValueFactory<>("Start sessie"));
-        aantalInschrijvingen.setCellValueFactory(new PropertyValueFactory<>("Aantal inschrijvingen"));
-        aantalVrijePlaatsen.setCellValueFactory(new PropertyValueFactory<>("Aantal vrije plaatsen"));
+        titel.setCellValueFactory(new PropertyValueFactory<>("titel"));
+        startSessie.setCellValueFactory(new PropertyValueFactory<>("startSessie"));
+        maximumAantalPlaatsen.setCellValueFactory(new PropertyValueFactory<>("maximumAantalPlaatsen"));
 
-       // tableViewSessiesGebruikers.setItems(FXCollections.observableArrayList(domeinController.geefISessiesGebruiker(gebruiker)));
-        tableViewSessiesGebruikers.getColumns().addAll(titel, startSessie, aantalInschrijvingen, aantalVrijePlaatsen);
+        tableViewSessiesGebruikers.setItems(FXCollections.observableArrayList(domeinController.geefAlleSessiesKalenderVanGebruiker(gebruiker)));
+        tableViewSessiesGebruikers.getColumns().addAll(titel, startSessie, maximumAantalPlaatsen);
         if (!tableViewSessiesGebruikers.getItems().isEmpty() || tableViewSessiesGebruikers.getItems() != null) {
             tableViewSessiesGebruikers.getSelectionModel().select(0);
             domeinController.setHuidigeISessie(domeinController.geefISessiesHuidigeKalender().get(0));
