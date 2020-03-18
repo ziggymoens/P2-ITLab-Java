@@ -11,6 +11,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.File;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -18,8 +19,9 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "gebruiker")
-public class Gebruiker implements IGebruiker {
+public class Gebruiker implements IGebruiker, Serializable {
 
+    private static final long serialVersionUID = 2236402867161072684L;
     //region Variabelen
     //Primairy key
     @Id
@@ -243,7 +245,7 @@ public class Gebruiker implements IGebruiker {
 
     @Override
     public LocalDate getLaatstIngelogd() {
-        return currentStatus.getLaatstIngelogd();
+        return null;
     }
 
     @Override

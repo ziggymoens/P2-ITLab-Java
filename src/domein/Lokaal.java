@@ -7,14 +7,16 @@ import domein.interfacesDomein.ILokaal;
 import exceptions.domein.LokaalException;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "lokaal")
-public class Lokaal implements ILokaal {
+public class Lokaal implements ILokaal, Serializable {
 
+    private static final long serialVersionUID = -3869002661839524039L;
     //region Variabelen
     //Primairy key
     @Id

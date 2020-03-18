@@ -12,6 +12,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -19,7 +20,9 @@ import java.util.stream.Collectors;
 @SuppressWarnings("unchecked")
 @Entity
 @Table(name = "sessie")
-public class Sessie implements ISessie {
+public class Sessie implements ISessie, Serializable {
+    private static final long serialVersionUID = -1929570926684580330L;
+
     //region variabelen
     //Primairy key
     @Id
