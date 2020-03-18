@@ -144,6 +144,6 @@ public class BeherenLokaalController extends AnchorPane {
 
     private void kiezen(ActionEvent actionEvent) {
         sessieController.setLokaal((ILokaal) table.getSelectionModel().getSelectedItem());
-    }
+}
 
 }

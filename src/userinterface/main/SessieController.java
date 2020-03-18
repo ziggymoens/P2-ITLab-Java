@@ -2,6 +2,7 @@ package userinterface.main;
 
 import domein.controllers.DomeinController;
 import domein.controllers.HoofdverantwoordelijkeController;
+import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.ILokaal;
 import domein.interfacesDomein.ISessie;
 import javafx.beans.value.ChangeListener;
@@ -30,6 +31,8 @@ import java.util.List;
 public class SessieController extends AnchorPane {
     private DomeinController domeinController;
     private HoofdverantwoordelijkeController hoofdverantwoordelijkeController;
+    private ILokaal tempLokaal;
+    private IGebruiker tempGebruiker;
     private ISessie sessie;
 
     //region sessieTable FXML
@@ -312,11 +315,11 @@ public class SessieController extends AnchorPane {
 
     private void opslaanSessie(ActionEvent actionEvent) {
         List<String> veranderingen = new ArrayList<>();
-        veranderingen.add(0, txtVerantwoordelijkeSessie.getText());
+        veranderingen.add(0, tempGebruiker.getGebruikersnaam());
         veranderingen.add(1, txtTitelSessie.getText());
         veranderingen.add(2, txtStartSessie.getText().trim());
         veranderingen.add(3, txtEindSessie.getText().trim());
-        veranderingen.add(4, txtLokaalSessie.getText());
+        veranderingen.add(4, tempLokaal.getLokaalCode());
         veranderingen.add(5, txtGastsprekerSessie.getText());
         veranderingen.add(6, txtMaxPlaatsenSessie.getText());
         domeinController.updateSessie(veranderingen);
@@ -382,10 +385,6 @@ public class SessieController extends AnchorPane {
         pOnderaan.getChildren().addAll(new BeherenLokaalController(domeinController, this));
     }
 
-    public void setLokaal(ILokaal lokaal){
-        txtLokaalSessie.setText(lokaal.getLokaalCode());
-    }
-
     private void radioButtons() {
 
         rabtnAankondiging.selectedProperty().addListener(new ChangeListener<Boolean>() {
@@ -441,5 +440,15 @@ public class SessieController extends AnchorPane {
 
     public void update() {
         sessieTable();
+    }
+
+    public void setIGerbuiker(IGebruiker gebruiker){
+        this.tempGebruiker = gebruiker;
+        txtVerantwoordelijkeSessie.setText(gebruiker.getNaam());
+    }
+
+    public void setLokaal (ILokaal lokaal){
+        this.tempLokaal = lokaal;
+        txtLokaalSessie.setText(lokaal.getLokaalCode());
     }
 }
