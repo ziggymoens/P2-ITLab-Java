@@ -442,8 +442,10 @@ public class Sessie implements ISessie {
             if (gegevens.get(5) != null && !((String) gegevens.get(5)).isBlank()) {
                 setNaamGastspreker((String) gegevens.get(5));
             }
+            if (gegevens.get(6) != null && !((String) gegevens.get(6)).isBlank()) {
+                setMaximumAantalPlaatsen((Integer) gegevens.get(6));
+            }
             controleData();
-            setMaximumAantalPlaatsen(this.lokaal.getAantalPlaatsen());
             setAcademiejaar();
         } catch (Exception e){
             throw new SessieException("Update");

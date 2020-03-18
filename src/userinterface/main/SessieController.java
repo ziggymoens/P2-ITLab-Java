@@ -2,6 +2,7 @@ package userinterface.main;
 
 import domein.controllers.DomeinController;
 import domein.controllers.HoofdverantwoordelijkeController;
+import domein.interfacesDomein.ILokaal;
 import domein.interfacesDomein.ISessie;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -10,7 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
@@ -24,8 +24,8 @@ import userinterface.sessie.lokaal.BeherenLokaalController;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class SessieController extends AnchorPane {
     private DomeinController domeinController;
@@ -301,17 +301,7 @@ public class SessieController extends AnchorPane {
     }
 
     private void bewerkenSessie(ActionEvent actionEvent) {
-        btnOpslaanSessie.setDisable(false);
-        btnOpslaanSessie.setVisible(true);
-        btnBewerkenSessie.setVisible(false);
-        btnBewerkenSessie.setDisable(true);
-        checkBoxCapaciteitSessie.setDisable(false);
-        txtTitelSessie.setEditable(true);
-        txtStartSessie.setEditable(true);
-        txtEindSessie.setEditable(true);
-        txtMaxPlaatsenSessie.setEditable(true);
-        txtGastsprekerSessie.setEditable(true);
-        txtVerantwoordelijkeSessie.setEditable(true);
+        zetVeldenBewerken(true);
         txtLokaalSessie.onMouseClickedProperty().addListener(new ChangeListener<EventHandler<? super MouseEvent>>() {
             @Override
             public void changed(ObservableValue<? extends EventHandler<? super MouseEvent>> observableValue, EventHandler<? super MouseEvent> eventHandler, EventHandler<? super MouseEvent> t1) {
@@ -321,19 +311,37 @@ public class SessieController extends AnchorPane {
     }
 
     private void opslaanSessie(ActionEvent actionEvent) {
+        List<String> veranderingen = new ArrayList<>();
+        veranderingen.add(0, txtVerantwoordelijkeSessie.getText());
+        veranderingen.add(1, txtTitelSessie.getText());
+        veranderingen.add(2, txtStartSessie.getText().trim());
+        veranderingen.add(3, txtEindSessie.getText().trim());
+        veranderingen.add(4, txtLokaalSessie.getText());
+        veranderingen.add(5, txtGastsprekerSessie.getText());
+        veranderingen.add(6, txtMaxPlaatsenSessie.getText());
+        domeinController.updateSessie(veranderingen);
+        zetVeldenBewerken(false);
         update();
-        btnBewerkenSessie.setDisable(false);
-        btnBewerkenSessie.setVisible(true);
-        btnOpslaanSessie.setDisable(true);
-        btnOpslaanSessie.setVisible(false);
-        List<Node> n = vboxSessieDetail.getChildren();
+/*        List<Node> n = vboxSessieDetail.getChildren();
         List<String> s = n.stream().filter(e -> e instanceof TextField).map(e -> ((TextField) e).getText()).collect(Collectors.toList());
-        s.stream().forEach(e -> System.out.println(e));
-        //geef door nr domein en persisteer
+        s.stream().forEach(e -> System.out.println(e));*/
+    }
+
+    private void zetVeldenBewerken (Boolean b){
+        btnBewerkenSessie.setDisable(b);
+        btnBewerkenSessie.setVisible(!b);
+        btnOpslaanSessie.setDisable(!b);
+        btnOpslaanSessie.setVisible(b);
+        checkBoxCapaciteitSessie.setDisable(!b);
+        txtTitelSessie.setEditable(b);
+        txtStartSessie.setEditable(b);
+        txtEindSessie.setEditable(b);
+        txtMaxPlaatsenSessie.setEditable(b);
+        txtGastsprekerSessie.setEditable(b);
+        txtVerantwoordelijkeSessie.setEditable(b);
     }
 
     private void activeerFilters() {
-
         choiceBoxJaar.setItems(FXCollections.observableArrayList(domeinController.geefAcademiejaren()));
         choiceBoxJaar.setValue(((Integer)domeinController.academiejaar).toString());
 /*        choiceBoxJaar.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -347,6 +355,12 @@ public class SessieController extends AnchorPane {
         });*/
         choiceBoxMaand.setItems(FXCollections.observableArrayList(domeinController.geefMaanden()));
         choiceBoxMaand.setValue(domeinController.vergelijkMaanden());
+        choiceBoxMaand.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                //
+            }
+        });
         choiceBoxZoeken.setItems(FXCollections.observableArrayList(domeinController.geefFilterOpties()));
         choiceBoxZoeken.setValue(domeinController.geefFilterOpties().get(0));
         choiceBoxZoeken.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -365,7 +379,11 @@ public class SessieController extends AnchorPane {
 
     private void vulTableLokalen(){
         pOnderaan.getChildren().remove(0);
-        pOnderaan.getChildren().addAll(new BeherenLokaalController(domeinController));
+        pOnderaan.getChildren().addAll(new BeherenLokaalController(domeinController, this));
+    }
+
+    public void setLokaal(ILokaal lokaal){
+        txtLokaalSessie.setText(lokaal.getLokaalCode());
     }
 
     private void radioButtons() {

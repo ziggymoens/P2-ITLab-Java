@@ -12,9 +12,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import userinterface.main.SessieController;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class BeherenLokaalController extends AnchorPane {
     @FXML
@@ -23,19 +25,18 @@ public class BeherenLokaalController extends AnchorPane {
     private TableColumn<ILokaal, String> lokaalCode, stad, gebouw, verdieping, aantalPlaatsen;
 
     @FXML
-    private ComboBox<String> cbStad, cbGebouw, cbCapaciteit;
-
-    @FXML
-    private ComboBox<Integer> cbVerdieping;
+    private ComboBox<String> cbStad, cbGebouw, cbMinCapaciteit, cbMaxCapaciteit, cbVerdieping;
 
     @FXML
     private Button btnReset, btnKiezen, btnFilter;
 
     private DomeinController domeinController;
+    private SessieController sessieController;
     private List<ILokaal> filteredList;
 
-    public BeherenLokaalController(DomeinController domeinController) {
+    public BeherenLokaalController(DomeinController domeinController, SessieController sessieController) {
         this.domeinController = domeinController;
+        this.sessieController = sessieController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("BeherenLokaal.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -89,13 +90,15 @@ public class BeherenLokaalController extends AnchorPane {
 
     private void vulComboBoxes() {
         cbStad.setItems(FXCollections.observableArrayList(domeinController.geefSteden()).sorted());
-        //cbStad.getSelectionModel().selectFirst();
+        cbStad.getSelectionModel().selectFirst();
         cbGebouw.setItems(FXCollections.observableArrayList(domeinController.geefGebouwen()).sorted());
-        //cbGebouw.getSelectionModel().selectFirst();
-        cbVerdieping.setItems(FXCollections.observableArrayList(domeinController.geefVerdiepingen()).sorted());
-        //cbVerdieping.getSelectionModel().selectFirst();
-        //cbCapaciteit.setItems(FXCollections.observableArrayList(domeinController.geefCapaciteiten()).sorted());
-        //cbCapaciteit.getSelectionModel().selectFirst();
+        cbGebouw.getSelectionModel().selectFirst();
+        cbVerdieping.setItems(FXCollections.observableArrayList(domeinController.geefVerdiepingen().stream().map(e -> e.toString()).collect(Collectors.toList())).sorted());
+        cbVerdieping.getSelectionModel().selectFirst();
+        cbMinCapaciteit.setItems(FXCollections.observableArrayList(domeinController.geefMinCapaciteiten()));
+        cbMinCapaciteit.getSelectionModel().selectFirst();
+        cbMaxCapaciteit.setItems(FXCollections.observableArrayList(domeinController.geefMaxCapaciteiten()));
+        cbMaxCapaciteit.getSelectionModel().selectFirst();
     }
 
     private void zetButtonsActief() {
@@ -109,41 +112,38 @@ public class BeherenLokaalController extends AnchorPane {
         cbStad.getSelectionModel().selectFirst();
         cbGebouw.getSelectionModel().selectFirst();
         cbVerdieping.getSelectionModel().selectFirst();
-        cbCapaciteit.getSelectionModel().selectFirst();
+        cbMinCapaciteit.getSelectionModel().selectFirst();
+        cbMaxCapaciteit.getSelectionModel().selectFirst();
     }
 
     private void zetFiltersActief(ActionEvent actionEvent) {
         String stad = cbStad.getSelectionModel().getSelectedItem();
         String gebouw = cbGebouw.getSelectionModel().getSelectedItem();
-        int verdieping = cbVerdieping.getSelectionModel().getSelectedItem();
-        String capaciteit = cbCapaciteit.getSelectionModel().getSelectedItem();
+        String verdieping = cbVerdieping.getSelectionModel().getSelectedItem();
+        String minCapaciteit = cbMaxCapaciteit.getSelectionModel().getSelectedItem();
+        String maxCapaciteit = cbMaxCapaciteit.getSelectionModel().getSelectedItem();
         if(stad.matches("-(.)*")){
-            stad = null;
+            stad = "";
         }
         if(gebouw.matches("-(.)*")){
-            gebouw = null;
+            gebouw = "";
         }
-        /*
         if(verdieping.matches("-(.)*")){
-            verdieping = null;
-        }
-
-         */
-        if(capaciteit.matches("-(.)*")){
-            capaciteit = null;
+            verdieping = "";
         }
         Map<String, String> filters = new HashMap<>();
         filters.put("stad",stad);
         filters.put("gebouw",gebouw);
-        //filters.put("verdieping",verdieping);
-        filters.put("capaciteit",capaciteit);
+        filters.put("verdieping",verdieping);
+        filters.put("minCapaciteit",minCapaciteit);
+        filters.put("maxCapaciteit",maxCapaciteit);
         filters.values().removeIf(Objects::isNull);
         if(filters.keySet().isEmpty()){ vulTable();}
         else {vulTable(domeinController.filterLokaal(filters));}
     }
 
     private void kiezen(ActionEvent actionEvent) {
-        //domeinController.pasLokaalAan((ILokaal) table.getSelectionModel().getSelectedItem());
+        sessieController.setLokaal((ILokaal) table.getSelectionModel().getSelectedItem());
     }
 
 }

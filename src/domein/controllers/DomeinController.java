@@ -91,7 +91,7 @@ public class DomeinController {
         return Arrays.asList(keuzeVoorZoeken);
     }
 
-    public void update(List<String> veranderingen){
+    public void updateSessie(List<String> veranderingen){
         List<Object> objVeranderingen = new ArrayList<>();
         Gebruiker g = huidigeSessieKalender.geefGebruikerById(veranderingen.get(0));
         objVeranderingen.add(g);
@@ -102,6 +102,7 @@ public class DomeinController {
         objVeranderingen.add(eind);
         Lokaal l = huidigeSessieKalender.geefLokaalById(veranderingen.get(4));
         objVeranderingen.add(l);
+        Integer i = Integer.parseInt(veranderingen.get(6));
         typeController.bewerkSessie(huidigeSessie, objVeranderingen);
     }
 
@@ -142,13 +143,6 @@ public class DomeinController {
                 huidigeSessieKalender.geefLokaalById(sessie.get(3)), huidigeSessieKalender.geefGebruikerById(sessie.get(4)));
         typeController.maakSessieAan(s);
     }
-/*
-    public void pasSessieAan(Map<String, String> nieuweMap) {
-        huidigeSessie.updateSessie(nieuweMap, (List<ILokaal>) (Object) huidigeSessieKalender.geefAlleLokalen());
-        typeController.bewerkSessie(huidigeSessie);
-    }
-
- */
 
     public void verwijderSessie(ISessie sessie) {
         typeController.verwijderSessie((Sessie) sessie);
@@ -263,26 +257,32 @@ public class DomeinController {
     }
 
     public Set<Integer> geefVerdiepingen(){
-
-        return huidigeSessieKalender.geefAlleLokalen().stream().map(l -> {
-            return l.getVerdieping();
-        }).collect(Collectors.toSet());
+        return huidigeSessieKalender.geefAlleLokalen()
+                .stream()
+                .map(l -> l.getVerdieping())
+                .collect(Collectors.toSet());
     }
 
-    /*
-    2 inputvelden voor minimum en maximum cap.
-    public List<String> geefCapaciteiten(){
+    //2 inputvelden voor minimum en maximum cap.
+
+    public List<String> geefMinCapaciteiten(){
         List <String> capaciteiten = new ArrayList<>();
-        capaciteiten.add("--Capaciteit--");
-        capaciteiten.add("000 - 050");
-        capaciteiten.add("050 - 100");
-        capaciteiten.add("100 - 150");
-        capaciteiten.add("150 - 200");
+        capaciteiten.add("0");
+        capaciteiten.add("50");
+        capaciteiten.add("100");
+        capaciteiten.add("150");
         capaciteiten.add("200+");
         return capaciteiten;
     }
 
-     */
+        public List<String> geefMaxCapaciteiten(){
+        List <String> capaciteiten = new ArrayList<>();
+        capaciteiten.add("50");
+        capaciteiten.add("100");
+        capaciteiten.add("150");
+        capaciteiten.add("200+");
+        return capaciteiten;
+    }
 
     public List<ILokaal> filterLokaal(Map<String,String> filter){
         List<List<ILokaal>> gefiltered = new ArrayList<>();
@@ -297,11 +297,12 @@ public class DomeinController {
                 case "verdieping":
                     gefiltered.add(filterOpVerdieping(Integer.parseInt(filter.get(e))));
                     break;
-                /*case "capaciteit":
-                    gefiltered.add(filterOpCapaciteit(filter.get(e)));
+                case "minCapaciteit":
+                    gefiltered.add(filterOpMinCapaciteit(filter.get(e)));
                     break;
-
-                 */
+                case "maxCapaciteit":
+                    gefiltered.add(filterOpMaxCapaciteit(filter.get(e)));
+                    break;
                 default:
                     break;
             }
@@ -323,6 +324,20 @@ public class DomeinController {
 
     private List<ILokaal> filterOpVerdieping(int filter){
         return geefILokalen().stream().filter(lokaal -> lokaal.getVerdieping() == filter).collect(Collectors.toList());
+    }
+
+    private List<ILokaal> filterOpMinCapaciteit(String filter){
+        return geefILokalen()
+                .stream()
+                .filter(e -> e.getAantalPlaatsen() >= Integer.parseInt(filter))
+                .collect(Collectors.toList());
+    }
+
+    private List<ILokaal> filterOpMaxCapaciteit(String filter){
+        return geefILokalen()
+                .stream()
+                .filter(e -> e.getAantalPlaatsen() < Integer.parseInt(filter))
+                .collect(Collectors.toList());
     }
 
     /*
@@ -361,6 +376,10 @@ public class DomeinController {
                 .collect(Collectors.toList());
     }
      */
+
+    private void updateSessieLokaal (ILokaal lokaal) {
+
+    }
     //endregion
 
     //region Media
