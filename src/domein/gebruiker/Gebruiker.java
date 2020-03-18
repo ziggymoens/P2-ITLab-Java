@@ -118,8 +118,8 @@ public class Gebruiker implements IGebruiker, Serializable {
 
     //region Setters
     private void setProfielfoto(String path) {
-        File file = new File("storage/profielfotos/profielfoto.png");
-        byte[] bFile = new byte[(int) file.length()];
+        //File file = new File("storage/profielfotos/profielfoto.png");
+        //byte[] bFile = new byte[(int) file.length()];
         this.profielfoto = new Media(this, "storage/profielfotos/profielfoto.png", "FOTO");
     }
 

@@ -9,7 +9,14 @@ import domein.sessie.Sessie;
 import exceptions.domein.MediaException;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.imageio.ImageIO;
 import javax.persistence.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -41,6 +48,8 @@ public class Media implements IMedia {
     @Enumerated(EnumType.STRING)
     private MediaType type;
     private boolean verwijderd = false;
+    @Lob
+    private byte[] afbeelding;
 //endregion
 
     //region Constructor
@@ -57,11 +66,18 @@ public class Media implements IMedia {
      * @param locatie (String) ==> locatie van het mediaobject in het project
      * @param type    (MediaType) ==> type van media
      */
-    public Media(Sessie sessie, Gebruiker gebruiker, String locatie, MediaType type) {
+    public Media(Sessie sessie, Gebruiker gebruiker, String locatie, MediaType type){
         setSessie(sessie);
         setGebruiker(gebruiker);
         setLocatie(locatie);
         setType(type);
+        try {
+            if (type == MediaType.FOTO) {
+                createAfbeeding(this.locatie);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -109,7 +125,7 @@ public class Media implements IMedia {
         this.type = type;
     }
 
-    public void setGebruiker(Gebruiker gebruiker) {
+    private void setGebruiker(Gebruiker gebruiker) {
         if (gebruiker == null) {
             throw new MediaException();
         }
@@ -118,6 +134,29 @@ public class Media implements IMedia {
 
     public void setVerwijderd(boolean verwijderd) {
         this.verwijderd = verwijderd;
+    }
+
+    private void createAfbeeding(String path) throws IOException {
+        File file = new File("storage/profielfotos/profielfoto.png");
+        BufferedImage bufferedImage = ImageIO.read(file);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(bufferedImage, "png", baos);
+        this.afbeelding = baos.toByteArray();
+    }
+
+    private void createAfbeeding(File file) throws IOException {
+        BufferedImage bufferedImage = ImageIO.read(file);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(bufferedImage, "png", baos);
+        this.afbeelding = baos.toByteArray();
+    }
+
+    private File getAfbeeding() throws IOException {
+        ByteArrayInputStream bais = new ByteArrayInputStream(this.afbeelding);
+        BufferedImage bufferedImage = ImageIO.read(bais);
+        File file = null;
+        ImageIO.write(bufferedImage, "png", file);
+        return file;
     }
 
     //endregion
