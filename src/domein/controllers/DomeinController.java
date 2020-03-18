@@ -6,12 +6,11 @@ import domein.enums.HerinneringTijdstip;
 import domein.enums.MediaType;
 import domein.gebruiker.Gebruiker;
 import domein.interfacesDomein.*;
-import domein.Lokaal;
 import domein.sessie.Sessie;
-import userinterface.main.IObserverSessie;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -92,10 +91,18 @@ public class DomeinController {
         return Arrays.asList(keuzeVoorZoeken);
     }
 
-    public void update(Sessie sessie){
-        System.out.println(huidigeSessie.toStringCompleet());
-        this.huidigeSessie = sessie;
-        System.out.println(huidigeSessie.toStringCompleet());
+    public void update(List<String> veranderingen){
+        List<Object> objVeranderingen = new ArrayList<>();
+        Gebruiker g = huidigeSessieKalender.geefGebruikerById(veranderingen.get(0));
+        objVeranderingen.add(g);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
+        LocalDateTime start = LocalDateTime.parse(veranderingen.get(2), formatter);
+        objVeranderingen.add(start);
+        LocalDateTime eind = LocalDateTime.parse(veranderingen.get(3), formatter);
+        objVeranderingen.add(eind);
+        Lokaal l = huidigeSessieKalender.geefLokaalById(veranderingen.get(4));
+        objVeranderingen.add(l);
+        typeController.bewerkSessie(huidigeSessie, objVeranderingen);
     }
 
     public List<ISessie> geefISessiesHuidigeKalender() {
@@ -148,10 +155,6 @@ public class DomeinController {
     }
 
     public void setHuidigeISessie(ISessie sessie) {
-        System.out.println("methode setHuidigeSessie");
-        System.out.println(Thread.currentThread().getStackTrace()[1]);
-        System.out.println(Thread.currentThread().getStackTrace()[2]);
-        System.out.println(sessie.getTitel() + "\n");
         this.huidigeSessie = typeController.geefSessieId(sessie.getSessieId());
     }
 
@@ -238,16 +241,6 @@ public class DomeinController {
     public List<ILokaal> geefILokalen() {
         return (List<ILokaal>) (Object) huidigeSessieKalender.geefAlleLokalen();
     }
-
-    /*
-    ???
-
-    public void pasLokaalAan(ILokaal lokaal){
-        huidigeSessie.setLokaal((Lokaal)lokaal);
-        huidigeSessieKalender.updateSessie(huidigeSessie);
-    }
-
-     */
 
     public ILokaal geefLokaalSessie() {
         return huidigeSessie.getLokaal();
@@ -435,14 +428,6 @@ public class DomeinController {
     //region Feedback
     public List<IFeedback> geefAlleFeedbackVanHuidigeSessie() {
         return (List<IFeedback>) (Object) huidigeSessieKalender.geefAlleFeedbackVanSessie(huidigeSessie.getSessieId());
-    }
-
-    public void removeSessieObserver(IObserverSessie observer) {
-        huidigeSessie.remove(observer);
-    }
-
-    public void addSessieObserver(IObserverSessie observer) {
-        huidigeSessie.add(observer);
     }
     //endregion
 }

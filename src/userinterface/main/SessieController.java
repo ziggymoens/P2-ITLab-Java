@@ -20,7 +20,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import userinterface.sessie.aankondiging.BeherenAankondigingController;
-import userinterface.sessie.feedback.BeherenFeedbackController;
 import userinterface.sessie.lokaal.BeherenLokaalController;
 
 import java.io.IOException;
@@ -28,7 +27,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SessieController extends AnchorPane implements IObserverSessie {
+public class SessieController extends AnchorPane {
     private DomeinController domeinController;
     private HoofdverantwoordelijkeController hoofdverantwoordelijkeController;
     private ISessie sessie;
@@ -243,9 +242,6 @@ public class SessieController extends AnchorPane implements IObserverSessie {
 
         btnBewerkenSessie.setOnAction(this::bewerkenSessie);
         btnOpslaanSessie.setOnAction(this::opslaanSessie);
-
-
-        pOnderaan.getChildren().addAll( new BeherenLokaalController(domeinController));
     }
 
     private void sessieTable() {
@@ -262,20 +258,12 @@ public class SessieController extends AnchorPane implements IObserverSessie {
     }
 
     private void selectInTable() {
-       tableViewSessie.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessie>() { //fout lus
+       tableViewSessie.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessie>() {
             @Override
             public void changed(ObservableValue<? extends ISessie> observableValue, ISessie iSessie, ISessie t1) {
-                System.out.println("methode listener");
-                System.out.println(Thread.currentThread().getStackTrace()[1]);
-                System.out.println(Thread.currentThread().getStackTrace()[2]);
-                System.out.println(Thread.currentThread().getStackTrace()[3] + "\n");
-                if(iSessie != null)
-                    domeinController.removeSessieObserver(SessieController.this);
                 domeinController.setHuidigeISessie(t1);
-                domeinController.addSessieObserver(SessieController.this);
                 checkBoxCapaciteitSessie.setDisable(true);
                 vulDetails();
-
             }
         });
 
@@ -313,12 +301,11 @@ public class SessieController extends AnchorPane implements IObserverSessie {
     }
 
     private void bewerkenSessie(ActionEvent actionEvent) {
-        btnBewerkenSessie.setVisible(false);
-        btnBewerkenSessie.setDisable(true);
         btnOpslaanSessie.setDisable(false);
         btnOpslaanSessie.setVisible(true);
+        btnBewerkenSessie.setVisible(false);
+        btnBewerkenSessie.setDisable(true);
         checkBoxCapaciteitSessie.setDisable(false);
-        btnBewerkenSessie.setText("Opslaan");
         txtTitelSessie.setEditable(true);
         txtStartSessie.setEditable(true);
         txtEindSessie.setEditable(true);
@@ -334,6 +321,7 @@ public class SessieController extends AnchorPane implements IObserverSessie {
     }
 
     private void opslaanSessie(ActionEvent actionEvent) {
+        update();
         btnBewerkenSessie.setDisable(false);
         btnBewerkenSessie.setVisible(true);
         btnOpslaanSessie.setDisable(true);
@@ -341,6 +329,7 @@ public class SessieController extends AnchorPane implements IObserverSessie {
         List<Node> n = vboxSessieDetail.getChildren();
         List<String> s = n.stream().filter(e -> e instanceof TextField).map(e -> ((TextField) e).getText()).collect(Collectors.toList());
         s.stream().forEach(e -> System.out.println(e));
+        //geef door nr domein en persisteer
     }
 
     private void activeerFilters() {
@@ -375,6 +364,8 @@ public class SessieController extends AnchorPane implements IObserverSessie {
     }
 
     private void vulTableLokalen(){
+        pOnderaan.getChildren().remove(0);
+        pOnderaan.getChildren().addAll(new BeherenLokaalController(domeinController));
     }
 
     private void radioButtons() {
@@ -430,9 +421,7 @@ public class SessieController extends AnchorPane implements IObserverSessie {
         });
     }
 
-    @Override
-    public void update(ISessie sessie) {
-        domeinController.setHuidigeISessie(sessie);
+    public void update() {
         sessieTable();
     }
 }

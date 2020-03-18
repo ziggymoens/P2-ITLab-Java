@@ -18,12 +18,12 @@ public class HoofdverantwoordelijkeController extends ITypeController {
         this.huidigeSessieKalender = huidigeSessieKalender;
         this.gebruiker = gebruiker;
     }
-/*
+
     @Override
-    public void bewerkSessie(Sessie sessie) {
-        huidigeSessieKalender.updateSessie(sessie);
+    public void bewerkSessie(Sessie sessie, List<Object> veranderingen) {
+        huidigeSessieKalender.updateSessie(sessie,veranderingen);
     }
- */
+
 
     @Override
     public void verwijderSessie(Sessie sessie) {
@@ -143,11 +143,6 @@ public class HoofdverantwoordelijkeController extends ITypeController {
                 .stream()
                 .filter(s -> s.getLokaal().getStad().equals(locatie.toUpperCase()))
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public void bewerkSessie(Sessie sessie) {
-        throw new UnsupportedOperationException();
     }
 
     @Override

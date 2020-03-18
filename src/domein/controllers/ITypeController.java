@@ -10,29 +10,17 @@ import java.util.List;
 public abstract class ITypeController {
 
 
-    public Sessie geefSessieId(String id) {
-        return null;
-    }
+    public abstract Sessie geefSessieId(String id);
 
-    public List<Sessie> geefAlleSessiesKalender(Integer jaar) {
-        return null;
-    }
+    public abstract List<Sessie> geefAlleSessiesKalender(Integer jaar);
 
-    public List<Sessie> geefAlleSessiesTitel(String titel) {
-        return null;
-    }
+    public abstract List<Sessie> geefAlleSessiesTitel(String titel);
 
-    public List<Sessie> geefAlleSessiesDatum(LocalDate datum) {
-        return null;
-    }
+    public abstract List<Sessie> geefAlleSessiesDatum(LocalDate datum);
 
-    public List<Sessie> geefAlleSessiesLocatie(String locatie) {
-        return null;
-    }
+    public abstract List<Sessie> geefAlleSessiesLocatie(String locatie);
 
-    public void bewerkSessie(Sessie sessie) {
-
-    }
+    public abstract void bewerkSessie(Sessie sessie, List<Object> veranderingen);
 
     public void verwijderSessie(Sessie sessie) {
 

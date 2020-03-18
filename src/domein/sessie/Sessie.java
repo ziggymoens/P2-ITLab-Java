@@ -9,7 +9,6 @@ import exceptions.domein.SessieException;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import userinterface.main.IObserverSessie;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -19,7 +18,7 @@ import java.util.stream.Collectors;
 @SuppressWarnings("unchecked")
 @Entity
 @Table(name = "sessie")
-public class Sessie implements ISessie, SessieSubject {
+public class Sessie implements ISessie {
     //region variabelen
     //Primairy key
     @Id
@@ -40,8 +39,6 @@ public class Sessie implements ISessie, SessieSubject {
     private int academiejaar;
     private boolean geopend;
     private boolean verwijderd = false;
-    @Transient
-    private List<IObserverSessie> observers = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sessie", fetch = FetchType.LAZY)
     private List<Media> media;
@@ -108,7 +105,6 @@ public class Sessie implements ISessie, SessieSubject {
             throw new SessieException("SessieException.titel");
         }
         this.titel = titel;
-        notifyObservers();
     }
 
     public void setNaamGastspreker(String naamGastspreker) {
@@ -116,17 +112,15 @@ public class Sessie implements ISessie, SessieSubject {
             throw new SessieException();
         }
         this.naamGastspreker = naamGastspreker;
-        notifyObservers();
     }
 
     public void setStartSessie(LocalDateTime startSessie) {
         this.startSessie = startSessie;
-        notifyObservers();
     }
 
     public void setEindeSessie(LocalDateTime eindeSessie) {
         this.eindeSessie = eindeSessie;
-        notifyObservers();
+
     }
 
     public void setMaximumAantalPlaatsen(int maximumAantalPlaatsen) {
@@ -134,12 +128,12 @@ public class Sessie implements ISessie, SessieSubject {
             throw new SessieException("SessieException.aantalPlaatsenTeVeel");
         }
         this.maximumAantalPlaatsen = maximumAantalPlaatsen;
-        notifyObservers();
+
     }
 
     public void setVerantwoordelijke(Gebruiker verantwoordelijke) {
         this.verantwoordelijke = verantwoordelijke;
-        notifyObservers();
+
     }
 
     public void setLokaal(Lokaal lokaal) {
@@ -147,22 +141,22 @@ public class Sessie implements ISessie, SessieSubject {
             throw new SessieException("SessieException.lokaalNull");
         }
         this.lokaal = lokaal;
-        notifyObservers();
+
     }
 
     public void setVerwijderd(boolean verwijderd) {
         this.verwijderd = verwijderd;
-        notifyObservers();
+
     }
 
     private void setAcademiejaar() {
         int jaar = startSessie.getYear() - 2000;
         if (startSessie.getDayOfYear() < 243) {
             academiejaar = Integer.parseInt(String.format("%d%d", jaar - 1, jaar));
-            notifyObservers();
+
         } else {
             academiejaar = Integer.parseInt(String.format("%d%d", jaar, jaar + 1));
-            notifyObservers();
+
         }
     }
 
@@ -335,7 +329,7 @@ public class Sessie implements ISessie, SessieSubject {
             throw new SessieException();
         }
         this.media.add(media);
-        notifyObservers();
+
     }
 
     public void addInschrijving(Inschrijving inschrijving) {
@@ -343,7 +337,7 @@ public class Sessie implements ISessie, SessieSubject {
             throw new SessieException();
         }
         this.inschrijvingen.add(inschrijving);
-        notifyObservers();
+
     }
 
     public void addAankondiging(Aankondiging aankondiging) {
@@ -351,7 +345,7 @@ public class Sessie implements ISessie, SessieSubject {
             throw new SessieException();
         }
         this.aankondigingen.add(aankondiging);
-        notifyObservers();
+
     }
 
     public void addFeedback(Feedback feedback) {
@@ -359,7 +353,7 @@ public class Sessie implements ISessie, SessieSubject {
             throw new SessieException();
         }
         this.feedback.add(feedback);
-        notifyObservers();
+
     }
 
     public int aantalVrijePlaatsen() {
@@ -428,7 +422,7 @@ public class Sessie implements ISessie, SessieSubject {
      *
      * @param gegevens (Gebruiker gebruiker, String titel, LocalDateTime start, LocalDateTime einde, Lokaal lokaal, String gastspreker)
      */
-    public void update(List<Object> gegevens) {
+    public void update(List<Object> gegevens) { //aantal plaatsen moet nog veranderen
         try {
             if (gegevens.get(0) != null) {
                 setVerantwoordelijke((Gebruiker) gegevens.get(0));
@@ -489,46 +483,28 @@ public class Sessie implements ISessie, SessieSubject {
 
     public void verwijderMedia(Media mediaOud) {
         media.remove(mediaOud);
-        notifyObservers();
+
     }
 
     public void verwijderFeedback(Feedback feedbackOud) {
         feedback.remove(feedbackOud);
-        notifyObservers();
+
     }
 
     public void verwijderAankondiging(Aankondiging aankondigingOud) {
         aankondigingen.remove(aankondigingOud);
-        notifyObservers();
+
     }
 
     public void verwijderInschrijving(Inschrijving inschrijvingOud) {
         inschrijvingen.remove(inschrijvingOud);
-        notifyObservers();
+
     }
 
     public String[] toArray() {
         String[] arr = new String[]{titel, startSessie.toString(), eindeSessie.toString(), Integer.toString(maximumAantalPlaatsen), Integer.toString(academiejaar), Boolean.toString(geopend)};
         return arr;
     }
-
-
-    //region Observable
-    @Override
-    public void add(IObserverSessie o) {
-        this.observers.add(o);
-    }
-    @Override
-    public void remove(IObserverSessie o){
-        this.observers.remove(o);
-    }
-
-    public void notifyObservers(){
-        for (IObserverSessie o: observers) {
-            o.update(this);
-        }
-    }
-    //endregion
 
     //region State
     public void setState(String state){

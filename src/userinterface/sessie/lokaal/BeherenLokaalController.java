@@ -86,6 +86,7 @@ public class BeherenLokaalController extends AnchorPane {
     /*
     Placeholders!!
      */
+
     private void vulComboBoxes() {
         cbStad.setItems(FXCollections.observableArrayList(domeinController.geefSteden()).sorted());
         //cbStad.getSelectionModel().selectFirst();

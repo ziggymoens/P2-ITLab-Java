@@ -49,7 +49,7 @@ public class VerantwoordelijkeController extends ITypeController {
     }
 
     @Override
-    public void bewerkSessie(Sessie sessie) {
+    public void bewerkSessie(Sessie sessie, List<Object> veranderingen) {
 
     }
 
