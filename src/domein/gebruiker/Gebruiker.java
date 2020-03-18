@@ -1,6 +1,7 @@
 package domein.gebruiker;
 
 import com.sun.istack.NotNull;
+import domein.Media;
 import domein.enums.Gebruikersprofiel;
 import domein.enums.Gebruikersstatus;
 import domein.interfacesDomein.IGebruiker;
@@ -11,6 +12,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.File;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -18,8 +20,9 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "gebruiker")
-public class Gebruiker implements IGebruiker {
+public class Gebruiker implements IGebruiker, Serializable {
 
+    private static final long serialVersionUID = 2236402867161072684L;
     //region Variabelen
     //Primairy key
     @Id
@@ -29,10 +32,12 @@ public class Gebruiker implements IGebruiker {
     private String naam;
     @NotNull
     private String wachtwoord;
-
-    private byte[] profielfoto;
     private boolean verwijderd = false;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotNull
+    private Media profielfoto;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
@@ -115,7 +120,7 @@ public class Gebruiker implements IGebruiker {
     private void setProfielfoto(String path) {
         File file = new File("storage/profielfotos/profielfoto.png");
         byte[] bFile = new byte[(int) file.length()];
-        this.profielfoto = bFile;
+        this.profielfoto = new Media(this, "storage/profielfotos/profielfoto.png", "FOTO");
     }
 
     private void setNaam(String naam) {
@@ -237,13 +242,13 @@ public class Gebruiker implements IGebruiker {
     }
 
     @Override
-    public byte[] getProfielfoto() {
-        return profielfoto;
+    public String getProfielfoto() {
+        return profielfoto.getLocatie();
     }
 
     @Override
     public LocalDate getLaatstIngelogd() {
-        return currentStatus.getLaatstIngelogd();
+        return null;
     }
 
     @Override

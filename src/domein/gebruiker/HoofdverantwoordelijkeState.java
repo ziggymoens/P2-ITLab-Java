@@ -3,18 +3,21 @@ package domein.gebruiker;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "hoofdverantwoordelijkeState")
+@DiscriminatorValue("HOOFDVERANTWOORDELIJKE")
 public class HoofdverantwoordelijkeState extends GebruikerProfielState {
-    public HoofdverantwoordelijkeState() {
 
+    private static final long serialVersionUID = 370239301138816523L;
+
+    public HoofdverantwoordelijkeState() {
     }
 
     public HoofdverantwoordelijkeState(Gebruiker gebruiker) {
-        super("HOOFDVERANTWOORDELIJKE", gebruiker);
+        super(gebruiker);
     }
 
     @Override
     public String getProfiel() {
         return "HOOFDVERANTWOORDELIJKE";
     }
+
 }

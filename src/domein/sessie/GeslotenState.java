@@ -1,14 +1,23 @@
 package domein.sessie;
 
-import javax.persistence.*;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
 @Entity
-@Table(name = "geslotenState")
+@DiscriminatorValue("GESLOTEN")
 public class GeslotenState extends SessieState {
-    public GeslotenState() {
+
+    private static final long serialVersionUID = -3133496800896038854L;
+
+    protected GeslotenState() {
     }
 
     public GeslotenState(Sessie sessie) {
-        super("GESLOTEN", sessie);
+        super(sessie);
+    }
+
+    @Override
+    public String getStatus() {
+        return "GESLOTEN";
     }
 }

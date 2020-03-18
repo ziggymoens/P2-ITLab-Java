@@ -1,20 +1,24 @@
 package domein.gebruiker;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "verantwoordelijkeState")
+@DiscriminatorValue("VERANTWOORDELIJKE")
 public class VerantwoordelijkeState extends GebruikerProfielState {
+
+    private static final long serialVersionUID = 7397529294386849587L;
+
     public VerantwoordelijkeState() {
     }
 
     public VerantwoordelijkeState(Gebruiker gebruiker) {
-        super("VERANTWOORDELIJKE", gebruiker);
+        super(gebruiker);
     }
 
     @Override
     public String getProfiel() {
         return "VERANTWOORDELIJKE";
     }
+
 }

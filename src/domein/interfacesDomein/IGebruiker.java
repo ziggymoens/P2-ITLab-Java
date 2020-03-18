@@ -11,7 +11,7 @@ public interface IGebruiker {
 
     String getGebruikersprofiel();
 
-    byte[] getProfielfoto();
+    String getProfielfoto();
 
     LocalDate getLaatstIngelogd();
 

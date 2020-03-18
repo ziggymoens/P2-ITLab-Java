@@ -3,13 +3,16 @@ package domein.gebruiker;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "nietActiefStatusState")
+@DiscriminatorValue("NIET_ACTIEF")
 public class NietActiefStatusState extends GebruikerStatusState {
-    public NietActiefStatusState() {
+
+    private static final long serialVersionUID = -2297467614703375098L;
+
+    protected NietActiefStatusState() {
     }
 
-    protected NietActiefStatusState(Gebruiker gebruiker) {
-        super("NIET ACTIEF", gebruiker);
+    public NietActiefStatusState(Gebruiker gebruiker) {
+        super(gebruiker);
     }
 
     @Override

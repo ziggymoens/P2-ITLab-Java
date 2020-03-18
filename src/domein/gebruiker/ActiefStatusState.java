@@ -1,26 +1,25 @@
 package domein.gebruiker;
 
-import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
-@Table(name = "actiefStatusState")
+@DiscriminatorValue("ACTIEF")
 public class ActiefStatusState extends GebruikerStatusState {
+    private static final long serialVersionUID = 603309081014144108L;
 
-    private int inlogPogingen;
-
-    public ActiefStatusState() {
+    protected ActiefStatusState() {
     }
 
-    protected ActiefStatusState(Gebruiker gebruiker) {
-        super("ACTIEF", gebruiker);
-        this.inlogPogingen = 0;
+    public ActiefStatusState(Gebruiker gebruiker) {
+        super(gebruiker);
     }
 
     @Override
     public String getStatus() {
         return "ACTIEF";
     }
+
 
 }

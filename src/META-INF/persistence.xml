@@ -27,6 +27,7 @@
         <class>domein.gebruiker.HoofdverantwoordelijkeState</class>
         <class>domein.gebruiker.VerantwoordelijkeState</class>
         <class>domein.gebruiker.GebruikerState</class>
+
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
         <properties>
