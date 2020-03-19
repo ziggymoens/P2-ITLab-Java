@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <fx:root prefHeight="738.0" prefWidth="1400.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox prefHeight="738.0" prefWidth="1400.0">
@@ -48,6 +47,9 @@
                            </VBox.margin>
                         </ComboBox>
                      </children>
+                     <VBox.margin>
+                        <Insets top="40.0" />
+                     </VBox.margin>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0">
                      <children>
@@ -56,12 +58,15 @@
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </Label>
-                        <ComboBox fx:id="cbAj1" prefHeight="30.0" prefWidth="250.0">
+                        <ComboBox fx:id="cbMaand" prefHeight="30.0" prefWidth="250.0">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
                         </ComboBox>
                      </children>
+                     <VBox.margin>
+                        <Insets top="40.0" />
+                     </VBox.margin>
                   </VBox>
                </children>
             </VBox>
@@ -86,6 +91,15 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="738.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="btnKiezen" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" text="Kiezen">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Button>
                </children>
             </VBox>
          </children>

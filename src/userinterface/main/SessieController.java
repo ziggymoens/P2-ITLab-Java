@@ -11,11 +11,11 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import userinterface.sessie.aankondiging.BeherenAankondigingController;
 import userinterface.sessie.lokaal.BeherenLokaalController;
 
@@ -144,7 +144,10 @@ public class SessieController extends AnchorPane {
 
         btnBewerkenSessie.setOnAction(this::bewerkenSessie);
         btnOpslaanSessie.setOnAction(this::opslaanSessie);
+        btnVerwijderenSessie.setOnAction(this::verwijderenSessie);
     }
+
+
 
     private void sessieTable() {
         tableViewSessie.getColumns().clear();
@@ -163,17 +166,20 @@ public class SessieController extends AnchorPane {
        tableViewSessie.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessie>() {
             @Override
             public void changed(ObservableValue<? extends ISessie> observableValue, ISessie iSessie, ISessie t1) {
-                domeinController.setHuidigeISessie(t1);
-                checkBoxCapaciteitSessie.setDisable(true);
+                if(iSessie != null){sessie = iSessie;}
+                if(t1 != null){domeinController.setHuidigeISessie(t1);}
+                choiceBoxMaand.setValue(domeinController.vergelijkMaanden());
+                zetVeldenBewerken(false);
+                verwijderApOnderaan();
                 vulDetails();
             }
         });
 
         if (!tableViewSessie.getItems().isEmpty() || tableViewSessie.getItems() != null) {
-            if(domeinController.geefHuidigeISessie() != null){
-                tableViewSessie.getSelectionModel().select(domeinController.geefHuidigeISessie());
-            }else{
+            if(domeinController.geefHuidigeISessie() == null){
                 tableViewSessie.getSelectionModel().select(0);
+            }else{
+                tableViewSessie.getSelectionModel().select(domeinController.geefHuidigeISessie());
             }
         }
     }
@@ -202,12 +208,23 @@ public class SessieController extends AnchorPane {
 
     }
 
+    private void verwijderApOnderaan(){
+        if(!pOnderaan.getChildren().isEmpty()){
+        pOnderaan.getChildren().remove(0);
+        apSessie.setLayoutY(120);
+        }
+    }
+
     private void bewerkenSessie(ActionEvent actionEvent) {
-        apSessie.setLayoutY(0);
         zetVeldenBewerken(true);
         tempLokaal = domeinController.geefHuidigeISessie().getLokaal();
         tempGebruiker = domeinController.geefHuidigeIGebruiker();
         txtLokaalSessie.setOnMouseClicked(e -> vulTableLokalen());
+    }
+
+    private void verwijderenSessie(ActionEvent actionEvent) {
+        domeinController.verwijderSessie(this.tableViewSessie.getSelectionModel().getSelectedItem(), sessie);
+        update();
     }
 
     private void opslaanSessie(ActionEvent actionEvent) {
@@ -222,6 +239,8 @@ public class SessieController extends AnchorPane {
         Map<String, String> fouten = domeinController.controleerDataSessie(veranderingen);
         if(fouten.isEmpty()){
             domeinController.updateSessie(veranderingen);
+            lblMessage.setBackground(new Background(new BackgroundFill(Color.rgb(0,255,0),CornerRadii.EMPTY, Insets.EMPTY)));
+            lblMessage.setText("Sessie:\n" + txtTitelSessie.getText() + "\nis opgeslagen");
             zetVeldenBewerken(false);
             update();
         } else {
@@ -258,6 +277,7 @@ public class SessieController extends AnchorPane {
                         break;
                 }
             }
+            lblMessage.setBackground(new Background(new BackgroundFill(Color.rgb(255,0,0),CornerRadii.EMPTY, Insets.EMPTY)));
         }
 /*        List<Node> n = vboxSessieDetail.getChildren();
         List<String> s = n.stream().filter(e -> e instanceof TextField).map(e -> ((TextField) e).getText()).collect(Collectors.toList());
@@ -279,8 +299,8 @@ public class SessieController extends AnchorPane {
     }
 
     private void activeerFilters() {
-        choiceBoxJaar.setItems(FXCollections.observableArrayList(domeinController.geefAcademiejaren()));
-        choiceBoxJaar.setValue(((Integer)domeinController.academiejaar).toString());
+        choiceBoxJaar.setItems(FXCollections.observableArrayList("2019 - 2020"));
+        choiceBoxJaar.setValue(choiceBoxJaar.getItems().get(0));
 /*        choiceBoxJaar.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
@@ -315,6 +335,7 @@ public class SessieController extends AnchorPane {
     }
 
     private void vulTableLokalen(){
+        apSessie.setLayoutY(0);
         if(!pOnderaan.getChildren().isEmpty())
             pOnderaan.getChildren().remove(0);
         pOnderaan.getChildren().addAll(new BeherenLokaalController(domeinController, this));
@@ -375,6 +396,7 @@ public class SessieController extends AnchorPane {
 
     public void update() {
         sessieTable();
+        verwijderApOnderaan();
     }
 
     public void setIGerbuiker(IGebruiker gebruiker){

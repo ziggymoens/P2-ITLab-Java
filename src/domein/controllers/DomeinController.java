@@ -179,8 +179,9 @@ public class DomeinController {
         typeController.maakSessieAan(s);
     }
 
-    public void verwijderSessie(ISessie sessie) {
-        typeController.verwijderSessie((Sessie) sessie);
+    public void verwijderSessie(ISessie verwijderen, ISessie vorige) {
+        setHuidigeISessie(vorige);
+        typeController.verwijderSessie((Sessie) verwijderen);
     }
 
     public void setHuidigeISessie(ISessie sessie) {

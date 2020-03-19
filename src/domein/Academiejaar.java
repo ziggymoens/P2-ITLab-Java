@@ -30,4 +30,7 @@ public class Academiejaar {
     public int getCode() {
         return academiejaar;
     }
+    public int getSessies(){
+        return sessies.size();
+    }
 }

@@ -22,9 +22,7 @@ public abstract class ITypeController {
 
     public abstract void bewerkSessie(Sessie sessie, List<Object> veranderingen);
 
-    public void verwijderSessie(Sessie sessie) {
-
-    }
+    public abstract void verwijderSessie(Sessie sessie);
 
     public void maakSessieAan(Sessie sessie) {
 

@@ -429,24 +429,31 @@ public class Sessie implements ISessie, Serializable {
         try {
             if (gegevens.get(0) != null) {
                 setVerantwoordelijke((Gebruiker) gegevens.get(0));
+                System.out.println(verantwoordelijke.getNaam());
             }
             if (gegevens.get(1) != null && !((String) gegevens.get(1)).isBlank()) {
                 setTitel((String) gegevens.get(1));
+                System.out.println(titel);
             }
             if (gegevens.get(2) != null) {
                 setStartSessie((LocalDateTime) gegevens.get(2));
+                System.out.println(startSessie.toString());
             }
             if (gegevens.get(3) != null) {
                 setEindeSessie((LocalDateTime) gegevens.get(3));
+                System.out.println(eindeSessie.toString());
             }
             if (gegevens.get(4) != null) {
                 setLokaal((Lokaal) gegevens.get(4));
+                System.out.println(lokaal.getLokaalCode());
             }
             if (gegevens.get(5) != null && !((String) gegevens.get(5)).isBlank()) {
                 setNaamGastspreker((String) gegevens.get(5));
+                System.out.println(naamGastspreker);
             }
             if (gegevens.get(6) != null && !((String) gegevens.get(6)).isBlank()) {
                 setMaximumAantalPlaatsen((Integer) gegevens.get(6));
+                System.out.println(maximumAantalPlaatsen);
             }
             controleData();
         } catch (Exception e) {
