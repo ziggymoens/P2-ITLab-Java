@@ -8,7 +8,7 @@ import domein.SessieKalender;
 import java.time.LocalDate;
 import java.util.List;
 
-public class VerantwoordelijkeController extends ITypeController {
+public class VerantwoordelijkeController extends TypeController {
     private SessieKalender huidigeSessieKalender;
     private Gebruiker gebruiker;
     private int aj;

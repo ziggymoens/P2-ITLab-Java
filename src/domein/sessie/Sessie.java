@@ -252,8 +252,9 @@ public class Sessie implements ISessie, Serializable {
         return feedback;
     }
 
-    private int getAcademiejaar() {
-        return academiejaar.getCode();
+    @Override
+    public IAcademiejaar getAcademiejaar() {
+        return (IAcademiejaar) academiejaar;
     }
 
     private boolean isVerwijderd() {
@@ -513,7 +514,7 @@ public class Sessie implements ISessie, Serializable {
     }
 
     public String[] toArray() {
-        String[] arr = new String[]{titel, startSessie.toString(), eindeSessie.toString(), Integer.toString(maximumAantalPlaatsen), String.valueOf(academiejaar.getCode())};
+        String[] arr = new String[]{titel, startSessie.toString(), eindeSessie.toString(), Integer.toString(maximumAantalPlaatsen), String.valueOf(academiejaar.getAcademiejaar())};
         return arr;
     }
 

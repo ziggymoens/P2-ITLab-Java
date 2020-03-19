@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class DomeinController {
 
     //region Variabelen
-    private ITypeController typeController;
+    private TypeController typeController;
     private SessieKalender huidigeSessieKalender;
     private Sessie huidigeSessie;
     private Gebruiker huidigeGebruiker;
@@ -170,6 +170,10 @@ public class DomeinController {
 
     public List<ISessie> geefISessieOpLocatie(String locatie) {
         return (List<ISessie>) (Object) typeController.geefAlleSessiesLocatie(locatie);
+    }
+
+    public List<ISessie> geefAlleSessiesKalenderVanGebruiker(Gebruiker gebruiker){
+        return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalenderVanGebruiker(academiejaar, gebruiker);
     }
 
     public void maakSessieAan(List<String> sessie) {

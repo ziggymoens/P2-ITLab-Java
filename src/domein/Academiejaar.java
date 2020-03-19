@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "academiejaar")
-public class Academiejaar {
+public class Academiejaar implements IAcademiejaar {
     @Id
     private int academiejaar;
 
@@ -27,10 +27,26 @@ public class Academiejaar {
         this.eind = eind;
     }
 
-    public int getCode() {
+    @Override
+    public int getAcademiejaar() {
         return academiejaar;
     }
     public int getSessies(){
         return sessies.size();
+    }
+
+    @Override
+    public List<ISessie> getSessiesO() {
+        return (List<ISessie>) (Object) sessies;
+    }
+
+    @Override
+    public LocalDate getStart() {
+        return start;
+    }
+
+    @Override
+    public LocalDate getEind() {
+        return eind;
     }
 }
