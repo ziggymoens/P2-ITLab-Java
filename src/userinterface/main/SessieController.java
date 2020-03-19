@@ -210,13 +210,6 @@ public class SessieController extends AnchorPane {
 
     }
 
-    private void verwijderApOnderaan(){
-        if(!pOnderaan.getChildren().isEmpty()){
-        pOnderaan.getChildren().remove(0);
-        apSessie.setLayoutY(120);
-        }
-    }
-
     private void bewerkenSessie(ActionEvent actionEvent) {
         zetVeldenBewerken(true);
         txtLokaalSessie.setOnMouseClicked(e -> vulTableLokalen());
@@ -335,18 +328,25 @@ public class SessieController extends AnchorPane {
     }
 
     private void vulTableLokalen(){
+        pOnderaan.setVisible(true);
         apSessie.setLayoutY(0);
         if(!pOnderaan.getChildren().isEmpty())
             pOnderaan.getChildren().remove(0);
         pOnderaan.getChildren().addAll(new BeherenLokaalController(domeinController, this));
     }
 
-    private void radioButtons() {
+    private void verwijderApOnderaan(){
+        if(!pOnderaan.getChildren().isEmpty()){
+            pOnderaan.getChildren().remove(0);
+            apSessie.setLayoutY(120);
+            pOnderaan.setVisible(false);
+        }
+    }
 
+    private void radioButtons() {
         rabtnAankondiging.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> obs, Boolean oldValue, Boolean newValue) {
-                rabtnAankondiging.setSelected(newValue);
                 if (newValue) {
                     rabtnFeedback.setSelected(false);
                     rabtnInschrijving.setSelected(false);
@@ -356,7 +356,7 @@ public class SessieController extends AnchorPane {
                     apRechts.getChildren().remove(0);
             }
         });
-
+        rabtnAankondiging.setSelected(true);
 
         rabtnFeedback.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
