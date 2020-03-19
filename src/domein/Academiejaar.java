@@ -1,5 +1,7 @@
 package domein;
 
+import domein.interfacesDomein.IAcademiejaar;
+import domein.interfacesDomein.ISessie;
 import domein.sessie.Sessie;
 
 import javax.persistence.*;
@@ -8,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "academiejaar")
-public class Academiejaar {
+public class Academiejaar implements IAcademiejaar {
     @Id
     private int academiejaar;
 
@@ -27,7 +29,23 @@ public class Academiejaar {
         this.eind = eind;
     }
 
-    public int getCode() {
+    @Override
+    public int getAcademiejaar() {
         return academiejaar;
+    }
+
+    @Override
+    public List<ISessie> getSessies() {
+        return (List<ISessie>) (Object) sessies;
+    }
+
+    @Override
+    public LocalDate getStart() {
+        return start;
+    }
+
+    @Override
+    public LocalDate getEind() {
+        return eind;
     }
 }

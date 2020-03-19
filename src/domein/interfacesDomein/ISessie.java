@@ -29,6 +29,8 @@ public interface ISessie {
 
     String getSessieId();
 
+    IAcademiejaar getAcademiejaar();
+
     Map<String, Object> gegevensDetails();
 
     int getAantalAanwezigen();

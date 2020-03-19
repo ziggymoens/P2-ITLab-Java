@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class HoofdverantwoordelijkeController extends ITypeController {
+public class HoofdverantwoordelijkeController extends TypeController {
     private SessieKalender huidigeSessieKalender;
     private Gebruiker gebruiker;
     private int aj;

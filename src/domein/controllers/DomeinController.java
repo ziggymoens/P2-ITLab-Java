@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class DomeinController {
 
     //region Variabelen
-    private ITypeController typeController;
+    private TypeController typeController;
     private SessieKalender huidigeSessieKalender;
     private Sessie huidigeSessie;
     private Gebruiker huidigeGebruiker;
