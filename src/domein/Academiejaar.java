@@ -1,5 +1,7 @@
 package domein;
 
+import domein.interfacesDomein.IAcademiejaar;
+import domein.interfacesDomein.ISessie;
 import domein.sessie.Sessie;
 
 import javax.persistence.*;
@@ -31,6 +33,7 @@ public class Academiejaar implements IAcademiejaar {
     public int getAcademiejaar() {
         return academiejaar;
     }
+
     public int getSessies(){
         return sessies.size();
     }
