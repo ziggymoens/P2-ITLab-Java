@@ -107,7 +107,7 @@ public class GebruikerController extends AnchorPane {
     private TableView<ISessie> tableViewSessiesGebruikers;
 
     @FXML
-    private TableColumn<ISessie, String> titel, startSessie, maximumAantalPlaatsen;
+    private TableColumn<ISessie, String> titel, startSessie;
     @FXML
     private Button btnKiezen;
 
@@ -242,10 +242,9 @@ public class GebruikerController extends AnchorPane {
 
         titel.setCellValueFactory(new PropertyValueFactory<>("titel"));
         startSessie.setCellValueFactory(new PropertyValueFactory<>("startSessie"));
-        maximumAantalPlaatsen.setCellValueFactory(new PropertyValueFactory<>("maximumAantalPlaatsen"));
 
         tableViewSessiesGebruikers.setItems(FXCollections.observableArrayList(domeinController.geefAlleSessiesKalenderVanGebruiker(gebruiker)));
-        tableViewSessiesGebruikers.getColumns().addAll(titel, startSessie, maximumAantalPlaatsen);
+        tableViewSessiesGebruikers.getColumns().addAll(titel, startSessie);
         if (!tableViewSessiesGebruikers.getItems().isEmpty() || tableViewSessiesGebruikers.getItems() != null) {
             tableViewSessiesGebruikers.getSelectionModel().select(0);
             domeinController.setHuidigeISessie(domeinController.geefISessiesHuidigeKalender().get(0));
