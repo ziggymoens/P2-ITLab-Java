@@ -192,8 +192,10 @@ public class SessieController extends AnchorPane {
         txtEindSessie.setText(domeinController.geefHuidigeISessie().getStartSessie().format(formatter));
         txtMaxPlaatsenSessie.setText(Integer.toString(domeinController.geefHuidigeISessie().getMaximumAantalPlaatsen()));
         txtGastsprekerSessie.setText(domeinController.geefHuidigeISessie().getNaamGastspreker());
+        tempGebruiker = domeinController.geefHuidigeISessie().getVerantwoordelijke();
         txtVerantwoordelijkeSessie.setText(domeinController.geefHuidigeISessie().getVerantwoordelijke().getNaam());
         txtLokaalSessie.setText(domeinController.geefHuidigeISessie().getLokaal().getLokaalCode());
+        tempLokaal = domeinController.geefHuidigeISessie().getLokaal();
         checkBoxCapaciteitSessie.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
@@ -217,8 +219,6 @@ public class SessieController extends AnchorPane {
 
     private void bewerkenSessie(ActionEvent actionEvent) {
         zetVeldenBewerken(true);
-        tempLokaal = domeinController.geefHuidigeISessie().getLokaal();
-        tempGebruiker = domeinController.geefHuidigeIGebruiker();
         txtLokaalSessie.setOnMouseClicked(e -> vulTableLokalen());
     }
 
@@ -346,6 +346,7 @@ public class SessieController extends AnchorPane {
         rabtnAankondiging.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> obs, Boolean oldValue, Boolean newValue) {
+                rabtnAankondiging.setSelected(newValue);
                 if (newValue) {
                     rabtnFeedback.setSelected(false);
                     rabtnInschrijving.setSelected(false);
@@ -355,7 +356,7 @@ public class SessieController extends AnchorPane {
                     apRechts.getChildren().remove(0);
             }
         });
-        rabtnAankondiging.setSelected(true);
+
 
         rabtnFeedback.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override

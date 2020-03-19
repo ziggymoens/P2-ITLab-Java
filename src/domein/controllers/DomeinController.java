@@ -95,8 +95,9 @@ public class DomeinController {
 
     public void updateSessie(List<String> veranderingen){
         List<Object> objVeranderingen = new ArrayList<>();
-        Gebruiker g = huidigeSessieKalender.geefGebruikerById(veranderingen.get(0));
-        objVeranderingen.add(g);
+
+        Gebruiker verantwoordelijke = huidigeSessieKalender.geefGebruikerById(veranderingen.get(0));
+        String titel = veranderingen.get(1);
 
         String[] startarr = veranderingen.get(2).split(" ");
         String[] startdatarr = startarr[0].split("/");
@@ -108,7 +109,7 @@ public class DomeinController {
         LocalDate startDate = LocalDate.of(jaar, Integer.parseInt(startdatarr[1]), Integer.parseInt(startdatarr[0]));
         LocalTime startUur = LocalTime.of(Integer.parseInt(startuurarr[0]), Integer.parseInt(startuurarr[1]));
         LocalDateTime start = LocalDateTime.of(startDate, startUur);
-        objVeranderingen.add(start);
+
 
         String[] eindarr = veranderingen.get(3).split(" ");
         String[] eindatarr = eindarr[0].split("/");
@@ -120,12 +121,18 @@ public class DomeinController {
         LocalDate eindDate = LocalDate.of(jaar, Integer.parseInt(eindatarr[1]), Integer.parseInt(eindatarr[0]));
         LocalTime eindUur = LocalTime.of(Integer.parseInt(einuurarr[0]), Integer.parseInt(einuurarr[1]));
         LocalDateTime eind = LocalDateTime.of(eindDate, eindUur);
-        objVeranderingen.add(eind);
-        objVeranderingen.add(eind);
 
         Lokaal l = huidigeSessieKalender.geefLokaalById(veranderingen.get(4));
-        objVeranderingen.add(l);
+
         Integer i = Integer.parseInt(veranderingen.get(6));
+
+        objVeranderingen.add(0, verantwoordelijke);
+        objVeranderingen.add(1, titel);
+        objVeranderingen.add(2, start);
+        objVeranderingen.add(3, eind);
+        objVeranderingen.add(4, l);
+        objVeranderingen.add(5, veranderingen.get(5));
+        objVeranderingen.add(6, i);
         typeController.bewerkSessie(huidigeSessie, objVeranderingen);
     }
 

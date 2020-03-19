@@ -19,7 +19,7 @@
     <children>
       <AnchorPane fx:id="apSessie" layoutY="120.0" prefHeight="500.0" prefWidth="1400.0">
          <children>
-              <VBox alignment="BOTTOM_LEFT" layoutX="30.0" layoutY="20.0" maxWidth="700.0" prefHeight="450.0">
+              <VBox alignment="BOTTOM_CENTER" layoutX="30.0" layoutY="20.0" maxWidth="700.0" prefHeight="465.0">
                   <children>
                       <HBox prefHeight="25.0">
                           <children>
@@ -70,7 +70,7 @@
                       </TableView>
                   </children>
               </VBox>
-              <VBox fx:id="vboxSessieDetail" layoutX="339.0" layoutY="20.0" prefHeight="450.0" prefWidth="450.0">
+              <VBox fx:id="vboxSessieDetail" alignment="BOTTOM_CENTER" layoutX="339.0" layoutY="20.0" prefHeight="465.0" prefWidth="450.0">
                   <children>
                       <Label fx:id="lblTitelSessie" alignment="CENTER" prefHeight="29.0" prefWidth="467.0" text="SESSIE">
                           <font>
@@ -237,9 +237,9 @@
                       </Label>
                   </children>
               </VBox>
-              <VBox fx:id="vBoxRechts" alignment="TOP_CENTER" layoutX="805.0" layoutY="20.0" minHeight="25.0" prefHeight="25.0" prefWidth="580.0">
+              <VBox fx:id="vBoxRechts" alignment="BOTTOM_CENTER" layoutX="805.0" layoutY="5.0" prefWidth="580.0">
                   <children>
-                      <HBox alignment="CENTER" prefHeight="20.0" prefWidth="580.0" spacing="15.0">
+                      <HBox alignment="CENTER" prefWidth="580.0" spacing="15.0">
                           <children>
                               <RadioButton fx:id="rabtnAankondiging" mnemonicParsing="false" text="Aankondigingen" />
                               <RadioButton fx:id="rabtnInschrijving" mnemonicParsing="false" text="Inschrijvingen">
@@ -256,7 +256,7 @@
                       </HBox>
                   </children>
               </VBox>
-              <AnchorPane fx:id="apRechts" layoutX="805.0" layoutY="45.0" minHeight="200.0" minWidth="580.0" prefHeight="430.0" prefWidth="580.0" />
+              <AnchorPane fx:id="apRechts" layoutX="805.0" layoutY="25.0" minHeight="200.0" minWidth="580.0" prefHeight="460.0" prefWidth="580.0" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="pOnderaan" layoutY="500.0" maxHeight="215.0" prefHeight="215.0" prefWidth="1400.0" />
