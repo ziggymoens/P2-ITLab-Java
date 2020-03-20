@@ -43,6 +43,7 @@ public class Sessie implements ISessie, Serializable {
     private LocalDateTime eindeSessie;
     @NotNull
     private int maximumAantalPlaatsen;
+    private String beschrijving;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Academiejaar academiejaar;

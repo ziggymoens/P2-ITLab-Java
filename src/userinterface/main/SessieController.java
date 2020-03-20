@@ -215,6 +215,20 @@ public class SessieController extends AnchorPane {
         txtLokaalSessie.setOnMouseClicked(e -> vulTableLokalen());
     }
 
+    private void zetVeldenBewerken (Boolean b){
+        btnBewerkenSessie.setDisable(b);
+        btnBewerkenSessie.setVisible(!b);
+        btnOpslaanSessie.setDisable(!b);
+        btnOpslaanSessie.setVisible(b);
+        checkBoxCapaciteitSessie.setDisable(!b);
+        txtTitelSessie.setEditable(b);
+        txtStartSessie.setEditable(b);
+        txtEindSessie.setEditable(b);
+        txtMaxPlaatsenSessie.setEditable(b);
+        txtGastsprekerSessie.setEditable(b);
+        txtVerantwoordelijkeSessie.setEditable(b);
+    }
+
     private void verwijderenSessie(ActionEvent actionEvent) {
         domeinController.verwijderSessie(this.tableViewSessie.getSelectionModel().getSelectedItem(), sessie);
         update();
@@ -231,6 +245,7 @@ public class SessieController extends AnchorPane {
         veranderingen.add(6, txtMaxPlaatsenSessie.getText());
         Map<String, String> fouten = domeinController.controleerDataSessie(veranderingen);
         if(fouten.isEmpty()){
+
             domeinController.updateSessie(veranderingen);
             lblMessage.setBackground(new Background(new BackgroundFill(Color.rgb(0,255,0),CornerRadii.EMPTY, Insets.EMPTY)));
             lblMessage.setText("Sessie:\n" + txtTitelSessie.getText() + "\nis opgeslagen");
@@ -275,20 +290,6 @@ public class SessieController extends AnchorPane {
 /*        List<Node> n = vboxSessieDetail.getChildren();
         List<String> s = n.stream().filter(e -> e instanceof TextField).map(e -> ((TextField) e).getText()).collect(Collectors.toList());
         s.stream().forEach(e -> System.out.println(e));*/
-    }
-
-    private void zetVeldenBewerken (Boolean b){
-        btnBewerkenSessie.setDisable(b);
-        btnBewerkenSessie.setVisible(!b);
-        btnOpslaanSessie.setDisable(!b);
-        btnOpslaanSessie.setVisible(b);
-        checkBoxCapaciteitSessie.setDisable(!b);
-        txtTitelSessie.setEditable(b);
-        txtStartSessie.setEditable(b);
-        txtEindSessie.setEditable(b);
-        txtMaxPlaatsenSessie.setEditable(b);
-        txtGastsprekerSessie.setEditable(b);
-        txtVerantwoordelijkeSessie.setEditable(b);
     }
 
     private void activeerFilters() {

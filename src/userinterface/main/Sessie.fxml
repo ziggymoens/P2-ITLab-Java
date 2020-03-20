@@ -4,10 +4,12 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -17,248 +19,205 @@
 
 <fx:root prefHeight="738.0" prefWidth="1400.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-      <AnchorPane fx:id="apSessie" layoutY="120.0" prefHeight="500.0" prefWidth="1400.0">
+      <AnchorPane fx:id="apSessie" layoutY="120.0" prefHeight="450.0" prefWidth="1400.0" AnchorPane.topAnchor="0.0">
          <children>
-              <VBox alignment="BOTTOM_CENTER" layoutX="30.0" layoutY="20.0" maxWidth="700.0" prefHeight="465.0">
-                  <children>
-                      <HBox prefHeight="25.0">
-                          <children>
-                              <ChoiceBox fx:id="choiceBoxMaand" prefHeight="25.0" prefWidth="131.0">
-                                  <HBox.margin>
-                                      <Insets right="5.0" />
-                                  </HBox.margin>
-                              </ChoiceBox>
-                              <ChoiceBox fx:id="choiceBoxJaar" prefHeight="25.0" prefWidth="100.0">
-                                  <HBox.margin>
-                                      <Insets />
-                                  </HBox.margin>
-                              </ChoiceBox>
-                              <Button fx:id="btnToevoegenSessie" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="+">
-                                  <HBox.margin>
-                                      <Insets left="5.0" />
-                                  </HBox.margin>
-                              </Button>
-                          </children>
-                          <VBox.margin>
-                              <Insets bottom="15.0" top="5.0" />
-                          </VBox.margin>
-                      </HBox>
-                      <HBox prefHeight="25.0" prefWidth="276.0">
-                          <children>
-                              <ChoiceBox fx:id="choiceBoxZoeken" prefWidth="90.0">
-                                  <HBox.margin>
-                                      <Insets right="10.0" />
-                                  </HBox.margin>
-                              </ChoiceBox>
-                              <Pane prefHeight="25.0" prefWidth="180.0">
-                                  <children>
-                                      <ChoiceBox fx:id="choiceBoxFilter" prefHeight="25.0" prefWidth="175.0" visible="false" />
-                                      <TextField fx:id="txtSearchBar" prefHeight="25.0" prefWidth="182.0" promptText="zoek" />
-                                  </children>
-                              </Pane>
-                          </children>
-                      </HBox>
-                      <TableView fx:id="tableViewSessie" prefHeight="360.0" prefWidth="276.0">
+            <AnchorPane prefWidth="500.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+               <children>
+                        <ChoiceBox fx:id="choiceBoxMaand" prefHeight="30.0" prefWidth="150.0" />
+                        <ChoiceBox fx:id="choiceBoxJaar" layoutX="160.0" prefHeight="30.0" prefWidth="150.0" />
+                        <ChoiceBox fx:id="choiceBoxZoeken" layoutY="50.0" prefHeight="30.0" prefWidth="150.0" />
+                        <Pane layoutX="160.0" layoutY="50.0" prefHeight="30.0" prefWidth="250.0">
+                            <children>
+                                <ChoiceBox fx:id="choiceBoxFilter" prefHeight="30.0" prefWidth="180.0" visible="false" />
+                                <TextField fx:id="txtSearchBar" prefHeight="30.0" prefWidth="250.0" promptText="zoek" />
+                            </children>
+                        </Pane>
+                        <Button fx:id="btnToevoegenSessie" layoutX="530.0" layoutY="50.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="40.0" text="+" AnchorPane.rightAnchor="0.0" />
+                      <TableView fx:id="tableViewSessie" prefHeight="360.0" prefWidth="290.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
                           <columns>
-                              <TableColumn fx:id="titel" editable="false" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Titel" />
-                              <TableColumn fx:id="startSessie" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Start" />
-                              <TableColumn fx:id="maximumAantalPlaatsen" editable="false" maxWidth="30.0" minWidth="30.0" prefWidth="30.0" text="p." />
+                              <TableColumn fx:id="titel" editable="false" maxWidth="300.0" minWidth="300.0" prefWidth="300.0" text="Titel" />
+                              <TableColumn fx:id="startSessie" editable="false" maxWidth="140.0" minWidth="140.0" prefWidth="140.0" text="Start" />
+                              <TableColumn fx:id="maximumAantalPlaatsen" editable="false" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" text="Plaatsen" />
                           </columns>
-                          <VBox.margin>
-                              <Insets top="15.0" />
-                          </VBox.margin>
                       </TableView>
-                  </children>
-              </VBox>
-              <VBox fx:id="vboxSessieDetail" alignment="BOTTOM_CENTER" layoutX="339.0" layoutY="20.0" prefHeight="465.0" prefWidth="450.0">
-                  <children>
-                      <Label fx:id="lblTitelSessie" alignment="CENTER" prefHeight="29.0" prefWidth="467.0" text="SESSIE">
+               </children>
+            </AnchorPane>
+            <AnchorPane AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="540.0" AnchorPane.rightAnchor="360.0" AnchorPane.topAnchor="20.0">
+               <children>
+                      <Label fx:id="lblTitelSessie" alignment="CENTER" prefHeight="30.0" text="SESSIE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                           <font>
-                              <Font size="24.0" />
+                              <Font name="System Bold" size="20.0" />
                           </font>
                       </Label>
-                      <VBox>
+                            <VBox alignment="TOP_RIGHT" layoutY="50.0" prefHeight="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                                <children>
+                        <HBox alignment="TOP_RIGHT" spacing="10.0">
+                           <children>
+                                          <Label alignment="CENTER" prefHeight="18.0" text="Titel:">
+                                 <HBox.margin>
+                                    <Insets top="7.0" />
+                                 </HBox.margin>
+                                          </Label>
+                                          <TextField fx:id="txtTitelSessie" editable="false" prefHeight="30.0" prefWidth="440.0" />
+                           </children>
+                        </HBox>
+                                    <Label fx:id="lblErrorTitel" alignment="CENTER" prefHeight="18.0" prefWidth="630.0" text="Label" textFill="RED" visible="false">
+                           <VBox.margin>
+                              <Insets top="2.0" />
+                           </VBox.margin></Label>
+                                </children>
+                            </VBox>
+                  <VBox layoutY="115.0" maxWidth="230.0" prefHeight="70.0" AnchorPane.leftAnchor="10.0">
+                     <children>
+                                    <Label alignment="CENTER" prefHeight="18.0" prefWidth="290.0" text="Start Sessie">
+                           <VBox.margin>
+                              <Insets bottom="2.0" />
+                           </VBox.margin>
+                        </Label>
+                        <HBox>
+                           <children>
+                              <DatePicker prefHeight="30.0" prefWidth="170.0">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </DatePicker>
+                              <TextField fx:id="txtStartuur" editable="false" prefHeight="30.0" prefWidth="100.0" />
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                                    <Label fx:id="lblErrorStartSessje" alignment="CENTER" prefHeight="18.0" prefWidth="290.0" text="Label" textFill="RED" visible="false">
+                           <VBox.margin>
+                              <Insets top="2.0" />
+                           </VBox.margin></Label>
+                     </children>
+                  </VBox>
+                  <VBox layoutY="115.0" maxWidth="230.0" prefHeight="70.0" AnchorPane.rightAnchor="10.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="290.0" text="Eind Sessie">
+                           <VBox.margin>
+                              <Insets bottom="2.0" />
+                           </VBox.margin>
+                        </Label>
+                        <HBox>
+                           <children>
+                              <DatePicker prefHeight="30.0" prefWidth="170.0">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </DatePicker>
+                              <TextField fx:id="txtStartuur1" editable="false" prefHeight="30.0" prefWidth="100.0" />
+                           </children>
+                        </HBox>
+                        <Label fx:id="lblErrorStartSessje1" alignment="CENTER" prefHeight="18.0" prefWidth="290.0" text="Label" textFill="RED" visible="false" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutY="200.0" maxWidth="230.0" prefHeight="70.0" AnchorPane.leftAnchor="10.0">
+                     <children>
+                                    <Label alignment="CENTER" prefHeight="18.0" prefWidth="290.0" text="Naam Verantwoordelijke">
+                                        <VBox.margin>
+                                            <Insets bottom="2.0" />
+                                        </VBox.margin>
+                                    </Label>
+                                    <TextField fx:id="txtVerantwoordelijkeSessie" editable="false" prefHeight="30.0" prefWidth="210.0" />
+                                    <Label fx:id="lblErrorVerantwoordelijke" alignment="CENTER" prefHeight="18.0" prefWidth="290.0" text="Label" textFill="RED" visible="false">
+                           <VBox.margin>
+                              <Insets top="2.0" />
+                           </VBox.margin></Label>
+                     </children>
+                  </VBox>
+                            <VBox alignment="CENTER" layoutX="230.0" layoutY="200.0" maxWidth="230.0" prefHeight="70.0" AnchorPane.rightAnchor="10.0">
+                                <children>
+                                    <Label alignment="CENTER" prefHeight="18.0" prefWidth="290.0" text="Naam Gastspreker">
+                                        <VBox.margin>
+                                            <Insets bottom="2.0" />
+                                        </VBox.margin>
+                                    </Label>
+                                    <TextField fx:id="txtGastsprekerSessie" editable="false" prefHeight="30.0" />
+                                    <Label fx:id="lblErrorGastspreker" alignment="CENTER" prefHeight="18.0" prefWidth="290.0" text="Label" textFill="RED" visible="false">
+                           <VBox.margin>
+                              <Insets top="2.0" />
+                           </VBox.margin></Label>
+                                </children>
+                            </VBox>
+                            <VBox layoutY="285.0" maxWidth="230.0" prefHeight="70.0" AnchorPane.leftAnchor="10.0">
+                                <children>
+                                    <Label alignment="CENTER" prefHeight="18.0" prefWidth="290.0" text="Lokaal">
+                                        <VBox.margin>
+                                            <Insets bottom="2.0" />
+                                        </VBox.margin>
+                                    </Label>
+                                    <TextField fx:id="txtLokaalSessie" editable="false" prefHeight="30.0" prefWidth="210.0" />
+                                    <Label fx:id="lblErrorLokaal" alignment="CENTER" prefHeight="18.0" prefWidth="290.0" text="Label" textFill="RED" visible="false">
+                           <VBox.margin>
+                              <Insets top="2.0" />
+                           </VBox.margin></Label>
+                                </children>
+                            </VBox>
+                        <VBox layoutX="230.0" layoutY="285.0" maxWidth="230.0" prefHeight="70.0" AnchorPane.rightAnchor="10.0">
+                            <children>
+                                <Label alignment="CENTER" prefHeight="18.0" prefWidth="230.0" text="Maximum aantal inschrijvingen">
+                                    <VBox.margin>
+                                        <Insets bottom="2.0" />
+                                    </VBox.margin>
+                                </Label>
+                        <HBox alignment="CENTER_LEFT" prefWidth="290.0" spacing="12.0">
+                           <children>
+                                      <TextField fx:id="txtMaxPlaatsenSessie" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="140.0">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </TextField>
+                              <CheckBox mnemonicParsing="false" prefHeight="30.0" text="Maximum" />
+                           </children>
+                        </HBox>
+                                <Label fx:id="lblErrorMaxPlaatsen" alignment="CENTER" prefHeight="18.0" prefWidth="290.0" text="Label" textFill="RED" visible="false">
+                           <VBox.margin>
+                              <Insets top="2.0" />
+                           </VBox.margin></Label>
+                            </children>
+                        </VBox>
+                      <HBox alignment="CENTER" prefWidth="640.0" spacing="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                           <children>
-                              <HBox prefHeight="212.0" prefWidth="447.0">
+                              <Pane prefHeight="30.0" prefWidth="210.0">
                                   <children>
-                                      <VBox prefHeight="476.0" prefWidth="210.0">
-                                          <children>
-                                              <VBox prefHeight="64.0" prefWidth="214.0">
-                                                  <children>
-                                                      <Label alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="212.0" text="Titel">
-                                                          <VBox.margin>
-                                                              <Insets bottom="3.0" />
-                                                          </VBox.margin>
-                                                      </Label>
-                                                      <TextField fx:id="txtTitelSessie" editable="false" prefHeight="25.0" prefWidth="210.0" />
-                                                      <Label fx:id="lblErrorTitel" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="236.0" text="Label" textFill="RED" visible="false" />
-                                                  </children>
-                                                  <VBox.margin>
-                                                      <Insets bottom="2.0" top="2.0" />
-                                                  </VBox.margin>
-                                              </VBox>
-                                              <VBox prefHeight="64.0" prefWidth="255.0">
-                                                  <children>
-                                                      <Label alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="241.0" text="Start van de Sessie">
-                                                          <VBox.margin>
-                                                              <Insets bottom="3.0" />
-                                                          </VBox.margin>
-                                                      </Label>
-                                                      <TextField fx:id="txtStartSessie" editable="false" prefHeight="25.0" prefWidth="210.0" />
-                                                      <Label fx:id="lblErrorStartSessje" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="294.0" text="Label" textFill="RED" visible="false" />
-                                                  </children>
-                                                  <VBox.margin>
-                                                      <Insets bottom="2.0" top="2.0" />
-                                                  </VBox.margin>
-                                              </VBox>
-                                              <VBox prefHeight="64.0" prefWidth="211.0">
-                                                  <children>
-                                                      <Label alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="250.0" text="Einde van de Sessie">
-                                                          <VBox.margin>
-                                                              <Insets bottom="3.0" />
-                                                          </VBox.margin>
-                                                      </Label>
-                                                      <TextField fx:id="txtEindSessie" editable="false" prefHeight="25.0" prefWidth="210.0" />
-                                                      <Label fx:id="lblErrorEindeSessie" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="322.0" text="Label" textFill="RED" visible="false" />
-                                                  </children>
-                                                  <VBox.margin>
-                                                      <Insets bottom="2.0" top="2.0" />
-                                                  </VBox.margin>
-                                              </VBox>
-                                          </children>
-                                          <HBox.margin>
-                                              <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
-                                          </HBox.margin>
-                                      </VBox>
-                                      <VBox prefHeight="205.0" prefWidth="211.0">
-                                          <children>
-                                              <VBox prefHeight="64.0" prefWidth="211.0">
-                                                  <children>
-                                                      <Label alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="210.0" text="Naam Gastspreker">
-                                                          <VBox.margin>
-                                                              <Insets bottom="3.0" />
-                                                          </VBox.margin>
-                                                      </Label>
-                                                      <TextField fx:id="txtGastsprekerSessie" editable="false" prefHeight="25.0" prefWidth="210.0" />
-                                                      <Label fx:id="lblErrorGastspreker" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="236.0" text="Label" textFill="RED" visible="false" />
-                                                  </children>
-                                                  <VBox.margin>
-                                                      <Insets bottom="2.0" top="2.0" />
-                                                  </VBox.margin>
-                                              </VBox>
-                                              <VBox prefHeight="64.0" prefWidth="210.0">
-                                                  <children>
-                                                      <Label alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="210.0" text="Verantwoordelijke">
-                                                          <VBox.margin>
-                                                              <Insets bottom="3.0" />
-                                                          </VBox.margin>
-                                                      </Label>
-                                                      <TextField fx:id="txtVerantwoordelijkeSessie" editable="false" prefHeight="25.0" prefWidth="210.0" />
-                                                      <Label fx:id="lblErrorVerantwoordelijke" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="255.0" text="Label" textFill="RED" visible="false" />
-                                                  </children>
-                                                  <VBox.margin>
-                                                      <Insets bottom="2.0" top="2.0" />
-                                                  </VBox.margin>
-                                              </VBox>
-                                              <VBox prefHeight="64.0" prefWidth="211.0">
-                                                  <children>
-                                                      <Label alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="209.0" text="Lokaal">
-                                                          <VBox.margin>
-                                                              <Insets bottom="3.0" />
-                                                          </VBox.margin>
-                                                      </Label>
-                                                      <TextField fx:id="txtLokaalSessie" editable="false" prefHeight="25.0" prefWidth="210.0" />
-                                                      <Label fx:id="lblErrorLokaal" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="250.0" text="Label" textFill="RED" visible="false" />
-                                                  </children>
-                                                  <VBox.margin>
-                                                      <Insets bottom="2.0" top="2.0" />
-                                                  </VBox.margin>
-                                              </VBox>
-                                          </children>
-                                          <HBox.margin>
-                                              <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
-                                          </HBox.margin>
-                                      </VBox>
-                                  </children>
-                              </HBox>
-                          </children>
-                      </VBox>
-                      <HBox prefHeight="64.0" prefWidth="447.0">
-                          <children>
-                              <VBox minHeight="64.0" prefHeight="64.0" prefWidth="211.0">
-                                  <children>
-                                      <Label alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="19.0" prefWidth="211.0" text="Maximum aantal inschrijvingen">
-                                          <VBox.margin>
-                                              <Insets bottom="3.0" />
-                                          </VBox.margin>
-                                      </Label>
-                                      <TextField fx:id="txtMaxPlaatsenSessie" alignment="CENTER" editable="false" prefHeight="25.0" prefWidth="210.0" />
-                                      <Label fx:id="lblErrorMaxPlaatsen" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="18.0" prefWidth="211.0" text="Label" textFill="RED" visible="false" />
-                                  </children>
-                              </VBox>
-                              <CheckBox fx:id="checkBoxCapaciteitSessie" disable="true" mnemonicParsing="false" prefHeight="17.0" prefWidth="182.0" text="Maximum capaciteit lokaal">
-                                  <HBox.margin>
-                                      <Insets left="15.0" top="20.0" />
-                                  </HBox.margin>
-                              </CheckBox>
-                          </children>
-                          <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                          </padding>
-                      </HBox>
-                      <HBox alignment="CENTER" prefHeight="29.0" prefWidth="450.0">
-                          <children>
-                              <Pane prefWidth="210.0">
-                                  <children>
-                                      <Button fx:id="btnBewerkenSessie" mnemonicParsing="false" prefWidth="210.0" text="Wijzig" />
-                                      <Button fx:id="btnOpslaanSessie" mnemonicParsing="false" prefHeight="25.0" prefWidth="210.0" text="Opslaan" visible="false" />
+                                      <Button fx:id="btnBewerkenSessie" mnemonicParsing="false" prefHeight="30.0" prefWidth="210.0" text="Wijzig" />
+                                      <Button fx:id="btnOpslaanSessie" mnemonicParsing="false" prefHeight="30.0" prefWidth="210.0" text="Opslaan" visible="false" />
                                   </children>
                            <HBox.margin>
-                              <Insets left="5.0" right="5.0" />
+                              <Insets />
                            </HBox.margin>
                               </Pane>
-                              <Button fx:id="btnVerwijderenSessie" mnemonicParsing="false" prefWidth="210.0" text="Verwijder">
-                                  <HBox.margin>
-                                      <Insets left="10.0" right="10.0" />
-                                  </HBox.margin>
-                              </Button>
-                          </children>
-                          <VBox.margin>
-                              <Insets top="10.0" />
-                          </VBox.margin>
-                      </HBox>
-                      <Label fx:id="lblMessage" prefHeight="80.0" prefWidth="448.0" style="-fx-background-color: grey;" text="Label" VBox.vgrow="NEVER">
-                          <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                          </padding>
-                          <VBox.margin>
-                              <Insets top="20.0" />
-                          </VBox.margin>
-                      </Label>
-                  </children>
-              </VBox>
-              <VBox fx:id="vBoxRechts" alignment="BOTTOM_CENTER" layoutX="805.0" layoutY="5.0" prefWidth="580.0">
-                  <children>
-                      <HBox alignment="CENTER" prefWidth="580.0" spacing="15.0">
-                          <children>
-                              <RadioButton fx:id="rabtnAankondiging" mnemonicParsing="false" text="Aankondigingen" />
-                              <RadioButton fx:id="rabtnInschrijving" mnemonicParsing="false" text="Inschrijvingen">
+                              <Button fx:id="btnVerwijderenSessie" mnemonicParsing="false" prefHeight="30.0" prefWidth="210.0" text="Verwijder">
                                   <HBox.margin>
                                       <Insets />
                                   </HBox.margin>
-                              </RadioButton>
-                              <RadioButton fx:id="rabtnFeedback" mnemonicParsing="false" text="Feedback" />
-                              <RadioButton fx:id="rabtnMedia" mnemonicParsing="false" text="Media" />
+                              </Button>
                           </children>
-                          <VBox.margin>
-                              <Insets />
-                          </VBox.margin>
                       </HBox>
-                  </children>
-              </VBox>
-              <AnchorPane fx:id="apRechts" layoutX="805.0" layoutY="25.0" minHeight="200.0" minWidth="580.0" prefHeight="460.0" prefWidth="580.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefWidth="320.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+               <children>
+                  <Label alignment="CENTER" text="Beschrijving" AnchorPane.bottomAnchor="380.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <TextArea AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0" />
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="pOnderaan" layoutY="500.0" maxHeight="215.0" prefHeight="215.0" prefWidth="1400.0" visible="false" />
+      <AnchorPane prefHeight="288.0" prefWidth="1400.0" AnchorPane.bottomAnchor="0.0">
+         <children>
+            <VBox alignment="CENTER_LEFT" layoutX="100.0" prefHeight="238.0" prefWidth="150.0" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="1100.0" AnchorPane.topAnchor="20.0">
+               <children>
+                        <RadioButton fx:id="rabtnAankondiging" mnemonicParsing="false" text="Aankondigingen" />
+                        <RadioButton fx:id="rabtnInschrijving" mnemonicParsing="false" text="Inschrijvingen" />
+                        <RadioButton fx:id="rabtnFeedback" mnemonicParsing="false" text="Feedback" />
+                        <RadioButton fx:id="rabtnMedia" mnemonicParsing="false" text="Media" />
+               </children>
+            </VBox>
+              <AnchorPane fx:id="apRechts" layoutX="300.0" prefHeight="238.0" prefWidth="1000.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="20.0" />
+         </children>
+      </AnchorPane>
     </children>
 </fx:root>

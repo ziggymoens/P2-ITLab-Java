@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "inschijving")
+@Table(name = "inschrijving")
 public class Inschrijving implements IInschrijving {
     //region Variabelen
     //Primairy key
