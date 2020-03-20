@@ -90,14 +90,14 @@ public class StartUpController extends AnchorPane {
             if (tonen.isSelected()) {
                 ww = wachtwoordV.getText();
             }
-            IGebruiker gebruiker = startController.geefIGebruikers().stream().filter(g -> g.getGebruikersnaam().equals(gebruikersnaam)).findFirst().orElse(null);
+            IGebruiker gebruiker = startController.geefIGebruiker(gebruikersnaam);
             if (gebruiker == null || !PasswordUtils.verifyUserPassword(ww, gebruiker.getWachtwoord())) {
                 error.setText("Gebruikersnaam en/of wachtwoord zijn ongeldig");
                 wachtwoord.setText("");
                 wachtwoordV.setText("");
-            }else if(gebruiker.getGebruikersprofiel().equals("GEBRUIKER")) {
+            }else if(gebruiker.getGebruikersprofiel().equals("gebruiker")) {
                 error.setText("DEZE APPLICATIE IS ENKEL VOOR (HOOFD)VERANTWOORDELIJKE");
-            }else if(gebruiker.getStatus().equals("GEBLOKKEERD") || gebruiker.getStatus().equals("NIET_ACTIEF")){
+            }else if(gebruiker.getStatus().equals("geblokkeerd") || gebruiker.getStatus().equals("niet actief")){
                 error.setText("DE GEKOZEN GEBRUIKER IS GEBLOKKEERD OF NIET ACTIEF");
             } else {
                 ITLab.primaryStage.close();

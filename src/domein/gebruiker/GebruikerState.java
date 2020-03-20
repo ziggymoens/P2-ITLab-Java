@@ -17,7 +17,7 @@ public class GebruikerState extends GebruikerProfielState {
 
     @Override
     public String getProfiel() {
-        return "GEBRUIKER";
+        return "gebruiker";
     }
 
 }

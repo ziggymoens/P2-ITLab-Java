@@ -36,10 +36,10 @@ public class DomeinController {
 
     private void setTypeController() {
         switch (huidigeGebruiker.getGebruikersprofiel()) {
-            case "VERANTWOORDELIJKE":
+            case "verantwoordelijke":
                 typeController = new VerantwoordelijkeController(huidigeSessieKalender, huidigeGebruiker);
                 break;
-            case "HOOFDVERANTWOORDELIJKE":
+            case "hoofdverantwoordelijke":
                 typeController = new HoofdverantwoordelijkeController(huidigeSessieKalender, huidigeGebruiker);
                 break;
             default:

@@ -17,6 +17,6 @@ public class ZichtbaarState extends SessieState {
 
     @Override
     public String getStatus() {
-        return "ZICHTBAAR";
+        return "zichtbaar";
     }
 }

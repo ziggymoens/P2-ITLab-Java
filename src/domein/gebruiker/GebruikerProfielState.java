@@ -25,4 +25,9 @@ public abstract class GebruikerProfielState implements Serializable {
     }
 
     public abstract String getProfiel();
+
+    @Override
+    public String toString() {
+        return getProfiel().toLowerCase();
+    }
 }

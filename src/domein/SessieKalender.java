@@ -108,7 +108,6 @@ public class SessieKalender {
 
     public Gebruiker geefGebruikerById(String gebruikerId) {
         return em.find(Gebruiker.class, gebruikerId);
-        //return (Gebruiker) em.createQuery("select g from Gebruiker g where gebruikersnaam = ?1").setParameter(1, gebruikerId).getResultList().get(0);
     }
 
     public List<IGebruiker> geefAlleGebruikers() {

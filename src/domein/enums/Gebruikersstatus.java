@@ -4,5 +4,9 @@ package domein.enums;
  * Deze enum bevat de gebruiksersstatussen die de gebruikers kunnen aannemen
  */
 public enum Gebruikersstatus {
-    ACTIEF, GEBLOKKEERD, NIET_ACTIEF
+    ACTIEF, GEBLOKKEERD, NIET_ACTIEF;
+
+    public String toLowerCase(){
+        return this.toString().toLowerCase();
+    }
 }

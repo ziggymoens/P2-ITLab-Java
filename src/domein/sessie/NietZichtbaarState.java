@@ -17,7 +17,7 @@ public class NietZichtbaarState extends SessieState {
 
     @Override
     public String getStatus() {
-        return "NIET ZICHTBAAR";
+        return "niet zichtbaar";
     }
 
 

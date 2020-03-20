@@ -18,6 +18,6 @@ public class GeslotenState extends SessieState {
 
     @Override
     public String getStatus() {
-        return "GESLOTEN";
+        return "gesloten";
     }
 }

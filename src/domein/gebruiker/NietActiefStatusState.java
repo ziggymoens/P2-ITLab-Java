@@ -17,6 +17,6 @@ public class NietActiefStatusState extends GebruikerStatusState {
 
     @Override
     public String getStatus() {
-        return "NIET ACTIEF";
+        return "niet actief";
     }
 }

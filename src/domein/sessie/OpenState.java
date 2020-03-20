@@ -17,6 +17,6 @@ public class OpenState extends SessieState {
 
     @Override
     public String getStatus() {
-        return "OPEN";
+        return "open";
     }
 }

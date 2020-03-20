@@ -18,7 +18,7 @@ public class GeblokkeerdStatusState extends GebruikerStatusState {
 
     @Override
     public String getStatus() {
-        return "GEBLOKKEERD";
+        return "geblokkeerd";
     }
 
 }

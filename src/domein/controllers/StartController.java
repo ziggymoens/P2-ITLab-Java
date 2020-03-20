@@ -28,4 +28,8 @@ public class StartController {
     public DomeinController initDomeinController() {
         return new DomeinController(gebruiker, sessieKalender, LocalDate.now());
     }
+
+    public IGebruiker geefIGebruiker(String gebruikersnaam) {
+        return sessieKalender.geefGebruikerById(gebruikersnaam);
+    }
 }

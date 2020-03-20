@@ -18,7 +18,7 @@ public class VerantwoordelijkeState extends GebruikerProfielState {
 
     @Override
     public String getProfiel() {
-        return "VERANTWOORDELIJKE";
+        return "verantwoordelijke";
     }
 
 }

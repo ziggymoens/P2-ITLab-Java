@@ -18,7 +18,7 @@ public class ActiefStatusState extends GebruikerStatusState {
 
     @Override
     public String getStatus() {
-        return "ACTIEF";
+        return "actief";
     }
 
 

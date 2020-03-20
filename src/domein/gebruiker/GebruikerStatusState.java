@@ -27,4 +27,8 @@ public abstract class GebruikerStatusState implements Serializable{
 
     public abstract String getStatus();
 
+    @Override
+    public String toString() {
+        return getStatus().toLowerCase();
+    }
 }
