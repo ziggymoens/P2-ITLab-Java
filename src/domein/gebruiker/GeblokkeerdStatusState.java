@@ -4,7 +4,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("GEBLOKKEERD")
+@DiscriminatorValue("geblokkeerd")
 public class GeblokkeerdStatusState extends GebruikerStatusState {
 
     private static final long serialVersionUID = -7546130762513143650L;

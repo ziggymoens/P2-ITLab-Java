@@ -2,7 +2,7 @@ package domein.sessie;
 
 import com.sun.istack.NotNull;
 import domein.*;
-import domein.enums.SessieStatus;
+import domein.enums.*;
 import domein.gebruiker.Gebruiker;
 import domein.interfacesDomein.*;
 import domein.Lokaal;
@@ -13,7 +13,9 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -39,10 +41,19 @@ public class Sessie implements ISessie, Serializable {
     private String naamGastspreker;
     @NotNull
     private LocalDateTime startSessie;
+    @Transient
+    private LocalDate startDatum;
+    @Transient
+    private LocalTime startUur;
     @NotNull
     private LocalDateTime eindeSessie;
+    @Transient
+    private LocalDate eindeDatum;
+    @Transient
+    private LocalTime eindeUur;
     @NotNull
     private int maximumAantalPlaatsen;
+
     private String beschrijving;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -89,13 +100,15 @@ public class Sessie implements ISessie, Serializable {
      * @param lokaal            (Lokaal) ==> lokaal waar de sessie plaats vind
      * @param verantwoordelijke ==> de gebruiker die de sessie organiseert
      */
-    public Sessie(String titel, LocalDateTime startSessie, LocalDateTime eindeSessie, Lokaal lokaal, Gebruiker verantwoordelijke, Academiejaar academiejaar) {
+    public Sessie(String titel, String beschrijving, LocalDateTime startSessie, LocalDateTime eindeSessie, Lokaal lokaal, Gebruiker verantwoordelijke, Academiejaar academiejaar) {
         setVerantwoordelijke(verantwoordelijke);
         setTitel(titel);
+        setBeschrijving(beschrijving);
         setStartSessie(startSessie);
         setEindeSessie(eindeSessie);
         controleData();
         setLokaal(lokaal);
+        //AANPASSEN
         setMaximumAantalPlaatsen(this.lokaal.getAantalPlaatsen());
         setNaamGastspreker("Onbekend");
         initLijsten();
@@ -130,10 +143,14 @@ public class Sessie implements ISessie, Serializable {
 
     public void setStartSessie(LocalDateTime startSessie) {
         this.startSessie = startSessie;
+        this.startDatum = startSessie.toLocalDate();
+        this.startUur = startSessie.toLocalTime();
     }
 
     public void setEindeSessie(LocalDateTime eindeSessie) {
         this.eindeSessie = eindeSessie;
+        this.eindeDatum = startSessie.toLocalDate();
+        this.eindeUur = startSessie.toLocalTime();
 
     }
 
@@ -164,10 +181,14 @@ public class Sessie implements ISessie, Serializable {
     }
 
     private void setAcademiejaar(Academiejaar academiejaar) {
-        if (academiejaar == null){
+        if (academiejaar == null) {
             throw new SessieException("Academiejaar");
         }
         this.academiejaar = academiejaar;
+    }
+
+    public void setBeschrijving(String beschrijving) {
+        this.beschrijving = beschrijving;
     }
 
     //endregion
@@ -193,6 +214,26 @@ public class Sessie implements ISessie, Serializable {
     @Override
     public LocalDateTime getEindeSessie() {
         return eindeSessie;
+    }
+
+    @Override
+    public LocalDate getStartDatum() {
+        return startDatum;
+    }
+
+    @Override
+    public LocalTime getStartUur() {
+        return startUur;
+    }
+
+    @Override
+    public LocalDate getEindeDatum() {
+        return eindeDatum;
+    }
+
+    @Override
+    public LocalTime getEindeUur() {
+        return eindeUur;
     }
 
     @Override
@@ -261,6 +302,17 @@ public class Sessie implements ISessie, Serializable {
     private boolean isVerwijderd() {
         return verwijderd;
     }
+
+    @Override
+    public String getBeschrijving() {
+        return beschrijving;
+    }
+
+    @Override
+    public String getCurrentState() {
+        return currentState.getStatus();
+    }
+
     //endregion
 
     //region toString

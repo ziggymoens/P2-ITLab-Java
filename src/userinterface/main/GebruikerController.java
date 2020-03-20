@@ -2,7 +2,7 @@ package userinterface.main;
 
 import domein.gebruiker.Gebruiker;
 import domein.controllers.DomeinController;
-import domein.controllers.HoofdverantwoordelijkeController;
+import domein.controllers.HoofdverantwoordelijkeStrategy;
 import domein.enums.Gebruikersprofiel;
 import domein.enums.Gebruikersstatus;
 import domein.interfacesDomein.IGebruiker;
@@ -24,7 +24,6 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class GebruikerController extends AnchorPane {
-    private HoofdverantwoordelijkeController hoofdverantwoordelijkeController;
     private DomeinController domeinController;
     private boolean comboBoxTypeChanged, comboBoxStatusChanged;
 

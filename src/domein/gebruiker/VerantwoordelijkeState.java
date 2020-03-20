@@ -4,7 +4,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("VERANTWOORDELIJKE")
+@DiscriminatorValue("verantwoordelijke")
 public class VerantwoordelijkeState extends GebruikerProfielState {
 
     private static final long serialVersionUID = 7397529294386849587L;

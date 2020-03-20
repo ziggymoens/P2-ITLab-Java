@@ -9,6 +9,7 @@ import exceptions.domein.FeedbackException;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -37,6 +38,7 @@ public class Feedback implements IFeedback {
     private Gebruiker gebruiker;
     @NotNull
     private String tekst;
+    private LocalDate date;
     private boolean verwijderd = false;
 
     //endregion
@@ -55,10 +57,11 @@ public class Feedback implements IFeedback {
      * @param gebruiker (Gebruiker) ==> de gebruiker die de feedback plaatst
      * @param tekst     (String) ==> de boodschap van de feedback
      */
-    public Feedback(Sessie sessie, Gebruiker gebruiker, String tekst) {
+    public Feedback(Sessie sessie, Gebruiker gebruiker, String tekst, LocalDate date) {
         setSessie(sessie);
         setTekst(tekst);
         setGebruiker(gebruiker);
+        setDate(date);
     }
     //endregion
 
@@ -89,6 +92,10 @@ public class Feedback implements IFeedback {
         this.verwijderd = verwijderd;
     }
 
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
     //endregion
 
     //region Getters
@@ -110,6 +117,12 @@ public class Feedback implements IFeedback {
     public String getFeedbackId() {
         return feedbackId;
     }
+
+    @Override
+    public LocalDate getDate() {
+        return date;
+    }
+
     //endregion
 
     //region Equals & Hashcode

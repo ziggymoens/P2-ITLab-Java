@@ -3,7 +3,7 @@ package domein.gebruiker;
 import javax.persistence.*;
 
 @Entity
-@DiscriminatorValue("GEBRUIKER")
+@DiscriminatorValue("gebruiker")
 public class GebruikerState extends GebruikerProfielState {
 
     private static final long serialVersionUID = 5367848720610131072L;

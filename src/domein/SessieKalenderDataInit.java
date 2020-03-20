@@ -67,7 +67,7 @@ public class SessieKalenderDataInit {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] sessie = line.split(";");
-                Sessie s = new Sessie(sessie[0], LocalDateTime.parse(sessie[1]), LocalDateTime.parse(sessie[2]), sessieKalender.geefLokaalById(sessie[3]), sessieKalender.geefGebruikerById(sessie[4]), sessieKalender.getAcademiejaarByDate(LocalDateTime.parse(sessie[1])));
+                Sessie s = new Sessie(sessie[0], sessie[1],LocalDateTime.parse(sessie[2]), LocalDateTime.parse(sessie[3]), sessieKalender.geefLokaalById(sessie[4]), sessieKalender.geefGebruikerById(sessie[5]), sessieKalender.getAcademiejaarByDate(LocalDateTime.parse(sessie[2])));
                 sessieKalender.voegSessieToe(s);
                 s.setState(sessie[5]);
 
@@ -82,7 +82,7 @@ public class SessieKalenderDataInit {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] feedback = line.split(";");
-                sessieKalender.voegFeedbackToe(new Feedback(sessieKalender.geefSessieById(feedback[2]), sessieKalender.geefGebruikerById(feedback[0]), feedback[1]), sessieKalender.geefSessieById(feedback[2]));
+                sessieKalender.voegFeedbackToe(new Feedback(sessieKalender.geefSessieById(feedback[3]), sessieKalender.geefGebruikerById(feedback[0]), feedback[1], LocalDate.parse(feedback[2])), sessieKalender.geefSessieById(feedback[3]));
             }
         } catch (IOException e) {
             e.printStackTrace();

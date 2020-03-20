@@ -1,7 +1,7 @@
 package userinterface.main;
 
 import domein.controllers.DomeinController;
-import domein.controllers.HoofdverantwoordelijkeController;
+import domein.controllers.HoofdverantwoordelijkeStrategy;
 import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.ILokaal;
 import domein.interfacesDomein.ISessie;
@@ -27,7 +27,6 @@ import java.util.Map;
 
 public class SessieController extends AnchorPane {
     private DomeinController domeinController;
-    private HoofdverantwoordelijkeController hoofdverantwoordelijkeController;
     private ILokaal tempLokaal;
     private IGebruiker tempGebruiker;
     private ISessie sessie;

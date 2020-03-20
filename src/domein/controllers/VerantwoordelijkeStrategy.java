@@ -8,12 +8,12 @@ import domein.SessieKalender;
 import java.time.LocalDate;
 import java.util.List;
 
-public class VerantwoordelijkeController extends TypeController {
+public class VerantwoordelijkeStrategy implements TypeStrategy {
     private SessieKalender huidigeSessieKalender;
     private Gebruiker gebruiker;
     private int aj;
 
-    public VerantwoordelijkeController(SessieKalender huidigeSessieKalender, Gebruiker gebruiker) {
+    public VerantwoordelijkeStrategy(SessieKalender huidigeSessieKalender, Gebruiker gebruiker) {
         this.huidigeSessieKalender = huidigeSessieKalender;
         this.gebruiker = gebruiker;
     }

@@ -9,12 +9,12 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class HoofdverantwoordelijkeController extends TypeController {
+public class HoofdverantwoordelijkeStrategy implements TypeStrategy {
     private SessieKalender huidigeSessieKalender;
     private Gebruiker gebruiker;
     private int aj;
 
-    public HoofdverantwoordelijkeController(SessieKalender huidigeSessieKalender, Gebruiker gebruiker) {
+    public HoofdverantwoordelijkeStrategy(SessieKalender huidigeSessieKalender, Gebruiker gebruiker) {
         this.huidigeSessieKalender = huidigeSessieKalender;
         this.gebruiker = gebruiker;
     }

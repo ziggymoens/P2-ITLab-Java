@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-@DiscriminatorValue("ACTIEF")
+@DiscriminatorValue("actief")
 public class ActiefStatusState extends GebruikerStatusState {
     private static final long serialVersionUID = 603309081014144108L;
 

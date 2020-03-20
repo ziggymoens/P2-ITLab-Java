@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class DomeinController {
 
     //region Variabelen
-    private TypeController typeController;
+    private TypeStrategy typeStrategy;
     private SessieKalender huidigeSessieKalender;
     private Sessie huidigeSessie;
     private Gebruiker huidigeGebruiker;
@@ -37,10 +37,10 @@ public class DomeinController {
     private void setTypeController() {
         switch (huidigeGebruiker.getGebruikersprofiel()) {
             case "verantwoordelijke":
-                typeController = new VerantwoordelijkeController(huidigeSessieKalender, huidigeGebruiker);
+                typeStrategy = new VerantwoordelijkeStrategy(huidigeSessieKalender, huidigeGebruiker);
                 break;
             case "hoofdverantwoordelijke":
-                typeController = new HoofdverantwoordelijkeController(huidigeSessieKalender, huidigeGebruiker);
+                typeStrategy = new HoofdverantwoordelijkeStrategy(huidigeSessieKalender, huidigeGebruiker);
                 break;
             default:
                 throw new RuntimeException();
@@ -133,7 +133,7 @@ public class DomeinController {
         objVeranderingen.add(4, l);
         objVeranderingen.add(5, veranderingen.get(5));
         objVeranderingen.add(6, i);
-        typeController.bewerkSessie(huidigeSessie, objVeranderingen);
+        typeStrategy.bewerkSessie(huidigeSessie, objVeranderingen);
     }
 
     public Map<String, String> controleerDataSessie (List<String> data) {
@@ -149,15 +149,15 @@ public class DomeinController {
     }
 
     public List<ISessie> geefISessiesHuidigeKalender() {
-        return (List<ISessie>) (Object) typeController.geefAlleSessiesKalender(academiejaar);
+        return (List<ISessie>) (Object) typeStrategy.geefAlleSessiesKalender(academiejaar);
     }
 
     public List<ISessie> geefISessiesOpAcademiejaar(Integer academiejaar) {
-        return (List<ISessie>) (Object) typeController.geefAlleSessiesKalender(academiejaar);
+        return (List<ISessie>) (Object) typeStrategy.geefAlleSessiesKalender(academiejaar);
     }
 
     public List<ISessie> geefISessiesOpDag(LocalDate date) {
-        return (List<ISessie>) (Object) typeController.geefAlleSessiesDatum(date);
+        return (List<ISessie>) (Object) typeStrategy.geefAlleSessiesDatum(date);
     }
 
     public List<ISessie> geefISessiesGebruiker(Gebruiker gebruiker, String gebruikersnaam){
@@ -168,7 +168,7 @@ public class DomeinController {
     }
 
     public ISessie geefISessieOpId(String id) {
-        return typeController.geefSessieId(id);
+        return typeStrategy.geefSessieId(id);
     }
 
     public ISessie geefHuidigeISessie() {
@@ -176,7 +176,7 @@ public class DomeinController {
     }
 
     public List<ISessie> geefISessieOpLocatie(String locatie) {
-        return (List<ISessie>) (Object) typeController.geefAlleSessiesLocatie(locatie);
+        return (List<ISessie>) (Object) typeStrategy.geefAlleSessiesLocatie(locatie);
     }
 
     public List<ISessie> geefAlleSessiesKalenderVanGebruiker(Gebruiker gebruiker){
@@ -185,18 +185,18 @@ public class DomeinController {
 
     public void maakSessieAan(List<String> sessie) {
         //iterator
-        Sessie s = new Sessie(sessie.get(0), LocalDateTime.parse(sessie.get(1)), LocalDateTime.parse(sessie.get(2)),
-                huidigeSessieKalender.geefLokaalById(sessie.get(3)), huidigeSessieKalender.geefGebruikerById(sessie.get(4)), huidigeSessieKalender.getAcademiejaarByDate(LocalDateTime.parse(sessie.get(1))));
-        typeController.maakSessieAan(s);
+        Sessie s = new Sessie(sessie.get(0), sessie.get(1),LocalDateTime.parse(sessie.get(2)), LocalDateTime.parse(sessie.get(3)),
+                huidigeSessieKalender.geefLokaalById(sessie.get(4)), huidigeSessieKalender.geefGebruikerById(sessie.get(5)), huidigeSessieKalender.getAcademiejaarByDate(LocalDateTime.parse(sessie.get(6))));
+        typeStrategy.maakSessieAan(s);
     }
 
     public void verwijderSessie(ISessie verwijderen, ISessie vorige) {
         setHuidigeISessie(vorige);
-        typeController.verwijderSessie((Sessie) verwijderen);
+        typeStrategy.verwijderSessie((Sessie) verwijderen);
     }
 
     public void setHuidigeISessie(ISessie sessie) {
-        this.huidigeSessie = typeController.geefSessieId(sessie.getSessieId());
+        this.huidigeSessie = typeStrategy.geefSessieId(sessie.getSessieId());
     }
 
 
@@ -261,15 +261,15 @@ public class DomeinController {
     }
 
     public void verwijderGebruiker(IGebruiker gebruiker) {
-        typeController.verwijderGebruiker((Gebruiker) gebruiker);
+        typeStrategy.verwijderGebruiker((Gebruiker) gebruiker);
     }
 
     public void bewerkGebruiker(IGebruiker gebruiker) {
-        typeController.verwijderGebruiker((Gebruiker) gebruiker);
+        typeStrategy.verwijderGebruiker((Gebruiker) gebruiker);
     }
 
     public void maakGebruikerAan(IGebruiker gebruiker) {
-        typeController.verwijderGebruiker((Gebruiker) gebruiker);
+        typeStrategy.verwijderGebruiker((Gebruiker) gebruiker);
     }
 
     public void maakNieuweGebruiker(String naam, String gebruikersnaam, String gebruikersprofiel, String gebruikersstatus){
@@ -469,15 +469,15 @@ public class DomeinController {
     }
 
     public void maakAankondigingAan(Aankondiging aankondiging, Sessie sessie){
-        typeController.maakAankondigingAan(aankondiging, sessie);
+        typeStrategy.maakAankondigingAan(aankondiging, sessie);
     }
 
     public void bewerkAankondiging(Aankondiging aankondiging){
-        typeController.bewerkAankondiging(aankondiging);
+        typeStrategy.bewerkAankondiging(aankondiging);
     }
 
     public void verwijderAankondiging(IAankondiging aankondiging){
-        typeController.verwijderAankondiging((Aankondiging) aankondiging);
+        typeStrategy.verwijderAankondiging((Aankondiging) aankondiging);
     }
     //endregion
 

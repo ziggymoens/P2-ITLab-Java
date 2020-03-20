@@ -66,7 +66,7 @@ public class Gebruiker implements IGebruiker, Serializable {
      * @param gebruikersstatus  (Gebruikersprofiel) ==> Inlogstatus van de gebruiker
      * @param profielfoto       (Media) ==> profielfoto van de gebruiker
      */
-    public Gebruiker(String naam, String gebruikersnaam, Gebruikersprofiel gebruikersprofiel, Gebruikersstatus gebruikersstatus, String profielfoto, int aantalInlogPogingen, String wachtwoord) {
+    public Gebruiker(String naam, String gebruikersnaam, String gebruikersprofiel, String gebruikersstatus, String profielfoto, int aantalInlogPogingen, String wachtwoord) {
         setNaam(naam);
         setGebruikersnaam(gebruikersnaam);
         setCurrentProfiel(gebruikersprofiel);
@@ -85,23 +85,8 @@ public class Gebruiker implements IGebruiker, Serializable {
      * @param gebruikersprofiel (Gebruikersprofiel) ==> Profiel dat de gebruiker aanneemt in het algemeen
      * @param gebruikersstatus  (Gebruikersprofiel) ==> Inlogstatus van de gebruiker
      */
-    public Gebruiker(String naam, String gebruikersnaam, Gebruikersprofiel gebruikersprofiel, Gebruikersstatus gebruikersstatus) {
+    public Gebruiker(String naam, String gebruikersnaam, String  gebruikersprofiel, String gebruikersstatus) {
         this(naam, gebruikersnaam, gebruikersprofiel, gebruikersstatus, "storage/profielfotos/profielfoto.png", 0, null);
-    }
-
-    /**
-     * Constructor voor aanmaken gebruiker adhv Strings zonder profielfoto
-     *
-     * @param naam              (String) ==> Naam van de gebruiker
-     * @param gebruikersnaam    (String) ==> Februikersnaam van de gebruiker voor het Chamillo platform
-     * @param gebruikersprofiel (String) ==> Profiel dat de gebruiker aanneemt in het algemeen
-     * @param gebruikersstatus  (String) ==> Inlogstatus van de gebruiker
-     */
-    public Gebruiker(String naam, String gebruikersnaam, String gebruikersprofiel, String gebruikersstatus) {
-        this(naam, gebruikersnaam,
-                Arrays.stream(Gebruikersprofiel.values()).filter(g -> g.toString().equals(gebruikersprofiel)).findFirst().orElse(null),
-                Arrays.stream(Gebruikersstatus.values()).filter(g -> g.toString().equals(gebruikersstatus)).findFirst().orElse(null),
-                "storage/profielfotos/profielfoto.png", 0, null);
     }
 
     /**
@@ -114,9 +99,7 @@ public class Gebruiker implements IGebruiker, Serializable {
      * @param profielfoto       (String) ==> profielfoto van de gebruiker
      */
     public Gebruiker(String naam, String gebruikersnaam, String gebruikersprofiel, String gebruikersstatus, String profielfoto, String wachtwoord) {
-        this(naam, gebruikersnaam,
-                Arrays.stream(Gebruikersprofiel.values()).filter(g -> g.toString().equals(gebruikersprofiel)).findFirst().orElse(null),
-                Arrays.stream(Gebruikersstatus.values()).filter(g -> g.toString().equals(gebruikersstatus)).findFirst().orElse(null),
+        this(naam, gebruikersnaam, gebruikersprofiel, gebruikersstatus,
                 profielfoto, 0, wachtwoord);
     }
     //endregion
@@ -142,23 +125,17 @@ public class Gebruiker implements IGebruiker, Serializable {
         this.gebruikersnaam = gebruikersnaam;
     }
 
-    private void setCurrentProfiel(String gebruikersprofiel){
-        setCurrentProfiel(Arrays.stream(Gebruikersprofiel.values()).filter(p -> p.toString().equals(gebruikersprofiel)).findFirst().orElse(null));
-    }
 
-    private void setCurrentProfiel(Gebruikersprofiel gebruikersprofiel) {
-        if (gebruikersprofiel == null){
-            gebruikersprofiel = Gebruikersprofiel.GEBRUIKER;
-        }
+    private void setCurrentProfiel(String gebruikersprofiel) {
         switch (gebruikersprofiel){
-            case HOOFDVERANTWOORDELIJKE:
+            case "hoofdverantwoordelijke":
                 toProfielState(new HoofdverantwoordelijkeState(this));
                 break;
-            case VERANTWOORDELIJKE:
+            case "verantwoordelijke":
                 toProfielState(new VerantwoordelijkeState(this));
                 break;
             default:
-            case GEBRUIKER:
+            case "gebruiker":
                 toProfielState(new GebruikerState(this));
                 break;
         }
@@ -168,23 +145,17 @@ public class Gebruiker implements IGebruiker, Serializable {
         currentProfiel = profielState;
     }
 
-    private void setCurrentStatus(String gebruikersStatus){
-        setCurrentStatus(Arrays.stream(Gebruikersstatus.values()).filter(p -> p.toString().equals(gebruikersStatus)).findFirst().orElse(null));
-    }
 
-    private void setCurrentStatus(Gebruikersstatus status) {
-        if(status == null){
-            status = Gebruikersstatus.NIET_ACTIEF;
-        }
+    private void setCurrentStatus(String status) {
         switch (status){
-            case ACTIEF:
+            case "actief":
                 toStatusState(new ActiefStatusState(this));
                 break;
-            case GEBLOKKEERD:
+            case "geblokkeerd":
                 toStatusState(new GeblokkeerdStatusState(this));
                 break;
             default:
-            case NIET_ACTIEF:
+            case "niet actief":
                 toStatusState(new NietActiefStatusState(this));
                 break;
         }

@@ -1,6 +1,8 @@
 package domein.interfacesDomein;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +14,14 @@ public interface ISessie {
     LocalDateTime getStartSessie();
 
     LocalDateTime getEindeSessie();
+
+    LocalDate getStartDatum();
+
+    LocalTime getStartUur();
+
+    LocalDate getEindeDatum();
+
+    LocalTime getEindeUur();
 
     int getMaximumAantalPlaatsen();
 
@@ -30,6 +40,10 @@ public interface ISessie {
     String getSessieId();
 
     IAcademiejaar getAcademiejaar();
+
+    String getBeschrijving();
+
+    String getCurrentState();
 
     Map<String, Object> gegevensDetails();
 
