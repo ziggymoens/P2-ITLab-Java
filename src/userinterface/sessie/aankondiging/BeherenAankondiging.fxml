@@ -25,9 +25,9 @@
           </TableView>
       <AnchorPane layoutX="10.0" layoutY="10.0" prefWidth="490.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
          <children>
-                  <HBox alignment="CENTER" prefWidth="490.0" spacing="10.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
+                  <HBox alignment="CENTER" prefWidth="490.0" spacing="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
                       <children>
-                          <VBox prefHeight="200.0" prefWidth="280.0">
+                          <VBox prefWidth="280.0">
                               <children>
                                   <Label alignment="CENTER" prefWidth="290.0" text="Gebruiker">
                            <VBox.margin>
@@ -35,17 +35,23 @@
                            </VBox.margin>
                         </Label>
                                   <TextField fx:id="txtGebruiker" editable="false" prefWidth="280.0" />
-                                  <Label fx:id="lblErrorGebruiker" prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false" />
-                                  <Label alignment="CENTER" prefWidth="290.0" text="Publicatie datum">
+                                  <Label fx:id="lblErrorGebruiker" prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false">
+                           <VBox.margin>
+                              <Insets top="2.0" />
+                           </VBox.margin></Label>
+                                  <Label alignment="CENTER" prefWidth="290.0" text="Publicatiedatum">
                            <VBox.margin>
                               <Insets bottom="2.0" />
                            </VBox.margin>
                         </Label>
                                   <TextField fx:id="txtDatum" editable="false" prefWidth="280.0" />
-                                  <Label fx:id="lblErrorDatum" prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false" />
+                                  <Label fx:id="lblErrorDatum" prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false">
+                           <VBox.margin>
+                              <Insets top="2.0" />
+                           </VBox.margin></Label>
                                   <Label alignment="CENTER" prefWidth="290.0" text="Automatische herinnnering (dagen)">
                            <VBox.margin>
-                              <Insets />
+                              <Insets bottom="2.0" />
                            </VBox.margin>
                         </Label>
                                   <ChoiceBox fx:id="cbDagen" disable="true" prefWidth="280.0" />
@@ -54,10 +60,13 @@
                                   <Insets />
                               </HBox.margin>
                           </VBox>
-                          <VBox prefHeight="200.0" prefWidth="280.0">
+                          <VBox prefWidth="280.0">
                               <children>
-                                  <Label alignment="CENTER" prefWidth="290.0" text="Inhoud" />
-                                  <TextArea fx:id="txtInhoud" editable="false" maxWidth="299.0" prefHeight="147.0" prefWidth="299.0">
+                                  <Label alignment="CENTER" prefWidth="290.0" text="Inhoud">
+                           <VBox.margin>
+                              <Insets bottom="2.0" />
+                           </VBox.margin></Label>
+                                  <TextArea fx:id="txtInhoud" editable="false">
                                       <VBox.margin>
                                           <Insets />
                                       </VBox.margin>
@@ -69,7 +78,7 @@
                           </VBox>
                       </children>
                   </HBox>
-                  <HBox alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="1.0">
+                  <HBox alignment="CENTER_RIGHT" spacing="20.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0">
                       <children>
                   <Pane fx:id="pOnderaan" prefWidth="150.0">
                      <children>

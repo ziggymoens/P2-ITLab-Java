@@ -6,16 +6,17 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import userinterface.main.SessieController;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class BeherenLokaalController extends AnchorPane {
@@ -25,7 +26,10 @@ public class BeherenLokaalController extends AnchorPane {
     private TableColumn<ILokaal, String> lokaalCode, stad, gebouw, verdieping, aantalPlaatsen;
 
     @FXML
-    private ComboBox<String> cbStad, cbGebouw, cbMinCapaciteit, cbMaxCapaciteit, cbVerdieping;
+    private ComboBox<String> cbStad, cbGebouw, cbVerdieping;
+
+    @FXML
+    private TextField txtMin, txtMax;
 
     @FXML
     private Button btnReset, btnKiezen, btnFilter;
@@ -95,10 +99,6 @@ public class BeherenLokaalController extends AnchorPane {
         cbGebouw.getSelectionModel().selectFirst();
         cbVerdieping.setItems(FXCollections.observableArrayList(domeinController.geefVerdiepingen().stream().map(e -> e.toString()).collect(Collectors.toList())).sorted());
         cbVerdieping.getSelectionModel().selectFirst();
-        cbMinCapaciteit.setItems(FXCollections.observableArrayList(domeinController.geefMinCapaciteiten()));
-        cbMinCapaciteit.getSelectionModel().selectFirst();
-        cbMaxCapaciteit.setItems(FXCollections.observableArrayList(domeinController.geefMaxCapaciteiten()));
-        cbMaxCapaciteit.getSelectionModel().selectFirst();
     }
 
     private void zetButtonsActief() {
@@ -112,16 +112,16 @@ public class BeherenLokaalController extends AnchorPane {
         cbStad.getSelectionModel().selectFirst();
         cbGebouw.getSelectionModel().selectFirst();
         cbVerdieping.getSelectionModel().selectFirst();
-        cbMinCapaciteit.getSelectionModel().selectFirst();
-        cbMaxCapaciteit.getSelectionModel().selectFirst();
+        txtMin.clear();
+        txtMax.clear();
     }
 
     private void zetFiltersActief(ActionEvent actionEvent) {
         String stad = cbStad.getSelectionModel().getSelectedItem();
         String gebouw = cbGebouw.getSelectionModel().getSelectedItem();
         String verdieping = cbVerdieping.getSelectionModel().getSelectedItem();
-        String minCapaciteit = cbMaxCapaciteit.getSelectionModel().getSelectedItem();
-        String maxCapaciteit = cbMaxCapaciteit.getSelectionModel().getSelectedItem();
+        String minCapaciteit = txtMin.getText();
+        String maxCapaciteit = txtMax.getText();
         if(stad.matches("-(.)*")){
             stad = "";
         }
@@ -138,12 +138,16 @@ public class BeherenLokaalController extends AnchorPane {
         filters.put("minCapaciteit",minCapaciteit);
         filters.put("maxCapaciteit",maxCapaciteit);
         filters.values().removeIf(String::isBlank);
+        filters.values().removeIf(String::isEmpty);
+        filters.values().removeIf(Objects::isNull);
         if(filters.keySet().isEmpty()){ vulTable();}
         else {vulTable(domeinController.filterLokaal(filters));}
     }
 
     private void kiezen(ActionEvent actionEvent) {
         sessieController.setLokaal((ILokaal) table.getSelectionModel().getSelectedItem());
+        Stage stage = (Stage) this.getScene().getWindow();
+        stage.close();
 }
 
 }

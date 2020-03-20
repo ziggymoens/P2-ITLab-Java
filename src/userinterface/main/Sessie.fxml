@@ -28,12 +28,13 @@
                         <ChoiceBox fx:id="choiceBoxZoeken" layoutY="50.0" prefHeight="30.0" prefWidth="150.0" />
                         <Pane layoutX="160.0" layoutY="50.0" prefHeight="30.0" prefWidth="250.0">
                             <children>
-                                <ChoiceBox fx:id="choiceBoxFilter" prefHeight="30.0" prefWidth="180.0" visible="false" />
-                                <TextField fx:id="txtSearchBar" prefHeight="30.0" prefWidth="250.0" promptText="zoek" />
+                                <ChoiceBox fx:id="choiceBoxStad" disable="true" prefHeight="30.0" prefWidth="180.0" visible="false" />
+                        <ChoiceBox fx:id="choiceBoxStatus" disable="true" prefHeight="30.0" prefWidth="180.0" visible="false" />
+                                <TextField fx:id="txtSearchbarTitel" prefHeight="30.0" prefWidth="250.0" promptText="zoek" />
                             </children>
                         </Pane>
                         <Button fx:id="btnToevoegenSessie" layoutX="530.0" layoutY="50.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="40.0" text="+" AnchorPane.rightAnchor="0.0" />
-                      <TableView fx:id="tableViewSessie" prefHeight="360.0" prefWidth="290.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+                      <TableView fx:id="table" prefHeight="360.0" prefWidth="290.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
                           <columns>
                               <TableColumn fx:id="titel" editable="false" maxWidth="300.0" minWidth="300.0" prefWidth="300.0" text="Titel" />
                               <TableColumn fx:id="startSessie" editable="false" maxWidth="140.0" minWidth="140.0" prefWidth="140.0" text="Start" />
@@ -76,18 +77,18 @@
                         </Label>
                         <HBox>
                            <children>
-                              <DatePicker prefHeight="30.0" prefWidth="170.0">
+                              <DatePicker fx:id="dpStart" prefHeight="30.0" prefWidth="170.0">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </DatePicker>
-                              <TextField fx:id="txtStartuur" editable="false" prefHeight="30.0" prefWidth="100.0" />
+                              <TextField fx:id="txtStart" editable="false" prefHeight="30.0" prefWidth="100.0" />
                            </children>
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
                         </HBox>
-                                    <Label fx:id="lblErrorStartSessje" alignment="CENTER" prefHeight="18.0" prefWidth="290.0" text="Label" textFill="RED" visible="false">
+                                    <Label fx:id="lblErrorStart" alignment="CENTER" prefHeight="18.0" prefWidth="290.0" text="Label" textFill="RED" visible="false">
                            <VBox.margin>
                               <Insets top="2.0" />
                            </VBox.margin></Label>
@@ -102,15 +103,15 @@
                         </Label>
                         <HBox>
                            <children>
-                              <DatePicker prefHeight="30.0" prefWidth="170.0">
+                              <DatePicker fx:id="dpEind" prefHeight="30.0" prefWidth="170.0">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </DatePicker>
-                              <TextField fx:id="txtStartuur1" editable="false" prefHeight="30.0" prefWidth="100.0" />
+                              <TextField fx:id="txtEind" editable="false" prefHeight="30.0" prefWidth="100.0" />
                            </children>
                         </HBox>
-                        <Label fx:id="lblErrorStartSessje1" alignment="CENTER" prefHeight="18.0" prefWidth="290.0" text="Label" textFill="RED" visible="false" />
+                        <Label fx:id="lblErrorEind" alignment="CENTER" prefHeight="18.0" prefWidth="290.0" text="Label" textFill="RED" visible="false" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" layoutY="200.0" maxWidth="230.0" prefHeight="70.0" AnchorPane.leftAnchor="10.0">
@@ -169,7 +170,7 @@
                                     <Insets />
                                  </HBox.margin>
                               </TextField>
-                              <CheckBox mnemonicParsing="false" prefHeight="30.0" text="Maximum" />
+                              <CheckBox fx:id="cbMax" mnemonicParsing="false" prefHeight="30.0" text="Maximum" />
                            </children>
                         </HBox>
                                 <Label fx:id="lblErrorMaxPlaatsen" alignment="CENTER" prefHeight="18.0" prefWidth="290.0" text="Label" textFill="RED" visible="false">
@@ -201,7 +202,7 @@
             <AnchorPane prefWidth="320.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                <children>
                   <Label alignment="CENTER" text="Beschrijving" AnchorPane.bottomAnchor="380.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <TextArea AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0" />
+                  <TextArea fx:id="txtBeschrijving" editable="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0" />
                </children>
             </AnchorPane>
          </children>

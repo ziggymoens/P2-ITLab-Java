@@ -97,9 +97,10 @@ public class DomeinController {
         List<Object> objVeranderingen = new ArrayList<>();
 
         Gebruiker verantwoordelijke = huidigeSessieKalender.geefGebruikerById(veranderingen.get(0));
+
         String titel = veranderingen.get(1);
 
-        String[] startarr = veranderingen.get(2).split(" ");
+/*        String[] startarr = veranderingen.get(2).split(" ");
         String[] startdatarr = startarr[0].split("/");
         String[] startuurarr = startarr[1].split(":");
         int jaar = LocalDate.now().getYear();
@@ -120,18 +121,27 @@ public class DomeinController {
         }
         LocalDate eindDate = LocalDate.of(jaar, Integer.parseInt(eindatarr[1]), Integer.parseInt(eindatarr[0]));
         LocalTime eindUur = LocalTime.of(Integer.parseInt(einuurarr[0]), Integer.parseInt(einuurarr[1]));
-        LocalDateTime eind = LocalDateTime.of(eindDate, eindUur);
+        LocalDateTime eind = LocalDateTime.of(eindDate, eindUur);*/
+        LocalDate startdat = LocalDate.parse(veranderingen.get(2));
+        String[] startuurarr = veranderingen.get(3).split(":");
+        LocalTime startUur = LocalTime.of(Integer.parseInt(startuurarr[0]), Integer.parseInt(startuurarr[1]));
+        LocalDateTime start = LocalDateTime.of(startdat,startUur);
 
-        Lokaal l = huidigeSessieKalender.geefLokaalById(veranderingen.get(4));
+        LocalDate einddat = LocalDate.parse(veranderingen.get(4));
+        String[] einduurarr = veranderingen.get(5).split(":");
+        LocalTime einduur = LocalTime.of(Integer.parseInt(startuurarr[0]), Integer.parseInt(startuurarr[1]));
+        LocalDateTime eind = LocalDateTime.of(einddat,einduur);
 
-        Integer i = Integer.parseInt(veranderingen.get(6));
+        Lokaal l = huidigeSessieKalender.geefLokaalById(veranderingen.get(6));
+
+        Integer i = Integer.parseInt(veranderingen.get(8));
 
         objVeranderingen.add(0, verantwoordelijke);
         objVeranderingen.add(1, titel);
         objVeranderingen.add(2, start);
         objVeranderingen.add(3, eind);
         objVeranderingen.add(4, l);
-        objVeranderingen.add(5, veranderingen.get(5));
+        objVeranderingen.add(5, veranderingen.get(7));
         objVeranderingen.add(6, i);
         typeStrategy.bewerkSessie(huidigeSessie, objVeranderingen);
     }
@@ -293,42 +303,27 @@ public class DomeinController {
 
     public Set<String> geefSteden(){
         Set<String> set = new HashSet<>();
+        set.add("--Stad--");
         huidigeSessieKalender.geefAlleLokalen().stream().forEach(e -> set.add(e.getStad()));
         return set;
     }
 
     public Set<String> geefGebouwen(){
         Set<String> set = new HashSet<>();
+        set.add("--Gebouw--");
         huidigeSessieKalender.geefAlleLokalen().stream().forEach(e -> set.add(e.getGebouw()));
         return set;
     }
 
-    public Set<Integer> geefVerdiepingen(){
-        return huidigeSessieKalender.geefAlleLokalen()
-                .stream()
-                .map(l -> l.getVerdieping())
-                .collect(Collectors.toSet());
+    public Set<String> geefVerdiepingen(){
+        Set<String> set = new HashSet<>();
+        set.add("--Verdieping--");
+        huidigeSessieKalender.geefAlleLokalen().stream().forEach(e -> set.add(((Integer)e.getVerdieping()).toString()));
+        return set;
     }
 
-    //2 inputvelden voor minimum en maximum cap.
-
-    public List<String> geefMinCapaciteiten(){
-        List <String> capaciteiten = new ArrayList<>();
-        capaciteiten.add("0");
-        capaciteiten.add("50");
-        capaciteiten.add("100");
-        capaciteiten.add("150");
-        capaciteiten.add("200+");
-        return capaciteiten;
-    }
-
-        public List<String> geefMaxCapaciteiten(){
-        List <String> capaciteiten = new ArrayList<>();
-        capaciteiten.add("50");
-        capaciteiten.add("100");
-        capaciteiten.add("150");
-        capaciteiten.add("200+");
-        return capaciteiten;
+    public boolean controleerMaxCapaciteitLokaal(int getal, ILokaal lokaal){
+        return lokaal.getAantalPlaatsen() < getal;
     }
 
     public List<ILokaal> filterLokaal(Map<String,String> filter){

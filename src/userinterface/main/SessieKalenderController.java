@@ -1,6 +1,7 @@
 package userinterface.main;
 
 import domein.controllers.DomeinController;
+import domein.interfacesDomein.IAcademiejaar;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -16,7 +17,7 @@ public class SessieKalenderController extends AnchorPane {
     @FXML
     private TableView table;
     @FXML
-    private TableColumn<rij, String> aj, start, eind, aantalSessies;
+    private TableColumn<IAcademiejaar, String> aj, start, eind, aantalSessies;
     @FXML
     private Button btnNieuwAj, btnKiezen;
     @FXML
@@ -36,9 +37,9 @@ public class SessieKalenderController extends AnchorPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
-        vulTabel();
-        vulComboxes();
-        activeerButtons();
+        //vulTabel();
+        //vulComboxes();
+        //activeerButtons();
     }
 
     private void vulTabel() {
@@ -50,8 +51,6 @@ public class SessieKalenderController extends AnchorPane {
         start.setCellValueFactory(new PropertyValueFactory("start"));
         eind.setCellValueFactory(new PropertyValueFactory("eind"));
         aantalSessies.setCellValueFactory(new PropertyValueFactory("aantal"));
-
-        table.setItems(FXCollections.observableArrayList(new rij("2019 - 2020", "21-09-2020", "23-09-2019", "9")));
 
         //selectInTable();
     }
