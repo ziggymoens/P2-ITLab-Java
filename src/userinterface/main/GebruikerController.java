@@ -237,8 +237,8 @@ public class GebruikerController extends AnchorPane {
     }
 
     private void vulTableSessies(Gebruiker gebruiker){
+        tableViewSessiesGebruikers.setPlaceholder(new Label("Geen sessies voor gebruiker"));
         tableViewSessiesGebruikers.getColumns().clear();
-
         titel.setCellValueFactory(new PropertyValueFactory<>("titel"));
         startSessie.setCellValueFactory(new PropertyValueFactory<>("startSessie"));
 

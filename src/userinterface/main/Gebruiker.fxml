@@ -213,6 +213,9 @@
                             </font>
                         </Label>
                         <TableView fx:id="tableViewSessiesGebruikers" maxWidth="800.0" prefHeight="247.0" prefWidth="822.0">
+                            <placeholder>
+                                <Label text="Geen sessies voor gebruiker"/>
+                            </placeholder>
                             <columns>
                                 <TableColumn fx:id="titel" minWidth="416.9" prefWidth="515.1103515625" resizable="false" text="Titel" />
                                 <TableColumn fx:id="startSessie" minWidth="318.8895263671875" prefWidth="318.8895263671875" resizable="false" text="Start sessie" />
