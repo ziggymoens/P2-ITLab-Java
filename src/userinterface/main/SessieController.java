@@ -197,6 +197,7 @@ public class SessieController extends AnchorPane {
                 }
             }
         });
+        cbMax.setSelected(true);
         txtMaxPlaatsenSessie.setOnKeyPressed(new EventHandler<KeyEvent>()
         {
             @Override
@@ -272,35 +273,49 @@ public class SessieController extends AnchorPane {
                 switch(entry.getKey()){
                     case "verantwoordelijke":
                         this.lblErrorVerantwoordelijke.setText(entry.getValue());
+                        this.lblErrorVerantwoordelijke.setVisible(true);
                         break;
                     case "titel":
                         this.lblErrorTitel.setText(entry.getValue());
+                        this.lblErrorTitel.setVisible(true);
                         break;
                     case "start":
                         this.lblErrorStart.setText(entry.getValue());
+                        this.lblErrorStart.setVisible(true);
                         break;
                     case "eind":
                         this.lblErrorEind.setText(entry.getValue());
-                        fout += entry.getValue();
+                        this.lblErrorEind.setVisible(true);
                         break;
                     case "gastspreker":
                         this.lblErrorGastspreker.setText(entry.getValue());
-                        fout += entry.getValue();
+                        this.lblErrorGastspreker.setVisible(true);
                         break;
                     case "maxPlaatsen":
                         this.lblErrorMaxPlaatsen.setText(entry.getValue());
-                        fout += entry.getValue();
+                        this.lblErrorMaxPlaatsen.setVisible(true);
                         break;
                     case "lokaal":
                         this.lblErrorLokaal.setText(entry.getValue());
-                        fout += entry.getValue();
+                        this.lblErrorLokaal.setVisible(true);
                         break;
                 }
             }
+            verbergErrors();
         }
 /*        List<Node> n = vboxSessieDetail.getChildren();
         List<String> s = n.stream().filter(e -> e instanceof TextField).map(e -> ((TextField) e).getText()).collect(Collectors.toList());
         s.stream().forEach(e -> System.out.println(e));*/
+    }
+
+    private void verbergErrors () {
+        lblErrorMaxPlaatsen.setVisible(false);
+        lblErrorLokaal.setVisible(false);
+        lblErrorGastspreker.setVisible(false);
+        lblErrorTitel.setVisible(false);
+        lblErrorVerantwoordelijke.setVisible(false);
+        lblErrorEind.setVisible(false);
+        lblErrorEind.setVisible(true);
     }
 
     private void nieuweSessie(ActionEvent actionEvent){}

@@ -64,12 +64,12 @@ public class DomeinController {
         return Arrays.asList(maanden);
     }
 
-    public String vergelijkMaanden (){
+    public String vergelijkMaanden() {
         String[] maanden = {"Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"};
-        String [] months = {"January","February","March","April","May","June","July","August","September","October","November","December"};
+        String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
         String huidigeMaand = huidigeSessie.getStartSessie().getMonth().toString();
-        for(int i = 0; i < months.length; i++){
-            if(months[i].toLowerCase().equals(huidigeMaand.toLowerCase()))
+        for (int i = 0; i < months.length; i++) {
+            if (months[i].toLowerCase().equals(huidigeMaand.toLowerCase()))
                 huidigeMaand = maanden[i];
         }
         return huidigeMaand;
@@ -93,7 +93,7 @@ public class DomeinController {
         return Arrays.asList(keuzeVoorZoeken);
     }
 
-    public void updateSessie(List<String> veranderingen){
+    public void updateSessie(List<String> veranderingen) {
         List<Object> objVeranderingen = new ArrayList<>();
 
         Gebruiker verantwoordelijke = huidigeSessieKalender.geefGebruikerById(veranderingen.get(0));
@@ -122,15 +122,20 @@ public class DomeinController {
         LocalDate eindDate = LocalDate.of(jaar, Integer.parseInt(eindatarr[1]), Integer.parseInt(eindatarr[0]));
         LocalTime eindUur = LocalTime.of(Integer.parseInt(einuurarr[0]), Integer.parseInt(einuurarr[1]));
         LocalDateTime eind = LocalDateTime.of(eindDate, eindUur);*/
+
         LocalDate startdat = LocalDate.parse(veranderingen.get(2));
         String[] startuurarr = veranderingen.get(3).split(":");
         LocalTime startUur = LocalTime.of(Integer.parseInt(startuurarr[0]), Integer.parseInt(startuurarr[1]));
-        LocalDateTime start = LocalDateTime.of(startdat,startUur);
+        LocalDateTime start = LocalDateTime.of(startdat, startUur);
+        System.out.println("startdatum: " + startdat);
+        System.out.println("startuur: " + startUur);
 
         LocalDate einddat = LocalDate.parse(veranderingen.get(4));
         String[] einduurarr = veranderingen.get(5).split(":");
         LocalTime einduur = LocalTime.of(Integer.parseInt(startuurarr[0]), Integer.parseInt(startuurarr[1]));
-        LocalDateTime eind = LocalDateTime.of(einddat,einduur);
+        LocalDateTime eind = LocalDateTime.of(einddat, einduur);
+        System.out.println("einddatum: " + startdat);
+        System.out.println("einduur: " + startUur);
 
         Lokaal l = huidigeSessieKalender.geefLokaalById(veranderingen.get(6));
 
@@ -146,14 +151,38 @@ public class DomeinController {
         typeStrategy.bewerkSessie(huidigeSessie, objVeranderingen);
     }
 
-    public Map<String, String> controleerDataSessie (List<String> data) {
+    public Map<String, String> controleerDataSessie(List<String> data) {
         Map<String, String> map = new HashMap<>();
-        try{
-
-        } catch(LokaalException lokaalEx){
+        try {
+            updateSessie(data);
+        } catch (LokaalException lokaalEx) {
             map.put("lokaal", lokaalEx.getMessage());
-        } catch(SessieException sessieEx){
-            map.put("lokaal", sessieEx.getMessage());
+        } catch (SessieException sessieEx) {
+            String[] fout = sessieEx.getMessage().split(";");
+            switch (fout[0]) {
+                case "verantwoordelijke":
+                    map.put("verantwoordelijke", fout[1]);
+                    break;
+                case "titel":
+                    map.put("titel", fout[1]);
+                    break;
+                case "start":
+                    map.put("start", fout[1]);
+                    break;
+                case "eind":
+                    map.put("eind", fout[1]);
+                    break;
+                case "gastspreker":
+                    map.put("gastspreker", fout[1]);
+                    break;
+                case "maxPlaatsen":
+                    map.put("maxPlaatsen", fout[1]);
+                    break;
+                case "lokaal":
+                    map.put("lokaal", fout[1]);
+                    break;
+            }
+            map.put("sessie", sessieEx.getMessage());
         }
         return map;
     }
@@ -170,7 +199,7 @@ public class DomeinController {
         return (List<ISessie>) (Object) typeStrategy.geefAlleSessiesDatum(date);
     }
 
-    public List<ISessie> geefISessiesGebruiker(Gebruiker gebruiker, String gebruikersnaam){
+    public List<ISessie> geefISessiesGebruiker(Gebruiker gebruiker, String gebruikersnaam) {
         return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleInschrijvingen()
                 .stream()
                 .filter(sessie -> sessie.getGebruiker().equals(gebruiker))
@@ -189,13 +218,13 @@ public class DomeinController {
         return (List<ISessie>) (Object) typeStrategy.geefAlleSessiesLocatie(locatie);
     }
 
-    public List<ISessie> geefAlleSessiesKalenderVanGebruiker(Gebruiker gebruiker){
+    public List<ISessie> geefAlleSessiesKalenderVanGebruiker(Gebruiker gebruiker) {
         return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalenderVanGebruiker(academiejaar, gebruiker);
     }
 
     public void maakSessieAan(List<String> sessie) {
         //iterator
-        Sessie s = new Sessie(sessie.get(0), sessie.get(1),LocalDateTime.parse(sessie.get(2)), LocalDateTime.parse(sessie.get(3)),
+        Sessie s = new Sessie(sessie.get(0), sessie.get(1), LocalDateTime.parse(sessie.get(2)), LocalDateTime.parse(sessie.get(3)),
                 huidigeSessieKalender.geefLokaalById(sessie.get(4)), huidigeSessieKalender.geefGebruikerById(sessie.get(5)), huidigeSessieKalender.getAcademiejaarByDate(LocalDateTime.parse(sessie.get(6))));
         typeStrategy.maakSessieAan(s);
     }
@@ -220,7 +249,7 @@ public class DomeinController {
     //endregion
 
     //region Gebruiker
-    public void updateGebruiker(String naam, String gebruikersnaam, String status, String profiel){
+    public void updateGebruiker(String naam, String gebruikersnaam, String status, String profiel) {
         List<String> gegevens = new ArrayList<>();
         gegevens.addAll(Arrays.asList(naam, gebruikersnaam, status, profiel));
         huidigeGebruiker.update(gegevens);
@@ -282,7 +311,7 @@ public class DomeinController {
         typeStrategy.verwijderGebruiker((Gebruiker) gebruiker);
     }
 
-    public void maakNieuweGebruiker(String naam, String gebruikersnaam, String gebruikersprofiel, String gebruikersstatus){
+    public void maakNieuweGebruiker(String naam, String gebruikersnaam, String gebruikersprofiel, String gebruikersstatus) {
         Gebruiker gebruiker = new Gebruiker(naam, gebruikersnaam, gebruikersprofiel, gebruikersstatus);
         huidigeSessieKalender.voegGebruikerToe(gebruiker);
     }
@@ -301,35 +330,35 @@ public class DomeinController {
         return (List<ILokaal>) (Object) huidigeSessieKalender.geefLokaalByCampus(campus.toUpperCase());
     }
 
-    public Set<String> geefSteden(){
+    public Set<String> geefSteden() {
         Set<String> set = new HashSet<>();
         set.add("--Stad--");
         huidigeSessieKalender.geefAlleLokalen().stream().forEach(e -> set.add(e.getStad()));
         return set;
     }
 
-    public Set<String> geefGebouwen(){
+    public Set<String> geefGebouwen() {
         Set<String> set = new HashSet<>();
         set.add("--Gebouw--");
         huidigeSessieKalender.geefAlleLokalen().stream().forEach(e -> set.add(e.getGebouw()));
         return set;
     }
 
-    public Set<String> geefVerdiepingen(){
+    public Set<String> geefVerdiepingen() {
         Set<String> set = new HashSet<>();
         set.add("--Verdieping--");
-        huidigeSessieKalender.geefAlleLokalen().stream().forEach(e -> set.add(((Integer)e.getVerdieping()).toString()));
+        huidigeSessieKalender.geefAlleLokalen().stream().forEach(e -> set.add(((Integer) e.getVerdieping()).toString()));
         return set;
     }
 
-    public boolean controleerMaxCapaciteitLokaal(int getal, ILokaal lokaal){
+    public boolean controleerMaxCapaciteitLokaal(int getal, ILokaal lokaal) {
         return lokaal.getAantalPlaatsen() < getal;
     }
 
-    public List<ILokaal> filterLokaal(Map<String,String> filter){
+    public List<ILokaal> filterLokaal(Map<String, String> filter) {
         List<List<ILokaal>> gefiltered = new ArrayList<>();
         filter.keySet().stream().forEach(e -> {
-            switch(e){
+            switch (e) {
                 case "stad":
                     gefiltered.add(filterOpStad(filter.get(e)));
                     break;
@@ -350,32 +379,32 @@ public class DomeinController {
             }
         });
         Collection<ILokaal> temp = new ArrayList<>();
-        for(int i = gefiltered.size()-1; i >= 1;i--){
-            gefiltered.get(i-1).retainAll(gefiltered.get(i));
+        for (int i = gefiltered.size() - 1; i >= 1; i--) {
+            gefiltered.get(i - 1).retainAll(gefiltered.get(i));
         }
         return gefiltered.get(0);
     }
 
-    private List<ILokaal> filterOpStad(String filter){
+    private List<ILokaal> filterOpStad(String filter) {
         return geefILokalen().stream().filter(lokaal -> lokaal.getStad().equals(filter)).collect(Collectors.toList());
     }
 
-    private List<ILokaal> filterOpGebouw(String filter){
+    private List<ILokaal> filterOpGebouw(String filter) {
         return geefILokalen().stream().filter(lokaal -> lokaal.getGebouw().equals(filter)).collect(Collectors.toList());
     }
 
-    private List<ILokaal> filterOpVerdieping(int filter){
+    private List<ILokaal> filterOpVerdieping(int filter) {
         return geefILokalen().stream().filter(lokaal -> lokaal.getVerdieping() == filter).collect(Collectors.toList());
     }
 
-    private List<ILokaal> filterOpMinCapaciteit(String filter){
+    private List<ILokaal> filterOpMinCapaciteit(String filter) {
         return geefILokalen()
                 .stream()
                 .filter(e -> e.getAantalPlaatsen() >= Integer.parseInt(filter))
                 .collect(Collectors.toList());
     }
 
-    private List<ILokaal> filterOpMaxCapaciteit(String filter){
+    private List<ILokaal> filterOpMaxCapaciteit(String filter) {
         return geefILokalen()
                 .stream()
                 .filter(e -> e.getAantalPlaatsen() < Integer.parseInt(filter))
@@ -419,7 +448,7 @@ public class DomeinController {
     }
      */
 
-    private void updateSessieLokaal (ILokaal lokaal) {
+    private void updateSessieLokaal(ILokaal lokaal) {
 
     }
     //endregion
@@ -459,19 +488,19 @@ public class DomeinController {
         throw new UnsupportedOperationException();
     }
 
-    public List<String> geefHerinneringsTijdstippen(){
+    public List<String> geefHerinneringsTijdstippen() {
         return Arrays.stream(HerinneringTijdstip.values()).map(Enum::toString).collect(Collectors.toList());
     }
 
-    public void maakAankondigingAan(Aankondiging aankondiging, Sessie sessie){
+    public void maakAankondigingAan(Aankondiging aankondiging, Sessie sessie) {
         typeStrategy.maakAankondigingAan(aankondiging, sessie);
     }
 
-    public void bewerkAankondiging(Aankondiging aankondiging){
+    public void bewerkAankondiging(Aankondiging aankondiging) {
         typeStrategy.bewerkAankondiging(aankondiging);
     }
 
-    public void verwijderAankondiging(IAankondiging aankondiging){
+    public void verwijderAankondiging(IAankondiging aankondiging) {
         typeStrategy.verwijderAankondiging((Aankondiging) aankondiging);
     }
     //endregion
