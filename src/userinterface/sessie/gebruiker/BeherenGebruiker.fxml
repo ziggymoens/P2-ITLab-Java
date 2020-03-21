@@ -16,11 +16,6 @@
                 <VBox fx:id="vBoxOnderLinks1" alignment="CENTER" prefHeight="250.0" prefWidth="200.0">
                     <children>
                         <TextField fx:id="txtFieldSearchbar" promptText="Zoek op naam" />
-                  <Button fx:id="btnZoeken" mnemonicParsing="false" prefHeight="27.0" prefWidth="119.0" text="Zoek">
-                     <VBox.margin>
-                        <Insets top="20.0" />
-                     </VBox.margin>
-                  </Button>
                     </children>
                     <HBox.margin>
                         <Insets left="50.0" />

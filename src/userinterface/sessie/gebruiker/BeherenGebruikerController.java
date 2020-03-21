@@ -30,9 +30,6 @@ public class BeherenGebruikerController {
     private TextField txtFieldSearchbar;
 
     @FXML
-    private Button btnZoeken;
-
-    @FXML
     private TableView<IGebruiker> tableViewGebruiker;
 
     @FXML
