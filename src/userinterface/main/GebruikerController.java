@@ -206,36 +206,45 @@ public class GebruikerController extends AnchorPane {
         txtFieldGebruiker.setEditable(true);
         txtFieldGebruikersnaam.setEditable(true);
         comboBoxTypeGebruiker.setItems(FXCollections.observableArrayList(Arrays.stream(Gebruikersprofiel.values()).map(Enum::toString).collect(Collectors.toList())));
+        comboBoxTypeGebruiker.getSelectionModel().selectFirst();
         comboBoxStatusGebruiker.setItems(FXCollections.observableArrayList(Arrays.stream(Gebruikersstatus.values()).map(Enum::toString).collect(Collectors.toList())));
+        comboBoxStatusGebruiker.getSelectionModel().selectFirst();
         btnOpslaan.setOnAction(this::updateGebruiker);
+        btnOpslaan.setVisible(false);
+        System.out.println("opslaan moet button verwijderen");
+        btnWijzigen.setVisible(true);
     }
 
     public void updateGebruiker(ActionEvent actionEvent){
         domeinController.updateGebruiker(txtFieldGebruiker.getText(), txtFieldGebruikersnaam.getText(),
                 comboBoxStatusGebruiker.getSelectionModel().getSelectedItem(),
                 comboBoxTypeGebruiker.getSelectionModel().getSelectedItem());
-        btnOpslaan.setVisible(false);
-        btnWijzigen.setVisible(true);
+        refreshTable();
     }
 
 
-
     private void maakNieuweGebruiker(ActionEvent actionEvent){
-        btnWijzigen.setText("Opslaan");
+        btnWijzigen.setVisible(false);
+        btnOpslaan.setVisible(true);
         clearDetails();
         txtFieldGebruiker.setEditable(true);
         txtFieldGebruikersnaam.setEditable(true);
         comboBoxTypeGebruiker.setItems(FXCollections.observableArrayList(Arrays.stream(Gebruikersprofiel.values()).map(Enum::toString).collect(Collectors.toList())));
         comboBoxStatusGebruiker.setItems(FXCollections.observableArrayList(Arrays.stream(Gebruikersstatus.values()).map(Enum::toString).collect(Collectors.toList())));
-        btnWijzigen.setOnAction(this::gebruikerAanmaken);
-        refreshTable();
+        btnOpslaan.setOnAction(this::gebruikerAanmaken);
     }
 
     private void gebruikerAanmaken(ActionEvent actionEvent) {
+        System.out.println(txtFieldGebruiker.getText());
+        System.out.println(txtFieldGebruikersnaam.getText());
+        System.out.println(comboBoxStatusGebruiker.getSelectionModel().getSelectedItem());
         domeinController.maakNieuweGebruiker(txtFieldGebruiker.getText(), txtFieldGebruikersnaam.getText(),
                 comboBoxTypeGebruiker.getSelectionModel().getSelectedItem(),
                 comboBoxStatusGebruiker.getSelectionModel().getSelectedItem());
-        btnWijzigen.setText("Wijzigen");
+        btnWijzigen.setVisible(true);
+        refreshTable();
+        btnOpslaan.setVisible(false);
+        btnWijzigen.setVisible(true);
     }
 
     private void vulTableSessies(Gebruiker gebruiker){
@@ -248,7 +257,7 @@ public class GebruikerController extends AnchorPane {
         tableViewSessiesGebruikers.getColumns().addAll(titel, startSessie);
         if (!tableViewSessiesGebruikers.getItems().isEmpty() || tableViewSessiesGebruikers.getItems() != null) {
             tableViewSessiesGebruikers.getSelectionModel().select(0);
-            domeinController.setHuidigeISessie(domeinController.geefISessiesHuidigeKalender().get(0));
+            //domeinController.setHuidigeISessie(domeinController.geefISessiesHuidigeKalender().get(0));
         }
     }
 

@@ -167,7 +167,7 @@
                                  </HBox.margin>
                                  <children>
                                               <Button fx:id="btnWijzigen" mnemonicParsing="false" prefWidth="210.0" text="Wijzigen" />
-                                    <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="204.0" text="Opslaan" visible="false" />
+                                    <Button fx:id="btnOpslaan" mnemonicParsing="false" prefHeight="27.0" prefWidth="204.0" text="Opslaan" visible="false" />
                                  </children>
                               </Pane>
                                         <Button fx:id="btnVerwijderen" mnemonicParsing="false" prefWidth="210.0" text="Verwijderen">

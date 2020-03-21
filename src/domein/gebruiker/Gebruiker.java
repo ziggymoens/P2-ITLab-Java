@@ -82,11 +82,11 @@ public class Gebruiker implements IGebruiker, Serializable {
      *
      * @param naam              (String) ==> Naam van de gebruiker
      * @param gebruikersnaam    (String) ==> Februikersnaam van de gebruiker voor het Chamillo platform
-     * @param gebruikersprofiel (Gebruikersprofiel) ==> Profiel dat de gebruiker aanneemt in het algemeen
-     * @param gebruikersstatus  (Gebruikersprofiel) ==> Inlogstatus van de gebruiker
+     * @param gebruikersprofiel (String) ==> Profiel dat de gebruiker aanneemt in het algemeen
+     * @param gebruikersstatus  (String) ==> Inlogstatus van de gebruiker
      */
     public Gebruiker(String naam, String gebruikersnaam, String  gebruikersprofiel, String gebruikersstatus) {
-        this(naam, gebruikersnaam, gebruikersprofiel, gebruikersstatus, "storage/profielfotos/profielfoto.png", 0, null);
+        this(naam, gebruikersnaam, gebruikersprofiel, gebruikersstatus, "storage/profielfotos/profielfoto.png", 0, "test");
     }
 
     /**
@@ -244,15 +244,19 @@ public class Gebruiker implements IGebruiker, Serializable {
         try {
             if (gegevens.get(0) != null && !gegevens.get(0).isBlank()) {
                 setNaam(gegevens.get(0));
+                System.out.println("0");
             }
             if (gegevens.get(1) != null && !gegevens.get(1).isBlank()) {
                 setGebruikersnaam(gegevens.get(1));
+                System.out.println("1");
             }
             if (gegevens.get(2) != null && !gegevens.get(2).isBlank()) {
                 setCurrentProfiel(gegevens.get(2));
+                System.out.println("2");
             }
             if (gegevens.get(3) != null && !gegevens.get(3).isBlank()) {
                 setCurrentStatus(gegevens.get(3));
+                System.out.println("3");
             }
         } catch (Exception e){
             throw new GebruikerException("Update");
