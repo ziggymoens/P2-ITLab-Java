@@ -14,7 +14,7 @@ public class StartController {
 
     public StartController() {
         sessieKalender = new SessieKalender();
-        SessieKalenderDataInit sessieKalenderDataInit = new SessieKalenderDataInit(sessieKalender);
+        //SessieKalenderDataInit sessieKalenderDataInit = new SessieKalenderDataInit(sessieKalender);
     }
 
     public List<IGebruiker> geefIGebruikers() {

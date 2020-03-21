@@ -1,5 +1,6 @@
 package main;
 
+import domein.Academiejaar;
 import domein.PasswordUtils;
 import domein.controllers.DomeinController;
 import domein.controllers.StartController;
@@ -17,7 +18,6 @@ public class StartUpDatabank {
 
 
         System.out.println(domeinController.geefISessiesHuidigeKalender().stream().map(ISessie::toString).collect(Collectors.joining("\n")));
-
 
         System.out.println(domeinController.geefISessiesHuidigeKalender().stream().map(ISessie::toString_Kalender).collect(Collectors.joining("\n")));
         System.out.println(domeinController.geefLokalenVanCampus("schoonmeersen").stream().map(ILokaal::getLokaalCode).collect(Collectors.joining("\n")));

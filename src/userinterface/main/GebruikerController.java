@@ -91,7 +91,7 @@ public class GebruikerController extends AnchorPane {
     private Label lblErrorStatusGebruiker;
 
     @FXML
-    private Button btnWijzigen;
+    private Button btnWijzigen, btnOpslaan;
 
     @FXML
     private Button btnVerwijderen;
@@ -201,19 +201,21 @@ public class GebruikerController extends AnchorPane {
     }
 
     private void wijzigGebruiker(ActionEvent actionEvent){
+        btnOpslaan.setVisible(true);
+        btnWijzigen.setVisible(false);
         txtFieldGebruiker.setEditable(true);
         txtFieldGebruikersnaam.setEditable(true);
         comboBoxTypeGebruiker.setItems(FXCollections.observableArrayList(Arrays.stream(Gebruikersprofiel.values()).map(Enum::toString).collect(Collectors.toList())));
         comboBoxStatusGebruiker.setItems(FXCollections.observableArrayList(Arrays.stream(Gebruikersstatus.values()).map(Enum::toString).collect(Collectors.toList())));
-        btnWijzigen.setText("Opslaan");
-        btnWijzigen.setOnAction(this::updateGebruiker);
+        btnOpslaan.setOnAction(this::updateGebruiker);
     }
 
     public void updateGebruiker(ActionEvent actionEvent){
         domeinController.updateGebruiker(txtFieldGebruiker.getText(), txtFieldGebruikersnaam.getText(),
                 comboBoxStatusGebruiker.getSelectionModel().getSelectedItem(),
                 comboBoxTypeGebruiker.getSelectionModel().getSelectedItem());
-        btnWijzigen.setText("Wijzigen");
+        btnOpslaan.setVisible(false);
+        btnWijzigen.setVisible(true);
     }
 
 
