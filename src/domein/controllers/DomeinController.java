@@ -263,6 +263,10 @@ public class DomeinController {
         return (List<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers();
     }
 
+    public List<IGebruiker> geefAlleVerantwoordelijken(){
+        return (List<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers().stream().filter(g -> g.getGebruikersprofiel().contains("verant")).collect(Collectors.toList());
+    }
+
     public List<IGebruiker> geefIGebruikersOpNaam(String naam) {
         return (List<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers()
                 .stream()

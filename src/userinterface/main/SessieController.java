@@ -7,6 +7,7 @@ import domein.interfacesDomein.ISessie;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -19,6 +20,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import userinterface.sessie.aankondiging.BeherenAankondigingController;
+import userinterface.sessie.gebruiker.BeherenGebruikerController;
 import userinterface.sessie.lokaal.BeherenLokaalController;
 
 import java.io.IOException;
@@ -240,7 +242,13 @@ public class SessieController extends AnchorPane {
         return b;
     }
 
+    private void openGebruikerPicker() {
+        new BeherenGebruikerController(domeinController);
+    }
+
+
     private void bewerkenSessie(ActionEvent actionEvent) {
+        openGebruikerPicker();
         bewerkenStatus = zetVeldenBewerken(true);
         txtLokaalSessie.setOnMouseClicked(e -> toonLokalen());
     }
