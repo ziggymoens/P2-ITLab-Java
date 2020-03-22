@@ -48,9 +48,6 @@ public class BeherenGebruikerController {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
-        //loader.setRoot(this);
-        //loader.setController(this);
-        //loader.load();
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -61,7 +58,7 @@ public class BeherenGebruikerController {
     }
 
     private void vulTableGebruikers(ObservableList<IGebruiker> observableArrayList) {
-        //clearTableGebruikers();
+        System.out.println(domeinController.geefAlleVerantwoordelijken());
         TVnaam.setCellValueFactory(new PropertyValueFactory<>("naam"));
         TVtype.setCellValueFactory(new PropertyValueFactory<>("type"));
         TVstatus.setCellValueFactory(new PropertyValueFactory<>("status"));

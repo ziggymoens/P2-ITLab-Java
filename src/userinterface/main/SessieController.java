@@ -17,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import userinterface.sessie.aankondiging.BeherenAankondigingController;
@@ -132,6 +133,7 @@ public class SessieController extends AnchorPane {
             throw new RuntimeException();
         }
 
+        System.out.println(domeinController.geefISessiesHuidigeKalender());
         sessieTable();
         activeerFilters();
         activeerButtons();
@@ -158,7 +160,7 @@ public class SessieController extends AnchorPane {
                 if(iSessie != null){sessie = iSessie;}
                 if(t1 != null){domeinController.setHuidigeISessie(t1);}
                 choiceBoxMaand.setValue(domeinController.vergelijkMaanden());
-                zetVeldenBewerken(false);
+                //zetVeldenBewerken(false);
                 vulDetails();
             }
         });
@@ -174,18 +176,31 @@ public class SessieController extends AnchorPane {
 
     private void vulDetails() {
         lblTitelSessie.setText(domeinController.geefHuidigeISessie().getTitel());
+        System.out.println("titel");
         txtTitelSessie.setText(domeinController.geefHuidigeISessie().getTitel());
+        System.out.println("titel2");
         dpStart.setValue(domeinController.geefHuidigeISessie().getStartDatum());
+        System.out.println("startdate");
+        System.out.println(domeinController.geefHuidigeISessie().getEindeDatum());
         dpEind.setValue(domeinController.geefHuidigeISessie().getEindeDatum());
+        System.out.println("eindedate");
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("hh:mm");
         txtStart.setText(domeinController.geefHuidigeISessie().getStartUur().format(dtf));
+        System.out.println("startuur");
         txtEind.setText(domeinController.geefHuidigeISessie().getEindeUur().format(dtf));
+        System.out.println("einduur");
         txtMaxPlaatsenSessie.setText(Integer.toString(domeinController.geefHuidigeISessie().getMaximumAantalPlaatsen()));
+        System.out.println("maxplaatsen");
         txtGastsprekerSessie.setText(domeinController.geefHuidigeISessie().getNaamGastspreker());
-        tempGebruiker = domeinController.geefHuidigeISessie().getVerantwoordelijke();
+        System.out.println("gastspreker");
+        //tempGebruiker = domeinController.geefHuidigeISessie().getVerantwoordelijke();
+        System.out.println("tempgebruiker");
         txtVerantwoordelijkeSessie.setText(domeinController.geefHuidigeISessie().getVerantwoordelijke().getNaam());
+        System.out.println("verantwoordelijke");
         txtLokaalSessie.setText(domeinController.geefHuidigeISessie().getLokaal().getLokaalCode());
+        System.out.println("lokaal");
         txtBeschrijving.setText(domeinController.geefHuidigeISessie().getBeschrijving());
+        System.out.println("beschrijving");
         tempLokaal = domeinController.geefHuidigeISessie().getLokaal();
 
         cbMax.selectedProperty().addListener(new ChangeListener<Boolean>() {
@@ -237,18 +252,17 @@ public class SessieController extends AnchorPane {
         txtEind.setEditable(b);
         txtMaxPlaatsenSessie.setEditable(b);
         txtGastsprekerSessie.setEditable(b);
-        txtVerantwoordelijkeSessie.setEditable(b);
+        txtVerantwoordelijkeSessie.setOnMouseClicked(this::openGebruikerPicker);
         txtBeschrijving.setEditable(b);
         return b;
     }
 
-    private void openGebruikerPicker() {
+    private void openGebruikerPicker(MouseEvent mouseEvent) {
         new BeherenGebruikerController(domeinController);
     }
 
 
     private void bewerkenSessie(ActionEvent actionEvent) {
-        openGebruikerPicker();
         bewerkenStatus = zetVeldenBewerken(true);
         txtLokaalSessie.setOnMouseClicked(e -> toonLokalen());
     }
