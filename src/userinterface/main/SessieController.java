@@ -135,7 +135,7 @@ public class SessieController extends AnchorPane {
         sessieTable();
         activeerFilters();
         activeerButtons();
-        //activeerRadioButtons();
+        activeerRadioButtons();
     }
 
     private void sessieTable() {

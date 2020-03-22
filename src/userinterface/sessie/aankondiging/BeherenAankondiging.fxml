@@ -1,26 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<fx:root fx:id="ap" prefHeight="238.0" prefWidth="1000.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="ap" prefHeight="238.0" prefWidth="1000.0" type="AnchorPane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <children>
           <TableView fx:id="table" prefHeight="238.0" prefWidth="490.0">
               <columns>
-                  <TableColumn fx:id="gebruiker" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="Naam Gebruiker" />
-                  <TableColumn fx:id="datum" maxWidth="110.0" minWidth="110.0" prefWidth="110.0" text="Publicatiedatum" />
-                  <TableColumn fx:id="herinnering" maxWidth="-1.0" minWidth="80.0" text="Herrinering" />
-                  <TableColumn fx:id="dagen" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Dagen vooraf" />
+                  <TableColumn fx:id="tbcGebruiker" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="Naam Gebruiker" />
+                  <TableColumn fx:id="tbcDatum" maxWidth="110.0" minWidth="110.0" prefWidth="110.0" text="Publicatiedatum" />
+                  <TableColumn fx:id="tbcAutoHerinnering" maxWidth="-1.0" minWidth="80.0" text="Herrinering" />
+                  <TableColumn fx:id="tbcHerinnering" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Dagen vooraf" />
               </columns>
           </TableView>
       <AnchorPane layoutX="10.0" layoutY="10.0" prefWidth="490.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
@@ -34,7 +25,7 @@
                               <Insets bottom="2.0" />
                            </VBox.margin>
                         </Label>
-                                  <TextField fx:id="txtGebruiker" editable="false" prefWidth="280.0" />
+                                  <TextField fx:id="txtGebr" editable="false" prefWidth="280.0" />
                                   <Label fx:id="lblErrorGebruiker" prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false">
                            <VBox.margin>
                               <Insets top="2.0" />
@@ -44,7 +35,7 @@
                               <Insets bottom="2.0" />
                            </VBox.margin>
                         </Label>
-                                  <TextField fx:id="txtDatum" editable="false" prefWidth="280.0" />
+                                  <TextField fx:id="txtPub" editable="false" prefWidth="280.0" />
                                   <Label fx:id="lblErrorDatum" prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false">
                            <VBox.margin>
                               <Insets top="2.0" />
@@ -54,7 +45,7 @@
                               <Insets bottom="2.0" />
                            </VBox.margin>
                         </Label>
-                                  <ChoiceBox fx:id="cbDagen" disable="true" prefWidth="280.0" />
+                                  <ChoiceBox fx:id="cbAutom" disable="true" prefWidth="280.0" />
                               </children>
                               <HBox.margin>
                                   <Insets />
@@ -66,7 +57,7 @@
                            <VBox.margin>
                               <Insets bottom="2.0" />
                            </VBox.margin></Label>
-                                  <TextArea fx:id="txtInhoud" editable="false">
+                                  <TextArea fx:id="txfInhoud" editable="false">
                                       <VBox.margin>
                                           <Insets />
                                       </VBox.margin>
@@ -82,8 +73,8 @@
                       <children>
                   <Pane fx:id="pOnderaan" prefWidth="150.0">
                      <children>
-                                <Button fx:id="btnWijzig" mnemonicParsing="false" prefWidth="150.0" text="Wijzig" />
-                        <Button fx:id="btnOpslaan" disable="true" mnemonicParsing="false" prefWidth="150.0" text="Opslaan" visible="false" />
+                                <Button fx:id="btnBewerkenAankondiging" mnemonicParsing="false" prefWidth="150.0" text="Wijzig" />
+                        <Button fx:id="btnOpslaanAankondiging" disable="true" mnemonicParsing="false" prefWidth="150.0" text="Opslaan" visible="false" />
                      </children>
                      <opaqueInsets>
                         <Insets />
@@ -92,12 +83,12 @@
                         <Insets />
                      </HBox.margin>
                   </Pane>
-                          <Button fx:id="bntNieuw" mnemonicParsing="false" prefWidth="150.0" text="Nieuw">
+                          <Button fx:id="btnNieuweAankondiging" mnemonicParsing="false" prefWidth="150.0" text="Nieuw">
                               <HBox.margin>
                                   <Insets />
                               </HBox.margin>
                           </Button>
-                          <Button fx:id="btnverwijder" mnemonicParsing="false" prefWidth="150.0" text="Verwijder">
+                          <Button fx:id="btnVerwijderAankondiging" mnemonicParsing="false" prefWidth="150.0" text="Verwijder">
                               <HBox.margin>
                                   <Insets />
                               </HBox.margin>

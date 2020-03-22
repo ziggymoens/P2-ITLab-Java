@@ -112,7 +112,7 @@ public class Aankondiging implements IAankondiging {
 
     private void setInhoud(String inhoud) {
         if (inhoud == null || inhoud.isBlank()) {
-            throw new HerinneringException();
+            throw new HerinneringException("");
         }
         this.inhoud = inhoud;
     }

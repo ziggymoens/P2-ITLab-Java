@@ -1,6 +1,8 @@
 package userinterface.sessie.aankondiging;
 
+import domein.Aankondiging;
 import domein.controllers.DomeinController;
+import domein.enums.HerinneringTijdstip;
 import domein.interfacesDomein.IAankondiging;
 import domein.interfacesDomein.ISessie;
 import javafx.beans.value.ChangeListener;
@@ -16,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Optional;
 
 public class BeherenAankondigingController extends AnchorPane {
@@ -124,8 +127,11 @@ public class BeherenAankondigingController extends AnchorPane {
         txtPub.setEditable(false);
         txfInhoud.setEditable(false);
         cbAutom.setDisable(true);
+        boolean autoHerinnering = cbAutom.getSelectionModel().getSelectedItem() == domeinController.geefHerinneringsTijdstippen().get(0);
         if(btnNieuweAankondiging.isDisable()){
             //Nieuwe aankondiging uit dc aanroepen
+            /*domeinController.addAankondigingSessie(domeinController.geefHuidigeISessie().getSessieId(), domeinController.geefHuidigeIGebruiker().getGebruikersnaam(),
+                    txfInhoud.getText(), autoHerinnering, Arrays.stream(HerinneringTijdstip.));*/
             btnNieuweAankondiging.setDisable(false);
         }else{
             //Update methode aanroepen uit dc

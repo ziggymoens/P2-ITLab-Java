@@ -148,6 +148,6 @@ public class BeherenLokaalController extends AnchorPane {
         sessieController.setLokaal((ILokaal) table.getSelectionModel().getSelectedItem());
         Stage stage = (Stage) this.getScene().getWindow();
         stage.close();
-}
+    }
 
 }

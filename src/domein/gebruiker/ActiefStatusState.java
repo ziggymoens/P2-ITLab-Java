@@ -20,6 +20,4 @@ public class ActiefStatusState extends GebruikerStatusState {
     public String getStatus() {
         return "actief";
     }
-
-
 }
