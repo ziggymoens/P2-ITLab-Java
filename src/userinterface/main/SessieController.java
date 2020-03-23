@@ -19,7 +19,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import userinterface.sessie.aankondiging.BeherenAankondigingController;
-import userinterface.sessie.gebruiker.BeherenGebruikerController;
+import userinterface.sessie.gebruiker.GebruikerBeherenController;
 import userinterface.sessie.lokaal.BeherenLokaalController;
 
 import java.io.IOException;
@@ -405,7 +405,7 @@ public class SessieController extends AnchorPane {
     }
 
     private void toonGebruikers(){
-        Scene scene = new Scene(new BeherenGebruikerController(domeinController, this));
+        Scene scene = new Scene(new GebruikerBeherenController(domeinController, this));
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setResizable(false);
@@ -476,7 +476,7 @@ public class SessieController extends AnchorPane {
         sessieTable();
     }
 
-    public void setIGerbuiker(IGebruiker gebruiker){
+    public void setIGebruiker(IGebruiker gebruiker){
         this.tempGebruiker = gebruiker;
         txtVerantwoordelijkeSessie.setText(gebruiker.getNaam());
     }

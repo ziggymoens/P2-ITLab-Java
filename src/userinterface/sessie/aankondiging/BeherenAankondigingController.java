@@ -3,6 +3,7 @@ package userinterface.sessie.aankondiging;
 import domein.Aankondiging;
 import domein.controllers.DomeinController;
 import domein.enums.HerinneringTijdstip;
+import domein.enums.MediaType;
 import domein.interfacesDomein.IAankondiging;
 import domein.interfacesDomein.ISessie;
 import javafx.beans.value.ChangeListener;
@@ -17,9 +18,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class BeherenAankondigingController extends AnchorPane {
     DomeinController domeinController;
@@ -66,6 +69,7 @@ public class BeherenAankondigingController extends AnchorPane {
         vulTable();
         btnOpslaanAankondiging.setDisable(true);
         btnOpslaanAankondiging.setVisible(false);
+        txtPub.setEditable(false);
         table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<IAankondiging>() {
             @Override
             public void changed(ObservableValue<? extends IAankondiging> observableValue, IAankondiging iAankondiging, IAankondiging t1) {
@@ -113,7 +117,6 @@ public class BeherenAankondigingController extends AnchorPane {
         btnOpslaanAankondiging.setVisible(true);
         btnOpslaanAankondiging.setDisable(false);
         txtGebr.setEditable(true);
-        txtPub.setEditable(true);
         txfInhoud.setEditable(true);
         cbAutom.setDisable(false);
     }
@@ -127,20 +130,19 @@ public class BeherenAankondigingController extends AnchorPane {
         txtPub.setEditable(false);
         txfInhoud.setEditable(false);
         cbAutom.setDisable(true);
-        boolean autoHerinnering = cbAutom.getSelectionModel().getSelectedItem() == domeinController.geefHerinneringsTijdstippen().get(0);
+        boolean autoHerinnering = cbAutom.getSelectionModel().getSelectedItem() != domeinController.geefHerinneringsTijdstippen().get(0);
         if(btnNieuweAankondiging.isDisable()){
-            //Nieuwe aankondiging uit dc aanroepen
-            /*domeinController.addAankondigingSessie(domeinController.geefHuidigeISessie().getSessieId(), domeinController.geefHuidigeIGebruiker().getGebruikersnaam(),
-                    txfInhoud.getText(), autoHerinnering, Arrays.stream(HerinneringTijdstip.));*/
+            domeinController.addAankondigingSessie(domeinController.geefHuidigeISessie().getSessieId(), domeinController.geefHuidigeIGebruiker().getGebruikersnaam(),
+                    txfInhoud.getText(), autoHerinnering, stringNaarEnum(cbAutom.getValue()).getDagen());
             btnNieuweAankondiging.setDisable(false);
         }else{
-            //Update methode aanroepen uit dc
+
         }
     }
 
     private void nieuweAankondiging(ActionEvent actionEvent) {
         txtGebr.setText(domeinController.geefHuidigeIGebruiker().getNaam());
-        txtPub.setText("");
+        txtPub.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM HH:mm")));
         txfInhoud.setText("");
         txfInhoud.setEditable(true);
         cbAutom.setDisable(false);
@@ -163,4 +165,27 @@ public class BeherenAankondigingController extends AnchorPane {
         }
     }
 
+    private HerinneringTijdstip stringNaarEnum(String tekst){
+        HerinneringTijdstip h;
+        switch (tekst){
+            case"NUL":
+                h = HerinneringTijdstip.NUL;
+                break;
+            case"EEN":
+                h = HerinneringTijdstip.EEN;
+                break;
+            case"TWEE":
+                h = HerinneringTijdstip.TWEE;
+                break;
+            case"DRIE":
+                h = HerinneringTijdstip.DRIE;
+                break;
+            case"WEEK":
+                h = HerinneringTijdstip.WEEK;
+                break;
+            default:
+                throw new IllegalArgumentException("Geen correcte enum");
+        }
+        return h;
+    }
 }
