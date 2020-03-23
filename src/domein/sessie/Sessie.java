@@ -124,6 +124,13 @@ public class Sessie implements ISessie, Serializable {
         this.aankondigingen = new ArrayList<>();
         this.feedback = new ArrayList<>();
     }
+
+    public void initData(){
+        this.startDatum = startSessie.toLocalDate();
+        this.startUur = startSessie.toLocalTime();
+        this.eindeDatum = startSessie.toLocalDate();
+        this.eindeUur = startSessie.toLocalTime();
+    }
     //endregion
 
     //region Setters

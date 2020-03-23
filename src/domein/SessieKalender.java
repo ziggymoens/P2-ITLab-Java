@@ -4,6 +4,7 @@ import domein.enums.Campus;
 import domein.gebruiker.Gebruiker;
 import domein.interfacesDomein.IGebruiker;
 import domein.sessie.Sessie;
+import org.junit.jupiter.params.shadow.com.univocity.parsers.csv.CsvWriter;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -11,6 +12,7 @@ import javax.persistence.Persistence;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class SessieKalender {
@@ -21,7 +23,6 @@ public class SessieKalender {
 
 
     public SessieKalender() {
-
         initPersistentie();
     }
 
@@ -29,6 +30,7 @@ public class SessieKalender {
         emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         em = emf.createEntityManager();
     }
+
 
     //region Academiejaar
     public List<String> geefAlleAcademieJaren() {
@@ -57,11 +59,19 @@ public class SessieKalender {
     }
 
     public List<Sessie> geefAlleSessiesKalender(int academiejaar) {
-        return (List<Sessie>) em.createQuery("select s from Sessie s where s.verwijderd = false and academiejaar = ?1").setParameter(1, getAcademiejaarById(academiejaar)).getResultList();
+        List<Sessie> sessies = em.createQuery("select s from Sessie s where s.verwijderd = false and academiejaar = ?1").setParameter(1, getAcademiejaarById(academiejaar)).getResultList();
+        for (Sessie sessie : sessies){
+            sessie.initData();
+        }
+        return sessies;
     }
 
     public List<Sessie> geefAlleSessiesKalenderVanGebruiker(int academiejaar, Gebruiker gebruiker) {
-        return (List<Sessie>) em.createQuery("select s from Sessie s where s.verwijderd = false and academiejaar = ?1 and verantwoordelijke = ?2").setParameter(1, getAcademiejaarById(academiejaar)).setParameter(2, gebruiker).getResultList();
+        List<Sessie> sessies = em.createQuery("select s from Sessie s where s.verwijderd = false and academiejaar = ?1 and verantwoordelijke = ?2").setParameter(1, getAcademiejaarById(academiejaar)).setParameter(2, gebruiker).getResultList();
+        for (Sessie sessie : sessies){
+            sessie.initData();
+        }
+        return sessies;
     }
     //endregion
 

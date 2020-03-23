@@ -12,10 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.imageio.ImageIO;
 import javax.persistence.*;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
@@ -71,16 +68,13 @@ public class Media implements IMedia {
         setGebruiker(gebruiker);
         setLocatie(locatie);
         setType(type);
-        /*
         try {
             if (type == MediaType.FOTO) {
-                createAfbeeding(this.locatie);
+                setAfbeelding(this.locatie);
             }
         }catch (Exception e){
             e.printStackTrace();
         }
-
-         */
     }
 
     /**
@@ -139,15 +133,15 @@ public class Media implements IMedia {
         this.verwijderd = verwijderd;
     }
 
-    private void createAfbeeding(String path) throws IOException {
-        File file = new File("storage/profielfotos/profielfoto.png");
+    private void setAfbeelding(String path) throws IOException {
+        File file = new File("/storage/profielfotos/profielfoto.png");
         BufferedImage bufferedImage = ImageIO.read(file);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write(bufferedImage, "png", baos);
         this.afbeelding = baos.toByteArray();
     }
 
-    private void createAfbeeding(File file) throws IOException {
+    private void setAfbeelding(File file) throws IOException {
         BufferedImage bufferedImage = ImageIO.read(file);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write(bufferedImage, "png", baos);
@@ -155,8 +149,8 @@ public class Media implements IMedia {
     }
 
     private File getAfbeeding() throws IOException {
-        ByteArrayInputStream bais = new ByteArrayInputStream(this.afbeelding);
-        BufferedImage bufferedImage = ImageIO.read(bais);
+        InputStream is = new ByteArrayInputStream(this.afbeelding);
+        BufferedImage bufferedImage = ImageIO.read(is);
         File file = null;
         ImageIO.write(bufferedImage, "png", file);
         return file;
