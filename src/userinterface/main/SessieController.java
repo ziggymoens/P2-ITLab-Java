@@ -136,7 +136,6 @@ public class SessieController extends AnchorPane {
             throw new RuntimeException();
         }
 
-        System.out.println(domeinController.geefISessiesHuidigeKalender());
         sessieTable();
         activeerFilters();
         activeerButtons();

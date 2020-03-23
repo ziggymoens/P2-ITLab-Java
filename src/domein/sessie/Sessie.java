@@ -58,6 +58,8 @@ public class Sessie implements ISessie, Serializable {
     private String beschrijving;
 
     @Transient
+    private int aantalAanwezigen;
+    @Transient
     private String stad;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -135,6 +137,8 @@ public class Sessie implements ISessie, Serializable {
         this.eindeUur = startSessie.toLocalTime();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM");
         this.datumString = datum.format(dtf);
+        this.stad = lokaal.getStad();
+        this.aantalAanwezigen = getAantalAanwezigen();
     }
     //endregion
 

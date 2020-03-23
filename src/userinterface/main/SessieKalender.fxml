@@ -77,11 +77,11 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </Label>
-            <TableView fx:id="table" prefHeight="600.0" prefWidth="500.0">
+            <TableView fx:id="tableAj" prefHeight="600.0" prefWidth="500.0">
                <columns>
-                  <TableColumn fx:id="aj" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Academiejaar" />
-                  <TableColumn fx:id="start" prefWidth="75.0" text="Start Datum" />
-                  <TableColumn fx:id="eind" prefWidth="75.0" text="Eind Datum" />
+                  <TableColumn fx:id="academiejaarString" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Academiejaar" />
+                  <TableColumn fx:id="startString" prefWidth="75.0" text="Start Datum" />
+                  <TableColumn fx:id="eindString" prefWidth="75.0" text="Eind Datum" />
                   <TableColumn fx:id="aantalSessies" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" text="Sessies" />
                </columns>
                <columnResizePolicy>
@@ -100,10 +100,10 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </Label>
-            <TableView prefHeight="600.0" prefWidth="600.0">
+            <TableView fx:id="tableSessie" prefHeight="600.0" prefWidth="600.0">
               <columns>
                   <TableColumn fx:id="titel" maxWidth="275.0" minWidth="275.0" prefWidth="275.0" text="Titel" />
-                <TableColumn fx:id="datum" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Datum" />
+                <TableColumn fx:id="datum" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" sortable="false" text="Datum" />
                   <TableColumn fx:id="stad" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Stad" />
                 <TableColumn fx:id="aanwezigen" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" text="Aanwezigen" />
               </columns>

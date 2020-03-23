@@ -23,14 +23,14 @@ public class DomeinController {
     private SessieKalender huidigeSessieKalender;
     private Sessie huidigeSessie;
     private Gebruiker huidigeGebruiker;
-    public int academiejaar;
+    public Academiejaar huidigAcademiejaar;
     //endregion
 
     //region Constructor
     public DomeinController(Gebruiker gebruiker, SessieKalender sessieKalender, LocalDate academiejaar) {
         this.huidigeGebruiker = gebruiker;
         this.huidigeSessieKalender = sessieKalender;
-        this.academiejaar = geefAcademiejaar(academiejaar);
+        this.huidigAcademiejaar = geefAcademiejaarVanDate(academiejaar);
         setTypeController();
     }
 
@@ -49,13 +49,24 @@ public class DomeinController {
     //endregion
 
     //region Academiejaar
-    public List<String> geefAcademiejaren() {
-        return huidigeSessieKalender.geefAlleAcademieJaren();
+    public List<IAcademiejaar> geefAcademiejaren() {
+        return (List<IAcademiejaar>)(Object)huidigeSessieKalender.geefAlleAcademieJaren();
     }
 
-    public void setAcademiejaar(LocalDate jaar) {
-        new DomeinController(huidigeGebruiker, huidigeSessieKalender, jaar);
-        System.gc();
+    public IAcademiejaar geefAcademiejaarVanString (String academiejaar){
+        String[] ajarr = academiejaar.split(" - ");
+        String j1 = ajarr[0].substring(2);
+        String j2 = ajarr[1].substring(2);
+        int jaar = Integer.parseInt(j1+j2);
+        return huidigeSessieKalender.geefAcademiejaarById(jaar);
+    }
+
+    public IAcademiejaar geefAcademiejaarOpId(int academiejaar){
+        return this.huidigeSessieKalender.geefAcademiejaarById(academiejaar);
+    }
+
+    public IAcademiejaar geefHuidigIAcademiejaar(){
+        return this.huidigAcademiejaar;
     }
 
     public List<String> geefMaanden() {
@@ -75,7 +86,7 @@ public class DomeinController {
         return huidigeMaand;
     }
 
-    private static int geefAcademiejaar(LocalDate date) {
+    private Academiejaar geefAcademiejaarVanDate(LocalDate date) {
         int jaar = LocalDate.now().getYear() - 2000;
         int aj = 0;
         if (LocalDate.now().getMonthValue() < 9) {
@@ -83,7 +94,7 @@ public class DomeinController {
         } else {
             aj = Integer.parseInt(String.format("%d%d", jaar, jaar + 1));
         }
-        return aj;
+        return this.huidigeSessieKalender.geefAcademiejaarById(aj);
     }
     //endregion
 
@@ -124,14 +135,10 @@ public class DomeinController {
         String[] startuurarr = veranderingen.get(3).split(":");
         LocalTime startUur = LocalTime.of(Integer.parseInt(startuurarr[0]), Integer.parseInt(startuurarr[1]));
         LocalDateTime start = LocalDateTime.of(dat, startUur);
-        System.out.println("startdatum: " + dat);
-        System.out.println("startuur: " + startUur);
 
         String[] einduurarr = veranderingen.get(4).split(":");
         LocalTime einduur = LocalTime.of(Integer.parseInt(startuurarr[0]), Integer.parseInt(startuurarr[1]));
         LocalDateTime eind = LocalDateTime.of(dat, einduur);
-        System.out.println("einddatum: " + dat);
-        System.out.println("einduur: " + startUur);
 
         Lokaal l = huidigeSessieKalender.geefLokaalById(veranderingen.get(5));
 
@@ -184,11 +191,11 @@ public class DomeinController {
     }
 
     public List<ISessie> geefISessiesHuidigeKalender() {
-        return (List<ISessie>) (Object) typeStrategy.geefAlleSessiesKalender(academiejaar);
+        return (List<ISessie>) (Object) typeStrategy.geefAlleSessiesKalender(huidigAcademiejaar.getAcademiejaar());
     }
 
     public List<ISessie> geefNietGeopendeISessiesHuidigeKalender() {
-        return (List<ISessie>) (Object) typeStrategy.geefAlleSessiesKalender(academiejaar);
+        return (List<ISessie>) (Object) typeStrategy.geefAlleSessiesKalender(huidigAcademiejaar.getAcademiejaar());
     }
 
     public List<ISessie> geefISessiesOpAcademiejaar(Integer academiejaar) {
@@ -219,7 +226,7 @@ public class DomeinController {
     }
 
     public List<ISessie> geefAlleSessiesKalenderVanGebruiker(Gebruiker gebruiker) {
-        return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalenderVanGebruiker(academiejaar, gebruiker);
+        return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalenderVanGebruiker(huidigAcademiejaar.getAcademiejaar(), gebruiker);
     }
 
     public void maakSessieAan(List<String> sessie) {

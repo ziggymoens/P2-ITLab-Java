@@ -11,4 +11,9 @@ public interface IAcademiejaar {
     LocalDate getStart();
 
     LocalDate getEind();
+
+    String getAcademiejaarString();
+    String getStartString();
+    String getEindString();
+    int getAantal ();
 }

@@ -31,8 +31,27 @@ public class SessieKalender {
 
 
     //region Academiejaar
-    public List<String> geefAlleAcademieJaren() {
-        return (List<String>) em.createQuery("select DISTINCT academiejaar from Sessie").getResultList();
+    public List<Academiejaar> geefAlleAcademieJaren() {
+        List<Academiejaar> aj = (List<Academiejaar>) em.createQuery("select aj  from Academiejaar aj").getResultList();
+        for (Academiejaar academiejaar : aj){
+            academiejaar.initTable();
+        }
+        return aj;
+    }
+
+    public void voegAcademieJaarToe(Academiejaar academiejaar) {
+        em.getTransaction().begin();
+        em.persist(academiejaar);
+        em.getTransaction().commit();
+    }
+
+    public Academiejaar geefAcademiejaarById(int jaar){
+        return em.find(Academiejaar.class, jaar);
+    }
+
+    public Academiejaar getAcademiejaarByDate(LocalDateTime datum) {
+        LocalDate d = LocalDate.parse(datum.toString().substring(0,10));
+        return (Academiejaar) em.createQuery("select a from Academiejaar a where ?1 between start and eind").setParameter(1, d).getResultList().get(0);
     }
 
     //endregion
@@ -57,7 +76,7 @@ public class SessieKalender {
     }
 
     public List<Sessie> geefAlleSessiesKalender(int academiejaar) {
-        List<Sessie> sessies = em.createQuery("select s from Sessie s where s.verwijderd = false and academiejaar = ?1").setParameter(1, getAcademiejaarById(academiejaar)).getResultList();
+        List<Sessie> sessies = em.createQuery("select s from Sessie s where s.verwijderd = false and academiejaar = ?1").setParameter(1, geefAcademiejaarById(academiejaar)).getResultList();
         for (Sessie sessie : sessies){
             sessie.initData();
         }
@@ -66,12 +85,12 @@ public class SessieKalender {
 
     public List<Sessie> geefAlleNietOpenSessiesKalender(int academiejaar){
         LocalDate vandaag = LocalDate.now();
-        List <Sessie> sessies = (List<Sessie>) em.createQuery("select s from Sessie s where s.verwijderd = false and academiejaar = ?1").setParameter(1, getAcademiejaarById(academiejaar)).getResultList();
+        List <Sessie> sessies = (List<Sessie>) em.createQuery("select s from Sessie s where s.verwijderd = false and academiejaar = ?1").setParameter(1, geefAcademiejaarById(academiejaar)).getResultList();
         return sessies.stream().filter(s -> s.getStartSessie().toLocalDate().isAfter(vandaag)).collect(Collectors.toList());
     }
 
     public List<Sessie> geefAlleSessiesKalenderVanGebruiker(int academiejaar, Gebruiker gebruiker) {
-        List<Sessie> sessies = em.createQuery("select s from Sessie s where s.verwijderd = false and academiejaar = ?1 and verantwoordelijke = ?2").setParameter(1, getAcademiejaarById(academiejaar)).setParameter(2, gebruiker).getResultList();
+        List<Sessie> sessies = em.createQuery("select s from Sessie s where s.verwijderd = false and academiejaar = ?1 and verantwoordelijke = ?2").setParameter(1, geefAcademiejaarById(academiejaar)).setParameter(2, gebruiker).getResultList();
         for (Sessie sessie : sessies){
             sessie.initData();
         }
@@ -319,19 +338,4 @@ public class SessieKalender {
         em.getTransaction().commit();
     }
     //endregion
-
-    public void voegAcademieJaarToe(Academiejaar academiejaar) {
-        em.getTransaction().begin();
-        em.persist(academiejaar);
-        em.getTransaction().commit();
-    }
-
-    public Academiejaar getAcademiejaarById(int jaar){
-        return em.find(Academiejaar.class, jaar);
-    }
-
-    public Academiejaar getAcademiejaarByDate(LocalDateTime datum) {
-        LocalDate d = LocalDate.parse(datum.toString().substring(0,10));
-        return (Academiejaar) em.createQuery("select a from Academiejaar a where ?1 between start and eind").setParameter(1, d).getResultList().get(0);
-    }
 }

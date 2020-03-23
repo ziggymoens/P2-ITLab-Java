@@ -37,7 +37,7 @@
                       <TableView fx:id="table" prefHeight="360.0" prefWidth="290.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
                           <columns>
                               <TableColumn fx:id="titel" editable="false" maxWidth="300.0" minWidth="300.0" prefWidth="300.0" text="Titel" />
-                              <TableColumn fx:id="startSessie" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Start" />
+                              <TableColumn fx:id="startSessie" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" sortable="false" text="Start" />
                               <TableColumn fx:id="maximumAantalPlaatsen" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Plaatsen" />
                           </columns>
                       </TableView>
