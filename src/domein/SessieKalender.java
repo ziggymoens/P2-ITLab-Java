@@ -4,7 +4,6 @@ import domein.enums.Campus;
 import domein.gebruiker.Gebruiker;
 import domein.interfacesDomein.IGebruiker;
 import domein.sessie.Sessie;
-import org.junit.jupiter.params.shadow.com.univocity.parsers.csv.CsvWriter;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,7 +11,6 @@ import javax.persistence.Persistence;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class SessieKalender {
@@ -49,7 +47,7 @@ public class SessieKalender {
 
     public void verwijderSessie(Sessie sessie) {
         em.getTransaction().begin();
-        sessie.setVerwijderd(true);
+        sessie.verwijder(true);
         em.getTransaction().commit();
     }
 
@@ -64,6 +62,12 @@ public class SessieKalender {
             sessie.initData();
         }
         return sessies;
+    }
+
+    public List<Sessie> geefAlleNietOpenSessiesKalender(int academiejaar){
+        LocalDate vandaag = LocalDate.now();
+        List <Sessie> sessies = (List<Sessie>) em.createQuery("select s from Sessie s where s.verwijderd = false and academiejaar = ?1").setParameter(1, getAcademiejaarById(academiejaar)).getResultList();
+        return sessies.stream().filter(s -> s.getStartSessie().toLocalDate().isAfter(vandaag)).collect(Collectors.toList());
     }
 
     public List<Sessie> geefAlleSessiesKalenderVanGebruiker(int academiejaar, Gebruiker gebruiker) {

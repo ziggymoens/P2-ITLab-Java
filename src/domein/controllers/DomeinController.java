@@ -93,6 +93,25 @@ public class DomeinController {
         return Arrays.asList(keuzeVoorZoeken);
     }
 
+    public boolean isSessieOpen(){
+        if(huidigeSessie.getCurrentState().equals("OPEN") || huidigeSessie.getCurrentState().equals("GESLOTEN")){
+            return true;
+        }
+        return false;
+    }
+    public boolean isSessieGesloten(){
+        if(huidigeSessie.getCurrentState().equals("GESLOTEN")){
+            return true;
+        }
+        return false;
+    }
+    public boolean isZichtbaar(){
+        if(huidigeSessie.getCurrentState().equals("ZICHTBAAR") || huidigeSessie.getCurrentState().equals("OPEN") || huidigeSessie.getCurrentState().equals("GESLOTEN")){
+            return true;
+        }
+        return false;
+    }
+
     public void updateSessie(List<String> veranderingen) {
         List<Object> objVeranderingen = new ArrayList<>();
 
@@ -100,53 +119,30 @@ public class DomeinController {
 
         String titel = veranderingen.get(1);
 
-/*        String[] startarr = veranderingen.get(2).split(" ");
-        String[] startdatarr = startarr[0].split("/");
-        String[] startuurarr = startarr[1].split(":");
-        int jaar = LocalDate.now().getYear();
-        if(Integer.parseInt(startdatarr[1])<8){
-            jaar = LocalDate.now().getYear()+1;
-        }
-        LocalDate startDate = LocalDate.of(jaar, Integer.parseInt(startdatarr[1]), Integer.parseInt(startdatarr[0]));
-        LocalTime startUur = LocalTime.of(Integer.parseInt(startuurarr[0]), Integer.parseInt(startuurarr[1]));
-        LocalDateTime start = LocalDateTime.of(startDate, startUur);
+        LocalDate dat = LocalDate.parse(veranderingen.get(2));
 
-
-        String[] eindarr = veranderingen.get(3).split(" ");
-        String[] eindatarr = eindarr[0].split("/");
-        String[] einuurarr = eindarr[1].split(":");
-        int jaar1 = LocalDate.now().getYear();
-        if(Integer.parseInt(eindatarr[1])<8){
-            jaar1 = LocalDate.now().getYear()+1;
-        }
-        LocalDate eindDate = LocalDate.of(jaar, Integer.parseInt(eindatarr[1]), Integer.parseInt(eindatarr[0]));
-        LocalTime eindUur = LocalTime.of(Integer.parseInt(einuurarr[0]), Integer.parseInt(einuurarr[1]));
-        LocalDateTime eind = LocalDateTime.of(eindDate, eindUur);*/
-
-        LocalDate startdat = LocalDate.parse(veranderingen.get(2));
         String[] startuurarr = veranderingen.get(3).split(":");
         LocalTime startUur = LocalTime.of(Integer.parseInt(startuurarr[0]), Integer.parseInt(startuurarr[1]));
-        LocalDateTime start = LocalDateTime.of(startdat, startUur);
-        System.out.println("startdatum: " + startdat);
+        LocalDateTime start = LocalDateTime.of(dat, startUur);
+        System.out.println("startdatum: " + dat);
         System.out.println("startuur: " + startUur);
 
-        LocalDate einddat = LocalDate.parse(veranderingen.get(4));
-        String[] einduurarr = veranderingen.get(5).split(":");
+        String[] einduurarr = veranderingen.get(4).split(":");
         LocalTime einduur = LocalTime.of(Integer.parseInt(startuurarr[0]), Integer.parseInt(startuurarr[1]));
-        LocalDateTime eind = LocalDateTime.of(einddat, einduur);
-        System.out.println("einddatum: " + startdat);
+        LocalDateTime eind = LocalDateTime.of(dat, einduur);
+        System.out.println("einddatum: " + dat);
         System.out.println("einduur: " + startUur);
 
-        Lokaal l = huidigeSessieKalender.geefLokaalById(veranderingen.get(6));
+        Lokaal l = huidigeSessieKalender.geefLokaalById(veranderingen.get(5));
 
-        Integer i = Integer.parseInt(veranderingen.get(8));
+        Integer i = Integer.parseInt(veranderingen.get(7));
 
         objVeranderingen.add(0, verantwoordelijke);
         objVeranderingen.add(1, titel);
         objVeranderingen.add(2, start);
         objVeranderingen.add(3, eind);
         objVeranderingen.add(4, l);
-        objVeranderingen.add(5, veranderingen.get(7));
+        objVeranderingen.add(5, veranderingen.get(6));
         objVeranderingen.add(6, i);
         typeStrategy.bewerkSessie(huidigeSessie, objVeranderingen);
     }
@@ -191,6 +187,10 @@ public class DomeinController {
         return (List<ISessie>) (Object) typeStrategy.geefAlleSessiesKalender(academiejaar);
     }
 
+    public List<ISessie> geefNietGeopendeISessiesHuidigeKalender() {
+        return (List<ISessie>) (Object) typeStrategy.geefAlleSessiesKalender(academiejaar);
+    }
+
     public List<ISessie> geefISessiesOpAcademiejaar(Integer academiejaar) {
         return (List<ISessie>) (Object) typeStrategy.geefAlleSessiesKalender(academiejaar);
     }
@@ -223,7 +223,6 @@ public class DomeinController {
     }
 
     public void maakSessieAan(List<String> sessie) {
-        //iterator
         Sessie s = new Sessie(sessie.get(0), sessie.get(1), LocalDateTime.parse(sessie.get(2)), LocalDateTime.parse(sessie.get(3)),
                 huidigeSessieKalender.geefLokaalById(sessie.get(4)), huidigeSessieKalender.geefGebruikerById(sessie.get(5)), huidigeSessieKalender.getAcademiejaarByDate(LocalDateTime.parse(sessie.get(6))));
         typeStrategy.maakSessieAan(s);

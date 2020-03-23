@@ -37,8 +37,8 @@
                       <TableView fx:id="table" prefHeight="360.0" prefWidth="290.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
                           <columns>
                               <TableColumn fx:id="titel" editable="false" maxWidth="300.0" minWidth="300.0" prefWidth="300.0" text="Titel" />
-                              <TableColumn fx:id="startSessie" editable="false" maxWidth="140.0" minWidth="140.0" prefWidth="140.0" text="Start" />
-                              <TableColumn fx:id="maximumAantalPlaatsen" editable="false" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" text="Plaatsen" />
+                              <TableColumn fx:id="startSessie" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Start" />
+                              <TableColumn fx:id="maximumAantalPlaatsen" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Plaatsen" />
                           </columns>
                       </TableView>
                </children>
@@ -77,7 +77,7 @@
                         </Label>
                         <HBox>
                            <children>
-                              <DatePicker fx:id="dpStart" prefHeight="30.0" prefWidth="230.0" promptText="Datum van de sessie">
+                              <DatePicker fx:id="dpStart" editable="false" prefHeight="30.0" prefWidth="230.0" promptText="Datum van de sessie">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
@@ -87,7 +87,7 @@
                               <Insets />
                            </VBox.margin>
                         </HBox>
-                                    <Label fx:id="lblErrorStart" alignment="CENTER" prefHeight="18.0" prefWidth="290.0" text="Label" textFill="RED" visible="false">
+                                    <Label fx:id="lblErrorDatum" alignment="CENTER" prefHeight="18.0" prefWidth="290.0" text="Label" textFill="RED" visible="false">
                            <VBox.margin>
                               <Insets top="2.0" />
                            </VBox.margin></Label>
@@ -102,11 +102,11 @@
                         </Label>
                         <HBox alignment="CENTER" spacing="10.0">
                            <children>
-                              <TextField fx:id="txtEind" editable="false" prefHeight="30.0" prefWidth="100.0" promptText="Start uur" />
-                              <TextField fx:id="txtStart" editable="false" prefHeight="30.0" prefWidth="100.0" promptText="Eind uur" />
+                              <TextField fx:id="txtStart" editable="false" prefHeight="30.0" prefWidth="100.0" promptText="Start uur" />
+                              <TextField fx:id="txtEind" editable="false" prefHeight="30.0" prefWidth="100.0" promptText="Eind uur" />
                            </children>
                         </HBox>
-                        <Label fx:id="lblErrorEind" alignment="CENTER" prefHeight="18.0" prefWidth="290.0" text="Label" textFill="RED" visible="false" />
+                        <Label fx:id="lblErrorUur" alignment="CENTER" prefHeight="18.0" prefWidth="290.0" text="Label" textFill="RED" visible="false" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" layoutY="180.0" maxWidth="230.0" prefHeight="70.0" AnchorPane.leftAnchor="10.0">
@@ -165,7 +165,7 @@
                                     <Insets />
                                  </HBox.margin>
                               </TextField>
-                              <CheckBox fx:id="cbMax" mnemonicParsing="false" prefHeight="30.0" text="Maximum" />
+                              <CheckBox fx:id="cbMax" disable="true" mnemonicParsing="false" prefHeight="30.0" text="Maximum" />
                            </children>
                         </HBox>
                                 <Label fx:id="lblErrorMaxPlaatsen" alignment="CENTER" prefHeight="18.0" prefWidth="290.0" text="Label" textFill="RED" visible="false">
@@ -176,13 +176,13 @@
                         </VBox>
                   <VBox layoutY="330.0" maxWidth="230.0" AnchorPane.leftAnchor="10.0">
                      <children>
-                        <CheckBox fx:id="cbOpenSessie" alignment="TOP_LEFT" maxWidth="230.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="230.0" text="Open Sessie" />
+                        <CheckBox fx:id="cbOpenSessie" alignment="TOP_LEFT" disable="true" maxWidth="230.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="230.0" text="Open Sessie" />
                      </children>
                   </VBox>
                   <HBox layoutX="230.0" layoutY="330.0" prefWidth="230.0" spacing="20.0" AnchorPane.rightAnchor="10.0">
                      <children>
-                        <CheckBox fx:id="cbZichtbaar" alignment="TOP_LEFT" maxWidth="115.0" mnemonicParsing="false" prefHeight="30.0" text="Zichtbaar" />
-                        <CheckBox fx:id="cbNietZichtbaar" alignment="TOP_LEFT" maxWidth="115.0" mnemonicParsing="false" prefHeight="30.0" selected="true" text="Niet Zichtbaar" />
+                        <CheckBox fx:id="cbZichtbaar" alignment="TOP_LEFT" disable="true" maxWidth="115.0" mnemonicParsing="false" prefHeight="30.0" text="Zichtbaar" />
+                        <CheckBox fx:id="cbNietZichtbaar" alignment="TOP_LEFT" disable="true" maxWidth="115.0" mnemonicParsing="false" prefHeight="30.0" text="Niet Zichtbaar" />
                      </children>
                   </HBox>
                       <HBox alignment="CENTER" prefWidth="640.0" spacing="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">

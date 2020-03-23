@@ -13,6 +13,8 @@ public interface TypeStrategy {
 
     List<Sessie> geefAlleSessiesKalender(Integer jaar);
 
+    List<Sessie> geefAlleNietGeopendeSessiesKalender(Integer jaar);
+
     List<Sessie> geefAlleSessiesTitel(String titel);
 
     List<Sessie> geefAlleSessiesDatum(LocalDate datum);

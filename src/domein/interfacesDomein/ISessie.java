@@ -15,11 +15,11 @@ public interface ISessie {
 
     LocalDateTime getEindeSessie();
 
-    LocalDate getStartDatum();
+    LocalDate getDatum();
+
+    String getDatumString();
 
     LocalTime getStartUur();
-
-    LocalDate getEindeDatum();
 
     LocalTime getEindeUur();
 
@@ -50,6 +50,8 @@ public interface ISessie {
     int getAantalAanwezigen();
 
     int getBeschikbarePlaatsen();
+
+    String getStad();
 
     String toString_Kalender();
 }

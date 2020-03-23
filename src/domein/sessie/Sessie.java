@@ -16,6 +16,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -39,22 +40,25 @@ public class Sessie implements ISessie, Serializable {
     @NotNull
     private String titel;
     private String naamGastspreker;
+    @Transient
+    private LocalDate datum;
+    @Transient
+    private String datumString;
     @NotNull
     private LocalDateTime startSessie;
-    @Transient
-    private LocalDate startDatum;
     @Transient
     private LocalTime startUur;
     @NotNull
     private LocalDateTime eindeSessie;
-    @Transient
-    private LocalDate eindeDatum;
     @Transient
     private LocalTime eindeUur;
     @NotNull
     private int maximumAantalPlaatsen;
 
     private String beschrijving;
+
+    @Transient
+    private String stad;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Academiejaar academiejaar;
@@ -126,42 +130,44 @@ public class Sessie implements ISessie, Serializable {
     }
 
     public void initData(){
-        this.startDatum = startSessie.toLocalDate();
+        this.datum = startSessie.toLocalDate();
         this.startUur = startSessie.toLocalTime();
-        this.eindeDatum = startSessie.toLocalDate();
         this.eindeUur = startSessie.toLocalTime();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM");
+        this.datumString = datum.format(dtf);
     }
     //endregion
 
     //region Setters
-    public void setTitel(String titel) {
+    protected void setTitel(String titel) {
         if (titel.isBlank()) {
             throw new SessieException("Titel;Titel mag niet leeg zijn.");
         }
         this.titel = titel;
     }
 
-    public void setNaamGastspreker(String naamGastspreker) {
+    protected void setNaamGastspreker(String naamGastspreker) {
         if (naamGastspreker == null || naamGastspreker.isBlank()) {
             throw new SessieException();
         }
         this.naamGastspreker = naamGastspreker;
     }
 
-    public void setStartSessie(LocalDateTime startSessie) {
+    protected void setStartSessie(LocalDateTime startSessie) {
         this.startSessie = startSessie;
-        this.startDatum = startSessie.toLocalDate();
+        this.datum = startSessie.toLocalDate();
         this.startUur = startSessie.toLocalTime();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM");
+        this.datumString = datum.format(dtf);
     }
 
-    public void setEindeSessie(LocalDateTime eindeSessie) {
+    protected void setEindeSessie(LocalDateTime eindeSessie) {
         this.eindeSessie = eindeSessie;
-        this.eindeDatum = startSessie.toLocalDate();
         this.eindeUur = startSessie.toLocalTime();
 
     }
 
-    public void setMaximumAantalPlaatsen(int maximumAantalPlaatsen) {
+    protected void setMaximumAantalPlaatsen(int maximumAantalPlaatsen) {
         if (lokaal.getAantalPlaatsen() < maximumAantalPlaatsen) {
             throw new SessieException("MaximumPlaatsen.Aantal plaatsen is overschrijd limiet lokaal.");
         }
@@ -169,32 +175,31 @@ public class Sessie implements ISessie, Serializable {
 
     }
 
-    public void setVerantwoordelijke(Gebruiker verantwoordelijke) {
+    protected void setVerantwoordelijke(Gebruiker verantwoordelijke) {
         this.verantwoordelijke = verantwoordelijke;
 
     }
 
-    public void setLokaal(Lokaal lokaal) {
+    protected void setLokaal(Lokaal lokaal) {
         if (lokaal == null) {
             throw new SessieException("Lokaal;Lokaal mag niet null zijn.");
         }
         this.lokaal = lokaal;
-
+        stad = lokaal.getStad();
     }
 
-    public void setVerwijderd(boolean verwijderd) {
+    protected void setVerwijderd(boolean verwijderd) {
         this.verwijderd = verwijderd;
-
     }
 
-    private void setAcademiejaar(Academiejaar academiejaar) {
+    protected void setAcademiejaar(Academiejaar academiejaar) {
         if (academiejaar == null) {
             throw new SessieException("Academiejaar");
         }
         this.academiejaar = academiejaar;
     }
 
-    public void setBeschrijving(String beschrijving) {
+    protected void setBeschrijving(String beschrijving) {
         this.beschrijving = beschrijving;
     }
 
@@ -224,8 +229,13 @@ public class Sessie implements ISessie, Serializable {
     }
 
     @Override
-    public LocalDate getStartDatum() {
-        return startDatum;
+    public LocalDate getDatum() {
+        return datum;
+    }
+
+    @Override
+    public String getDatumString() {
+        return datumString;
     }
 
     @Override
@@ -234,13 +244,13 @@ public class Sessie implements ISessie, Serializable {
     }
 
     @Override
-    public LocalDate getEindeDatum() {
-        return eindeDatum;
+    public LocalTime getEindeUur() {
+        return eindeUur;
     }
 
     @Override
-    public LocalTime getEindeUur() {
-        return eindeUur;
+    public String getStad() {
+        return lokaal.getStad();
     }
 
     @Override
@@ -487,64 +497,12 @@ public class Sessie implements ISessie, Serializable {
      * @param gegevens (Gebruiker gebruiker, String titel, LocalDateTime start, LocalDateTime einde, Lokaal lokaal, String gastspreker)
      */
     public void update(List<Object> gegevens) { //aantal plaatsen moet nog veranderen
-        try {
-            if (gegevens.get(0) != null) {
-                setVerantwoordelijke((Gebruiker) gegevens.get(0));
-            }
-            if (gegevens.get(1) != null && !((String) gegevens.get(1)).isBlank()) {
-                setTitel((String) gegevens.get(1));
-            }
-            if (gegevens.get(2) != null) {
-                setStartSessie((LocalDateTime) gegevens.get(2));
-            }
-            if (gegevens.get(3) != null) {
-                setEindeSessie((LocalDateTime) gegevens.get(3));
-            }
-            if (gegevens.get(4) != null) {
-                setLokaal((Lokaal) gegevens.get(4));
-            }
-            if (gegevens.get(5) != null && !((String) gegevens.get(5)).isBlank()) {
-                setNaamGastspreker((String) gegevens.get(5));
-            }
-            if (gegevens.get(6) != null) {
-                setMaximumAantalPlaatsen((Integer) gegevens.get(6));
-            }
-            //controleData();
-        } catch (Exception e) {
-            throw new SessieException("Update");
-        }
+            this.currentState.update(gegevens);
     }
-/*
-    public void updateSessie(Map<String, String> veranderingenMap, List<ILokaal> lokaal) {
-        veranderingenMap.forEach((key, value) -> {
-            switch (key) {
-                case "naamverantwoordelijke":
-                    setNaamGastspreker(value);
-                    break;
-                case "titel":
-                    setTitel(value);
-                    break;
-                case "naamGastspreker":
-                    setNaamGastspreker(value);
-                    break;
-                case "lokaal":
-                    String[] str = value.split(",");
-                    setLokaal((Lokaal) lokaal.stream().filter(e -> e.getLokaalCode().equals(str[0])).findFirst().orElse(null));
-                    break;
-                case "start":
-                    //s.setStartSessie(LocalDateTime.parse(value));
-                    break;
-                case "eind":
-                    //s.setEindeSessie(LocalDateTime.parse(value));
-                    break;
-                case "maxPlaatsen":
-                    setMaximumAantalPlaatsen(Integer.parseInt(value));
-                    break;
-            }
 
-        });
+    public void verwijder(boolean verwijder){
+            this.currentState.verwijder(verwijder);
     }
- */
 
     public void verwijderMedia(Media mediaOud) {
         media.remove(mediaOud);

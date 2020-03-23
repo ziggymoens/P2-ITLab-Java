@@ -150,4 +150,9 @@ public class HoofdverantwoordelijkeStrategy implements TypeStrategy {
         aj = jaar;
         return huidigeSessieKalender.geefAlleSessiesKalender(jaar);
     }
+
+    @Override
+    public List<Sessie> geefAlleNietGeopendeSessiesKalender(Integer jaar) {
+        return null;
+    }
 }

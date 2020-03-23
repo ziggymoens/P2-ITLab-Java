@@ -7,7 +7,6 @@ import domein.interfacesDomein.ISessie;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,7 +16,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import userinterface.sessie.aankondiging.BeherenAankondigingController;
@@ -67,16 +65,14 @@ public class SessieController extends AnchorPane {
     @FXML
     private DatePicker dpStart;
     @FXML
-    private TextField txtStart;
-    @FXML
-    private Label lblErrorStart;
+    private Label lblErrorDatum;
 
     @FXML
-    private DatePicker dpEind;
+    private TextField txtStart;
     @FXML
     private TextField txtEind;
     @FXML
-    private Label lblErrorEind;
+    private Label lblErrorUur;
 
     @FXML
     private TextField txtVerantwoordelijkeSessie;
@@ -101,6 +97,13 @@ public class SessieController extends AnchorPane {
     @FXML
     private CheckBox cbMax;
 
+    @FXML
+    private CheckBox cbOpenSessie;
+
+    @FXML
+    private CheckBox cbZichtbaar;
+    @FXML
+    private CheckBox cbNietZichtbaar;
 
     @FXML
     private Button btnBewerkenSessie;
@@ -144,7 +147,7 @@ public class SessieController extends AnchorPane {
         table.getColumns().clear();
 
         titel.setCellValueFactory(new PropertyValueFactory<>("titel"));
-        startSessie.setCellValueFactory(new PropertyValueFactory<>("startSessie"));
+        startSessie.setCellValueFactory(new PropertyValueFactory<>("datumString"));
         maximumAantalPlaatsen.setCellValueFactory(new PropertyValueFactory<>("maximumAantalPlaatsen"));
 
         table.setItems(FXCollections.observableArrayList(domeinController.geefISessiesHuidigeKalender()));
@@ -160,7 +163,7 @@ public class SessieController extends AnchorPane {
                 if(iSessie != null){sessie = iSessie;}
                 if(t1 != null){domeinController.setHuidigeISessie(t1);}
                 choiceBoxMaand.setValue(domeinController.vergelijkMaanden());
-                //zetVeldenBewerken(false);
+                zetVeldenBewerken(false);
                 vulDetails();
             }
         });
@@ -176,33 +179,38 @@ public class SessieController extends AnchorPane {
 
     private void vulDetails() {
         lblTitelSessie.setText(domeinController.geefHuidigeISessie().getTitel());
-        System.out.println("titel");
         txtTitelSessie.setText(domeinController.geefHuidigeISessie().getTitel());
-        System.out.println("titel2");
-        dpStart.setValue(domeinController.geefHuidigeISessie().getStartDatum());
-        System.out.println("startdate");
-        System.out.println(domeinController.geefHuidigeISessie().getEindeDatum());
-        dpEind.setValue(domeinController.geefHuidigeISessie().getEindeDatum());
-        System.out.println("eindedate");
+        dpStart.setValue(domeinController.geefHuidigeISessie().getDatum());
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("hh:mm");
         txtStart.setText(domeinController.geefHuidigeISessie().getStartUur().format(dtf));
-        System.out.println("startuur");
         txtEind.setText(domeinController.geefHuidigeISessie().getEindeUur().format(dtf));
-        System.out.println("einduur");
         txtMaxPlaatsenSessie.setText(Integer.toString(domeinController.geefHuidigeISessie().getMaximumAantalPlaatsen()));
-        System.out.println("maxplaatsen");
         txtGastsprekerSessie.setText(domeinController.geefHuidigeISessie().getNaamGastspreker());
-        System.out.println("gastspreker");
-        //tempGebruiker = domeinController.geefHuidigeISessie().getVerantwoordelijke();
-        System.out.println("tempgebruiker");
+        tempGebruiker = domeinController.geefHuidigeISessie().getVerantwoordelijke();
         txtVerantwoordelijkeSessie.setText(domeinController.geefHuidigeISessie().getVerantwoordelijke().getNaam());
-        System.out.println("verantwoordelijke");
         txtLokaalSessie.setText(domeinController.geefHuidigeISessie().getLokaal().getLokaalCode());
-        System.out.println("lokaal");
         txtBeschrijving.setText(domeinController.geefHuidigeISessie().getBeschrijving());
-        System.out.println("beschrijving");
         tempLokaal = domeinController.geefHuidigeISessie().getLokaal();
-
+        cbOpenSessie.setSelected(domeinController.isSessieOpen());
+        if(domeinController.isSessieGesloten()){
+            cbOpenSessie.setDisable(true);
+        }
+        cbZichtbaar.setSelected(domeinController.isZichtbaar());
+        cbNietZichtbaar.setSelected(!domeinController.isZichtbaar());
+        cbZichtbaar.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                cbZichtbaar.setSelected(t1);
+                cbNietZichtbaar.setSelected(!t1);
+            }
+        });
+        cbNietZichtbaar.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                cbZichtbaar.setSelected(!t1);
+                cbNietZichtbaar.setSelected(t1);
+            }
+        });
         cbMax.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
@@ -244,27 +252,26 @@ public class SessieController extends AnchorPane {
         btnBewerkenSessie.setVisible(!b);
         btnOpslaanSessie.setDisable(!b);
         btnOpslaanSessie.setVisible(b);
-        cbMax.setDisable(!b);
         txtTitelSessie.setEditable(b);
         dpStart.setEditable(b);
+        dpStart.setDisable(!b);
         txtStart.setEditable(b);
-        dpEind.setEditable(b);
         txtEind.setEditable(b);
         txtMaxPlaatsenSessie.setEditable(b);
         txtGastsprekerSessie.setEditable(b);
-        txtVerantwoordelijkeSessie.setOnMouseClicked(this::openGebruikerPicker);
         txtBeschrijving.setEditable(b);
+        cbMax.setDisable(!b);
+        cbNietZichtbaar.setDisable(!b);
+        cbZichtbaar.setDisable(!b);
+        cbOpenSessie.setDisable(!b);
         return b;
-    }
-
-    private void openGebruikerPicker(MouseEvent mouseEvent) {
-        new BeherenGebruikerController(domeinController);
     }
 
 
     private void bewerkenSessie(ActionEvent actionEvent) {
         bewerkenStatus = zetVeldenBewerken(true);
         txtLokaalSessie.setOnMouseClicked(e -> toonLokalen());
+        txtVerantwoordelijkeSessie.setOnMouseClicked(e -> toonGebruikers());
     }
 
     private void verwijderenSessie(ActionEvent actionEvent) {
@@ -278,11 +285,10 @@ public class SessieController extends AnchorPane {
         veranderingen.add(1, txtTitelSessie.getText());
         veranderingen.add(2, dpStart.getValue().toString());
         veranderingen.add(3, txtStart.getText());
-        veranderingen.add(4, dpEind.getValue().toString());
-        veranderingen.add(5, txtEind.getText());
-        veranderingen.add(6, tempLokaal.getLokaalCode());
-        veranderingen.add(7, txtGastsprekerSessie.getText());
-        veranderingen.add(8, txtMaxPlaatsenSessie.getText());
+        veranderingen.add(4, txtEind.getText());
+        veranderingen.add(5, tempLokaal.getLokaalCode());
+        veranderingen.add(6, txtGastsprekerSessie.getText());
+        veranderingen.add(7, txtMaxPlaatsenSessie.getText());
         Map<String, String> fouten = domeinController.controleerDataSessie(veranderingen);
         if(fouten.isEmpty()){
             domeinController.updateSessie(veranderingen);
@@ -301,13 +307,13 @@ public class SessieController extends AnchorPane {
                         this.lblErrorTitel.setText(entry.getValue());
                         this.lblErrorTitel.setVisible(true);
                         break;
-                    case "start":
-                        this.lblErrorStart.setText(entry.getValue());
-                        this.lblErrorStart.setVisible(true);
+                    case "datum":
+                        this.lblErrorDatum.setText(entry.getValue());
+                        this.lblErrorDatum.setVisible(true);
                         break;
-                    case "eind":
-                        this.lblErrorEind.setText(entry.getValue());
-                        this.lblErrorEind.setVisible(true);
+                    case "uur":
+                        this.lblErrorUur.setText(entry.getValue());
+                        this.lblErrorUur.setVisible(true);
                         break;
                     case "gastspreker":
                         this.lblErrorGastspreker.setText(entry.getValue());
@@ -336,8 +342,8 @@ public class SessieController extends AnchorPane {
         lblErrorGastspreker.setVisible(false);
         lblErrorTitel.setVisible(false);
         lblErrorVerantwoordelijke.setVisible(false);
-        lblErrorEind.setVisible(false);
-        lblErrorEind.setVisible(true);
+        lblErrorDatum.setVisible(false);
+        lblErrorUur.setVisible(true);
     }
 
     private void nieuweSessie(ActionEvent actionEvent){}
@@ -397,6 +403,14 @@ public class SessieController extends AnchorPane {
         btnBewerkenSessie.setOnAction(this::bewerkenSessie);
         btnOpslaanSessie.setOnAction(this::opslaanSessie);
         btnVerwijderenSessie.setOnAction(this::verwijderenSessie);
+    }
+
+    private void toonGebruikers(){
+        Scene scene = new Scene(new BeherenGebruikerController(domeinController, this));
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
     }
 
     private void toonLokalen(){

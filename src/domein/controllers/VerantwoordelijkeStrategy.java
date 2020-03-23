@@ -34,6 +34,11 @@ public class VerantwoordelijkeStrategy implements TypeStrategy {
     }
 
     @Override
+    public List<Sessie> geefAlleNietGeopendeSessiesKalender(Integer jaar) {
+        return null;
+    }
+
+    @Override
     public List<Sessie> geefAlleSessiesTitel(String titel) {
         return null;
     }

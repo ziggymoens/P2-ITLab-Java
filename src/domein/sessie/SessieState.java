@@ -2,6 +2,7 @@ package domein.sessie;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -27,6 +28,10 @@ public abstract class SessieState implements Serializable {
     }
 
     public abstract String getStatus();
+
+    public abstract void update(List<Object> gegevens);
+
+    public abstract void verwijder(boolean verwijder);
 
     @Override
     public String toString() {
