@@ -1,7 +1,6 @@
 package userinterface.sessie.gebruiker;
 
 import domein.controllers.DomeinController;
-import domein.gebruiker.Gebruiker;
 import domein.interfacesDomein.IGebruiker;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -9,78 +8,71 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import userinterface.main.SessieController;
 
 import java.io.IOException;
 
-public class BeherenGebruikerController extends AnchorPane {
+public class GebruikerBeherenController extends AnchorPane {
     private DomeinController domeinController;
     private SessieController sessieController;
-    @FXML
-    private HBox hBoxOnderaan1;
-
-    @FXML
-    private VBox vBoxOnderLinks1;
-
-    @FXML
-    private TextField txtFieldSearchbar;
 
     @FXML
     private TableView<IGebruiker> tableViewGebruiker;
 
     @FXML
-    private TableColumn<IGebruiker, String> TVnaam, TVgebruikersnaamChamilo, TVtype, TVstatus;
+    private TableColumn<IGebruiker, String> TVnaam;
 
     @FXML
-    private Button btnKiezen;
+    private TableColumn<IGebruiker, String> TVgebruikersprofiel;
 
-    public BeherenGebruikerController(DomeinController domeinController, SessieController sessieController){
+    @FXML
+    private TextField txtFieldSearchbar;
+
+    @FXML
+    private Button btnKies;
+
+    public GebruikerBeherenController(DomeinController domeinController, SessieController sessieController){
         this.domeinController = domeinController;
         this.sessieController = sessieController;
-        try{
+
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("BeherenGebruiker.fxml"));
-        Parent root = (Parent) loader.load();
         loader.setRoot(this);
         loader.setController(this);
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
+        try {
+            loader.load();
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException();
         }
-
-        vulTableGebruikers(FXCollections.observableArrayList(domeinController.geefAlleIGebruikers()));
+        vulTable(FXCollections.observableArrayList(domeinController.geefAlleVerantwoordelijken()));
         zoek();
+
+        btnKies.setOnAction(this::kiezen);
     }
 
-    private void vulTableGebruikers(ObservableList<IGebruiker> observableArrayList) {
+    private void kiezen(ActionEvent actionEvent) {
+        sessieController.setIGebruiker((IGebruiker) tableViewGebruiker.getSelectionModel().getSelectedItem());
+        Stage stage = (Stage) this.getScene().getWindow();
+        stage.close();
+    }
 
+    private void vulTable(ObservableList observableArrayList) {
         TVnaam.setCellValueFactory(new PropertyValueFactory<>("naam"));
-        TVgebruikersnaamChamilo.setCellValueFactory(new PropertyValueFactory<>("gebruikersnaam"));
-        TVtype.setCellValueFactory(new PropertyValueFactory<>("gebruikersprofiel"));
-        TVstatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-        tableViewGebruiker.getColumns().addAll(TVnaam, TVgebruikersnaamChamilo, TVtype, TVstatus);
-        tableViewGebruiker.setItems(FXCollections.observableArrayList(observableArrayList));
-
-        if(tableViewGebruiker.getSelectionModel().getSelectedItem() != null) {
-            tableViewGebruiker.getSelectionModel().select(0);
-        }
+        TVgebruikersprofiel.setCellValueFactory(new PropertyValueFactory<>("gebruikersprofiel"));
+        tableViewGebruiker.setItems(observableArrayList);
+        tableViewGebruiker.getColumns().addAll(TVnaam, TVgebruikersprofiel);
     }
 
-    private void zoek(){
-        ObservableList data =  tableViewGebruiker.getItems();
+    private void zoek() {
+        ObservableList data = tableViewGebruiker.getItems();
         txtFieldSearchbar.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             if (oldValue != null && (newValue.length() < oldValue.length())) {
                 tableViewGebruiker.setItems(data);
@@ -102,13 +94,4 @@ public class BeherenGebruikerController extends AnchorPane {
         });
     }
 
-    public void clearTableGebruikers(){
-        tableViewGebruiker.getColumns().clear();
-    }
-
-    private void kiezen(ActionEvent actionEvent) {
-        sessieController.setIGerbuiker((IGebruiker) tableViewGebruiker.getSelectionModel().getSelectedItem());
-        Stage stage = (Stage) this.getScene().getWindow();
-        stage.close();
-    }
 }
