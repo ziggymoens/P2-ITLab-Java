@@ -1,6 +1,7 @@
 package userinterface.sessie.gebruiker;
 
 import domein.controllers.DomeinController;
+import domein.gebruiker.Gebruiker;
 import domein.interfacesDomein.IGebruiker;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -39,7 +40,7 @@ public class BeherenGebruikerController extends AnchorPane {
     private TableView<IGebruiker> tableViewGebruiker;
 
     @FXML
-    private TableColumn<IGebruiker, String> TVnaam, TVtype, TVstatus;
+    private TableColumn<IGebruiker, String> TVnaam, TVgebruikersnaamChamilo, TVtype, TVstatus;
 
     @FXML
     private Button btnKiezen;
@@ -50,6 +51,8 @@ public class BeherenGebruikerController extends AnchorPane {
         try{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("BeherenGebruiker.fxml"));
         Parent root = (Parent) loader.load();
+        loader.setRoot(this);
+        loader.setController(this);
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
@@ -58,19 +61,20 @@ public class BeherenGebruikerController extends AnchorPane {
             throw new RuntimeException();
         }
 
-        vulTableGebruikers(FXCollections.observableArrayList(domeinController.geefAlleVerantwoordelijken()));
+        vulTableGebruikers(FXCollections.observableArrayList(domeinController.geefAlleIGebruikers()));
         zoek();
     }
 
     private void vulTableGebruikers(ObservableList<IGebruiker> observableArrayList) {
-        System.out.println(domeinController.geefAlleVerantwoordelijken());
-        TVnaam.setCellValueFactory(new PropertyValueFactory<>("naam"));
-        TVtype.setCellValueFactory(new PropertyValueFactory<>("type"));
-        TVstatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-        tableViewGebruiker.setItems(FXCollections.observableArrayList(observableArrayList));
-        tableViewGebruiker.getColumns().addAll(TVnaam, TVtype, TVstatus);
 
-        if(tableViewGebruiker.getSelectionModel().getSelectedItem() != null){
+        TVnaam.setCellValueFactory(new PropertyValueFactory<>("naam"));
+        TVgebruikersnaamChamilo.setCellValueFactory(new PropertyValueFactory<>("gebruikersnaam"));
+        TVtype.setCellValueFactory(new PropertyValueFactory<>("gebruikersprofiel"));
+        TVstatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        tableViewGebruiker.getColumns().addAll(TVnaam, TVgebruikersnaamChamilo, TVtype, TVstatus);
+        tableViewGebruiker.setItems(FXCollections.observableArrayList(observableArrayList));
+
+        if(tableViewGebruiker.getSelectionModel().getSelectedItem() != null) {
             tableViewGebruiker.getSelectionModel().select(0);
         }
     }

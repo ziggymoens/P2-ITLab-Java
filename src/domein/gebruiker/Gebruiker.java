@@ -104,6 +104,10 @@ public class Gebruiker implements IGebruiker, Serializable {
     }
     //endregion
 
+    public void initTable(){
+
+    }
+
     //region Setters
     private void setProfielfoto(String path) {
         //File file = new File("storage/profielfotos/profielfoto.png");

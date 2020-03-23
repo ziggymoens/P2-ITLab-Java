@@ -26,9 +26,10 @@
                         <Insets left="10.0" />
                     </HBox.margin>
                     <columns>
-                        <TableColumn fx:id="TVnaam" prefWidth="300.0" text="naam" />
-                        <TableColumn fx:id="TVtype" prefWidth="300.0" text="type" />
-                        <TableColumn fx:id="TVstatus" prefWidth="300.0" text="status" />
+                        <TableColumn fx:id="TVnaam" prefWidth="300.0" text="Naam" />
+                  <TableColumn prefWidth="75.0" text="Gebruikersnaam" />
+                        <TableColumn fx:id="TVtype" prefWidth="300.0" text="Type" />
+                        <TableColumn fx:id="TVstatus" prefWidth="300.0" text="Status" />
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
