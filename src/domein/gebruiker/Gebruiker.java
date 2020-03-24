@@ -70,7 +70,7 @@ public class Gebruiker implements IGebruiker, Serializable {
         setCurrentStatus(gebruikersstatus);
         setProfielfoto("storage/profielfotos/profielfoto.png");
         setWachtwoord(wachtwoord);
-        this.inlogPogingen =0;
+        this.inlogPogingen = 0;
         this.laatstIngelogd = LocalDate.now();
     }
 
@@ -250,23 +250,15 @@ public class Gebruiker implements IGebruiker, Serializable {
         try {
             if (gegevens.get(0) != null && !gegevens.get(0).isBlank()) {
                 setNaam(gegevens.get(0));
-                System.out.println("0");
-                System.out.println(gegevens.get(0));
             }
             if (gegevens.get(1) != null && !gegevens.get(1).isBlank()) {
                 setGebruikersnaam(gegevens.get(1));
-                System.out.println("1");
-                System.out.println(gegevens.get(1));
             }
             if (gegevens.get(2) != null && !gegevens.get(2).isBlank()) {
                 setCurrentProfiel(gegevens.get(2));
-                System.out.println("2");
-                System.out.println(gegevens.get(2));
             }
             if (gegevens.get(3) != null && !gegevens.get(3).isBlank()) {
                 setCurrentStatus(gegevens.get(3));
-                System.out.println("3");
-                System.out.println(gegevens.get(3));
             }
         } catch (Exception e){
             throw new GebruikerException("Update");

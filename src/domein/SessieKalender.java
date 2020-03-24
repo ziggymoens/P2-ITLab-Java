@@ -301,7 +301,6 @@ public class SessieKalender {
 
     public void updateGebruiker(Gebruiker gebruiker, List<String> gegevens) {
         em.getTransaction().begin();
-        gebruiker.update(gegevens);
         em.getTransaction().commit();
     }
 

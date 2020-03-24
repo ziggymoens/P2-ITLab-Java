@@ -544,6 +544,9 @@ public class Sessie implements ISessie, Serializable {
     //region State
 
     private void setState(String status) {
+        if(status == null || status.isBlank()){
+            throw new SessieException("State; State mag niet leeg zijn");
+        }
         switch (status) {
             case "open":
                 toState(new OpenState(this));
