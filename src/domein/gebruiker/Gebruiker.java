@@ -82,7 +82,7 @@ public class Gebruiker implements IGebruiker, Serializable {
      * @param gebruikersprofiel (String) ==> Profiel dat de gebruiker aanneemt in het algemeen
      * @param gebruikersstatus  (String) ==> Inlogstatus van de gebruiker
      */
-    public Gebruiker(String naam, String gebruikersnaam, String  gebruikersprofiel, String gebruikersstatus) {
+    public Gebruiker(String naam, String gebruikersnaam, String gebruikersprofiel, String gebruikersstatus) {
         this(naam, gebruikersnaam, gebruikersprofiel, gebruikersstatus, "storage/profielfotos/profielfoto.png", 0, "testExcluded");
     }
 
@@ -125,45 +125,46 @@ public class Gebruiker implements IGebruiker, Serializable {
 
 
     private void setCurrentProfiel(String gebruikersprofiel) {
-        if(gebruikersprofiel == null || gebruikersprofiel.isBlank()){
+        if (gebruikersprofiel == null || gebruikersprofiel.isBlank()) {
             throw new GebruikerException("Gebruikersprofiel is leeg of null");
         }
-
-        switch (gebruikersprofiel){
+        switch (gebruikersprofiel.toLowerCase()) {
             case "hoofdverantwoordelijke":
                 toProfielState(new HoofdverantwoordelijkeState(this));
                 break;
             case "verantwoordelijke":
                 toProfielState(new VerantwoordelijkeState(this));
                 break;
-            default:
             case "gebruiker":
                 toProfielState(new GebruikerState(this));
                 break;
+            default:
+                throw new GebruikerException("Gebruikersprofiel onbekend " + gebruikersprofiel);
         }
-
     }
 
     private void toProfielState(GebruikerProfielState profielState) {
+
         currentProfiel = profielState;
     }
 
 
     private void setCurrentStatus(String status) {
-        if(status == null || status.isBlank()){
+        if (status == null || status.isBlank()) {
             throw new GebruikerException("Gebruikersprofiel is leeg of null");
         }
-        switch (status){
+        switch (status.toLowerCase()) {
             case "actief":
                 toStatusState(new ActiefStatusState(this));
                 break;
             case "geblokkeerd":
                 toStatusState(new GeblokkeerdStatusState(this));
                 break;
-            default:
             case "niet actief":
                 toStatusState(new NietActiefStatusState(this));
                 break;
+            default:
+                throw new GebruikerException("Gebruikerstatus onbekend " +status);
         }
     }
 
@@ -238,15 +239,21 @@ public class Gebruiker implements IGebruiker, Serializable {
         return wachtwoord;
     }
 
+    public GebruikerStatusState getGebruikerStatusState() {
+        return currentStatus;
+    }
+
+    public GebruikerProfielState getGebruikerProfielState() {
+        return currentProfiel;
+    }
     //endregion
 
     //region methodes
 
     /**
-     *
      * @param gegevens (String naam, String gebruikersnaam, String profiel, String Status)
      */
-    public void update(List<String> gegevens){
+    public void update(List<String> gegevens) {
         try {
             if (gegevens.get(0) != null && !gegevens.get(0).isBlank()) {
                 setNaam(gegevens.get(0));
@@ -254,13 +261,14 @@ public class Gebruiker implements IGebruiker, Serializable {
             if (gegevens.get(1) != null && !gegevens.get(1).isBlank()) {
                 setGebruikersnaam(gegevens.get(1));
             }
-            if (gegevens.get(2) != null && !gegevens.get(2).isBlank()) {
-                setCurrentProfiel(gegevens.get(2));
-            }
             if (gegevens.get(3) != null && !gegevens.get(3).isBlank()) {
-                setCurrentStatus(gegevens.get(3));
+                setCurrentProfiel(gegevens.get(3));
             }
-        } catch (Exception e){
+            if (gegevens.get(2) != null && !gegevens.get(2).isBlank()) {
+                setCurrentStatus(gegevens.get(2));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
             throw new GebruikerException("Update");
         }
     }

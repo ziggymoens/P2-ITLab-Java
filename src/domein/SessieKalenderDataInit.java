@@ -55,7 +55,7 @@ public class SessieKalenderDataInit {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] gebruiker = line.split(",");
-                sessieKalender.voegGebruikerToe(new Gebruiker(gebruiker[1], gebruiker[0], gebruiker[2], gebruiker[3], "storage/profielfotos/profielfoto.png", PasswordUtils.generateSecurePassword(gebruiker[4])));
+                sessieKalender.voegGebruikerToe(new Gebruiker(gebruiker[1], gebruiker[0], gebruiker[2], gebruiker[3], "storage/profielfotos/profielfoto.png", gebruiker[4]));
             }
         } catch (IOException e) {
             e.printStackTrace();

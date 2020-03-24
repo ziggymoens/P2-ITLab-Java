@@ -207,9 +207,11 @@ public class GebruikerController extends AnchorPane {
         System.out.println("button opslaan visible");
         txtFieldGebruiker.setEditable(true);
         txtFieldGebruikersnaam.setEditable(true);
-        comboBoxTypeGebruiker.setItems(FXCollections.observableArrayList(Arrays.stream(Gebruikersprofiel.values()).map(Enum::toString).collect(Collectors.toList())));
+        ObservableList<String> type = FXCollections.observableArrayList("gebruiker", "verantwoordelijke", "hoofdverantwoordelijke");
+        ObservableList<String> status = FXCollections.observableArrayList("actief", "niet actief", "geblokkeerd");
+        comboBoxTypeGebruiker.setItems(type);
         comboBoxTypeGebruiker.getSelectionModel().selectFirst();
-        comboBoxStatusGebruiker.setItems(FXCollections.observableArrayList(Arrays.stream(Gebruikersstatus.values()).map(Enum::toString).collect(Collectors.toList())));
+        comboBoxStatusGebruiker.setItems(status);
         comboBoxStatusGebruiker.getSelectionModel().selectFirst();
         btnOpslaan.setOnAction(this::updateGebruiker);
     }

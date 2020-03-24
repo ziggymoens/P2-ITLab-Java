@@ -258,9 +258,10 @@ public class DomeinController {
 
     //region Gebruiker
     public void updateGebruiker(String naam, String gebruikersnaam, String status, String profiel) {
-        List<String> gegevens = new ArrayList<>();
-        gegevens.addAll(Arrays.asList(naam, gebruikersnaam, status, profiel));
-        huidigeGebruiker.update(gegevens);
+        List<String> gegevens = new ArrayList<>(Arrays.asList(naam, gebruikersnaam, status.toLowerCase(), profiel.toLowerCase()));
+        Gebruiker gebruiker = huidigeSessieKalender.geefGebruikerById(gebruikersnaam);
+        System.out.println(gebruiker.toString());
+        huidigeSessieKalender.updateGebruiker(gebruiker, gegevens);
     }
 
     public IGebruiker geefIGebruikerOpId(String id) {

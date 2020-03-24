@@ -301,6 +301,9 @@ public class SessieKalender {
 
     public void updateGebruiker(Gebruiker gebruiker, List<String> gegevens) {
         em.getTransaction().begin();
+        em.remove(gebruiker.getGebruikerProfielState());
+        em.remove(gebruiker.getGebruikerStatusState());
+        gebruiker.update(gegevens);
         em.getTransaction().commit();
     }
 
