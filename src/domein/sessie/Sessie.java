@@ -149,6 +149,9 @@ public class Sessie implements ISessie, Serializable {
 
     //region Setters
     protected void setTitel(String titel) {
+        if(titel == null){
+            throw new SessieException("Titel; titel mag niet null zijn");
+        }
         if (titel.isBlank()) {
             throw new SessieException("Titel;Titel mag niet leeg zijn.");
         }
