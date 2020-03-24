@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import java.util.List;
 
 @Entity
-@DiscriminatorValue("OPEN")
+@DiscriminatorValue("open")
 public class OpenState extends SessieState {
     private static final long serialVersionUID = -7595112207685499466L;
 

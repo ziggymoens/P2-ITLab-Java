@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@DiscriminatorValue("NIET_ZICHTBAAR")
+@DiscriminatorValue("niet zichtbaar")
 public class NietZichtbaarState extends SessieState {
     private static final long serialVersionUID = -5986113834670431580L;
 

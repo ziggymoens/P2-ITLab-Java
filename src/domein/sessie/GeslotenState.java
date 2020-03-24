@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import java.util.List;
 
 @Entity
-@DiscriminatorValue("GESLOTEN")
+@DiscriminatorValue("gesloten")
 public class GeslotenState extends SessieState {
 
     private static final long serialVersionUID = -3133496800896038854L;

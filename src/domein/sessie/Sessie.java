@@ -106,7 +106,7 @@ public class Sessie implements ISessie, Serializable {
      * @param lokaal            (Lokaal) ==> lokaal waar de sessie plaats vind
      * @param verantwoordelijke ==> de gebruiker die de sessie organiseert
      */
-    public Sessie(String titel, String beschrijving, LocalDateTime startSessie, LocalDateTime eindeSessie, Lokaal lokaal, Gebruiker verantwoordelijke, Academiejaar academiejaar) {
+    public Sessie(String titel, String beschrijving, LocalDateTime startSessie, LocalDateTime eindeSessie, Lokaal lokaal, Gebruiker verantwoordelijke, Academiejaar academiejaar, String state) {
         setVerantwoordelijke(verantwoordelijke);
         setTitel(titel);
         setBeschrijving(beschrijving);
@@ -119,9 +119,14 @@ public class Sessie implements ISessie, Serializable {
         setNaamGastspreker("Onbekend");
         initLijsten();
         setAcademiejaar(academiejaar);
+        setState(state);
     }
 
-    //endregion
+    public Sessie(String titel, String beschrijving, LocalDateTime startSessie, LocalDateTime eindeSessie, Lokaal lokaal, Gebruiker verantwoordelijke, Academiejaar academiejaar) {
+        this(titel, beschrijving, startSessie, eindeSessie, lokaal, verantwoordelijke, academiejaar, null);
+    }
+
+        //endregion
 
     //region Init
     private void initLijsten() {
@@ -534,33 +539,27 @@ public class Sessie implements ISessie, Serializable {
     }
 
     //region State
-    public void setState(String state) {
-        setState(Arrays.stream(SessieStatus.values()).filter(s -> s.toString().equals(state)).findFirst().orElse(null));
-    }
 
-    private void setState(SessieStatus status) {
-        if (status == null) {
-            status = SessieStatus.NIET_ZICHTBAAR;
-        }
+    private void setState(String status) {
         switch (status) {
-            case OPEN:
+            case "open":
                 toState(new OpenState(this));
                 break;
-            case GESLOTEN:
+            case "gesloten":
                 toState(new GeslotenState(this));
                 break;
-            case ZICHTBAAR:
+            case "zichtbaar":
                 toState(new ZichtbaarState(this));
                 break;
             default:
-            case NIET_ZICHTBAAR:
+            case "niet zichtbaar":
                 toState(new NietZichtbaarState(this));
                 break;
         }
     }
 
     public void sessieZichtBaar() {
-        if (currentState.getStatus().equals("NIET ZICHTBAAR")) {
+        if (currentState.getStatus().equals("niet zichtbaar")) {
             toState(new ZichtbaarState(this));
         } else {
             throw new SessieException();
@@ -568,7 +567,7 @@ public class Sessie implements ISessie, Serializable {
     }
 
     public void sessieNietZichtBaar() {
-        if (currentState.getStatus().equals("ZICHTBAAR")) {
+        if (currentState.getStatus().equals("zichtbaar")) {
             toState(new NietZichtbaarState(this));
         } else {
             throw new SessieException();
@@ -576,7 +575,7 @@ public class Sessie implements ISessie, Serializable {
     }
 
     public void sessieOpen() {
-        if (currentState.getStatus().equals("ZICHTBAAR") || currentState.getStatus().equals("GESLOTEN")) {
+        if (currentState.getStatus().equals("zichtbaar") || currentState.getStatus().equals("gesloten")) {
             toState(new OpenState(this));
         } else {
             throw new SessieException();
@@ -584,7 +583,7 @@ public class Sessie implements ISessie, Serializable {
     }
 
     public void sessieGesloten() {
-        if (currentState.getStatus().equals("OPEN") && startSessie.isBefore(LocalDateTime.now())) {
+        if (currentState.getStatus().equals("open") && startSessie.isBefore(LocalDateTime.now())) {
             toState(new GeslotenState(this));
         } else {
             throw new SessieException();

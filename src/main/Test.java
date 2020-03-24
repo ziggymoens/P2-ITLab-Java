@@ -7,6 +7,8 @@ import javafx.event.ActionEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,9 +19,12 @@ public class Test {
     private static File file;
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         String[] datatabellen = {"aankondiging", "academiejaar", "feedback", "gebruiker", "gebruikersprofiel", "gebruikersstatus", "herinnering", "inschrijving", "lokaal", "media", "sessie", "sessiestatus"};
         Statistiek s = new Statistiek();
+        s.geefTopSessieInschrijvingen(10);
+        s.geefTopSessieAanwezigheden(10);
+        /*
         for (String tabel: datatabellen){
             System.out.println(tabel);
             System.out.println();
@@ -28,18 +33,24 @@ public class Test {
             System.out.println();
         }
 
+         */
 
-        /*File file = new File("/storage/profielfotos/profielfoto.png");
-        FileExplorer();
+/*
+        File file = new File("/storage/profielfotos/profielfoto.png");
+        //FileExplorer();
         System.out.println(file.getCanonicalFile());
 
-        BufferedImage image = ImageIO.read(file);
+        try {
+            BufferedImage image = ImageIO.read(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
         Gebruiker gebruiker = new Gebruiker("naam", "gebruikersnaam",  "hoofdverantwoordelijke",  "actief","profielfoto", 1, "wachtwoord");
         Media media = new Media(gebruiker, "loc", "FOTO");
 
-         */
+ */
     }
 
     private static void FileExplorer() {

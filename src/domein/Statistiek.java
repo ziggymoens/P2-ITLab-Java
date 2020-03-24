@@ -36,5 +36,28 @@ public class Statistiek implements IStatistiek {
         }
     }
 
+    public void geefTopSessieInschrijvingen(int aantal){
+        try {
+            Connection conn = DriverManager.getConnection(connectionUrl);
+            Statement stmt = conn.createStatement();
+            ResultSet results = stmt.executeQuery(String.format("SELECT TOP %d sessieId, count(inschrijvingsId) as 'inschrijvingen' from inschrijving i right join sessie s on i.sessie_sessieId = s.sessieId GROUP by sessieId order by 2 desc, 1", aantal));
+            boolean append = true;
+            CsvDriver.writeToCsv(results, System.out, append);
+        } catch (Exception e) {
+            throw new StatistiekException("geef Top Sessie Aanwezigheden");
+        }
+    }
+
+    public void geefTopSessieAanwezigheden(int aantal){
+        try {
+            Connection conn = DriverManager.getConnection(connectionUrl);
+            Statement stmt = conn.createStatement();
+            ResultSet results = stmt.executeQuery(String.format("SELECT TOP %d sessieId, count(inschrijvingsId) as 'Aanwezigheden bij sessie' from sessiestatus ss join sessie s on ss.sessie_sessieId = s.sessieId join inschrijving i on s.sessieId = i.sessie_sessieId where ss.sessieStatus = 'gesloten' and i.statusAanwezigheid = 1 group by s.sessieId;", aantal));
+            boolean append = true;
+            CsvDriver.writeToCsv(results, System.out, append);
+        } catch (Exception e) {
+            throw new StatistiekException("geef Top Sessie Aanwezigheden");
+        }
+    }
 
 }

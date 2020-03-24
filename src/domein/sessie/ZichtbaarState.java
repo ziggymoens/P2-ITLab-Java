@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@DiscriminatorValue("ZICHTBAAR")
+@DiscriminatorValue("zichtbaar")
 public class ZichtbaarState extends SessieState {
 
     private static final long serialVersionUID = 5423012923739736619L;

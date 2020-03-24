@@ -90,7 +90,7 @@ public class Inschrijving implements IInschrijving {
         this.inschrijvingsdatum = inschrijvingsdatum;
     }
 
-    private void setStatusAanwezigheid(boolean statusAanwezigheid) {
+    public void setStatusAanwezigheid(boolean statusAanwezigheid) {
         this.statusAanwezigheid = statusAanwezigheid;
     }
 
