@@ -201,8 +201,10 @@ public class GebruikerController extends AnchorPane {
     }
 
     private void wijzigGebruiker(ActionEvent actionEvent){
-        btnOpslaan.setVisible(true);
         btnWijzigen.setVisible(false);
+        System.out.println("button wijzigen invisible");
+        btnOpslaan.setVisible(true);
+        System.out.println("button opslaan visible");
         txtFieldGebruiker.setEditable(true);
         txtFieldGebruikersnaam.setEditable(true);
         comboBoxTypeGebruiker.setItems(FXCollections.observableArrayList(Arrays.stream(Gebruikersprofiel.values()).map(Enum::toString).collect(Collectors.toList())));
@@ -210,18 +212,16 @@ public class GebruikerController extends AnchorPane {
         comboBoxStatusGebruiker.setItems(FXCollections.observableArrayList(Arrays.stream(Gebruikersstatus.values()).map(Enum::toString).collect(Collectors.toList())));
         comboBoxStatusGebruiker.getSelectionModel().selectFirst();
         btnOpslaan.setOnAction(this::updateGebruiker);
-        btnOpslaan.setVisible(false);
-        System.out.println("opslaan moet button verwijderen");
-        btnWijzigen.setVisible(true);
     }
 
     public void updateGebruiker(ActionEvent actionEvent){
         domeinController.updateGebruiker(txtFieldGebruiker.getText(), txtFieldGebruikersnaam.getText(),
                 comboBoxStatusGebruiker.getSelectionModel().getSelectedItem(),
                 comboBoxTypeGebruiker.getSelectionModel().getSelectedItem());
+        btnOpslaan.setVisible(false);
+        btnWijzigen.setVisible(true);
         refreshTable();
     }
-
 
     private void maakNieuweGebruiker(ActionEvent actionEvent){
         btnWijzigen.setVisible(false);
