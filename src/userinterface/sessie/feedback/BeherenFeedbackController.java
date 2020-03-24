@@ -3,6 +3,7 @@ package userinterface.sessie.feedback;
 import domein.controllers.DomeinController;
 import domein.interfacesDomein.IAankondiging;
 import domein.interfacesDomein.IFeedback;
+import exceptions.domein.FeedbackException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -21,7 +22,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 public class BeherenFeedbackController extends AnchorPane {
-    DomeinController domeinController;
+    private DomeinController domeinController;
     private ObservableList<IFeedback> feedback;
     private IFeedback huidigeFeedback;
 
@@ -41,7 +42,7 @@ public class BeherenFeedbackController extends AnchorPane {
     private TextField txtGebruiker;
 
     @FXML
-    private Label lblErrorGebruiker;
+    private Label lblErrorGebruiker, lblErrorInhoud;
 
     @FXML
     private TextField txtPublicatieDatum;
@@ -76,9 +77,6 @@ public class BeherenFeedbackController extends AnchorPane {
             throw new RuntimeException();
         }
         vulTable();
-        txtPublicatieDatum.setEditable(false);
-        txtInhoud.setEditable(false);
-        txtGebruiker.setEditable(false);
         btnOpslaan.setDisable(true);
         btnOpslaan.setVisible(false);
         table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<IFeedback>(){
@@ -106,7 +104,8 @@ public class BeherenFeedbackController extends AnchorPane {
         btnWijzig.setDisable(true);
         btnOpslaan.setVisible(true);
         btnOpslaan.setDisable(false);
-        txtInhoud.setEditable(true);
+        btnNieuw.setDisable(true);
+        txtInhoud.setEditable(false);
         btnOpslaan.setOnAction(this::updateFeedback);
     }
 
@@ -132,6 +131,8 @@ public class BeherenFeedbackController extends AnchorPane {
 
     private void nieuweFeedback(ActionEvent actionEvent) {
         table.getSelectionModel().clearSelection();
+        lblErrorInhoud.setVisible(false);
+        txtGebruiker.setText(domeinController.geefHuidigeIGebruiker().getNaam());
         txtInhoud.setText("");
         txtPublicatieDatum.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd:MM:yyyy")));
         txtInhoud.setEditable(true);
@@ -150,6 +151,7 @@ public class BeherenFeedbackController extends AnchorPane {
         btnWijzig.setDisable(false);
         domeinController.addFeedbackSessie(domeinController.geefHuidigeISessie().getSessieId(), domeinController.geefHuidigeIGebruiker().getGebruikersnaam(), txtInhoud.getText());
         btnNieuw.setDisable(false);
+        txtInhoud.setEditable(false);
     }
 
     public void vulTable(){

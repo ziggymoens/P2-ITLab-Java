@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<fx:root fx:id="ap" prefHeight="238.0" prefWidth="1000.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="ap" prefHeight="238.0" prefWidth="1000.0" type="AnchorPane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <children>
           <TableView fx:id="table" prefHeight="238.0" prefWidth="450.0">
               <columns>
@@ -33,7 +25,7 @@
                            <VBox.margin>
                               <Insets bottom="2.0" />
                            </VBox.margin></Label>
-                                  <TextField fx:id="txtGebruiker" prefWidth="290.0" />
+                                  <TextField fx:id="txtGebruiker" editable="false" prefWidth="290.0" />
                                   <Label fx:id="lblErrorGebruiker" prefWidth="290.0" text="Verkeerde input" textFill="RED" visible="false">
                            <VBox.margin>
                               <Insets top="2.0" />
@@ -42,7 +34,7 @@
                            <VBox.margin>
                               <Insets bottom="2.0" />
                            </VBox.margin></Label>
-                        <TextField fx:id="txtPublicatieDatum" prefWidth="290.0" />
+                        <TextField fx:id="txtPublicatieDatum" editable="false" prefWidth="290.0" />
                               </children>
                               <HBox.margin>
                                   <Insets />
@@ -54,11 +46,12 @@
                            <VBox.margin>
                               <Insets bottom="2.0" />
                            </VBox.margin></Label>
-                                  <TextArea fx:id="txtInhoud">
+                                  <TextArea fx:id="txtInhoud" editable="false" prefHeight="162.0" prefWidth="270.0">
                                       <VBox.margin>
                                           <Insets />
                                       </VBox.margin>
                                   </TextArea>
+                        <Label fx:id="lblErrorInhoud" prefWidth="290.0" text="Inhoud mag niet leeg zijn" textFill="RED" visible="false" />
                               </children>
                               <HBox.margin>
                                   <Insets />

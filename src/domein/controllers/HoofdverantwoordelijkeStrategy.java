@@ -2,6 +2,7 @@ package domein.controllers;
 
 import domein.Aankondiging;
 import domein.Feedback;
+import domein.Inschrijving;
 import domein.gebruiker.Gebruiker;
 import domein.sessie.Sessie;
 import domein.SessieKalender;
@@ -91,6 +92,11 @@ public class HoofdverantwoordelijkeStrategy implements TypeStrategy {
     @Override
     public void verwijderFeedback(Feedback feedback) {
         huidigeSessieKalender.verwijderFeedback(feedback);
+    }
+
+    @Override
+    public void verwijderInschrijving(Inschrijving inschrijving) {
+        huidigeSessieKalender.verwijderInschrijving(inschrijving);
     }
 
     @Override

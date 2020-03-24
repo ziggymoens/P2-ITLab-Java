@@ -11,6 +11,7 @@ import exceptions.domein.LokaalException;
 import exceptions.domein.SessieException;
 import net.bytebuddy.asm.Advice;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -528,6 +529,10 @@ public class DomeinController {
     public void addInschrijvingSessie(String sessieId, String gebruikersnaam, LocalDateTime inschrijvingsdatum, boolean statusAanwezigheid) {
         Inschrijving inschrijving = new Inschrijving( huidigeSessie, huidigeSessieKalender.geefGebruikerById(gebruikersnaam), inschrijvingsdatum,statusAanwezigheid);
         huidigeSessieKalender.voegInschrijvingToe(inschrijving, huidigeSessieKalender.geefSessieById(sessieId));
+    }
+
+    public void verwijderInschrijving(IInschrijving inschrijving){
+        typeStrategy.verwijderInschrijving((Inschrijving) inschrijving);
     }
     //endregion
 

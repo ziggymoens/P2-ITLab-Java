@@ -17,9 +17,9 @@
     <children>
           <TableView fx:id="table" prefWidth="450.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columns>
-                  <TableColumn fx:id="gebruiker" maxWidth="190.0" minWidth="190.0" prefWidth="190.0" text="Naam Gebruiker" />
-                  <TableColumn fx:id="datum" maxWidth="140.0" minWidth="140.0" prefWidth="140.0" text="Inschrijvingsdatum" />
-                  <TableColumn fx:id="status" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" text="Status aanwezigheid" />
+                  <TableColumn fx:id="tblGebruiker" maxWidth="190.0" minWidth="190.0" prefWidth="190.0" text="Naam Gebruiker" />
+                  <TableColumn fx:id="tblDatum" maxWidth="140.0" minWidth="140.0" prefWidth="140.0" text="Inschrijvingsdatum" />
+                  <TableColumn fx:id="tblStatus" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" text="Status aanwezigheid" />
               </columns>
           </TableView>
       <AnchorPane prefWidth="530.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
@@ -33,7 +33,7 @@
                               <Insets bottom="2.0" />
                            </VBox.margin>
                         </Label>
-                                <TextField fx:id="txtGebruiker" />
+                                <TextField fx:id="txtGebruiker" editable="false" />
                                 <Label fx:id="lblErrorGebruiker" prefWidth="260.0" text="Verkeerde input" textFill="RED" visible="false">
                            <VBox.margin>
                               <Insets top="2.0" />
@@ -44,7 +44,7 @@
                               <Insets bottom="2.0" />
                            </VBox.margin>
                         </Label>
-                        <DatePicker fx:id="dpDate" prefWidth="260.0" />
+                        <DatePicker fx:id="dpDate" editable="false" prefWidth="260.0" />
                                 <Label fx:id="lblErrorDate" prefWidth="260.0" text="Verkeerde input" textFill="RED" visible="false">
                            <VBox.margin>
                               <Insets top="2.0" />
@@ -55,7 +55,7 @@
                               <Insets bottom="2.0" />
                            </VBox.margin>
                         </Label>
-                        <ComboBox fx:id="cbAanwezigheid" prefWidth="260.0" />
+                        <ComboBox fx:id="cbAanwezigheid" disable="true" prefWidth="260.0" />
                                 <Label fx:id="lblErrorAanwezigheid" prefWidth="260.0" text="Verkeerde input" textFill="RED" visible="false">
                            <VBox.margin>
                               <Insets top="2.0" />
@@ -89,7 +89,7 @@
                   </VBox>
                </children>
             </HBox>
-            <HBox alignment="CENTER_RIGHT" spacing="20.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <HBox alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
                   <Pane fx:id="pOnderaan" prefWidth="150.0">
                      <children>
@@ -103,11 +103,6 @@
                         <Insets />
                      </HBox.margin>
                   </Pane>
-                  <Button fx:id="btnNieuw" mnemonicParsing="false" prefWidth="150.0" text="Nieuw">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Button>
                   <Button fx:id="btnverwijder" mnemonicParsing="false" prefWidth="150.0" text="Verwijder">
                      <HBox.margin>
                         <Insets />

@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import userinterface.sessie.aankondiging.BeherenAankondigingController;
 import userinterface.sessie.feedback.BeherenFeedbackController;
 import userinterface.sessie.gebruiker.GebruikerBeherenController;
+import userinterface.sessie.inschrijvingen.BeherenInschrijvingController;
 import userinterface.sessie.lokaal.BeherenLokaalController;
 
 import java.io.IOException;
@@ -457,8 +458,9 @@ public class SessieController extends AnchorPane {
                     rabtnAankondiging.setSelected(false);
                     rabtnFeedback.setSelected(false);
                     rabtnMedia.setSelected(false);
-                    // Nieuw scherm Inschrijving maken
-                }
+                    apRechts.getChildren().addAll(new BeherenInschrijvingController(domeinController));
+                }else
+                    apRechts.getChildren().remove(0);
             }
         });
 

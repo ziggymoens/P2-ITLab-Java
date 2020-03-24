@@ -232,7 +232,7 @@ public class SessieKalender {
     }
 
     public List<Inschrijving> geefAlleInschrijvingenVanSessie(String sessie) {
-        return geefSessieById(sessie).getInschrijvingen();
+        return geefSessieById(sessie).getInschrijvingen().stream().filter(a -> !a.getVerwijderd()).collect(Collectors.toList());
     }
     //endregion
 

@@ -131,6 +131,8 @@ public class Inschrijving implements IInschrijving {
     public Gebruiker getGebruiker() {
         return gebruiker;
     }
+
+    public boolean getVerwijderd() {return verwijderd;}
     //endregion
 
     //region Equals & Hashcode

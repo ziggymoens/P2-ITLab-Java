@@ -2,6 +2,7 @@ package domein.controllers;
 
 import domein.Aankondiging;
 import domein.Feedback;
+import domein.Inschrijving;
 import domein.gebruiker.Gebruiker;
 import domein.sessie.Sessie;
 
@@ -47,6 +48,8 @@ public interface TypeStrategy {
     void verwijderAankondiging(Aankondiging aankondiging);
 
     void verwijderFeedback(Feedback feedback);
+
+    void verwijderInschrijving(Inschrijving inschrijving);
 
     Gebruiker geefGebruikerId(String id);
 

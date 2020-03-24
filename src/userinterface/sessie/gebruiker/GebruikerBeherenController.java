@@ -93,5 +93,4 @@ public class GebruikerBeherenController extends AnchorPane {
             tableViewGebruiker.setItems(subentries);
         });
     }
-
 }
