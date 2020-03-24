@@ -1,4 +1,4 @@
-package test;
+package testExcluded;
 
 import domein.Lokaal;
 import exceptions.domein.LokaalException;

@@ -1,4 +1,4 @@
-package test;
+package testExcluded;
 
 import domein.gebruiker.Gebruiker;
 import domein.Media;
@@ -13,9 +13,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-import static domein.enums.Gebruikersprofiel.GEBRUIKER;
-import static domein.enums.Gebruikersstatus.ACTIEF;
-
 //TODO --> nakijken leeg type bij aanmaken media
 public class MediaTest {
     private static Gebruiker gebruiker;
@@ -23,7 +20,7 @@ public class MediaTest {
 
     @BeforeAll
     static void before() {
-        gebruiker = new Gebruiker("Test Persoon", "123456tp", GEBRUIKER, ACTIEF);
+        gebruiker = new Gebruiker("Test Persoon", "123456tp", "gebruiker", "actief");
     }
 
     private static Stream<Arguments> opsommingGeldigeWaarden() {

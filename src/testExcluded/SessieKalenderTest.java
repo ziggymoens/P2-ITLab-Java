@@ -1,4 +1,4 @@
-package test;
+package testExcluded;
 
 class SessieKalenderTest {
     //TODO

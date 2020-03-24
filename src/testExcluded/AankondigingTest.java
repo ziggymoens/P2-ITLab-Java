@@ -1,4 +1,4 @@
-package test;
+package testExcluded;
 
 import domein.*;
 import domein.gebruiker.Gebruiker;
@@ -11,6 +11,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
@@ -19,12 +20,14 @@ public class AankondigingTest {
     private static Lokaal lokaal;
     private static Sessie sessie;
     private static Herinnering herinnering;
+    private static Academiejaar academiejaar;
 
     @BeforeAll
     public static void before() {
+        academiejaar = new Academiejaar(2021, LocalDate.now(), LocalDate.now().plusMonths(5));
         gebruiker = new Gebruiker("Test Persoon", "123456tp", "GEBRUIKER", "ACTIEF");
         lokaal = new Lokaal("GSCB.3.049", "AUDITORIUM", 50);
-        sessie = new Sessie("Titel sessie", LocalDateTime.now().plusSeconds(1), LocalDateTime.now().plusMinutes(30), lokaal, gebruiker, );
+        sessie = new Sessie("Titel sessie", "beschrijving",LocalDateTime.now().plusSeconds(1), LocalDateTime.now().plusMinutes(30), lokaal, gebruiker, academiejaar);
         herinnering = new Herinnering(1);
     }
 

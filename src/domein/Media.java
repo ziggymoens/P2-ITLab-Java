@@ -68,13 +68,13 @@ public class Media implements IMedia {
         setGebruiker(gebruiker);
         setLocatie(locatie);
         setType(type);
-        try {
+        /*try {
             if (type == MediaType.FOTO) {
                 setAfbeelding(this.locatie);
             }
         }catch (Exception e){
             e.printStackTrace();
-        }
+        }*/
     }
 
     /**

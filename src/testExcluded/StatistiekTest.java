@@ -1,4 +1,4 @@
-package test;
+package testExcluded;
 
 class StatistiekTest {
     //TODO
