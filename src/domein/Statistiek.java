@@ -24,7 +24,7 @@ public class Statistiek implements IStatistiek {
     public Statistiek(){
     }
 
-    public void geefAllesVan(String type){
+    public void geefAllesVan(String type) {
         try {
             Connection conn = DriverManager.getConnection(connectionUrl);
             Statement stmt = conn.createStatement();
@@ -36,28 +36,53 @@ public class Statistiek implements IStatistiek {
         }
     }
 
-    public void geefTopSessieInschrijvingen(int aantal){
+    //region Sessie
+    public void geefTopSessieTabel(String tabel, int aantal){
+        String naam = "";
         try {
+            naam = tabel;
+            boolean aanwezigheid = false;
+            if (tabel.equals("aanwezigheid")){
+                aanwezigheid = true;
+                tabel = "inschrijving";
+            }
             Connection conn = DriverManager.getConnection(connectionUrl);
             Statement stmt = conn.createStatement();
-            ResultSet results = stmt.executeQuery(String.format("SELECT TOP %d sessieId, count(inschrijvingsId) as 'inschrijvingen' from inschrijving i right join sessie s on i.sessie_sessieId = s.sessieId GROUP by sessieId order by 2 desc, 1", aantal));
+            ResultSet results = stmt.executeQuery(String.format("SELECT TOP %d sessieId, s.titel, count(%s) as '%s voor de sessie' from %s t join sessie s on t.sessie_sessieId = s.sessieId join sessiestatus ss on ss.sessie_sessieId = s.sessieId %sGROUP by s.sessieId, s.titel order by 3 desc, 1;",aantal,tabel.endsWith("g")?String.format("%ssId",tabel): String.format("%sId", tabel),naam, tabel, aanwezigheid?" where ss.sessieStatus = 'gesloten' and t.statusAanwezigheid = 1 ":""));
             boolean append = true;
             CsvDriver.writeToCsv(results, System.out, append);
         } catch (Exception e) {
-            throw new StatistiekException("geef Top Sessie Aanwezigheden");
+            e.printStackTrace();
+            throw new StatistiekException("geef Top Sessie Tabel, " + naam);
         }
     }
+    //endregion
 
-    public void geefTopSessieAanwezigheden(int aantal){
+    //region Gebruiker
+    public void geefTopGebruikerTabel(String tabel, int aantal){
+        String naam = "";
         try {
+            naam = tabel;
+            boolean aanwezigheid = false;
+            if (tabel.equals("aanwezigheid")){
+                aanwezigheid = true;
+                tabel = "inschrijving";
+            }
             Connection conn = DriverManager.getConnection(connectionUrl);
             Statement stmt = conn.createStatement();
-            ResultSet results = stmt.executeQuery(String.format("SELECT TOP %d sessieId, count(inschrijvingsId) as 'Aanwezigheden bij sessie' from sessiestatus ss join sessie s on ss.sessie_sessieId = s.sessieId join inschrijving i on s.sessieId = i.sessie_sessieId where ss.sessieStatus = 'gesloten' and i.statusAanwezigheid = 1 group by s.sessieId;", aantal));
+            ResultSet results = stmt.executeQuery(String.format("SELECT TOP %d g.gebruikersnaam,g.naam, count(%s) as '%s per gebruiker' from gebruiker g join gebruikersprofiel gp on g.gebruikersnaam = gp.gebruiker_gebruikersnaam join gebruikersstatus gs on gs.gebruiker_gebruikersnaam = g.gebruikersnaam join %s t on t.%s_gebruikersnaam = g.gebruikersnaam %s where %s gs.gebruikerStatus != 'geblokkeerd' %s group by g.gebruikersnaam, g.naam order by 3 desc, 1;", aantal, tabel.endsWith("g")?String.format("%ssId",tabel): String.format("%sId", tabel),naam, tabel,tabel.equals("sessie")?"verantwoordelijke":"gebruiker", aanwezigheid?"join sessiestatus ss on ss.sessie_sessieId = t.sessie_sessieId":"", tabel.equals("sessie")||tabel.equals("aankondiging")||tabel.equals("media")?"":"gp.gebruikerProfiel = 'gebruiker' and",aanwezigheid?" and ss.sessieStatus = 'gesloten' and t.statusAanwezigheid = 1 and ss.sessiestatus = 'gesloten'":""));
             boolean append = true;
             CsvDriver.writeToCsv(results, System.out, append);
         } catch (Exception e) {
-            throw new StatistiekException("geef Top Sessie Aanwezigheden");
+            e.printStackTrace();
+            throw new StatistiekException("geef Top Gebruiker Tabel, " + naam);
         }
     }
+    //endregion
+
+
 
 }
+
+
+
