@@ -78,8 +78,41 @@ public class Statistiek implements IStatistiek {
             throw new StatistiekException("geef Top Gebruiker Tabel, " + naam);
         }
     }
+
+    public void overzichtTopGebruikers(){
+        overzichtTopGebruikers("");
+    }
+
+    public void overzichtTopGebruikers(String type){
+        try {
+            Connection conn = DriverManager.getConnection(connectionUrl);
+            Statement stmt = conn.createStatement();
+            ResultSet results = stmt.executeQuery(String.format("SELECT gebruikersnaam, naam, gp.gebruikerProfiel, count(distinct a.aankondigingsId) as 'Aantal aankondigingen', count(distinct feedbackId) as 'Aantal feedback', count(distinct herinneringsId) as 'Aantal herinneringen', count(distinct inschrijvingsId) as 'Aantal inschrijvingen', COUNT(distinct mediaId) as 'Aantal media' from gebruiker g full join aankondiging a on a.gebruiker_gebruikersnaam = g.gebruikersnaam full join herinnering h on h.herinneringsId = a.herinnering_herinneringsId full join feedback f on f.gebruiker_gebruikersnaam = g.gebruikersnaam full join inschrijving i on i.gebruiker_gebruikersnaam = g.gebruikersnaam full join media m on m.gebruiker_gebruikersnaam = g.gebruikersnaam join gebruikersprofiel gp on g.gebruikersnaam = gp.gebruiker_gebruikersnaam %s GROUP by g.gebruikersnaam, g.naam, gp.gebruikerProfiel order by 3, 2, 4 desc, 5 desc, 6 DESC, 7 desc, 8 DESC;", type.isBlank()?"": String.format("where gp.gebruikerProfiel = '%s'", type)));
+            boolean append = true;
+            CsvDriver.writeToCsv(results, System.out, append);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new StatistiekException("geef Top Gebruiker");
+        }
+    }
     //endregion
 
+    //region Lokaal
+    public void overzichtLokalen(int aantal){
+        try {
+            Connection conn = DriverManager.getConnection(connectionUrl);
+            Statement stmt = conn.createStatement();
+            ResultSet results = stmt.executeQuery(String.format("select top %d l.lokaalCode, case when l.gebouw = 'B_A' then 'Aalst - B' when l.gebouw = 'B_G' then 'Schoonmeersen - B' when l.gebouw = 'C' then 'Schoonmeersen - C' when l.gebouw = 'D' then 'Schoonmeersen - D' when l.gebouw = 'P' then 'Schoonmeersen - P' end as 'Campus - gebouw', count(s.sessieId) as 'Aantal sessies' from lokaal l join sessie s on s.lokaal_lokaalCode = l.lokaalCode group by lokaalCode, gebouw order by 3 desc, 2, 1;", aantal));
+            boolean append = true;
+            CsvDriver.writeToCsv(results, System.out, append);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new StatistiekException("geef Top Gebruiker");
+        }
+    }
+
+
+    //endregion
 
 
 }

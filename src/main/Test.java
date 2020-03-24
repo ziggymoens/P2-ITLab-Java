@@ -20,6 +20,9 @@ public class Test {
 
         Statistiek s = new Statistiek();
 
+        s.overzichtLokalen(10);
+
+        /*
         s.geefTopSessieTabel("inschrijving", 10);
         System.out.println();
         s.geefTopSessieTabel("aanwezigheid", 10);
@@ -38,6 +41,8 @@ public class Test {
         System.out.println();
         s.geefTopGebruikerTabel("sessie", 10);
         System.out.println();
+
+         */
 
 
         /*
