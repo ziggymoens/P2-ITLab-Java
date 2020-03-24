@@ -1,4 +1,4 @@
-package testExcluded;
+package test;
 
 import domein.Lokaal;
 import exceptions.domein.LokaalException;
@@ -16,7 +16,14 @@ class LokaalTest {
     //region maakLokaalAanMetJuisteWaardenTest
     private static Stream<Arguments> geldigeWaarden() {
         return Stream.of(Arguments.of("GSCB.3.049", "AUDITORIUM", 50),
-                Arguments.of("GSCB.1.017", "PC_KLAS", 38));
+                Arguments.of("GSCHB.1.017", "PC_KLAS", 38),
+                Arguments.of("GSCHB.1.025", "HYBRIDE", 60),
+                Arguments.of("GSCHB.1.008", "VERGADERZAAL", 38),
+                Arguments.of("GSCHB.4.036", "LAPTOPLOKAAL", 38),
+                Arguments.of("GSCHB.1.007", "TAALLAB", 38),
+                Arguments.of("GSCHB.2.016", "LESLOKAAL", 38),
+                Arguments.of("GSCHB.4.026", "IT_LAB", 38)
+        );
     }
 
     @ParameterizedTest
@@ -30,7 +37,8 @@ class LokaalTest {
 
     //region maakLokaalZonderAantalPlaatsen_GooitExcepionTest
     private static Stream<Arguments> ongeldigeWaardenAantalPlaatsen() {
-        return Stream.of(Arguments.of("GSCB.3.049", "AUDITORIUM", -1)
+        return Stream.of(Arguments.of("GSCHB.3.049", "AUDITORIUM", -1),
+                Arguments.of("GSCHB.4.040", "AUDITORIUM", 1501)
                 //Eventueel testen met 1000+ , implementeren na vragen
         );
     }

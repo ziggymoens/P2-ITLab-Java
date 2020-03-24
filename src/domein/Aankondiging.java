@@ -98,21 +98,21 @@ public class Aankondiging implements IAankondiging {
 
     public void setGebruiker(Gebruiker gebruiker) {
         if (gebruiker == null) {
-            throw new HerinneringException();
+            throw new AankondigingException();
         }
         this.gebruiker = gebruiker;
     }
 
     private void setPublicatiedatum(LocalDateTime publicatiedatum) {
         if (publicatiedatum == null) {
-            throw new HerinneringException();
+            throw new AankondigingException();
         }
         this.publicatiedatum = publicatiedatum;
     }
 
     private void setInhoud(String inhoud) {
         if (inhoud == null || inhoud.isBlank()) {
-            throw new HerinneringException("");
+            throw new AankondigingException("Aankondiging; Aankondiging mag niet leeg zijn");
         }
         this.inhoud = inhoud;
     }

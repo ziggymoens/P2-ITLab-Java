@@ -65,7 +65,7 @@ public class Lokaal implements ILokaal, Serializable {
     }
 
     private void setAantalPlaatsen(int aantalPlaatsen) {
-        if (aantalPlaatsen < 0) {
+        if (aantalPlaatsen < 0 || aantalPlaatsen > 1500) {
             throw new LokaalException("LokaalException.aantalPlaatsen");
         }
         this.aantalPlaatsen = aantalPlaatsen;
