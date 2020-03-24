@@ -2,6 +2,7 @@ package domein.gebruiker;
 
 import com.sun.istack.NotNull;
 import domein.Media;
+import domein.PasswordUtils;
 import domein.interfacesDomein.IGebruiker;
 import exceptions.domein.GebruikerException;
 import language.Talen;
@@ -196,7 +197,7 @@ public class Gebruiker implements IGebruiker, Serializable {
      */
 
     public void setWachtwoord(String wachtwoord) {
-        this.wachtwoord = wachtwoord;
+        this.wachtwoord = PasswordUtils.generateSecurePassword(wachtwoord);
     }
 
     //endregion
