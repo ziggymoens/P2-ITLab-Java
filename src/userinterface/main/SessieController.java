@@ -23,6 +23,7 @@ import userinterface.sessie.feedback.BeherenFeedbackController;
 import userinterface.sessie.gebruiker.GebruikerBeherenController;
 import userinterface.sessie.inschrijvingen.BeherenInschrijvingController;
 import userinterface.sessie.lokaal.BeherenLokaalController;
+import userinterface.sessie.media.BeherenMediaController;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
@@ -471,8 +472,9 @@ public class SessieController extends AnchorPane {
                     rabtnAankondiging.setSelected(false);
                     rabtnFeedback.setSelected(false);
                     rabtnInschrijving.setSelected(false);
-                    // Nieuw scherm Media maken
-                }
+                    apRechts.getChildren().addAll(new BeherenMediaController(domeinController));
+                }else
+                    apRechts.getChildren().remove(0);
             }
         });
     }

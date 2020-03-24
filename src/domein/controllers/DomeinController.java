@@ -477,6 +477,10 @@ public class DomeinController {
     public void maakNieuweMedia(ISessie sessie, IGebruiker gebruiker, String type, String locatie) {
         huidigeSessieKalender.voegMediaToe(new Media(huidigeSessie, (Gebruiker) gebruiker, locatie, type), (Sessie) sessie);
     }
+
+    public void verwijderMedia(IMedia media) {
+        huidigeSessieKalender.verwijderMedia((Media) media);
+    }
     //endregion
 
     //region Aankondiging
@@ -549,5 +553,7 @@ public class DomeinController {
     public void verwijderFeedback(IFeedback feedback) {
         typeStrategy.verwijderFeedback((Feedback) feedback);
     }
+
+
     //endregion
 }
