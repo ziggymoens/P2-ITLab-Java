@@ -1,4 +1,4 @@
-package test;
+package testExcluded;
 
 import domein.gebruiker.Gebruiker;
 import domein.Lokaal;

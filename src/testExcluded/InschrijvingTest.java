@@ -1,5 +1,6 @@
-package test;
+package testExcluded;
 
+import domein.Academiejaar;
 import domein.gebruiker.Gebruiker;
 import domein.Inschrijving;
 import domein.Lokaal;
@@ -11,6 +12,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
@@ -18,11 +20,14 @@ public class InschrijvingTest {
     private static Sessie sessie;
     private static Gebruiker gebruiker;
     private static Lokaal lokaal;
+    private static Academiejaar academiejaar;
 
     @BeforeAll
     public static void before() {
+        academiejaar = new Academiejaar(2021, LocalDate.now(), LocalDate.now().plusMonths(5));
+        lokaal = new Lokaal("GSCB.3.049", "AUDITORIUM", 50);
         gebruiker = new Gebruiker("TestGebruiker", "123456tp", "GEBRUIKER", "ACTIEF");
-        sessie = new Sessie("titel", LocalDateTime.now().plusMinutes(30), LocalDateTime.now().plusMinutes(200), new Lokaal("ABC", "AUDITORIUM", 200), gebruiker);
+        sessie = new Sessie("Titel sessie", "beschrijving",LocalDateTime.now().plusSeconds(1), LocalDateTime.now().plusMinutes(30), lokaal, gebruiker, academiejaar);
     }
 
     private static Stream<Arguments> opsommingGeldigeWaarden() {

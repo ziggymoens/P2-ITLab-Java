@@ -2,8 +2,6 @@ package domein.gebruiker;
 
 import com.sun.istack.NotNull;
 import domein.Media;
-import domein.enums.Gebruikersprofiel;
-import domein.enums.Gebruikersstatus;
 import domein.interfacesDomein.IGebruiker;
 import exceptions.domein.GebruikerException;
 import language.Talen;
@@ -11,10 +9,8 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.io.File;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -86,7 +82,7 @@ public class Gebruiker implements IGebruiker, Serializable {
      * @param gebruikersstatus  (String) ==> Inlogstatus van de gebruiker
      */
     public Gebruiker(String naam, String gebruikersnaam, String  gebruikersprofiel, String gebruikersstatus) {
-        this(naam, gebruikersnaam, gebruikersprofiel, gebruikersstatus, "storage/profielfotos/profielfoto.png", 0, "test");
+        this(naam, gebruikersnaam, gebruikersprofiel, gebruikersstatus, "storage/profielfotos/profielfoto.png", 0, "testExcluded");
     }
 
     /**
@@ -128,6 +124,10 @@ public class Gebruiker implements IGebruiker, Serializable {
 
 
     private void setCurrentProfiel(String gebruikersprofiel) {
+        if(gebruikersprofiel == null || gebruikersprofiel.isBlank()){
+            throw new GebruikerException("Gebruikersprofiel is leeg of null");
+        }
+
         switch (gebruikersprofiel){
             case "hoofdverantwoordelijke":
                 toProfielState(new HoofdverantwoordelijkeState(this));
@@ -140,6 +140,7 @@ public class Gebruiker implements IGebruiker, Serializable {
                 toProfielState(new GebruikerState(this));
                 break;
         }
+
     }
 
     private void toProfielState(GebruikerProfielState profielState) {
@@ -148,6 +149,9 @@ public class Gebruiker implements IGebruiker, Serializable {
 
 
     private void setCurrentStatus(String status) {
+        if(status == null || status.isBlank()){
+            throw new GebruikerException("Gebruikersprofiel is leeg of null");
+        }
         switch (status){
             case "actief":
                 toStatusState(new ActiefStatusState(this));

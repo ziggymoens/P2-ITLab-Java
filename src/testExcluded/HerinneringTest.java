@@ -1,4 +1,4 @@
-package test;
+package testExcluded;
 
 import domein.Herinnering;
 import exceptions.domein.HerinneringException;
