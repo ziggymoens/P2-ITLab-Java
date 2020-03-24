@@ -4,6 +4,7 @@ import domein.enums.Campus;
 import domein.gebruiker.Gebruiker;
 import domein.interfacesDomein.IGebruiker;
 import domein.sessie.Sessie;
+import exceptions.domein.SessieException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -294,9 +295,18 @@ public class SessieKalender {
 
     //region UPDATE
     public void updateSessie(Sessie sessie, List<Object> gegevens) {
-        em.getTransaction().begin();
-        sessie.update(gegevens);
-        em.getTransaction().commit();
+        try {
+            if(!em.getTransaction().isActive()) {
+                em.getTransaction().begin();
+            }
+            em.remove(sessie.getCurrentState());
+            sessie.update(gegevens);
+            em.getTransaction().commit();
+        } catch (SessieException se){
+            em.getTransaction().rollback();
+            throw se;
+        }
+
     }
 
     public void updateGebruiker(Gebruiker gebruiker, List<String> gegevens) {

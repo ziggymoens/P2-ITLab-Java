@@ -33,7 +33,6 @@
                                 <TextField fx:id="txtSearchbarTitel" prefHeight="30.0" prefWidth="250.0" promptText="zoek" />
                             </children>
                         </Pane>
-                        <Button fx:id="btnToevoegenSessie" layoutX="530.0" layoutY="50.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="40.0" text="+" AnchorPane.rightAnchor="0.0" />
                       <TableView fx:id="table" prefHeight="360.0" prefWidth="290.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
                           <columns>
                               <TableColumn fx:id="titel" editable="false" maxWidth="300.0" minWidth="300.0" prefWidth="300.0" text="Titel" />
@@ -43,14 +42,14 @@
                       </TableView>
                </children>
             </AnchorPane>
-            <AnchorPane AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="540.0" AnchorPane.rightAnchor="360.0" AnchorPane.topAnchor="20.0">
+            <AnchorPane fx:id="apSessieDetail" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="540.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                <children>
                       <Label fx:id="lblTitelSessie" alignment="CENTER" prefHeight="30.0" text="SESSIE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                           <font>
                               <Font name="System Bold" size="20.0" />
                           </font>
                       </Label>
-                            <VBox alignment="TOP_RIGHT" layoutY="50.0" prefHeight="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                            <VBox alignment="TOP_RIGHT" layoutY="50.0" prefHeight="50.0" prefWidth="480.0" AnchorPane.leftAnchor="10.0">
                                 <children>
                         <HBox alignment="TOP_RIGHT" spacing="10.0">
                            <children>
@@ -93,20 +92,20 @@
                            </VBox.margin></Label>
                      </children>
                   </VBox>
-                  <VBox layoutY="105.0" maxWidth="230.0" prefHeight="70.0" AnchorPane.rightAnchor="10.0">
+                  <VBox layoutX="260.0" layoutY="105.0" maxWidth="230.0" prefHeight="70.0">
                      <children>
                         <Label alignment="CENTER" prefHeight="18.0" prefWidth="290.0" text="Uur sessie">
                            <VBox.margin>
                               <Insets bottom="2.0" />
                            </VBox.margin>
                         </Label>
-                        <HBox alignment="CENTER" spacing="10.0">
+                        <HBox alignment="CENTER_LEFT" spacing="30.0">
                            <children>
                               <TextField fx:id="txtStart" editable="false" prefHeight="30.0" prefWidth="100.0" promptText="Start uur" />
                               <TextField fx:id="txtEind" editable="false" prefHeight="30.0" prefWidth="100.0" promptText="Eind uur" />
                            </children>
                         </HBox>
-                        <Label fx:id="lblErrorUur" alignment="CENTER" prefHeight="18.0" prefWidth="290.0" text="Label" textFill="RED" visible="false" />
+                        <Label fx:id="lblErrorUur" alignment="CENTER" prefHeight="18.0" prefWidth="290.0" text="Error" textFill="RED" visible="false" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" layoutY="180.0" maxWidth="230.0" prefHeight="70.0" AnchorPane.leftAnchor="10.0">
@@ -123,7 +122,7 @@
                            </VBox.margin></Label>
                      </children>
                   </VBox>
-                            <VBox alignment="CENTER" layoutX="230.0" layoutY="180.0" maxWidth="230.0" prefHeight="70.0" AnchorPane.rightAnchor="10.0">
+                            <VBox alignment="CENTER" layoutX="260.0" layoutY="180.0" maxWidth="230.0" prefHeight="70.0">
                                 <children>
                                     <Label alignment="CENTER" prefHeight="18.0" prefWidth="290.0" text="Naam Gastspreker">
                                         <VBox.margin>
@@ -151,7 +150,7 @@
                            </VBox.margin></Label>
                                 </children>
                             </VBox>
-                        <VBox layoutX="230.0" layoutY="255.0" maxWidth="230.0" prefHeight="70.0" AnchorPane.rightAnchor="10.0">
+                        <VBox layoutX="260.0" layoutY="255.0" maxWidth="230.0" prefHeight="70.0">
                             <children>
                                 <Label alignment="CENTER" prefHeight="18.0" prefWidth="230.0" text="Maximum aantal inschrijvingen">
                                     <VBox.margin>
@@ -174,23 +173,20 @@
                            </VBox.margin></Label>
                             </children>
                         </VBox>
-                  <VBox layoutY="330.0" maxWidth="230.0" AnchorPane.leftAnchor="10.0">
-                     <children>
-                        <CheckBox fx:id="cbOpenSessie" alignment="TOP_LEFT" disable="true" maxWidth="230.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="230.0" text="Open Sessie" />
-                     </children>
-                  </VBox>
-                  <HBox layoutX="230.0" layoutY="330.0" prefWidth="230.0" spacing="20.0" AnchorPane.rightAnchor="10.0">
+                  <HBox layoutY="330.0" prefWidth="230.0" spacing="20.0" AnchorPane.leftAnchor="10.0">
                      <children>
                         <CheckBox fx:id="cbZichtbaar" alignment="TOP_LEFT" disable="true" maxWidth="115.0" mnemonicParsing="false" prefHeight="30.0" text="Zichtbaar" />
                         <CheckBox fx:id="cbNietZichtbaar" alignment="TOP_LEFT" disable="true" maxWidth="115.0" mnemonicParsing="false" prefHeight="30.0" text="Niet Zichtbaar" />
                      </children>
                   </HBox>
-                      <HBox alignment="CENTER" prefWidth="640.0" spacing="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                      <HBox alignment="CENTER" prefWidth="500.0" spacing="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                           <children>
                               <Pane prefHeight="30.0" prefWidth="210.0">
                                   <children>
                                       <Button fx:id="btnBewerkenSessie" mnemonicParsing="false" prefHeight="30.0" prefWidth="210.0" text="Wijzig" />
-                                      <Button fx:id="btnOpslaanSessie" mnemonicParsing="false" prefHeight="30.0" prefWidth="210.0" text="Opslaan" visible="false" />
+                                      <Button fx:id="btnOpslaanSessie" disable="true" mnemonicParsing="false" prefHeight="30.0" prefWidth="210.0" text="Opslaan" visible="false" />
+                              <Button fx:id="btnOpenSessie" disable="true" mnemonicParsing="false" prefHeight="30.0" prefWidth="210.0" text="Open Sessie" visible="false" />
+                              <Button fx:id="btnSluitSessie" disable="true" mnemonicParsing="false" prefHeight="30.0" prefWidth="210.0" text="Sluit Sessie" visible="false" />
                                   </children>
                            <HBox.margin>
                               <Insets />
@@ -201,14 +197,11 @@
                                       <Insets />
                                   </HBox.margin>
                               </Button>
+                        <Button fx:id="btnToevoegenSessie" mnemonicParsing="false" prefHeight="30.0" prefWidth="210.0" text="Nieuw" />
                           </children>
                       </HBox>
-               </children>
-            </AnchorPane>
-            <AnchorPane prefWidth="320.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-               <children>
-                  <Label alignment="CENTER" text="Beschrijving" AnchorPane.bottomAnchor="380.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <TextArea fx:id="txtBeschrijving" editable="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0" />
+                  <Label alignment="CENTER" layoutY="30.0" prefWidth="320.0" text="Beschrijving" AnchorPane.rightAnchor="0.0" />
+                  <TextArea fx:id="txtBeschrijving" editable="false" layoutY="50.0" prefHeight="300.0" prefWidth="320.0" promptText="Geef hier een korte beschrijving van wat de sessie zal inhouden." AnchorPane.rightAnchor="0.0" />
                </children>
             </AnchorPane>
          </children>

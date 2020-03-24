@@ -2,14 +2,13 @@ package domein.sessie;
 
 import com.sun.istack.NotNull;
 import domein.*;
-import domein.enums.*;
 import domein.gebruiker.Gebruiker;
 import domein.interfacesDomein.*;
-import domein.Lokaal;
 import exceptions.domein.SessieException;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import userinterface.main.IObserver;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -23,7 +22,7 @@ import java.util.stream.Collectors;
 @SuppressWarnings("unchecked")
 @Entity
 @Table(name = "sessie")
-public class Sessie implements ISessie, Serializable {
+public class Sessie implements ISessie, Serializable, IObservable {
     private static final long serialVersionUID = -1929570926684580330L;
 
     //region variabelen
@@ -61,6 +60,8 @@ public class Sessie implements ISessie, Serializable {
     private int aantalAanwezigen;
     @Transient
     private String stad;
+    @Transient
+    private List<IObserver> observers;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Academiejaar academiejaar;
@@ -134,9 +135,10 @@ public class Sessie implements ISessie, Serializable {
         this.inschrijvingen = new ArrayList<>();
         this.aankondigingen = new ArrayList<>();
         this.feedback = new ArrayList<>();
+        this.observers = new ArrayList<>();
     }
 
-    public void initData(){
+    public void initData() {
         this.datum = startSessie.toLocalDate();
         this.startUur = startSessie.toLocalTime();
         this.eindeUur = startSessie.toLocalTime();
@@ -149,23 +151,26 @@ public class Sessie implements ISessie, Serializable {
 
     //region Setters
     protected void setTitel(String titel) {
-        if(titel == null){
-            throw new SessieException("Titel; titel mag niet null zijn");
-        }
-        if (titel.isBlank()) {
-            throw new SessieException("Titel;Titel mag niet leeg zijn.");
+        if (titel == null || titel.isBlank()) {
+            throw new SessieException("titel;Titel mag niet leeg zijn.");
         }
         this.titel = titel;
     }
 
     protected void setNaamGastspreker(String naamGastspreker) {
         if (naamGastspreker == null || naamGastspreker.isBlank()) {
-            throw new SessieException();
+            this.naamGastspreker = "Geen gastspreker";
         }
         this.naamGastspreker = naamGastspreker;
     }
 
     protected void setStartSessie(LocalDateTime startSessie) {
+        if(startSessie.isBefore(LocalDateTime.now())){
+            throw new SessieException("start;Sessie kan niet in het verleden zijn.");
+        }
+        if(startSessie == null){
+            throw new SessieException("start;Datum sessie mag niet leeg zijn.");
+        }
         this.startSessie = startSessie;
         this.datum = startSessie.toLocalDate();
         this.startUur = startSessie.toLocalTime();
@@ -174,27 +179,39 @@ public class Sessie implements ISessie, Serializable {
     }
 
     protected void setEindeSessie(LocalDateTime eindeSessie) {
+        if(startSessie.toLocalDate().isAfter(eindeSessie.toLocalDate())){
+            throw new SessieException("eind;Sessie kan niet eindigen voor hij begonnen is.");
+        }
+        if(startSessie.plusMinutes(30).isAfter(eindeSessie)){
+            throw new SessieException("eind;Sessie duurt minimaal 30 minuten.");
+        }
         this.eindeSessie = eindeSessie;
         this.eindeUur = startSessie.toLocalTime();
-
     }
 
     protected void setMaximumAantalPlaatsen(int maximumAantalPlaatsen) {
         if (lokaal.getAantalPlaatsen() < maximumAantalPlaatsen) {
-            throw new SessieException("MaximumPlaatsen.Aantal plaatsen is overschrijd limiet lokaal.");
+            throw new SessieException("maxPlaatsen;Aantal plaatsen is overschrijd limiet lokaal.");
+        }
+        if((Integer)maximumAantalPlaatsen == null){
+            throw new SessieException("maxPlaatsen;Aantal plaatsen mag niet leeg zijn.");
+        }
+        if(maximumAantalPlaatsen <= 0){
+            throw new SessieException("maxPlaatsen;Maximaal aantal plaatsen moet groter zijn als 0.");
         }
         this.maximumAantalPlaatsen = maximumAantalPlaatsen;
-
     }
 
     protected void setVerantwoordelijke(Gebruiker verantwoordelijke) {
+        if(verantwoordelijke == null){
+            throw new SessieException("verantwoordelijke;Verantwoordelijke mag niet leeg zijn.");
+        }
         this.verantwoordelijke = verantwoordelijke;
-
     }
 
     protected void setLokaal(Lokaal lokaal) {
         if (lokaal == null) {
-            throw new SessieException("Lokaal;Lokaal mag niet null zijn.");
+            throw new SessieException("Lokaal;Lokaal mag niet leeg zijn.");
         }
         this.lokaal = lokaal;
         stad = lokaal.getStad();
@@ -338,8 +355,8 @@ public class Sessie implements ISessie, Serializable {
     }
 
     @Override
-    public String getCurrentState() {
-        return currentState.getStatus();
+    public SessieState getCurrentState() {
+        return currentState;
     }
 
     //endregion
@@ -509,11 +526,21 @@ public class Sessie implements ISessie, Serializable {
      * @param gegevens (Gebruiker gebruiker, String titel, LocalDateTime start, LocalDateTime einde, Lokaal lokaal, String gastspreker)
      */
     public void update(List<Object> gegevens) { //aantal plaatsen moet nog veranderen
-            this.currentState.update(gegevens);
+        this.currentState.update(gegevens);
+        if ((Boolean) gegevens.get(10)) {
+            setState("gesloten");
+        } else if((Boolean)gegevens.get(9)){
+            setState("open");
+        } else if ((Boolean)gegevens.get(8)){
+            setState("zichtbaar");
+        } else if((Boolean)gegevens.get(7)){
+            setState("niet zichtbaar");
+        }
+        verwittig();
     }
 
-    public void verwijder(boolean verwijder){
-            this.currentState.verwijder(verwijder);
+    public void verwijder(boolean verwijder) {
+        this.currentState.verwijder(verwijder);
     }
 
     public void verwijderMedia(Media mediaOud) {
@@ -542,12 +569,11 @@ public class Sessie implements ISessie, Serializable {
     }
 
     //region State
-
     private void setState(String status) {
         if(status == null || status.isBlank()){
-            throw new SessieException("State; State mag niet leeg zijn");
+            throw new SessieException("State;State mag niet leeg zijn.");
         }
-        switch (status) {
+        switch (status.toLowerCase()) {
             case "open":
                 toState(new OpenState(this));
                 break;
@@ -564,40 +590,22 @@ public class Sessie implements ISessie, Serializable {
         }
     }
 
-    public void sessieZichtBaar() {
-        if (currentState.getStatus().equals("niet zichtbaar")) {
-            toState(new ZichtbaarState(this));
-        } else {
-            throw new SessieException();
-        }
-    }
-
-    public void sessieNietZichtBaar() {
-        if (currentState.getStatus().equals("zichtbaar")) {
-            toState(new NietZichtbaarState(this));
-        } else {
-            throw new SessieException();
-        }
-    }
-
-    public void sessieOpen() {
-        if (currentState.getStatus().equals("zichtbaar") || currentState.getStatus().equals("gesloten")) {
-            toState(new OpenState(this));
-        } else {
-            throw new SessieException();
-        }
-    }
-
-    public void sessieGesloten() {
-        if (currentState.getStatus().equals("open") && startSessie.isBefore(LocalDateTime.now())) {
-            toState(new GeslotenState(this));
-        } else {
-            throw new SessieException();
-        }
-    }
-
     private void toState(SessieState state) {
         currentState = state;
+    }
+    //endregion
+
+    //region observer
+    public void verwittig(){
+        for (IObserver obs: observers) {
+            obs.update();
+        }
+    }
+    public void addObserver(IObserver iObserver){
+        this.observers.add(iObserver);
+    }
+    public void removeObserver(IObserver iObserver){
+        this.observers.remove(iObserver);
     }
     //endregion
 }

@@ -144,7 +144,6 @@ public class Gebruiker implements IGebruiker, Serializable {
     }
 
     private void toProfielState(GebruikerProfielState profielState) {
-
         currentProfiel = profielState;
     }
 

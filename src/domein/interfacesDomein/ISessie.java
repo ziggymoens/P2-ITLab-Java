@@ -1,5 +1,7 @@
 package domein.interfacesDomein;
 
+import domein.sessie.SessieState;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -43,7 +45,7 @@ public interface ISessie {
 
     String getBeschrijving();
 
-    String getCurrentState();
+    SessieState getCurrentState();
 
     Map<String, Object> gegevensDetails();
 

@@ -9,9 +9,7 @@ import domein.interfacesDomein.*;
 import domein.sessie.Sessie;
 import exceptions.domein.LokaalException;
 import exceptions.domein.SessieException;
-import net.bytebuddy.asm.Advice;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -107,19 +105,19 @@ public class DomeinController {
     }
 
     public boolean isSessieOpen(){
-        if(huidigeSessie.getCurrentState().equals("OPEN") || huidigeSessie.getCurrentState().equals("GESLOTEN")){
+        if(huidigeSessie.getCurrentState().getStatus().equals("OPEN") || huidigeSessie.getCurrentState().getStatus().equals("GESLOTEN")){
             return true;
         }
         return false;
     }
     public boolean isSessieGesloten(){
-        if(huidigeSessie.getCurrentState().equals("GESLOTEN")){
+        if(huidigeSessie.getCurrentState().getStatus().equals("GESLOTEN")){
             return true;
         }
         return false;
     }
     public boolean isZichtbaar(){
-        if(huidigeSessie.getCurrentState().equals("ZICHTBAAR") || huidigeSessie.getCurrentState().equals("OPEN") || huidigeSessie.getCurrentState().equals("GESLOTEN")){
+        if(huidigeSessie.getCurrentState().getStatus().equals("ZICHTBAAR") || huidigeSessie.getCurrentState().getStatus().equals("OPEN") || huidigeSessie.getCurrentState().getStatus().equals("GESLOTEN")){
             return true;
         }
         return false;
@@ -146,6 +144,8 @@ public class DomeinController {
 
         Integer i = Integer.parseInt(veranderingen.get(7));
 
+        Boolean zichtbaar = Boolean.parseBoolean(veranderingen.get(8));
+
         objVeranderingen.add(0, verantwoordelijke);
         objVeranderingen.add(1, titel);
         objVeranderingen.add(2, start);
@@ -153,6 +153,7 @@ public class DomeinController {
         objVeranderingen.add(4, l);
         objVeranderingen.add(5, veranderingen.get(6));
         objVeranderingen.add(6, i);
+        objVeranderingen.add(7, zichtbaar);
         typeStrategy.bewerkSessie(huidigeSessie, objVeranderingen);
     }
 
