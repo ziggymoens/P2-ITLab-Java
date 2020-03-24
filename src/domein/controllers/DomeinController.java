@@ -10,6 +10,9 @@ import domein.sessie.Sessie;
 import exceptions.domein.LokaalException;
 import exceptions.domein.SessieException;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import java.awt.image.BufferedImage;
+import java.nio.Buffer;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -478,6 +481,10 @@ public class DomeinController {
 
     public void maakNieuweMedia(ISessie sessie, IGebruiker gebruiker, String type, String locatie) {
         huidigeSessieKalender.voegMediaToe(new Media(huidigeSessie, (Gebruiker) gebruiker, locatie, type), (Sessie) sessie);
+    }
+
+    public void voegMediaToe(ISessie sessie, IGebruiker gebruiker, String type, BufferedImage afbeelding, String fileName){
+        huidigeSessieKalender.voegMediaToeLob(new Media(huidigeSessie, (Gebruiker) gebruiker, type, afbeelding, fileName), (Sessie) sessie);
     }
 
     public void verwijderMedia(IMedia media) {

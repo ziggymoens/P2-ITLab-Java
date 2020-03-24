@@ -1,5 +1,6 @@
 package userinterface.sessie.media;
 
+import domein.Media;
 import domein.controllers.DomeinController;
 import domein.interfacesDomein.IFeedback;
 import domein.interfacesDomein.IMedia;
@@ -20,8 +21,11 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.Optional;
 
 public class BeherenMediaController extends AnchorPane {
@@ -125,8 +129,8 @@ public class BeherenMediaController extends AnchorPane {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.png", "*.gif", "*.jpg"));
         file = fileChooser.showOpenDialog(stage);
         System.out.println(file);
-        /*if (file != null) {
-            filePath.setText(file.getAbsolutePath());
+        if (file != null) {
+            txtUrl.setText(file.getAbsolutePath());
             try {
                 java.nio.file.Files.copy(
                         file.toPath(),
@@ -137,9 +141,25 @@ public class BeherenMediaController extends AnchorPane {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            openFile.setDisable(true);
-        }*/
+        }
+        domeinController.maakNieuweMedia(domeinController.geefHuidigeISessie(), domeinController.geefHuidigeIGebruiker(), cbmedia.getSelectionModel().getSelectedItem(), file.getName());
     }
+
+    /*private void nieuweMedia(ActionEvent actionEvent){
+        Stage stage = new Stage();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Media Toevoegen");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.png", "*.gif", "*.jpg"));
+        file = fileChooser.showOpenDialog(stage);
+        try{
+            BufferedImage image = ImageIO.read(file);
+            domeinController.voegMediaToe(domeinController.geefHuidigeISessie(), domeinController.geefHuidigeIGebruiker(), cbmedia.getValue(), image, file.getName());
+        } catch (IOException e) {
+            System.err.println("Kan de afbeelding niet laden");
+        }
+    }*/
+
+
 
     private void verwijderMedia(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

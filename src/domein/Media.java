@@ -46,7 +46,7 @@ public class Media implements IMedia {
     private MediaType type;
     private boolean verwijderd = false;
     @Lob
-    private byte[] afbeelding;
+    private static byte[] afbeelding;
 //endregion
 
     //region Constructor
@@ -99,6 +99,14 @@ public class Media implements IMedia {
     public Media(Gebruiker gebruiker, String loc, String type) {
         this(null, gebruiker, loc, type);
     }
+
+    public Media(Sessie sessie, Gebruiker gebruiker, String type, BufferedImage afbeelding, String locatie){
+        setSessie(sessie);
+        setGebruiker(gebruiker);
+        setLocatie(locatie);
+        setType(Arrays.stream(MediaType.values()).filter(t -> t.toString().equals(type)).findFirst().orElse(MediaType.ONBEKEND));
+        setAfbeelding(afbeelding);
+    }
     //endregion
 
     //region Setters
@@ -148,12 +156,29 @@ public class Media implements IMedia {
         this.afbeelding = baos.toByteArray();
     }
 
-    private File getAfbeeding() throws IOException {
-        InputStream is = new ByteArrayInputStream(this.afbeelding);
+    private void setAfbeelding(BufferedImage afbeelding){
+        try{
+            ByteArrayOutputStream byteOutStream = new ByteArrayOutputStream();
+            ImageIO.write(afbeelding, "png", byteOutStream);
+            this.afbeelding = byteOutStream.toByteArray();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    private BufferedImage getAfbeeding() /*throws IOException*/ {
+        /*InputStream is = new ByteArrayInputStream(this.afbeelding);
         BufferedImage bufferedImage = ImageIO.read(is);
         File file = null;
         ImageIO.write(bufferedImage, "png", file);
-        return file;
+        return file;*/
+        try{
+            InputStream i = new ByteArrayInputStream(this.afbeelding);
+            return ImageIO.read(i);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     //endregion

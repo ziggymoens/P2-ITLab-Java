@@ -349,5 +349,12 @@ public class SessieKalender {
         media.update(gegevens);
         em.getTransaction().commit();
     }
+
+    public void voegMediaToeLob(Media media, Sessie sessie) {
+        em.getTransaction().begin();
+        em.persist(media);
+        sessie.addMedia(media);
+        em.getTransaction().commit();
+    }
     //endregion
 }
