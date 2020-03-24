@@ -30,7 +30,7 @@ public class InschrijvingTest {
         lokaal = new Lokaal("GSCHB.3.049", "AUDITORIUM", 50);
         gebruiker = new Gebruiker("TestGebruiker", "123456tp", "gebruiker", "actief");
         openState = new OpenState();
-        sessie = new Sessie("Titel sessie", "beschrijving", LocalDateTime.now().plusSeconds(1), LocalDateTime.now().plusMinutes(60), lokaal, gebruiker, academiejaar, openState.toString());
+        sessie = new Sessie("Titel sessie", "beschrijving", LocalDateTime.now().plusSeconds(1), LocalDateTime.now().plusMinutes(60), lokaal, gebruiker, academiejaar, openState.getStatus());
     }
 
     private static Stream<Arguments> opsommingGeldigeWaarden() {

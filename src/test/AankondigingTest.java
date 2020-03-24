@@ -31,7 +31,7 @@ public class AankondigingTest {
         lokaal = new Lokaal("GSCHB.3.049", "AUDITORIUM", 50);
         herinnering = new Herinnering(1);
         openState = new OpenState();
-        sessie = new Sessie("Titel sessie", "beschrijving", LocalDateTime.now().plusSeconds(1), LocalDateTime.now().plusMinutes(60), lokaal, gebruiker, academiejaar, openState.toString());
+        sessie = new Sessie("Titel sessie", "beschrijving", LocalDateTime.now().plusSeconds(1), LocalDateTime.now().plusMinutes(60), lokaal, gebruiker, academiejaar, openState.getStatus());
     }
 
 

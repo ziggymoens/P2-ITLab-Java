@@ -93,6 +93,9 @@ public class Feedback implements IFeedback {
     }
 
     public void setDate(LocalDate date) {
+        if(date.isBefore(LocalDate.now()) || !sessie.getCurrentState().getStatus().equalsIgnoreCase("gesloten")){
+            throw new FeedbackException("Feedback; Feedback kan niet gegeven worden in het verleden");
+        }
         this.date = date;
     }
 

@@ -33,9 +33,9 @@ class SessieTest {
     }
 
     private static Stream<Arguments> opsommingGeldigeWaarden() {
-        return Stream.of(Arguments.of("Titel sessie", "beschrijving", LocalDateTime.now().plusSeconds(1), LocalDateTime.now().plusMinutes(30), lokaal, gebruiker, academiejaar, openState.toString()),
-                Arguments.of("Titel sessie", "beschrijving", LocalDateTime.now().plusSeconds(1), LocalDateTime.now().plusMinutes(60), lokaal, gebruiker, academiejaar, openState.toString()),
-                Arguments.of("Titel sessie", "beschrijving", LocalDateTime.now().plusSeconds(1), LocalDateTime.now().plusMinutes(31), lokaal, gebruiker, academiejaar, openState.toString()));
+        return Stream.of(Arguments.of("Titel sessie", "beschrijving", LocalDateTime.now().plusSeconds(1), LocalDateTime.now().plusMinutes(30).plusSeconds(1), lokaal, gebruiker, academiejaar, openState.getStatus()),
+                Arguments.of("Titel sessie", "beschrijving", LocalDateTime.now().plusSeconds(1), LocalDateTime.now().plusMinutes(60), lokaal, gebruiker, academiejaar, openState.getStatus()),
+                Arguments.of("Titel sessie", "beschrijving", LocalDateTime.now().plusSeconds(1), LocalDateTime.now().plusMinutes(31), lokaal, gebruiker, academiejaar, openState.getStatus()));
     }
 
 //String titel, String beschrijving, LocalDateTime startSessie, LocalDateTime eindeSessie, Lokaal lokaal, Gebruiker verantwoordelijke, Academiejaar academiejaar
@@ -54,11 +54,11 @@ class SessieTest {
     }
 
     private static Stream<Arguments> opsommingOngeldigeWaarden() {
-        return Stream.of(Arguments.of("", "",LocalDateTime.now(), LocalDateTime.now().plusMinutes(30), lokaal, gebruiker, academiejaar, openState.toString()),
-                Arguments.of("Titel sessie", "", LocalDateTime.now(), LocalDateTime.now().plusMinutes(1), lokaal, gebruiker, academiejaar, openState.toString()),
-                Arguments.of(null, "", LocalDateTime.now(), LocalDateTime.now().plusMinutes(1), lokaal, gebruiker, academiejaar, openState.toString()),
-                Arguments.of("", "Beschrijving", LocalDateTime.now(), LocalDateTime.now().plusMinutes(1), lokaal, gebruiker, academiejaar, openState.toString()),
-                Arguments.of("Titel sessie", null, LocalDateTime.now(), LocalDateTime.now().plusMinutes(1), lokaal, gebruiker, academiejaar, openState.toString()),
+        return Stream.of(Arguments.of("", "",LocalDateTime.now(), LocalDateTime.now().plusMinutes(30), lokaal, gebruiker, academiejaar, openState.getStatus()),
+                Arguments.of("Titel sessie", "", LocalDateTime.now(), LocalDateTime.now().plusMinutes(1), lokaal, gebruiker, academiejaar, openState.getStatus()),
+                Arguments.of(null, "", LocalDateTime.now(), LocalDateTime.now().plusMinutes(1), lokaal, gebruiker, academiejaar, openState.getStatus()),
+                Arguments.of("", "Beschrijving", LocalDateTime.now(), LocalDateTime.now().plusMinutes(1), lokaal, gebruiker, academiejaar, openState.getStatus()),
+                Arguments.of("Titel sessie", null, LocalDateTime.now(), LocalDateTime.now().plusMinutes(1), lokaal, gebruiker, academiejaar, openState.getStatus()),
                 Arguments.of("Titel sessie", "Beschrijving", LocalDateTime.now(), LocalDateTime.now().plusMinutes(1), lokaal, gebruiker, academiejaar, ""),
                 Arguments.of("", "Beschrijving", LocalDateTime.now(), LocalDateTime.now().plusMinutes(1), lokaal, gebruiker, academiejaar, null)
         );

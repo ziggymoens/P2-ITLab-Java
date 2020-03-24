@@ -12,7 +12,7 @@ public class GeslotenState extends SessieState {
 
     private static final long serialVersionUID = -3133496800896038854L;
 
-    protected GeslotenState() {
+    public GeslotenState() {
     }
 
     public GeslotenState(Sessie sessie) {
