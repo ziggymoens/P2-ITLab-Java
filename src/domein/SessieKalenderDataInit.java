@@ -30,7 +30,7 @@ public class SessieKalenderDataInit {
             BufferedReader br = new BufferedReader(new FileReader(academiejaar));
             String line;
             while ((line = br.readLine()) != null) {
-                String[] jaar = line.split(";");
+                String[] jaar = line.split(",");
                 sessieKalender.voegAcademieJaarToe(new Academiejaar(Integer.parseInt(jaar[0]), LocalDate.parse(jaar[1]), LocalDate.parse(jaar[2])));
             }
         } catch (IOException e) {
@@ -42,7 +42,7 @@ public class SessieKalenderDataInit {
             BufferedReader br = new BufferedReader(new FileReader(lokalen));
             String line;
             while ((line = br.readLine()) != null) {
-                String[] lokaal = line.split(";");
+                String[] lokaal = line.split(",");
                 sessieKalender.voegLokaalToe(new Lokaal(lokaal[0], lokaal[1], Integer.parseInt(lokaal[2])));
             }
         } catch (IOException e) {
@@ -54,7 +54,7 @@ public class SessieKalenderDataInit {
             BufferedReader br = new BufferedReader(new FileReader(gebruikers));
             String line;
             while ((line = br.readLine()) != null) {
-                String[] gebruiker = line.split(";");
+                String[] gebruiker = line.split(",");
                 sessieKalender.voegGebruikerToe(new Gebruiker(gebruiker[1], gebruiker[0], gebruiker[2], gebruiker[3], "storage/profielfotos/profielfoto.png", PasswordUtils.generateSecurePassword(gebruiker[4])));
             }
         } catch (IOException e) {
@@ -66,7 +66,7 @@ public class SessieKalenderDataInit {
             BufferedReader br = new BufferedReader(new FileReader(sessies));
             String line;
             while ((line = br.readLine()) != null) {
-                String[] sessie = line.split(";");
+                String[] sessie = line.split(",");
                 Sessie s = new Sessie(sessie[0], sessie[1],LocalDateTime.parse(sessie[2]), LocalDateTime.parse(sessie[3]), sessieKalender.geefLokaalById(sessie[4]), sessieKalender.geefGebruikerById(sessie[5]), sessieKalender.getAcademiejaarByDate(LocalDateTime.parse(sessie[2])));
                 sessieKalender.voegSessieToe(s);
                 s.setState(sessie[5]);
@@ -81,7 +81,7 @@ public class SessieKalenderDataInit {
             BufferedReader br = new BufferedReader(new FileReader(feedback));
             String line;
             while ((line = br.readLine()) != null) {
-                String[] feedback = line.split(";");
+                String[] feedback = line.split(",");
                 sessieKalender.voegFeedbackToe(new Feedback(sessieKalender.geefSessieById(feedback[3]), sessieKalender.geefGebruikerById(feedback[0]), feedback[1], LocalDate.parse(feedback[2])), sessieKalender.geefSessieById(feedback[3]));
             }
         } catch (IOException e) {
@@ -93,7 +93,7 @@ public class SessieKalenderDataInit {
             BufferedReader br = new BufferedReader(new FileReader(aankondiging));
             String line;
             while ((line = br.readLine()) != null) {
-                String[] aankondiging = line.split(";");
+                String[] aankondiging = line.split(",");
                 sessieKalender.voegAankondigingToe(new Aankondiging(sessieKalender.geefSessieById(aankondiging[3]), sessieKalender.geefGebruikerById(aankondiging[0]), LocalDateTime.parse(aankondiging[1]), aankondiging[2]), sessieKalender.geefSessieById(aankondiging[3]));
             }
         } catch (IOException e) {
@@ -105,7 +105,7 @@ public class SessieKalenderDataInit {
             BufferedReader br = new BufferedReader(new FileReader(herinnering));
             String line;
             while ((line = br.readLine()) != null) {
-                String[] herinnering = line.split(";");
+                String[] herinnering = line.split(",");
                 sessieKalender.voegHerinneringToe(new Herinnering(Integer.parseInt(herinnering[0])), sessieKalender.geefAankondigingById(herinnering[1]));
             }
         } catch (IOException e) {
@@ -117,7 +117,7 @@ public class SessieKalenderDataInit {
             BufferedReader br = new BufferedReader(new FileReader(inschrijving));
             String line;
             while ((line = br.readLine()) != null) {
-                String[] inschrijving = line.split(";");
+                String[] inschrijving = line.split(",");
                 sessieKalender.voegInschrijvingToe(new Inschrijving(sessieKalender.geefSessieById(inschrijving[2]), sessieKalender.geefGebruikerById(inschrijving[0]), LocalDateTime.parse(inschrijving[1])), sessieKalender.geefSessieById(inschrijving[2]));
             }
         } catch (IOException e) {
@@ -129,7 +129,7 @@ public class SessieKalenderDataInit {
             BufferedReader br = new BufferedReader(new FileReader(media));
             String line;
             while ((line = br.readLine()) != null) {
-                String[] media = line.split(";");
+                String[] media = line.split(",");
                 sessieKalender.voegMediaToe(new Media(sessieKalender.geefSessieById(media[3]), sessieKalender.geefGebruikerById(media[0]), media[1], media[2]), sessieKalender.geefSessieById(media[3]));
             }
         } catch (IOException e) {
