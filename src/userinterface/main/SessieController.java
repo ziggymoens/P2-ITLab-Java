@@ -19,6 +19,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import userinterface.sessie.aankondiging.BeherenAankondigingController;
+import userinterface.sessie.feedback.BeherenFeedbackController;
 import userinterface.sessie.gebruiker.GebruikerBeherenController;
 import userinterface.sessie.lokaal.BeherenLokaalController;
 
@@ -164,6 +165,7 @@ public class SessieController extends AnchorPane {
                 choiceBoxMaand.setValue(domeinController.vergelijkMaanden());
                 zetVeldenBewerken(false);
                 vulDetails();
+
             }
         });
 
@@ -442,8 +444,9 @@ public class SessieController extends AnchorPane {
                     rabtnAankondiging.setSelected(false);
                     rabtnInschrijving.setSelected(false);
                     rabtnMedia.setSelected(false);
-                    // Nieuw scherm Feedback maken
-                }
+                    apRechts.getChildren().addAll(new BeherenFeedbackController(domeinController));
+                } else
+                    apRechts.getChildren().remove(0);
             }
         });
 

@@ -12,12 +12,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="ap" prefHeight="238.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="ap" prefHeight="238.0" prefWidth="1000.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
           <TableView fx:id="table" prefHeight="238.0" prefWidth="450.0">
               <columns>
-                  <TableColumn fx:id="gebruiker" prefWidth="75.0" text="Naam Gebruiker" />
-            <TableColumn fx:id="publicatiedatum" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Publicatiedatum" />
+                  <TableColumn fx:id="tblGebruiker" prefWidth="75.0" text="Naam Gebruiker" />
+            <TableColumn fx:id="tblPub" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Publicatiedatum" />
               </columns>
               <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -95,4 +95,4 @@
          </children>
       </AnchorPane>
     </children>
-</AnchorPane>
+</fx:root>

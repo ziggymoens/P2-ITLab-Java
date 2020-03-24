@@ -204,7 +204,7 @@ public class SessieKalender {
     }
 
     public List<Feedback> geefAlleFeedbackVanSessie(String sessie) {
-        return geefSessieById(sessie).getFeedback();
+        return geefSessieById(sessie).getFeedback().stream().filter(a -> !a.getVerwijderd()).collect(Collectors.toList());
     }
     //endregion
 

@@ -123,6 +123,9 @@ public class Feedback implements IFeedback {
         return date;
     }
 
+    @Override
+    public boolean getVerwijderd(){ return verwijderd;}
+
     //endregion
 
     //region Equals & Hashcode

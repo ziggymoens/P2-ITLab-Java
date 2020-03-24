@@ -12,4 +12,4 @@ open module ITLab {
         requires com.sun.istack.runtime;
         requires java.desktop;
         requires java.persistence;
-        }
+}

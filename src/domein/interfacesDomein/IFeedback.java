@@ -11,5 +11,7 @@ public interface IFeedback {
 
     LocalDate getDate();
 
+    boolean getVerwijderd();
+
     String toString_Compleet();
 }

@@ -9,6 +9,7 @@ import domein.interfacesDomein.*;
 import domein.sessie.Sessie;
 import exceptions.domein.LokaalException;
 import exceptions.domein.SessieException;
+import net.bytebuddy.asm.Advice;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -523,11 +524,25 @@ public class DomeinController {
     public List<IInschrijving> geefAlleInschrijvingen() {
         return (List<IInschrijving>) (Object) huidigeSessieKalender.geefAlleInschrijvingen();
     }
+
+    public void addInschrijvingSessie(String sessieId, String gebruikersnaam, LocalDateTime inschrijvingsdatum, boolean statusAanwezigheid) {
+        Inschrijving inschrijving = new Inschrijving( huidigeSessie, huidigeSessieKalender.geefGebruikerById(gebruikersnaam), inschrijvingsdatum,statusAanwezigheid);
+        huidigeSessieKalender.voegInschrijvingToe(inschrijving, huidigeSessieKalender.geefSessieById(sessieId));
+    }
     //endregion
 
     //region Feedback
     public List<IFeedback> geefAlleFeedbackVanHuidigeSessie() {
         return (List<IFeedback>) (Object) huidigeSessieKalender.geefAlleFeedbackVanSessie(huidigeSessie.getSessieId());
+    }
+
+    public void addFeedbackSessie(String sessieId, String gebruikersnaam, String text) {
+        Feedback feedback = new Feedback(huidigeSessie, huidigeSessieKalender.geefGebruikerById(gebruikersnaam), text, LocalDate.now());
+        huidigeSessieKalender.voegFeedbackToe(feedback, huidigeSessieKalender.geefSessieById(sessieId));
+    }
+
+    public void verwijderFeedback(IFeedback feedback) {
+        typeStrategy.verwijderFeedback((Feedback) feedback);
     }
     //endregion
 }

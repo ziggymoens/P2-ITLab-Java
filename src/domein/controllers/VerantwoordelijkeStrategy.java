@@ -1,6 +1,7 @@
 package domein.controllers;
 
 import domein.Aankondiging;
+import domein.Feedback;
 import domein.gebruiker.Gebruiker;
 import domein.sessie.Sessie;
 import domein.SessieKalender;
@@ -110,6 +111,11 @@ public class VerantwoordelijkeStrategy implements TypeStrategy {
 
     @Override
     public void verwijderAankondiging(Aankondiging aankondiging) {
+
+    }
+
+    @Override
+    public void verwijderFeedback(Feedback feedback) {
 
     }
 

@@ -1,6 +1,7 @@
 package domein.controllers;
 
 import domein.Aankondiging;
+import domein.Feedback;
 import domein.gebruiker.Gebruiker;
 import domein.sessie.Sessie;
 
@@ -45,6 +46,8 @@ public interface TypeStrategy {
 
     void verwijderAankondiging(Aankondiging aankondiging);
 
+    void verwijderFeedback(Feedback feedback);
+
     Gebruiker geefGebruikerId(String id);
 
     List<Gebruiker> geefAlleGebruikers();
@@ -58,4 +61,6 @@ public interface TypeStrategy {
     List<Gebruiker> geefAlleGerbuikersNaamSessie(); //filter bij sessie op naam gebruiker
 
     List<Gebruiker> geefAlleGebuikersTypeSessie(); //filter bij sessie op type gebruiker
+
+
 }

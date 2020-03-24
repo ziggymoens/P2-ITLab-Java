@@ -73,12 +73,18 @@ public class BeherenAankondigingController extends AnchorPane {
         table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<IAankondiging>() {
             @Override
             public void changed(ObservableValue<? extends IAankondiging> observableValue, IAankondiging iAankondiging, IAankondiging t1) {
-                huidigeAankondiging = t1;
-                vulDetails();
+                if(t1 != null){
+                    btnNieuweAankondiging.setDisable(false);
+                    btnOpslaanAankondiging.setDisable(true);
+                    btnOpslaanAankondiging.setVisible(false);
+                    btnBewerkenAankondiging.setDisable(false);
+                    btnBewerkenAankondiging.setVisible(true);
+                    huidigeAankondiging = t1;
+                    vulDetails();
+                }
             }
         });
         btnBewerkenAankondiging.setOnAction(this::bewerkenAankondiging);
-        btnOpslaanAankondiging.setOnAction(this::opslaanAankondiging);
         btnNieuweAankondiging.setOnAction(this::nieuweAankondiging);
         btnVerwijderAankondiging.setOnAction(this::verwijderAankondiging);
     }
@@ -119,28 +125,42 @@ public class BeherenAankondigingController extends AnchorPane {
         txtGebr.setEditable(true);
         txfInhoud.setEditable(true);
         cbAutom.setDisable(false);
+        btnOpslaanAankondiging.setOnAction(this::updateAankondiging);
     }
 
-    private void opslaanAankondiging(ActionEvent actionEvent) {
+    private void updateAankondiging(ActionEvent actionEvent) {
         btnOpslaanAankondiging.setVisible(false);
         btnOpslaanAankondiging.setDisable(true);
         btnBewerkenAankondiging.setVisible(true);
         btnBewerkenAankondiging.setDisable(false);
+        btnNieuweAankondiging.setDisable(false);
         txtGebr.setEditable(false);
         txtPub.setEditable(false);
         txfInhoud.setEditable(false);
         cbAutom.setDisable(true);
         boolean autoHerinnering = cbAutom.getSelectionModel().getSelectedItem() != domeinController.geefHerinneringsTijdstippen().get(0);
-        if(btnNieuweAankondiging.isDisable()){
-            domeinController.addAankondigingSessie(domeinController.geefHuidigeISessie().getSessieId(), domeinController.geefHuidigeIGebruiker().getGebruikersnaam(),
-                    txfInhoud.getText(), autoHerinnering, stringNaarEnum(cbAutom.getValue()).getDagen());
-            btnNieuweAankondiging.setDisable(false);
-        }else{
+        //update methode uit dc oproepen
+    }
 
-        }
+    private void toevoegenAankondiging(ActionEvent actionEvent) {
+        btnOpslaanAankondiging.setVisible(false);
+        btnOpslaanAankondiging.setDisable(true);
+        btnBewerkenAankondiging.setVisible(true);
+        btnBewerkenAankondiging.setDisable(false);
+        btnNieuweAankondiging.setDisable(false);
+        txtGebr.setEditable(false);
+        txtPub.setEditable(false);
+        txfInhoud.setEditable(false);
+        cbAutom.setDisable(true);
+        boolean autoHerinnering = cbAutom.getSelectionModel().getSelectedItem() != domeinController.geefHerinneringsTijdstippen().get(0);
+        domeinController.addAankondigingSessie(domeinController.geefHuidigeISessie().getSessieId(), domeinController.geefHuidigeIGebruiker().getGebruikersnaam(),
+                txfInhoud.getText(), autoHerinnering, stringNaarEnum(cbAutom.getValue()).getDagen());
+
+
     }
 
     private void nieuweAankondiging(ActionEvent actionEvent) {
+        table.getSelectionModel().clearSelection();
         txtGebr.setText(domeinController.geefHuidigeIGebruiker().getNaam());
         txtPub.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM HH:mm")));
         txfInhoud.setText("");
@@ -152,6 +172,7 @@ public class BeherenAankondigingController extends AnchorPane {
         btnBewerkenAankondiging.setDisable(true);
         btnOpslaanAankondiging.setVisible(true);
         btnOpslaanAankondiging.setDisable(false);
+        btnOpslaanAankondiging.setOnAction(this::toevoegenAankondiging);
     }
 
     private void verwijderAankondiging(ActionEvent actionEvent) {
