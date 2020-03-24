@@ -105,19 +105,19 @@ public class DomeinController {
     }
 
     public boolean isSessieOpen(){
-        if(huidigeSessie.getCurrentState().getStatus().equals("OPEN") || huidigeSessie.getCurrentState().getStatus().equals("GESLOTEN")){
+        if(huidigeSessie.getCurrentState().getStatus().toLowerCase().equals("open") || huidigeSessie.getCurrentState().getStatus().toLowerCase().equals("gesloten")){
             return true;
         }
         return false;
     }
     public boolean isSessieGesloten(){
-        if(huidigeSessie.getCurrentState().getStatus().equals("GESLOTEN")){
+        if(huidigeSessie.getCurrentState().getStatus().toLowerCase().equals("gesloten")){
             return true;
         }
         return false;
     }
     public boolean isZichtbaar(){
-        if(huidigeSessie.getCurrentState().getStatus().equals("ZICHTBAAR") || huidigeSessie.getCurrentState().getStatus().equals("OPEN") || huidigeSessie.getCurrentState().getStatus().equals("GESLOTEN")){
+        if(huidigeSessie.getCurrentState().getStatus().toLowerCase().equals("zichtbaar") || huidigeSessie.getCurrentState().getStatus().toLowerCase().equals("open") || huidigeSessie.getCurrentState().getStatus().toLowerCase().equals("gesloten")){
             return true;
         }
         return false;

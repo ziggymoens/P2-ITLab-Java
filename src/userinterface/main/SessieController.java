@@ -26,14 +26,15 @@ import userinterface.sessie.media.BeherenMediaController;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-public class SessieController extends AnchorPane implements IObserver{
+public class SessieController extends AnchorPane implements IObserver {
     private DomeinController domeinController;
     private ILokaal tempLokaal;
     private IGebruiker tempGebruiker;
     private ISessie sessie;
-    private Boolean bewerkenStatus;
 
     @FXML
     private AnchorPane apSessie, apSessieDetail;
@@ -100,7 +101,7 @@ public class SessieController extends AnchorPane implements IObserver{
     private CheckBox cbZichtbaar, cbNietZichtbaar;
 
     @FXML
-    private Button btnBewerkenSessie, btnOpslaanSessie, btnOpenSessie, btnSluitSessie, btnVerwijderenSessie, btnToevoegenSessie;
+    private Button btnBewerkenSessie, btnOpslaanSessie, btnOpenSessie, btnSluitSessie, btnVerwijderenSessie, btnToevoegenSessie, btnAnnuleer;
 
     @FXML
     private TextArea txtBeschrijving;
@@ -146,55 +147,26 @@ public class SessieController extends AnchorPane implements IObserver{
     }
 
     private void selectInTable() {
-        bewerkenStatus = false;
         table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessie>() {
             @Override
             public void changed(ObservableValue<? extends ISessie> observableValue, ISessie iSessie, ISessie t1) {
-                    if(bewerkenStatus){
-                        if(!t1.equals(sessie)&&!iSessie.equals(sessie)) {
-                            Alert alert = new Alert(Alert.AlertType.WARNING, "Door op OK te drukken zullen de niet opgeslagen wijzigingen zullen verloren gaan!", ButtonType.OK, ButtonType.CANCEL);
-                            alert.setTitle("WARNING");
-                            alert.setHeaderText("U hebt niet opgelsagen.");
-                            Optional<ButtonType> result = alert.showAndWait();
-                            if (result.get() == ButtonType.OK) {
-                                if (iSessie != null) {
-                                    sessie = iSessie;
-                                }
-                                if (t1 != null) {
-                                    domeinController.setHuidigeISessie(t1);
-                                }
-                                choiceBoxMaand.setValue(domeinController.vergelijkMaanden());
-                                zetVeldenBewerken(false);
-                                vulDetails();
-                                verbergErrors();
-                                bewerkenStatus = false;
-                            }
-                            if (result.get() == ButtonType.CANCEL) {
-                                sessie = iSessie;
-                                table.getSelectionModel().select(sessie);
-                            }
-                        }
-                    }else {
-                        if (iSessie != null) {
-                            sessie = iSessie;
-                        }
-                        if (t1 != null) {
-                            domeinController.setHuidigeISessie(t1);
-                        }
-                        choiceBoxMaand.setValue(domeinController.vergelijkMaanden());
-                        zetVeldenBewerken(false);
-                        vulDetails();
-                        verbergErrors();
-                        bewerkenStatus = false;
-                    }
-
+                if (iSessie != null) {
+                    sessie = iSessie;
+                }
+                if (t1 != null) {
+                    domeinController.setHuidigeISessie(t1);
+                }
+                choiceBoxMaand.setValue(domeinController.vergelijkMaanden());
+                zetVeldenBewerken(false);
+                vulDetails();
+                verbergErrors();
             }
         });
 
         if (!table.getItems().isEmpty() || table.getItems() != null) {
-            if(domeinController.geefHuidigeISessie() == null){
+            if (domeinController.geefHuidigeISessie() == null) {
                 table.getSelectionModel().select(0);
-            }else{
+            } else {
                 table.getSelectionModel().select(domeinController.geefHuidigeISessie());
             }
         }
@@ -214,7 +186,8 @@ public class SessieController extends AnchorPane implements IObserver{
         txtLokaalSessie.setText(domeinController.geefHuidigeISessie().getLokaal().getLokaalCode());
         txtBeschrijving.setText(domeinController.geefHuidigeISessie().getBeschrijving());
         tempLokaal = domeinController.geefHuidigeISessie().getLokaal();
-        setButtonVisible(domeinController.isZichtbaar());
+        //setButtonsBewerken(false);
+        setButtonsOpen(domeinController.isZichtbaar());
         cbZichtbaar.setSelected(domeinController.isZichtbaar());
         cbNietZichtbaar.setSelected(!domeinController.isZichtbaar());
         cbZichtbaar.selectedProperty().addListener(new ChangeListener<Boolean>() {
@@ -237,29 +210,29 @@ public class SessieController extends AnchorPane implements IObserver{
                 if (t1) {
                     txtMaxPlaatsenSessie.setText(Integer.toString(tempLokaal.getAantalPlaatsen()));
                     txtMaxPlaatsenSessie.setEditable(false);
-                } else{
+                } else {
                     txtMaxPlaatsenSessie.setEditable(true);
                 }
             }
         });
         cbMax.setSelected(true);
         txtMaxPlaatsenSessie.setOnKeyPressed(ke -> {
-            if (ke.getCode().equals(KeyCode.BACK_SPACE) && bewerkenStatus){
+            if (ke.getCode().equals(KeyCode.BACK_SPACE)) {
                 cbMax.setSelected(false);
             }
         });
         txtMaxPlaatsenSessie.textProperty().addListener((observableValue, s, t1) -> {
-            if(controleerMaxLokaal(t1)){
+            if (controleerMaxLokaal(t1)) {
                 cbMax.setSelected(true);
             }
         });
     }
 
-    private boolean controleerMaxLokaal(String s){
+    private boolean controleerMaxLokaal(String s) {
         return domeinController.controleerMaxCapaciteitLokaal(Integer.parseInt(s), tempLokaal);
     }
 
-    private boolean zetVeldenBewerken (Boolean b){
+    private void zetVeldenBewerken(Boolean b) {
         btnBewerkenSessie.setDisable(b);
         btnBewerkenSessie.setVisible(!b);
         btnOpslaanSessie.setDisable(!b);
@@ -275,13 +248,25 @@ public class SessieController extends AnchorPane implements IObserver{
         cbMax.setDisable(!b);
         cbNietZichtbaar.setDisable(!b);
         cbZichtbaar.setDisable(!b);
-        return b;
     }
 
     private void bewerkenSessie(ActionEvent actionEvent) {
-        bewerkenStatus = zetVeldenBewerken(true);
+        zetVeldenBewerken(true);
+        setButtonsBewerken(true);
+        table.setDisable(true);
         txtLokaalSessie.setOnMouseClicked(e -> toonLokalen());
         txtVerantwoordelijkeSessie.setOnMouseClicked(e -> toonGebruikers());
+    }
+
+    private void setButtonsBewerken(boolean b){
+        btnBewerkenSessie.setVisible(!b);
+        btnBewerkenSessie.setDisable(b);
+        btnOpslaanSessie.setVisible(b);
+        btnOpslaanSessie.setDisable(!b);
+        btnAnnuleer.setVisible(b);
+        btnAnnuleer.setDisable(!b);
+        btnVerwijderenSessie.setDisable(b);
+        btnVerwijderenSessie.setVisible(!b);
     }
 
     private void verwijderenSessie(ActionEvent actionEvent) {
@@ -289,7 +274,7 @@ public class SessieController extends AnchorPane implements IObserver{
         update();
     }
 
-    private void nieuweSessie(ActionEvent actionEvent){
+    private void nieuweSessie(ActionEvent actionEvent) {
         resetTextvelden();
         bewerkenSessie(actionEvent);
     }
@@ -305,18 +290,21 @@ public class SessieController extends AnchorPane implements IObserver{
         veranderingen.add(5, tempLokaal.getLokaalCode());
         veranderingen.add(6, txtGastsprekerSessie.getText());
         veranderingen.add(7, txtMaxPlaatsenSessie.getText());
-        veranderingen.add(8, ((Boolean)cbZichtbaar.isSelected()).toString());
+        veranderingen.add(8, ((Boolean) cbZichtbaar.isSelected()).toString());
 
         Map<String, String> fouten = domeinController.controleerDataSessie(veranderingen);
         fouten.entrySet().stream().forEach(e -> System.out.println(e.getKey() + " -> " + e.getValue()));
-        if(fouten.isEmpty()){
+        if (fouten.isEmpty()) {
             domeinController.updateSessie(veranderingen);
-            new Alert(Alert.AlertType.INFORMATION,"Sessie " + txtTitelSessie + " opgeslagen",ButtonType.OK);
-            bewerkenStatus = zetVeldenBewerken(false);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Sessie " + txtTitelSessie + " opgeslagen", ButtonType.OK);
+            alert.showAndWait();
+            zetVeldenBewerken(false);
+            setButtonsBewerken(false);
+            verbergErrors();
         } else {
             String fout = "";
-            for(Map.Entry<String, String> entry : fouten.entrySet()){
-                switch(entry.getKey()){
+            for (Map.Entry<String, String> entry : fouten.entrySet()) {
+                switch (entry.getKey()) {
                     case "verantwoordelijke":
                         this.lblErrorVerantwoordelijke.setText(entry.getValue());
                         this.lblErrorVerantwoordelijke.setVisible(true);
@@ -353,7 +341,7 @@ public class SessieController extends AnchorPane implements IObserver{
         s.stream().forEach(e -> System.out.println(e));*/
     }
 
-    private void verbergErrors () {
+    private void verbergErrors() {
         lblErrorMaxPlaatsen.setVisible(false);
         lblErrorLokaal.setVisible(false);
         lblErrorGastspreker.setVisible(false);
@@ -363,7 +351,7 @@ public class SessieController extends AnchorPane implements IObserver{
         lblErrorUur.setVisible(false);
     }
 
-    private void resetTextvelden(){
+    private void resetTextvelden() {
         lblTitelSessie.setText("NIEUWE SESSIE");
         txtTitelSessie.clear();
         dpStart.setValue(LocalDate.now());
@@ -408,14 +396,14 @@ public class SessieController extends AnchorPane implements IObserver{
                     choiceBoxStad.setDisable(true);
                     choiceBoxStad.setVisible(false);
                     choiceBoxStad.setDisable(true);
-                } else if(t1.equals("Stad")){
+                } else if (t1.equals("Stad")) {
                     txtSearchBar.setVisible(false);
                     txtSearchBar.setDisable(true);
                     choiceBoxStad.setVisible(true);
                     choiceBoxStad.setDisable(false);
                     choiceBoxStad.setVisible(false);
                     choiceBoxStad.setDisable(true);
-                } else if(t1.equals("Status")){
+                } else if (t1.equals("Status")) {
                     txtSearchBar.setVisible(false);
                     txtSearchBar.setDisable(true);
                     choiceBoxStad.setVisible(false);
@@ -442,43 +430,29 @@ public class SessieController extends AnchorPane implements IObserver{
     private void sluitSessie(ActionEvent actionEvent) {
     }
 
-    private void setButtonVisible(boolean b){
+    private void setButtonsOpen(boolean b) {
         if(b){
-            btnBewerkenSessie.setDisable(true);
-            btnBewerkenSessie.setVisible(false);
-            btnOpslaanSessie.setDisable(true);
-            btnOpslaanSessie.setVisible(false);
-            if(domeinController.isSessieOpen()){
-                btnOpenSessie.setDisable(false);
-                btnOpenSessie.setVisible(true);
-                btnSluitSessie.setDisable(true);
-                btnSluitSessie.setVisible(false);
-            } else if(domeinController.isSessieGesloten()){
-                btnOpenSessie.setDisable(true);
-                btnOpenSessie.setVisible(false);
-                btnSluitSessie.setDisable(false);
-                btnSluitSessie.setVisible(true);
-            }
+        btnBewerkenSessie.setDisable(b);
+        btnBewerkenSessie.setVisible(!b);
+        btnOpslaanSessie.setDisable(b);
+        btnOpslaanSessie.setVisible(!b);
         } else {
-            btnOpenSessie.setDisable(true);
-            btnOpenSessie.setVisible(false);
-            btnSluitSessie.setDisable(true);
-            btnSluitSessie.setVisible(false);
-            if (bewerkenStatus){
-                btnBewerkenSessie.setDisable(true);
-                btnBewerkenSessie.setVisible(false);
-                btnOpslaanSessie.setDisable(false);
-                btnOpslaanSessie.setVisible(true);
-            } else{
-                btnBewerkenSessie.setDisable(false);
-                btnBewerkenSessie.setVisible(true);
-                btnOpslaanSessie.setDisable(true);
-                btnOpslaanSessie.setVisible(false);
-            }
+            setButtonsBewerken(b);
         }
+            if (domeinController.isSessieOpen()) {
+                btnOpenSessie.setDisable(!b);
+                btnOpenSessie.setVisible(b);
+                btnSluitSessie.setDisable(b);
+                btnSluitSessie.setVisible(!b);
+            } else if (domeinController.isSessieGesloten()) {
+                btnOpenSessie.setDisable(b);
+                btnOpenSessie.setVisible(!b);
+                btnSluitSessie.setDisable(!b);
+                btnSluitSessie.setVisible(b);
+            }
     }
 
-    private void toonGebruikers(){
+    private void toonGebruikers() {
         Scene scene = new Scene(new GebruikerBeherenController(domeinController, this));
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -486,7 +460,7 @@ public class SessieController extends AnchorPane implements IObserver{
         stage.show();
     }
 
-    private void toonLokalen(){
+    private void toonLokalen() {
         Scene scene = new Scene(new BeherenLokaalController(domeinController, this));
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -502,7 +476,7 @@ public class SessieController extends AnchorPane implements IObserver{
                     rabtnFeedback.setSelected(false);
                     rabtnInschrijving.setSelected(false);
                     rabtnMedia.setSelected(false);
-                    apRechts.getChildren().addAll( new BeherenAankondigingController(domeinController));
+                    apRechts.getChildren().addAll(new BeherenAankondigingController(domeinController));
                 } else
                     apRechts.getChildren().remove(0);
             }
@@ -530,7 +504,7 @@ public class SessieController extends AnchorPane implements IObserver{
                     rabtnFeedback.setSelected(false);
                     rabtnMedia.setSelected(false);
                     apRechts.getChildren().addAll(new BeherenInschrijvingController(domeinController));
-                }else
+                } else
                     apRechts.getChildren().remove(0);
             }
         });
@@ -543,7 +517,7 @@ public class SessieController extends AnchorPane implements IObserver{
                     rabtnFeedback.setSelected(false);
                     rabtnInschrijving.setSelected(false);
                     apRechts.getChildren().addAll(new BeherenMediaController(domeinController));
-                }else
+                } else
                     apRechts.getChildren().remove(0);
             }
         });
@@ -554,14 +528,14 @@ public class SessieController extends AnchorPane implements IObserver{
         sessieTable();
     }
 
-    public void setIGebruiker(IGebruiker gebruiker){
+    public void setIGebruiker(IGebruiker gebruiker) {
         this.tempGebruiker = gebruiker;
         txtVerantwoordelijkeSessie.setText(gebruiker.getNaam());
     }
 
-    public void setLokaal (ILokaal lokaal){
+    public void setLokaal(ILokaal lokaal) {
         this.tempLokaal = lokaal;
-        txtMaxPlaatsenSessie.setText(((Integer)tempLokaal.getAantalPlaatsen()).toString());
+        txtMaxPlaatsenSessie.setText(((Integer) tempLokaal.getAantalPlaatsen()).toString());
         txtLokaalSessie.setText(lokaal.getLokaalCode());
     }
 }

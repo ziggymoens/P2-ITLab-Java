@@ -192,11 +192,12 @@
                               <Insets />
                            </HBox.margin>
                               </Pane>
-                              <Button fx:id="btnVerwijderenSessie" mnemonicParsing="false" prefHeight="30.0" prefWidth="210.0" text="Verwijder">
-                                  <HBox.margin>
-                                      <Insets />
-                                  </HBox.margin>
-                              </Button>
+                        <Pane>
+                           <children>
+                              <Button fx:id="btnAnnuleer" disable="true" mnemonicParsing="false" prefHeight="30.0" prefWidth="210.0" text="Annuleer" visible="false" />
+                                    <Button fx:id="btnVerwijderenSessie" mnemonicParsing="false" prefHeight="30.0" prefWidth="210.0" text="Verwijder" />
+                           </children>
+                        </Pane>
                         <Button fx:id="btnToevoegenSessie" mnemonicParsing="false" prefHeight="30.0" prefWidth="210.0" text="Nieuw" />
                           </children>
                       </HBox>
