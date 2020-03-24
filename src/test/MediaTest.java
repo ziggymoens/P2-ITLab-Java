@@ -1,4 +1,4 @@
-package testExcluded;
+package test;
 
 import domein.gebruiker.Gebruiker;
 import domein.Media;
@@ -35,7 +35,7 @@ public class MediaTest {
         Media media = new Media(sessie, gebruiker, locatie, type);
         Assertions.assertEquals(locatie, media.getLocatie());
         String[] waarden = new String[]{type, "ONBEKEND"};
-        //ssertions.assertTrue();
+        //Assertions.assertTrue();
     }
 
     private static Stream<Arguments> opsommingOngeldigeWaarden() {
