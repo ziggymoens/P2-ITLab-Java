@@ -178,13 +178,10 @@ public class Inschrijving implements IInschrijving {
     public void update(List<Object> gegevens) {
         try {
             if (gegevens.get(0) != null) {
-                setGebruiker((Gebruiker) gegevens.get(0));
+                setInschrijvingsdatum((LocalDateTime) gegevens.get(0));
             }
             if (gegevens.get(1) != null) {
-                setInschrijvingsdatum((LocalDateTime) gegevens.get(1));
-            }
-            if (gegevens.get(2) != null) {
-                setStatusAanwezigheid((boolean) gegevens.get(2));
+                setStatusAanwezigheid((boolean) gegevens.get(1));
             }
         } catch (Exception e) {
             throw new InschrijvingException("Update");

@@ -607,6 +607,15 @@ public class DomeinController {
     public void verwijderInschrijving(IInschrijving inschrijving) {
         typeStrategy.verwijderInschrijving((Inschrijving) inschrijving);
     }
+    public void updateInschrijving(IInschrijving inschrijving, List<String> veranderingen){
+        List<Object> objVeranderingen = new ArrayList<>();
+        objVeranderingen.add(0 ,LocalDate.parse(veranderingen.get(0)));
+        if(veranderingen.get(1) == "AANWEZIG")
+            objVeranderingen.add(1, true);
+        else
+            objVeranderingen.add(1, false);
+        huidigeSessieKalender.updateInschrijving((Inschrijving) inschrijving, objVeranderingen);
+    }
     //endregion
 
     //region Feedback
