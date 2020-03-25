@@ -96,13 +96,13 @@ public class BeherenMediaController extends AnchorPane implements IDetails {
                 vulDetails();
             }
         });
-
         btnNieuw.setOnAction(this::veldenLeegmaaken);
         btnverwijder.setOnAction(this::verwijderMedia);
         comboBoxEventListener();
     }
 
     private void veldenLeegmaaken(ActionEvent actionEvent) {
+        uploaden.setDisable(true);
         txtUrl.setText("");
         txtUrl.setEditable(true);
         cbmedia.setDisable(false);
@@ -171,6 +171,7 @@ public class BeherenMediaController extends AnchorPane implements IDetails {
     }
 
     private void nieuweMediaFoto(ActionEvent actionEvent) {
+        uploaden.setDisable(false);
         if(cbmedia.getSelectionModel().selectedItemProperty().getValue() == "FOTO") {
             Stage stage = new Stage();
             FileChooser fileChooser = new FileChooser();
@@ -202,10 +203,14 @@ public class BeherenMediaController extends AnchorPane implements IDetails {
                     switch (t1) {
                         case "URL":
                             txtUrl.setDisable(false);
+                            txtUrl.setVisible(true);
+                            if(!cbmedia.isDisable())
+                                txtUrl.setEditable(true);
                             break;
                         case "FOTO":
                             txtUrl.setEditable(false);
                             txtUrl.setDisable(true);
+                            txtUrl.setVisible(false);
                             break;
                         case "ONBEKEND":
                             break;
