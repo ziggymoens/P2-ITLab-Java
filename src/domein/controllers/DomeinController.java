@@ -623,6 +623,10 @@ public class DomeinController {
         huidigeSessieKalender.mediaAfbeeldingWijzigen(image, (Media) huidigeMedia);
     }
 
+    public IStatistiek geefStatistiek() {
+        return new Statistiek();
+    }
+
 
     //endregion
 }
