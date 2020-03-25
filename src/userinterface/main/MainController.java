@@ -6,14 +6,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 
 public class MainController extends AnchorPane{
     //region buttonBar FXML
@@ -28,25 +25,20 @@ public class MainController extends AnchorPane{
     private Button btnSessiekalender;
     @FXML
     private Button btnIngelogd;
+    @FXML
+    private Button gebruiker;
     //endregion FMXL
 
-    @FXML
-    private RadioMenuItem taalN, taalE, taalF;
-    @FXML
-    private ImageView profielFoto;
-    @FXML
-    private Label gebruikersnaam, laatst;
+
     @FXML
     private TabPane tabPane;
     @FXML
     private Tab sessieTab;
     @FXML
     private BorderPane sessieTabBP;
-    @FXML
-    private Menu menuAccount;
 
     private DomeinController domeinController;
-    private IGebruiker gebruiker;
+    private IGebruiker iGebruiker;
 
     public MainController(DomeinController domeinController)
     {
@@ -60,13 +52,8 @@ public class MainController extends AnchorPane{
             e.printStackTrace();
             throw new RuntimeException();
         }
-        menuAccount.setText(String.format("Ingelogd als: %s", domeinController.geefHuidigeIGebruiker().getNaam()));
-        gebruiker = domeinController.geefHuidigeIGebruiker();
-        gebruikersnaam.setText(gebruiker.getNaam());
-        Image image = new Image("storage/profielfotos/profielfoto.png");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        laatst.setText(gebruiker.getLaatstIngelogd().format(formatter));
-        this.profielFoto.setImage(image);
+        iGebruiker = domeinController.geefHuidigeIGebruiker();
+        gebruiker.setText(iGebruiker.getNaam());
         openSessie();
         openGebruiker();
         openKalender();
