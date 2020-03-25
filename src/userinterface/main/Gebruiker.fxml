@@ -83,7 +83,7 @@
                                 <Insets right="50.0" />
                             </HBox.margin>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="520.0" prefWidth="448.0">
+                        <VBox alignment="CENTER" prefHeight="566.0" prefWidth="404.0">
                             <children>
                                 <Label alignment="CENTER" prefHeight="29.0" prefWidth="467.0" text="GEBRUIKER">
                                     <font>
@@ -107,7 +107,7 @@
                                                                     </VBox.margin>
                                                                 </Label>
                                                                 <TextField fx:id="txtFieldGebruiker" editable="false" prefHeight="27.0" prefWidth="390.0" />
-                                                                <Label fx:id="lblErrorNaam" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="463.0" text="Label" textFill="RED" visible="false" />
+                                                                <Label fx:id="lblErrorNaam" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="17.0" prefWidth="463.0" text="Naam mag niet leeg zijn" textFill="RED" visible="false" />
                                                             </children>
                                                             <HBox.margin>
                                                                 <Insets bottom="1.0" />
@@ -115,14 +115,15 @@
                                                         </VBox>
                                                     </children>
                                                 </HBox>
-                                                <VBox alignment="CENTER" prefHeight="73.0" prefWidth="448.0">
+                                                <VBox alignment="CENTER" prefHeight="89.0" prefWidth="398.0">
                                                     <children>
-                                                        <Label alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="22.0" prefWidth="448.0" text="Gebuikersnaam Chamilo">
+                                                        <Label alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="33.0" prefWidth="398.0" text="Gebuikersnaam Chamilo">
                                                             <VBox.margin>
                                                                 <Insets bottom="3.0" />
                                                             </VBox.margin>
                                                         </Label>
-                                                        <TextField fx:id="txtFieldGebruikersnaam" editable="false" prefHeight="27.0" prefWidth="223.0" />
+                                                        <TextField fx:id="txtFieldGebruikersnaam" editable="false" prefHeight="4.0" prefWidth="404.0" />
+                                          <Label fx:id="lblErrorGebruikersnaam" alignment="CENTER" minHeight="0.0" minWidth="0.0" prefHeight="27.0" prefWidth="398.0" text="Naam mag niet leeg zijn" textFill="RED" visible="false" />
                                                     </children>
                                                     <VBox.margin>
                                                         <Insets />
@@ -166,21 +167,22 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                                  <children>
-                                              <Button fx:id="btnWijzigen" mnemonicParsing="false" prefWidth="210.0" text="Wijzigen" />
-                                    <Button fx:id="btnOpslaan" mnemonicParsing="false" prefHeight="27.0" prefWidth="204.0" text="Opslaan" visible="false" />
+                                              <Button fx:id="btnWijzigen" mnemonicParsing="false" prefHeight="27.0" prefWidth="190.0" text="Wijzigen" />
+                                    <Button fx:id="btnOpslaan" mnemonicParsing="false" prefHeight="27.0" prefWidth="190.0" text="Opslaan" visible="false" />
                                  </children>
                               </Pane>
-                                        <Button fx:id="btnVerwijderen" mnemonicParsing="false" prefWidth="210.0" text="Verwijderen">
-                                            <HBox.margin>
-                                                <Insets left="10.0" />
-                                            </HBox.margin>
-                                        </Button>
+                              <Pane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                              <Button fx:id="btnVerwijderen" layoutX="1.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="190.0" text="Verwijderen" />
+                                    <Button fx:id="btnAnnuleren" mnemonicParsing="false" prefHeight="27.0" prefWidth="190.0" text="Annuleren" visible="false" />
+                                 </children>
+                              </Pane>
                                     </children>
                                     <VBox.margin>
-                                        <Insets top="10.0" />
+                                        <Insets bottom="20.0" top="10.0" />
                                     </VBox.margin>
                                 </HBox>
-                                <Label fx:id="lblMessage" prefHeight="80.0" prefWidth="448.0" style="-fx-background-color: grey;" text="Label" VBox.vgrow="NEVER">
+                                <Label fx:id="lblMessage" prefHeight="12.0" prefWidth="413.0" style="-fx-background-color: grey;" text="Label" VBox.vgrow="NEVER">
                                     <padding>
                                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                     </padding>

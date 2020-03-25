@@ -27,7 +27,7 @@ class SessieTest {
     @BeforeAll
     private static void before() {
         academiejaar = new Academiejaar(2021, LocalDate.now(), LocalDate.now().plusMonths(5));
-        gebruiker = new Gebruiker("Test Persoon", "123456tp", "verantwoordelijke", "actief");
+        gebruiker = new Gebruiker("Test Persoon", "123456tp", 0, "verantwoordelijke", "actief");
         lokaal = new Lokaal("GSCHB.3.049", "AUDITORIUM", 50);
         openState = new OpenState();
     }

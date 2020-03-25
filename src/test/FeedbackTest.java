@@ -35,7 +35,7 @@ public class FeedbackTest {
     @BeforeAll
     public static void before() {
         academiejaar = new Academiejaar(2021, LocalDate.now(), LocalDate.now().plusMonths(5));
-        gebruiker = new Gebruiker("123456tp", "Test Persoon", "gebruiker", "actief");
+        gebruiker = new Gebruiker("123456tp", "Test Persoon", 0,"gebruiker", "actief");
         lokaal = new Lokaal("GSCHB.3.049", "AUDITORIUM", 50);
         openState = new OpenState();
         geslotenState = new GeslotenState();

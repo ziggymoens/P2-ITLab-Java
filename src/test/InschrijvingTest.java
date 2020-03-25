@@ -28,7 +28,7 @@ public class InschrijvingTest {
     public static void before() {
         academiejaar = new Academiejaar(2021, LocalDate.now(), LocalDate.now().plusMonths(5));
         lokaal = new Lokaal("GSCHB.3.049", "AUDITORIUM", 50);
-        gebruiker = new Gebruiker("TestGebruiker", "123456tp", "gebruiker", "actief");
+        gebruiker = new Gebruiker("TestGebruiker", "123456tp", 0, "gebruiker", "actief");
         openState = new OpenState();
         sessie = new Sessie("Titel sessie", "beschrijving", LocalDateTime.now().plusSeconds(1), LocalDateTime.now().plusMinutes(60), lokaal, gebruiker, academiejaar, openState.getStatus());
     }

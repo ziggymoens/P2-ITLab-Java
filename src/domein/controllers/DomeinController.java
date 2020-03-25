@@ -332,7 +332,7 @@ public class DomeinController {
     }
 
     public void maakNieuweGebruiker(String naam, String gebruikersnaam, String gebruikersprofiel, String gebruikersstatus) {
-        Gebruiker gebruiker = new Gebruiker(naam, gebruikersnaam, 0,gebruikersprofiel, gebruikersstatus);
+        Gebruiker gebruiker = new Gebruiker(naam, gebruikersnaam, 0, gebruikersprofiel, gebruikersstatus);
         huidigeSessieKalender.voegGebruikerToe(gebruiker);
     }
     //endregion

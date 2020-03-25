@@ -48,26 +48,28 @@ public class GebruikerBeherenController extends AnchorPane {
         loader.setController(this);
         try {
             loader.load();
+            vulTable();
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException();
         }
-        vulTable(FXCollections.observableArrayList(domeinController.geefAlleVerantwoordelijken()));
         zoek();
-
         btnKies.setOnAction(this::kiezen);
     }
 
     private void kiezen(ActionEvent actionEvent) {
-        sessieController.setIGebruiker((IGebruiker) tableViewGebruiker.getSelectionModel().getSelectedItem());
-        Stage stage = (Stage) this.getScene().getWindow();
-        stage.close();
+        if(tableViewGebruiker.getSelectionModel().getSelectedItem() != null){
+            sessieController.setIGebruiker((IGebruiker) tableViewGebruiker.getSelectionModel().getSelectedItem());
+            Stage stage = (Stage) this.getScene().getWindow();
+            stage.close();
+        }
+
     }
 
-    private void vulTable(ObservableList observableArrayList) {
+    private void vulTable() {
         TVnaam.setCellValueFactory(new PropertyValueFactory<>("naam"));
         TVgebruikersprofiel.setCellValueFactory(new PropertyValueFactory<>("gebruikersprofiel"));
-        tableViewGebruiker.setItems(observableArrayList);
+        tableViewGebruiker.setItems(FXCollections.observableArrayList(domeinController.geefAlleVerantwoordelijken()));
         tableViewGebruiker.getColumns().addAll(TVnaam, TVgebruikersprofiel);
     }
 
@@ -93,4 +95,5 @@ public class GebruikerBeherenController extends AnchorPane {
             tableViewGebruiker.setItems(subentries);
         });
     }
+
 }
