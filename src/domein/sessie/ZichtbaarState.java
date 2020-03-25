@@ -1,8 +1,11 @@
 package domein.sessie;
 
+import domein.Lokaal;
+import domein.gebruiker.Gebruiker;
 import exceptions.domein.SessieException;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -25,7 +28,12 @@ public class ZichtbaarState extends SessieState {
 
     @Override
     public void update(List<Object> gegevens) {
-        throw new SessieException("State;Deze sessie kan niet worden gewijzigd aangezien deze zichtbaar is.");
+        sessie.setVerantwoordelijke((Gebruiker) gegevens.get(0));
+        sessie.setTitel((String) gegevens.get(1));
+        sessie.setDatumUurSessie((LocalDateTime) gegevens.get(2), (LocalDateTime) gegevens.get(3));
+        sessie.setLokaal((Lokaal) gegevens.get(4));
+        sessie.setNaamGastspreker((String) gegevens.get(5));
+        sessie.setMaximumAantalPlaatsen((Integer) gegevens.get(6));
     }
 
     @Override

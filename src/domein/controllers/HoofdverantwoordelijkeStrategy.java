@@ -135,6 +135,11 @@ public class HoofdverantwoordelijkeStrategy implements TypeStrategy {
     }
 
     @Override
+    public void setState( Sessie sessie,String state) {
+        huidigeSessieKalender.setState(sessie, state);
+    }
+
+    @Override
     public Sessie geefSessieId(String id) {
         return huidigeSessieKalender.geefSessieById(id);
     }

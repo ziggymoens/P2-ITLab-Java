@@ -65,5 +65,5 @@ public interface TypeStrategy {
 
     List<Gebruiker> geefAlleGebuikersTypeSessie(); //filter bij sessie op type gebruiker
 
-
+    void setState(Sessie sessie, String state);
 }

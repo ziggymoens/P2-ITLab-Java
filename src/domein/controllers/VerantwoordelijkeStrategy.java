@@ -160,4 +160,9 @@ public class VerantwoordelijkeStrategy implements TypeStrategy {
         return null;
     }
 
+    @Override
+    public void setState(Sessie sessie, String state) {
+        huidigeSessieKalender.setState(sessie, state);
+    }
+
 }

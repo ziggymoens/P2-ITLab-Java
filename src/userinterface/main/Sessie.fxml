@@ -185,8 +185,6 @@
                                   <children>
                                       <Button fx:id="btnBewerkenSessie" mnemonicParsing="false" prefHeight="30.0" prefWidth="210.0" text="Wijzig" />
                                       <Button fx:id="btnOpslaanSessie" disable="true" mnemonicParsing="false" prefHeight="30.0" prefWidth="210.0" text="Opslaan" visible="false" />
-                              <Button fx:id="btnOpenSessie" disable="true" mnemonicParsing="false" prefHeight="30.0" prefWidth="210.0" text="Open Sessie" visible="false" />
-                              <Button fx:id="btnSluitSessie" disable="true" mnemonicParsing="false" prefHeight="30.0" prefWidth="210.0" text="Sluit Sessie" visible="false" />
                                   </children>
                            <HBox.margin>
                               <Insets />
@@ -196,6 +194,8 @@
                            <children>
                               <Button fx:id="btnAnnuleer" disable="true" mnemonicParsing="false" prefHeight="30.0" prefWidth="210.0" text="Annuleer" visible="false" />
                                     <Button fx:id="btnVerwijderenSessie" mnemonicParsing="false" prefHeight="30.0" prefWidth="210.0" text="Verwijder" />
+                              <Button fx:id="btnOpenSessie" disable="true" mnemonicParsing="false" prefHeight="30.0" prefWidth="210.0" text="Open Sessie" visible="false" />
+                              <Button fx:id="btnSluitSessie" disable="true" mnemonicParsing="false" prefHeight="30.0" prefWidth="210.0" text="Sluit Sessie" visible="false" />
                            </children>
                         </Pane>
                         <Button fx:id="btnToevoegenSessie" mnemonicParsing="false" prefHeight="30.0" prefWidth="210.0" text="Nieuw" />
