@@ -495,6 +495,7 @@ public class SessieController extends AnchorPane implements IObserver {
     }
 
     private void activeerRadioButtons() {
+
         rabtnAankondiging.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> obs, Boolean oldValue, Boolean newValue) {
@@ -508,7 +509,6 @@ public class SessieController extends AnchorPane implements IObserver {
             }
         });
         rabtnAankondiging.setSelected(true);
-
         rabtnFeedback.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> obs, Boolean oldValue, Boolean newValue) {

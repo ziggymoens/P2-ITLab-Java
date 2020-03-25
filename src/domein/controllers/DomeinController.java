@@ -572,6 +572,49 @@ public class DomeinController {
         typeStrategy.verwijderFeedback((Feedback) feedback);
     }
 
+    public Map<String, String> controleerDataFeedback(List<String> data) {
+        /*Map<String, String> map = new HashMap<>();
+        try {
+            updateFeedback(data);
+        } catch (LokaalException lokaalEx) {
+            map.put("lokaal", lokaalEx.getMessage());
+        } catch (SessieException sessieEx) {
+            String[] fout = sessieEx.getMessage().split(";");
+            switch (fout[0]) {
+                case "verantwoordelijke":
+                    map.put("verantwoordelijke", fout[1]);
+                    break;
+                case "titel":
+                    map.put("titel", fout[1]);
+                    break;
+                case "start":
+                    map.put("start", fout[1]);
+                    break;
+                case "eind":
+                    map.put("eind", fout[1]);
+                    break;
+                case "gastspreker":
+                    map.put("gastspreker", fout[1]);
+                    break;
+                case "maxPlaatsen":
+                    map.put("maxPlaatsen", fout[1]);
+                    break;
+                case "lokaal":
+                    map.put("lokaal", fout[1]);
+                    break;
+            }
+            map.put("sessie", sessieEx.getMessage());
+        }
+        return map;*/
+        return null;
+    }
+
+    public void updateFeedback(IFeedback feedback, List<String> veranderingen){
+        List<Object> objVeranderingen = new ArrayList<>();
+        objVeranderingen.add(0, veranderingen.get(0));
+        huidigeSessieKalender.updateFeedback((Feedback) feedback, objVeranderingen);
+    }
+
     public void profielfotoGebruikerWijzigen(BufferedImage image, IGebruiker selected) {
         huidigeSessieKalender.profielfotoGebruikerWijzigen(image, (Gebruiker) selected);
     }

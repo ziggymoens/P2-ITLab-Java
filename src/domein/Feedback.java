@@ -76,7 +76,7 @@ public class Feedback implements IFeedback {
 
     private void setTekst(String tekst) {
         if (tekst == null || tekst.isBlank()) {
-            throw new FeedbackException();
+            throw new FeedbackException("Inhoud van feedback mag niet leeg zijn");
         }
         this.tekst = tekst;
     }
@@ -141,9 +141,7 @@ public class Feedback implements IFeedback {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(feedbackId);
-    }
+    public int hashCode() { return Objects.hash(feedbackId); }
     //endregion
 
     //region toString
@@ -164,9 +162,6 @@ public class Feedback implements IFeedback {
         try {
             if (gegevens.get(0) != null && !((String) gegevens.get(0)).isBlank()) {
                 setTekst((String) gegevens.get(0));
-            }
-            if (gegevens.get(1) != null) {
-                setGebruiker((Gebruiker) gegevens.get(1));
             }
         } catch (Exception e) {
             throw new FeedbackException("Update");

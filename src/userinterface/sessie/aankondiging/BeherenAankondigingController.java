@@ -94,6 +94,7 @@ public class BeherenAankondigingController extends AnchorPane {
 
     public void vulTable(){
         table.getColumns().clear();
+        table.setPlaceholder(new Label("Er zijn geen Aankondigingen voor deze sessie"));
 
         tbcGebruiker.setCellValueFactory(new PropertyValueFactory<>("gebruiker"));
         tbcDatum.setCellValueFactory(new PropertyValueFactory<>("publicatiedatum"));
@@ -105,7 +106,8 @@ public class BeherenAankondigingController extends AnchorPane {
         table.getColumns().addAll(tbcGebruiker, tbcDatum, tbcAutoHerinnering, tbcHerinnering);
         table.getSelectionModel().select(0);
         huidigeAankondiging = table.getSelectionModel().getSelectedItem();
-        vulDetails();
+        if(!domeinController.geefAlleAankondigingenVanHuidigeSessie().isEmpty())
+            vulDetails();
     }
 
     public void vulDetails(){

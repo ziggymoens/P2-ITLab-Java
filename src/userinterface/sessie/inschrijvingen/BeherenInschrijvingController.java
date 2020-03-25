@@ -116,6 +116,7 @@ public class BeherenInschrijvingController extends AnchorPane{
 
     private void vulTable() {
         table.getColumns().clear();
+        table.setPlaceholder(new Label("Er zijn geen Inschrijvingen voor deze sessie"));
 
         tblGebruiker.setCellValueFactory(new PropertyValueFactory<>("gebruiker"));
         tblDatum.setCellValueFactory(new PropertyValueFactory<>("inschrijvingsdatum"));
@@ -126,7 +127,8 @@ public class BeherenInschrijvingController extends AnchorPane{
         table.getColumns().addAll(tblGebruiker, tblDatum, tblStatus);
         table.getSelectionModel().select(0);
         huidigeInschrijving = table.getSelectionModel().getSelectedItem();
-        vulDetails();
+        if(!domeinController.geefAlleInschrijvingenVanHuidigeSessie().isEmpty())
+            vulDetails();
     }
 
     private void vulDetails() {
@@ -137,7 +139,6 @@ public class BeherenInschrijvingController extends AnchorPane{
         cbItems.add("Aanwezig");
         cbAanwezigheid.setItems(FXCollections.observableArrayList(cbItems));
         cbAanwezigheid.setValue(huidigeInschrijving.isStatusAanwezigheid() ? "Aanwezig" : "Afwezig");
-        //txtAanwezig.setText(domeinController.geefHuidigeISessie());
     }
 
     private void wijzigInschrijving(ActionEvent actionEvent) {

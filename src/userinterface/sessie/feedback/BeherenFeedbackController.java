@@ -19,6 +19,9 @@ import javafx.scene.layout.Pane;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class BeherenFeedbackController extends AnchorPane {
@@ -105,7 +108,7 @@ public class BeherenFeedbackController extends AnchorPane {
         btnOpslaan.setVisible(true);
         btnOpslaan.setDisable(false);
         btnNieuw.setDisable(true);
-        txtInhoud.setEditable(false);
+        txtInhoud.setEditable(true);
         btnOpslaan.setOnAction(this::updateFeedback);
     }
 
@@ -115,7 +118,10 @@ public class BeherenFeedbackController extends AnchorPane {
         btnWijzig.setVisible(true);
         btnWijzig.setDisable(false);
         btnNieuw.setDisable(false);
-        //update methode uit dc oproepen
+        List<String> veranderingen = new ArrayList<>();
+        veranderingen.add(0, txtInhoud.getText());
+        domeinController.updateFeedback(huidigeFeedback, veranderingen);
+        vulTable();
     }
 
     private void verwijderFeedback(ActionEvent actionEvent) {
@@ -127,6 +133,7 @@ public class BeherenFeedbackController extends AnchorPane {
         if(result.get() == ButtonType.OK){
             domeinController.verwijderFeedback(table.getSelectionModel().getSelectedItem());
         }
+        vulTable();
     }
 
     private void nieuweFeedback(ActionEvent actionEvent) {
@@ -149,12 +156,19 @@ public class BeherenFeedbackController extends AnchorPane {
         btnOpslaan.setDisable(true);
         btnWijzig.setVisible(true);
         btnWijzig.setDisable(false);
-        domeinController.addFeedbackSessie(domeinController.geefHuidigeISessie().getSessieId(), domeinController.geefHuidigeIGebruiker().getGebruikersnaam(), txtInhoud.getText());
+        try{
+            domeinController.addFeedbackSessie(domeinController.geefHuidigeISessie().getSessieId(), domeinController.geefHuidigeIGebruiker().getGebruikersnaam(), txtInhoud.getText());
+            lblErrorInhoud.setVisible(false);
+        }catch(FeedbackException e){
+            lblErrorInhoud.setVisible(true);
+        }
         btnNieuw.setDisable(false);
         txtInhoud.setEditable(false);
+        vulTable();
     }
 
     public void vulTable(){
+        table.setPlaceholder(new Label("Er zijn geen Feedbacks voor deze sessie"));
         table.getColumns().clear();
 
         tblGebruiker.setCellValueFactory(new PropertyValueFactory<>("gebruiker"));
@@ -165,7 +179,8 @@ public class BeherenFeedbackController extends AnchorPane {
         table.getColumns().addAll(tblGebruiker, tblPub);
         table.getSelectionModel().select(0);
         huidigeFeedback = table.getSelectionModel().getSelectedItem();
-        vulDetails();
+        if(!domeinController.geefAlleFeedbackVanHuidigeSessie().isEmpty())
+            vulDetails();
     }
 
     public void vulDetails(){
