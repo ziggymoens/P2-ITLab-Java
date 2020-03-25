@@ -51,4 +51,5 @@ public class PasswordUtils {
         returnValue = newSecurePassword.equalsIgnoreCase(securedPassword);
         return returnValue;
     }
+
 }

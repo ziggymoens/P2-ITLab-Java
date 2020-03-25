@@ -2,16 +2,16 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <fx:root prefHeight="391.0" prefWidth="687.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox layoutX="28.0" layoutY="21.0" prefHeight="100.0" prefWidth="200.0">
+      <HBox layoutX="6.0" layoutY="7.0" prefHeight="100.0" prefWidth="200.0">
          <children>
             <VBox>
                <children>
@@ -26,7 +26,7 @@
                                           <Insets bottom="10.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <TextField fx:id="naam" editable="false" />
+                                    <TextField fx:id="naam" alignment="CENTER" editable="false" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
@@ -36,7 +36,7 @@
                                           <Insets bottom="10.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <TextField fx:id="wachtwoord" editable="false" />
+                                    <PasswordField fx:id="wachtwoord" alignment="CENTER" editable="false" text="wachtwoord" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
@@ -46,7 +46,7 @@
                                           <Insets bottom="10.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <TextField fx:id="profiel" editable="false" />
+                                    <TextField fx:id="profiel" alignment="CENTER" editable="false" />
                                  </children>
                               </VBox>
                            </children>
@@ -63,7 +63,7 @@
                                           <Insets bottom="10.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <TextField fx:id="gebruikersnaam" editable="false" />
+                                    <TextField fx:id="gebruikersnaam" alignment="CENTER" editable="false" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
@@ -73,7 +73,7 @@
                                           <Insets bottom="10.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <TextField fx:id="laatstingelogd" editable="false" />
+                                    <TextField fx:id="laatstingelogd" alignment="CENTER" editable="false" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
@@ -83,7 +83,7 @@
                                           <Insets bottom="10.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <TextField fx:id="status" editable="false" />
+                                    <TextField fx:id="status" alignment="CENTER" editable="false" />
                                  </children>
                               </VBox>
                            </children>
@@ -100,12 +100,16 @@
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="barcode" editable="false" />
+                        <TextField fx:id="barcode" alignment="CENTER" editable="false" />
                      </children>
                   </VBox>
                </children>
             </VBox>
-            <ImageView fx:id="profielfoto" fitHeight="339.0" fitWidth="210.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="profielfoto" fitHeight="339.0" fitWidth="210.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+            </ImageView>
          </children>
       </HBox>
    </children>

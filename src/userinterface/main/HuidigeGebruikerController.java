@@ -2,9 +2,11 @@ package userinterface.main;
 
 import domein.gebruiker.Gebruiker;
 import domein.interfacesDomein.IGebruiker;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
@@ -53,7 +55,22 @@ public class HuidigeGebruikerController extends AnchorPane {
     }
 
     private void initVelden() {
-        this.gebruikersnaam.setText(gebruiker.getGebruikersnaam());
+        gebruikersnaam.setText(gebruiker.getGebruikersnaam());
         naam.setText(gebruiker.getNaam());
+        laatstingelogd.setText(gebruiker.getLaatstIngelogd().toString());
+        profiel.setText(gebruiker.getGebruikersprofiel());
+        status.setText(gebruiker.getStatus());
+        barcode.setText(String.valueOf(gebruiker.getBarcode()));
+        vulProfielfotoIn();
+    }
+
+    public void vulProfielfotoIn(){
+        if (gebruiker.getProfielfoto() != null) {
+            Image image = SwingFXUtils.toFXImage(gebruiker.getProfielfoto(), null);
+            profielfoto.setImage(image);
+        }else{
+            Image image = new Image("storage/profielfotos/profielfoto.png");
+            profielfoto.setImage(image);
+        }
     }
 }

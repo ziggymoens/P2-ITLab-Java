@@ -2,13 +2,16 @@ package userinterface.main;
 
 import domein.controllers.DomeinController;
 import domein.interfacesDomein.IGebruiker;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -59,6 +62,15 @@ public class MainController extends AnchorPane{
         openKalender();
         SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
         selectionModel.select(0);
+        gebruiker.setOnAction(this::huidigeGebruikerDetails);
+    }
+
+    private void huidigeGebruikerDetails(ActionEvent event) {
+        Scene scene = new Scene(new HuidigeGebruikerController(domeinController.geefHuidigeIGebruiker()));
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
     }
 
     private void openKalender() {
