@@ -27,7 +27,7 @@ public class AankondigingTest {
     @BeforeAll
     public static void before() {
         academiejaar = new Academiejaar(2021, LocalDate.now(), LocalDate.now().plusMonths(5));
-        gebruiker = new Gebruiker("Test Persoon", "123456tp", "gebruiker", "actief");
+        gebruiker = new Gebruiker("Test Persoon", "123456tp", 0,"gebruiker", "actief");
         lokaal = new Lokaal("GSCHB.3.049", "AUDITORIUM", 50);
         herinnering = new Herinnering(1);
         openState = new OpenState();

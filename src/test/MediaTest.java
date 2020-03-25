@@ -20,7 +20,7 @@ public class MediaTest {
 
     @BeforeAll
     static void before() {
-        gebruiker = new Gebruiker("Test Persoon", "123456tp", "gebruiker", "actief");
+        gebruiker = new Gebruiker("Test Persoon", "123456tp",0,"gebruiker", "actief");
     }
 
     private static Stream<Arguments> opsommingGeldigeWaarden() {
@@ -33,7 +33,7 @@ public class MediaTest {
     @MethodSource("opsommingGeldigeWaarden")
     public void maakMediaGeldigeGegevens_Slaagt(Gebruiker gebruiker, String locatie, String type) {
         Media media = new Media(sessie, gebruiker, locatie, type);
-        Assertions.assertEquals(locatie, media.getLocatie());
+        Assertions.assertEquals(locatie, media);
         String[] waarden = new String[]{type, "ONBEKEND"};
         //Assertions.assertTrue();
     }

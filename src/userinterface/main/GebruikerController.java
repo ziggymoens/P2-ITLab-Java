@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 
 public class GebruikerController extends AnchorPane {
     private DomeinController domeinController;
-    private boolean comboBoxTypeChanged, comboBoxStatusChanged;
+    private boolean denyPersist = true;
     private IGebruiker selected;
     @FXML
     private Pane pButtonBar;
@@ -81,7 +81,7 @@ public class GebruikerController extends AnchorPane {
     private TextField txtFieldGebruiker;
 
     @FXML
-    private Label lblErrorNaam;
+    private Label lblErrorNaam, lblErrorGebruikersnaam;
 
     @FXML
     private TextField txtFieldGebruikersnaam;
@@ -102,7 +102,7 @@ public class GebruikerController extends AnchorPane {
     private Button btnWijzigen, btnOpslaan;
 
     @FXML
-    private Button btnVerwijderen;
+    private Button btnVerwijderen, btnAnnuleren;
 
     @FXML
     private Label lblMessage;
@@ -203,8 +203,8 @@ public class GebruikerController extends AnchorPane {
         tableViewGebruiker.setItems(FXCollections.observableArrayList(observableArrayList));
         tableViewGebruiker.getColumns().addAll(TVnaam, TVgebruikersnaamChamilo, TVtype, TVstatus);
 
+        tableViewGebruiker.getSelectionModel().select(0);
         if(tableViewGebruiker.getSelectionModel().getSelectedItem() != null){
-            tableViewGebruiker.getSelectionModel().select(0);
             vulDetails(tableViewGebruiker.getSelectionModel().getSelectedItem());
             vulTableSessies((Gebruiker) tableViewGebruiker.getSelectionModel().getSelectedItem());
         }
@@ -220,9 +220,9 @@ public class GebruikerController extends AnchorPane {
 
     private void wijzigGebruiker(ActionEvent actionEvent){
         btnWijzigen.setVisible(false);
-        System.out.println("button wijzigen invisible");
+        btnVerwijderen.setVisible(false);
         btnOpslaan.setVisible(true);
-        System.out.println("button opslaan visible");
+        btnAnnuleren.setVisible(true);
         txtFieldGebruiker.setEditable(true);
         txtFieldGebruikersnaam.setEditable(true);
         ObservableList<String> type = FXCollections.observableArrayList("gebruiker", "verantwoordelijke", "hoofdverantwoordelijke");
@@ -232,6 +232,8 @@ public class GebruikerController extends AnchorPane {
         comboBoxStatusGebruiker.setItems(status);
         comboBoxStatusGebruiker.getSelectionModel().selectFirst();
         btnOpslaan.setOnAction(this::updateGebruiker);
+        btnAnnuleren.setCancelButton(true);
+        btnAnnuleren.setOnAction(this::refreshAll);
     }
 
 
@@ -265,29 +267,68 @@ public class GebruikerController extends AnchorPane {
     }
 
     private void maakNieuweGebruiker(ActionEvent actionEvent){
-        uploadFoto.setVisible(false);
-        btnWijzigen.setVisible(false);
-        btnOpslaan.setVisible(true);
-        clearDetails();
-        txtFieldGebruiker.setEditable(true);
-        txtFieldGebruikersnaam.setEditable(true);
-        comboBoxTypeGebruiker.setItems(FXCollections.observableArrayList(Arrays.stream(Gebruikersprofiel.values()).map(Enum::toString).collect(Collectors.toList())));
-        comboBoxStatusGebruiker.setItems(FXCollections.observableArrayList(Arrays.stream(Gebruikersstatus.values()).map(Enum::toString).collect(Collectors.toList())));
-        btnOpslaan.setOnAction(this::gebruikerAanmaken);
+        System.out.println(denyPersist);
+
+            uploadFoto.setVisible(false);
+            btnWijzigen.setVisible(false);
+            btnAnnuleren.setVisible(true);
+            btnAnnuleren.setCancelButton(true);
+            btnOpslaan.setVisible(true);
+
+            clearDetails();
+            txtFieldGebruiker.setEditable(true);
+            txtFieldGebruikersnaam.setEditable(true);
+            ObservableList<String> type = FXCollections.observableArrayList("gebruiker", "verantwoordelijke", "hoofdverantwoordelijke");
+            ObservableList<String> status = FXCollections.observableArrayList("actief", "niet actief", "geblokkeerd");
+            comboBoxTypeGebruiker.setItems(type);
+            comboBoxStatusGebruiker.setItems(status);
+            btnOpslaan.setOnAction(this::gebruikerAanmaken);
+    }
+
+    private void gebruikerAanmaken() {
+        uploadFoto.setVisible(true);
+        tableViewGebruiker.setDisable(true);
+        String naam = txtFieldGebruiker.getText();
+        String gebruikersnaam = txtFieldGebruikersnaam.getText();
+        String gebruikersprofiel = comboBoxStatusGebruiker.getSelectionModel().getSelectedItem();
+        String gebruikerstype = comboBoxTypeGebruiker.getSelectionModel().getSelectedItem();
+        System.out.println(denyPersist);
+        opslaanDoorgeven(naam, gebruikersnaam, gebruikersprofiel, gebruikerstype);
     }
 
     private void gebruikerAanmaken(ActionEvent actionEvent) {
         uploadFoto.setVisible(true);
-        System.out.println(txtFieldGebruiker.getText());
-        System.out.println(txtFieldGebruikersnaam.getText());
-        System.out.println(comboBoxStatusGebruiker.getSelectionModel().getSelectedItem());
-        domeinController.maakNieuweGebruiker(txtFieldGebruiker.getText(), txtFieldGebruikersnaam.getText(),
-                comboBoxTypeGebruiker.getSelectionModel().getSelectedItem(),
-                comboBoxStatusGebruiker.getSelectionModel().getSelectedItem());
-        btnWijzigen.setVisible(true);
-        refreshTable();
-        btnOpslaan.setVisible(false);
-        btnWijzigen.setVisible(true);
+        tableViewGebruiker.setDisable(true);
+        String naam = txtFieldGebruiker.getText();
+        String gebruikersnaam = txtFieldGebruikersnaam.getText();
+        String gebruikersprofiel = comboBoxStatusGebruiker.getSelectionModel().getSelectedItem();
+        String gebruikerstype = comboBoxTypeGebruiker.getSelectionModel().getSelectedItem();
+        opslaanDoorgeven(naam, gebruikersnaam, gebruikersprofiel, gebruikerstype);
+    }
+
+    public void opslaanDoorgeven(String naam, String gebruikersnaam, String gebruikersprofiel, String gebruikerstype){
+        if(!naam.isBlank() && !gebruikersnaam.isBlank()){
+            denyPersist = false;
+            domeinController.maakNieuweGebruiker(naam, gebruikersnaam, gebruikerstype, gebruikersprofiel);
+            lblErrorNaam.setVisible(false);
+            lblErrorGebruikersnaam.setVisible(false);
+            btnOpslaan.setVisible(false);
+            btnWijzigen.setVisible(true);
+            btnWijzigen.setVisible(true);
+            btnAnnuleren.setVisible(false);
+            tableViewGebruiker.setDisable(false);
+            refreshAll();
+        } else{
+            if(txtFieldGebruiker.getText().isBlank()){
+                lblErrorNaam.setVisible(true);
+            }
+            if(txtFieldGebruikersnaam.getText().isBlank()){
+                lblErrorGebruikersnaam.setVisible(true);
+            }
+            while(denyPersist){
+                gebruikerAanmaken();
+            }
+        }
     }
 
     private void vulTableSessies(Gebruiker gebruiker){
@@ -338,6 +379,24 @@ public class GebruikerController extends AnchorPane {
     public void refreshTable() {
         clearTableGebruikers();
         vulTableGebruikers(FXCollections.observableArrayList(domeinController.geefAlleIGebruikers()));
+    }
+
+    public void refreshAll(){
+        refreshTable();
+        clearDetails();
+        btnAnnuleren.setVisible(false);
+        btnOpslaan.setVisible(false);
+        btnWijzigen.setVisible(true);
+        btnVerwijderen.setVisible(true);
+    }
+
+    public void refreshAll(ActionEvent actionEvent){
+        refreshTable();
+        clearDetails();
+        btnAnnuleren.setVisible(false);
+        btnOpslaan.setVisible(false);
+        btnWijzigen.setVisible(true);
+        btnVerwijderen.setVisible(true);
     }
 }
 

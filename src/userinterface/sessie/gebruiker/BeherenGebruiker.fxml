@@ -10,33 +10,33 @@
 <?import javafx.scene.layout.VBox?>
 
 <fx:root prefHeight="230.0" prefWidth="1000.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <HBox prefHeight="230.0" prefWidth="1000.0">
-         <children>
-            <VBox alignment="CENTER">
-               <children>
-                  <TextField fx:id="txtFieldSearchbar" promptText="Zoek...">
-                     <VBox.margin>
+    <children>
+        <HBox prefHeight="230.0" prefWidth="1000.0">
+            <children>
+                <VBox alignment="CENTER">
+                    <children>
+                        <TextField fx:id="txtFieldSearchbar" promptText="Zoek...">
+                            <VBox.margin>
+                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                            </VBox.margin>
+                        </TextField>
+                    </children>
+                </VBox>
+                <TableView fx:id="tableViewGebruiker" prefHeight="200.0" prefWidth="660.0">
+                    <columns>
+                        <TableColumn fx:id="TVnaam" editable="false" prefWidth="330.0" resizable="false" text="Naam" />
+                        <TableColumn fx:id="TVgebruikersprofiel" editable="false" prefWidth="330.0" resizable="false" text="Type" />
+                    </columns>
+                    <HBox.margin>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                     </VBox.margin>
-                  </TextField>
-               </children>
-            </VBox>
-            <TableView fx:id="tableViewGebruiker" prefHeight="200.0" prefWidth="660.0">
-              <columns>
-                <TableColumn fx:id="TVnaam" editable="false" prefWidth="330.0" resizable="false" text="Naam" />
-                <TableColumn fx:id="TVgebruikersprofiel" editable="false" prefWidth="330.0" resizable="false" text="Type" />
-              </columns>
-               <HBox.margin>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-               </HBox.margin>
-            </TableView>
-            <VBox alignment="CENTER" prefHeight="230.0" prefWidth="106.0">
-               <children>
-                  <Button fx:id="btnKies" mnemonicParsing="false" prefHeight="56.0" prefWidth="87.0" text="Kiezen" />
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-   </children>
+                    </HBox.margin>
+                </TableView>
+                <VBox alignment="CENTER" prefHeight="230.0" prefWidth="106.0">
+                    <children>
+                        <Button fx:id="btnKies" mnemonicParsing="false" prefHeight="56.0" prefWidth="87.0" text="Kiezen" />
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </children>
 </fx:root>
