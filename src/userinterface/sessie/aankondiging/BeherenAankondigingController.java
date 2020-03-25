@@ -89,9 +89,6 @@ public class BeherenAankondigingController extends AnchorPane {
         btnVerwijderAankondiging.setOnAction(this::verwijderAankondiging);
     }
 
-
-
-
     public void vulTable(){
         table.getColumns().clear();
         table.setPlaceholder(new Label("Er zijn geen Aankondigingen voor deze sessie"));
