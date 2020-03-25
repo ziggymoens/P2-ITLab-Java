@@ -149,15 +149,18 @@ public class BeherenInschrijvingController extends AnchorPane implements IDetail
         btnOpslaan.setVisible(true);
         btnOpslaan.setDisable(false);
         cbAanwezigheid.setDisable(false);
-        btnOpslaan.setOnAction(this::updateFeedback);
+        btnOpslaan.setOnAction(this::updateInschrijving);
     }
 
-    private void updateFeedback(ActionEvent actionEvent) {
+    private void updateInschrijving(ActionEvent actionEvent) {
         btnOpslaan.setVisible(false);
         btnOpslaan.setDisable(true);
         btnWijzig.setVisible(true);
         btnWijzig.setDisable(false);
-        //Update methode uit dc aanroepen
+        List<String> veranderingen = new ArrayList<>();
+        veranderingen.add(0, dpDate.getValue().toString());
+        veranderingen.add(1, cbAanwezigheid.getValue());
+        domeinController.updateInschrijving(huidigeInschrijving, veranderingen);
     }
 
     private void verwijderInschrijving(ActionEvent actionEvent) {
