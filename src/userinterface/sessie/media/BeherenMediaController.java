@@ -62,12 +62,6 @@ public class BeherenMediaController extends AnchorPane {
     private Pane pOnderaan;
 
     @FXML
-    private Button btnWijzig;
-
-    @FXML
-    private Button btnOpslaan;
-
-    @FXML
     private Button btnNieuw;
 
     @FXML
@@ -89,24 +83,35 @@ public class BeherenMediaController extends AnchorPane {
         }
         imgmedia.setImage(new Image("storage/media/default-placeholder.png"));
         vulTable();
-        btnOpslaan.setDisable(true);
-        btnOpslaan.setVisible(false);
+
         uploaden.setOnAction(this::uploadNewFoto);
         table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<IMedia>() {
             @Override
             public void changed(ObservableValue<? extends IMedia> observableValue, IMedia iMedia, IMedia t1) {
                 btnNieuw.setDisable(false);
-                btnOpslaan.setDisable(true);
-                btnOpslaan.setVisible(false);
-                btnWijzig.setDisable(false);
-                btnWijzig.setVisible(true);
+                imgmedia.setVisible(true);
                 huidigeMedia = t1;
+                txtErrorUrl.setVisible(false);
                 vulDetails();
             }
         });
-        btnNieuw.setOnAction(this::nieuweMedia);
+
+        btnNieuw.setOnAction(this::veldenLeegmaaken);
         btnverwijder.setOnAction(this::verwijderMedia);
+        comboBoxEventListener();
     }
+
+    private void veldenLeegmaaken(ActionEvent actionEvent) {
+        txtUrl.setText("");
+        txtUrl.setEditable(true);
+        cbmedia.setDisable(false);
+        imgmedia.setVisible(false);
+        cbmedia.getSelectionModel().select(1);
+        btnNieuw.setOnAction(this::nieuweMediaFoto);
+    }
+
+
+
 
     public void vulAfbeeldingIn(IMedia huidigeMedia){
         BufferedImage bimage = null;
@@ -140,42 +145,73 @@ public class BeherenMediaController extends AnchorPane {
                 vulAfbeeldingIn(huidigeMedia);
             }
         }
+        vulTable();
     }
-
 
     public void vulTable(){
         table.getColumns().clear();
-
+        table.setPlaceholder(new Label("Er is geen media voor deze sessie"));
         tblMediatype.setCellValueFactory(new PropertyValueFactory<>("type"));
         media = FXCollections.observableArrayList(domeinController.geefMediaVanHuidigeSessie());
         table.setItems(media);
         table.getColumns().addAll(tblMediatype);
         table.getSelectionModel().select(0);
         huidigeMedia = table.getSelectionModel().getSelectedItem();
-        vulDetails();
+        if(!domeinController.geefMediaVanHuidigeSessie().isEmpty())
+            vulDetails();
     }
 
     private void vulDetails() {
         cbmedia.setItems(FXCollections.observableArrayList(domeinController.geefMediaTypes()));
         cbmedia.setValue(huidigeMedia.getTypeString());
-        txtUrl.setText(huidigeMedia.getUrl());
+        if(huidigeMedia.getUrl() != null)
+            txtUrl.setText(huidigeMedia.getUrl());
         vulAfbeeldingIn(huidigeMedia);
     }
 
-    private void nieuweMedia(ActionEvent actionEvent) {
-        Stage stage = new Stage();
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Media Toevoegen");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.png", "*.gif", "*.jpg"));
-        file = fileChooser.showOpenDialog(stage);
-        if (file != null) {
-            try {
-                BufferedImage image = ImageIO.read(file);
-                domeinController.maakNieuweMedia(image);
-            } catch (IOException e) {
-                e.printStackTrace();
+    private void nieuweMediaFoto(ActionEvent actionEvent) {
+        if(cbmedia.getSelectionModel().selectedItemProperty().getValue() == "FOTO") {
+            Stage stage = new Stage();
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Media Toevoegen");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.png", "*.gif", "*.jpg"));
+            file = fileChooser.showOpenDialog(stage);
+            if (file != null) {
+                try {
+                    BufferedImage image = ImageIO.read(file);
+                    domeinController.maakNieuweMedia(image);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+        } else {
+            if(!txtUrl.getText().isEmpty())
+                domeinController.maakNieuweMedia(domeinController.geefHuidigeISessie(), domeinController.geefHuidigeIGebruiker(), "URL", txtUrl.getText());
+            else
+                txtErrorUrl.setVisible(true);
         }
+        //vulTable();
+    }
+
+    private void comboBoxEventListener() {
+        cbmedia.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                if(t1 != null){
+                    switch (t1) {
+                        case "URL":
+                            txtUrl.setDisable(false);
+                            break;
+                        case "FOTO":
+                            txtUrl.setEditable(false);
+                            txtUrl.setDisable(true);
+                            break;
+                        case "ONBEKEND":
+                            break;
+                    }
+                }
+            }
+        });
     }
 
     /*private void nieuweMedia(ActionEvent actionEvent){
