@@ -46,7 +46,7 @@ public class Media implements IMedia {
     private MediaType type;
     private boolean verwijderd = false;
     @Lob
-    private static byte[] afbeelding;
+    private byte[] afbeelding;
 //endregion
 
     //region Constructor
@@ -107,6 +107,13 @@ public class Media implements IMedia {
         setType(Arrays.stream(MediaType.values()).filter(t -> t.toString().equals(type)).findFirst().orElse(MediaType.ONBEKEND));
         setAfbeelding(afbeelding);
     }
+
+    public Media(Gebruiker huidigeGebruiker, Sessie huidigeSessie,BufferedImage image) {
+        setGebruiker(huidigeGebruiker);
+        setSessie(huidigeSessie);
+        setType(MediaType.FOTO);
+        setAfbeelding(image);
+    }
     //endregion
 
     //region Setters
@@ -140,12 +147,12 @@ public class Media implements IMedia {
     public void setVerwijderd(boolean verwijderd) {
         this.verwijderd = verwijderd;
     }
-
-    private void setAfbeelding(String path) throws IOException {
-        File file = new File("/storage/profielfotos/profielfoto.png");
-        BufferedImage bufferedImage = ImageIO.read(file);
+/*
+    private void setAfbeelding(BufferedImage image) throws IOException {
+        //File file = new File("/storage/profielfotos/profielfoto.png");
+        //BufferedImage bufferedImage = ImageIO.read(file);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(bufferedImage, "png", baos);
+        ImageIO.write(image, "png", baos);
         this.afbeelding = baos.toByteArray();
     }
 
@@ -155,6 +162,7 @@ public class Media implements IMedia {
         ImageIO.write(bufferedImage, "png", baos);
         this.afbeelding = baos.toByteArray();
     }
+ */
 
     private void setAfbeelding(BufferedImage afbeelding){
         try{
@@ -166,7 +174,8 @@ public class Media implements IMedia {
         }
     }
 
-    private BufferedImage getAfbeeding() /*throws IOException*/ {
+    @Override
+    public BufferedImage getAfbeeding() /*throws IOException*/ {
         /*InputStream is = new ByteArrayInputStream(this.afbeelding);
         BufferedImage bufferedImage = ImageIO.read(is);
         File file = null;

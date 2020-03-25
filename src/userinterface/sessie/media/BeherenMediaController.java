@@ -8,6 +8,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +26,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.Buffer;
 import java.sql.SQLOutput;
 import java.util.Optional;
 
@@ -120,6 +122,8 @@ public class BeherenMediaController extends AnchorPane {
         cbmedia.setItems(FXCollections.observableArrayList(domeinController.geefMediaTypes()));
         cbmedia.setValue(huidigeMedia.getTypeString());
         txtUrl.setText(huidigeMedia.getLocatie());
+        Image image = SwingFXUtils.toFXImage(huidigeMedia.getAfbeeding(), null);
+        imgmedia.setImage(image);
     }
 
     private void nieuweMedia(ActionEvent actionEvent) {
@@ -128,21 +132,14 @@ public class BeherenMediaController extends AnchorPane {
         fileChooser.setTitle("Media Toevoegen");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.png", "*.gif", "*.jpg"));
         file = fileChooser.showOpenDialog(stage);
-        System.out.println(file);
         if (file != null) {
-            txtUrl.setText(file.getAbsolutePath());
             try {
-                java.nio.file.Files.copy(
-                        file.toPath(),
-                        new File(file.getName()).toPath(),
-                        java.nio.file.StandardCopyOption.REPLACE_EXISTING,
-                        java.nio.file.StandardCopyOption.COPY_ATTRIBUTES,
-                        java.nio.file.LinkOption.NOFOLLOW_LINKS);
+                BufferedImage image = ImageIO.read(file);
+                domeinController.maakNieuweMedia(image);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        domeinController.maakNieuweMedia(domeinController.geefHuidigeISessie(), domeinController.geefHuidigeIGebruiker(), cbmedia.getSelectionModel().getSelectedItem(), file.getName());
     }
 
     /*private void nieuweMedia(ActionEvent actionEvent){

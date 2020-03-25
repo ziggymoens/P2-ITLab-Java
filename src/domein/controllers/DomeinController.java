@@ -482,6 +482,12 @@ public class DomeinController {
         return (List<IMedia>) (Object) huidigeSessieKalender.geefAlleMedia();
     }
 
+
+    public void maakNieuweMedia(BufferedImage image) {
+        Media m = new Media(huidigeGebruiker, huidigeSessie, image);
+        huidigeSessieKalender.voegMediaToe(m, huidigeSessie);
+    }
+
     public void maakNieuweMedia(ISessie sessie, IGebruiker gebruiker, String type, String locatie) {
         huidigeSessieKalender.voegMediaToe(new Media(huidigeSessie, (Gebruiker) gebruiker, locatie, type), (Sessie) sessie);
     }

@@ -1,7 +1,10 @@
 package main;
 
 import domein.Media;
+import domein.SessieKalender;
 import domein.Statistiek;
+import domein.controllers.DomeinController;
+import domein.controllers.StartController;
 import domein.gebruiker.Gebruiker;
 import javafx.event.ActionEvent;
 import javafx.stage.FileChooser;
@@ -20,7 +23,14 @@ public class Test {
 
         Statistiek s = new Statistiek();
 
-        s.overzichtLokalen(10);
+        s.geefAllesVan("media");
+
+        StartController startController = new StartController();
+        startController.setHuidigeGebruiker("758095zm");
+        DomeinController domeinController = startController.initDomeinController();
+
+        SessieKalender sessieKalender = new SessieKalender();
+        System.out.println(sessieKalender.geefMediaById("M1920-000052").getAfbeeding());
 
         /*
         s.geefTopSessieTabel("inschrijving", 10);
@@ -92,4 +102,3 @@ public class Test {
         }
     }
 }
-
