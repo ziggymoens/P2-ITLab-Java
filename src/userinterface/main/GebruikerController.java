@@ -151,7 +151,6 @@ public class GebruikerController extends AnchorPane {
         ObservableList<String> status = FXCollections.observableArrayList("actief", "niet actief", "geblokkeerd");
         comboBoxType.setItems(type);
         comboBoxStatus.setItems(status);
-
         zoek();
     }
 

@@ -234,7 +234,7 @@ public class SessieController extends AnchorPane implements IObserver {
                 }
             }
         });
-        //updateDetailsPanels();
+        updateDetailsPanels();
     }
 
 
