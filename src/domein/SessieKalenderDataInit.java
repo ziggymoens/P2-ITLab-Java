@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -55,7 +56,7 @@ public class SessieKalenderDataInit {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] gebruiker = line.split(",");
-                sessieKalender.voegGebruikerToe(new Gebruiker(gebruiker[1], gebruiker[0], gebruiker[2], gebruiker[3], "storage/profielfotos/profielfoto.png", gebruiker[4]));
+                sessieKalender.voegGebruikerToe(new Gebruiker(gebruiker[1], gebruiker[0], Long.parseLong(gebruiker[2]), gebruiker[3], gebruiker[4], Integer.parseInt(gebruiker[5]), gebruiker[6]));
             }
         } catch (IOException e) {
             e.printStackTrace();

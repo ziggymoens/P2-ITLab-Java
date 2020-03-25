@@ -27,6 +27,8 @@ public class Gebruiker implements IGebruiker, Serializable {
     @NotNull
     private String gebruikersnaam;
     @NotNull
+    private long barcode;
+    @NotNull
     private String naam;
     @NotNull
     private String wachtwoord;
@@ -62,11 +64,11 @@ public class Gebruiker implements IGebruiker, Serializable {
      * @param gebruikersnaam    (String) ==> Februikersnaam van de gebruiker voor het Chamillo platform
      * @param gebruikersprofiel (Gebruikersprofiel) ==> Profiel dat de gebruiker aanneemt in het algemeen
      * @param gebruikersstatus  (Gebruikersprofiel) ==> Inlogstatus van de gebruiker
-     * @param profielfoto       (Media) ==> profielfoto van de gebruiker
      */
-    public Gebruiker(String naam, String gebruikersnaam, String gebruikersprofiel, String gebruikersstatus, String profielfoto, int aantalInlogPogingen, String wachtwoord) {
+    public Gebruiker(String naam, String gebruikersnaam,long barcode ,String gebruikersprofiel, String gebruikersstatus, int aantalInlogPogingen, String wachtwoord) {
         setNaam(naam);
         setGebruikersnaam(gebruikersnaam);
+        setBarcode(barcode);
         setCurrentProfiel(gebruikersprofiel);
         setCurrentStatus(gebruikersstatus);
         this.profielfoto = new Media(this);
@@ -83,8 +85,8 @@ public class Gebruiker implements IGebruiker, Serializable {
      * @param gebruikersprofiel (String) ==> Profiel dat de gebruiker aanneemt in het algemeen
      * @param gebruikersstatus  (String) ==> Inlogstatus van de gebruiker
      */
-    public Gebruiker(String naam, String gebruikersnaam, String gebruikersprofiel, String gebruikersstatus) {
-        this(naam, gebruikersnaam, gebruikersprofiel, gebruikersstatus, "storage/profielfotos/profielfoto.png", 0, "testExcluded");
+    public Gebruiker(String naam, String gebruikersnaam, long barcode,String gebruikersprofiel, String gebruikersstatus) {
+        this(naam, gebruikersnaam, barcode,gebruikersprofiel ,gebruikersstatus, 0, "test");
     }
 
     /**
@@ -94,16 +96,18 @@ public class Gebruiker implements IGebruiker, Serializable {
      * @param gebruikersnaam    (String) ==> Februikersnaam van de gebruiker voor het Chamillo platform
      * @param gebruikersprofiel (String) ==> Profiel dat de gebruiker aanneemt in het algemeen
      * @param gebruikersstatus  (String) ==> Inlogstatus van de gebruiker
-     * @param profielfoto       (String) ==> profielfoto van de gebruiker
      */
-    public Gebruiker(String naam, String gebruikersnaam, String gebruikersprofiel, String gebruikersstatus, String profielfoto, String wachtwoord) {
-        this(naam, gebruikersnaam, gebruikersprofiel, gebruikersstatus,
-                profielfoto, 0, wachtwoord);
+    public Gebruiker(String naam, String gebruikersnaam,long barcode ,String gebruikersprofiel, String gebruikersstatus, String wachtwoord) {
+        this(naam, gebruikersnaam, barcode,gebruikersprofiel, gebruikersstatus, 0, wachtwoord);
     }
     //endregion
 
 
     //region Setters
+    private void setBarcode(long barcode){
+        this.barcode = barcode;
+    }
+
     public void setProfielfoto(BufferedImage image) {
         this.profielfoto.setAfbeelding(image);
     }
