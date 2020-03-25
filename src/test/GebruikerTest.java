@@ -12,23 +12,23 @@ import java.util.stream.Stream;
 public class GebruikerTest {
 
     private static Stream<Arguments> opsommingOngeldigeWaarden() {
-        return Stream.of(Arguments.of(null, "123456tp", "gebruiker", "actief"),
-                Arguments.of("Test Persoon", null, "gebruiker", "actief"),
-                Arguments.of("Test Persoon", "123456tp", null, "actief"),
-                Arguments.of("Test Persoon", "123456tp", "gebruiker", null),
-                Arguments.of("", "123456tp", "gebruiker", "actief"),
-                Arguments.of("Test Persoon", "", "gebruiker", "actief"),
-                Arguments.of("Test Persoon", "", "nietsnut", "actief"),
-                Arguments.of("Test Persoon", "123456tp", "", "actief"),
-                Arguments.of("Test Persoon", "123456tp", "NIETSNUT", ""));
+        return Stream.of(Arguments.of(null, "123456tp", 0,"gebruiker", "actief"),
+                Arguments.of("Test Persoon", null, 0,"gebruiker", "actief"),
+                Arguments.of("Test Persoon", "123456tp", 0,null, "actief"),
+                Arguments.of("Test Persoon", "123456tp", 0,"gebruiker", null),
+                Arguments.of("", "123456tp", 0,"gebruiker", "actief"),
+                Arguments.of("Test Persoon", "", 0,"gebruiker", "actief"),
+                Arguments.of("Test Persoon", "", 0,"nietsnut", "actief"),
+                Arguments.of("Test Persoon", "123456tp",0, "", "actief"),
+                Arguments.of("Test Persoon", "123456tp",0, "NIETSNUT", ""));
     }
 
     private static Stream<Arguments> opsommingGeldigeWaarden() {
-        return Stream.of(Arguments.of("Test Persoon", "123456tp", "gebruiker", "actief"),
-                Arguments.of("Test Persoon", "123456tp", "verantwoordelijke", "actief"),
-                Arguments.of("Test Persoon", "123456tp", "hoofdverantwoordelijke", "actief"),
-                Arguments.of("Test Persoon", "123456tp", "gebruiker", "geblokkeerd"),
-                Arguments.of("Test Persoon", "123456tp", "gebruiker", "niet actief"));
+        return Stream.of(Arguments.of("Test Persoon", "123456tp", 0,"gebruiker", "actief"),
+                Arguments.of("Test Persoon", "123456tp",0, "verantwoordelijke", "actief"),
+                Arguments.of("Test Persoon", "123456tp",0, "hoofdverantwoordelijke", "actief"),
+                Arguments.of("Test Persoon", "123456tp",0, "gebruiker", "geblokkeerd"),
+                Arguments.of("Test Persoon", "123456tp",0, "gebruiker", "niet actief"));
     }
 
     @ParameterizedTest

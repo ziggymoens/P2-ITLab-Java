@@ -542,6 +542,14 @@ public class SessieController extends AnchorPane implements IObserver {
         btnToevoegenSessie.setOnAction(this::nieuweSessie);
         btnSluitSessie.setOnAction(this::sluitSessie);
         btnOpenSessie.setOnAction(this::openSessie);
+        btnAnnuleer.setOnAction(this::annuleer);
+    }
+
+    private void annuleer(ActionEvent event) {
+        setButtonsStandaard();
+        zetVeldenBewerken(false);
+        table.setDisable(false);
+        vulDetails();
     }
 
     private void openSessie(ActionEvent actionEvent) {
