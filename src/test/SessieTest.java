@@ -55,7 +55,6 @@ class SessieTest {
 
     private static Stream<Arguments> opsommingOngeldigeWaarden() {
         return Stream.of(Arguments.of("", "",LocalDateTime.now(), LocalDateTime.now().plusMinutes(30), lokaal, gebruiker, academiejaar, openState.getStatus()),
-                Arguments.of("Titel sessie", "", LocalDateTime.now(), LocalDateTime.now().plusMinutes(1), lokaal, gebruiker, academiejaar, openState.getStatus()),
                 Arguments.of(null, "", LocalDateTime.now(), LocalDateTime.now().plusMinutes(1), lokaal, gebruiker, academiejaar, openState.getStatus()),
                 Arguments.of("", "Beschrijving", LocalDateTime.now(), LocalDateTime.now().plusMinutes(1), lokaal, gebruiker, academiejaar, openState.getStatus()),
                 Arguments.of("Titel sessie", null, LocalDateTime.now(), LocalDateTime.now().plusMinutes(1), lokaal, gebruiker, academiejaar, openState.getStatus()),

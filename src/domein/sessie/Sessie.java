@@ -150,14 +150,20 @@ public class Sessie implements ISessie, Serializable, IObservable {
 
     //region Setters
     protected void setTitel(String titel) {
-            this.titel = titel;
+        if(titel == null || titel.isBlank() || titel.isEmpty()){
+            throw new SessieException();
+        }
+        this.titel = titel;
     }
 
     protected void setNaamGastspreker(String naamGastspreker) {
-            this.naamGastspreker = naamGastspreker;
+        this.naamGastspreker = naamGastspreker;
     }
 
     protected void setDatumUurSessie(LocalDateTime startSessie, LocalDateTime eindeSessie) {
+        if(startSessie == null || eindeSessie == null){
+            throw new SessieException();
+        }
         if (startSessie.isBefore(LocalDateTime.now())) {
             fouten.put("datum", "Sessie moet in de toekomst zijn.");
             //throw new SessieException("start;Sessie kan niet in het verleden zijn.");
@@ -216,6 +222,9 @@ public class Sessie implements ISessie, Serializable, IObservable {
     }
 
     protected void setBeschrijving(String beschrijving) {
+        if(beschrijving == null){
+            throw new SessieException();
+        }
         this.beschrijving = beschrijving;
     }
 
