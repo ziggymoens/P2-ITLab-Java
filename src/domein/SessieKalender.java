@@ -9,6 +9,7 @@ import exceptions.domein.SessieException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.awt.image.BufferedImage;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -354,6 +355,12 @@ public class SessieKalender {
         em.getTransaction().begin();
         em.persist(media);
         sessie.addMedia(media);
+        em.getTransaction().commit();
+    }
+
+    public void profielfotoGebruikerWijzigen(BufferedImage image, Gebruiker selected) {
+        em.getTransaction().begin();
+        selected.setProfielfoto(image);
         em.getTransaction().commit();
     }
     //endregion

@@ -1,5 +1,6 @@
 package domein.interfacesDomein;
 
+import java.awt.image.BufferedImage;
 import java.time.LocalDate;
 
 public interface IGebruiker {
@@ -11,7 +12,7 @@ public interface IGebruiker {
 
     String getGebruikersprofiel();
 
-    String getProfielfoto();
+    BufferedImage getProfielfoto();
 
     LocalDate getLaatstIngelogd();
 

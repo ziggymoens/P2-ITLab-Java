@@ -10,15 +10,23 @@ import domein.interfacesDomein.ISessie;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -26,7 +34,7 @@ import java.util.stream.Collectors;
 public class GebruikerController extends AnchorPane {
     private DomeinController domeinController;
     private boolean comboBoxTypeChanged, comboBoxStatusChanged;
-
+    private IGebruiker selected;
     @FXML
     private Pane pButtonBar;
 
@@ -110,6 +118,12 @@ public class GebruikerController extends AnchorPane {
     @FXML
     private Button btnKiezen;
 
+    @FXML
+    private Button uploadFoto;
+    @FXML
+    private ImageView profielfoto;
+
+
     public GebruikerController(DomeinController domeinController){
         this.domeinController = domeinController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Gebruiker.fxml"));
@@ -127,6 +141,9 @@ public class GebruikerController extends AnchorPane {
         btnFilterConfirm.setOnAction(this::filter);
         btnWijzigen.setOnAction(this::wijzigGebruiker);
         toevoegenGebruiker.setOnAction(this::maakNieuweGebruiker);
+        uploadFoto.setVisible(false);
+        uploadFoto.setOnAction(this::uploadNewFoto);
+
 
         comboBoxStatus.setItems(FXCollections.observableArrayList(Gebruikersstatus.values()));
         comboBoxType.setItems(FXCollections.observableArrayList(Gebruikersprofiel.values()));
@@ -194,6 +211,7 @@ public class GebruikerController extends AnchorPane {
 
         tableViewGebruiker.getSelectionModel().selectedItemProperty().addListener((observableValue, gebruiker, t1) -> {
             if(t1 != null) {
+                this.selected = t1;
                 vulDetails(t1);
                 vulTableSessies((Gebruiker) t1);
             }
@@ -214,7 +232,28 @@ public class GebruikerController extends AnchorPane {
         comboBoxStatusGebruiker.setItems(status);
         comboBoxStatusGebruiker.getSelectionModel().selectFirst();
         btnOpslaan.setOnAction(this::updateGebruiker);
+        uploadFoto.setVisible(true);
     }
+
+
+    private void uploadNewFoto(ActionEvent event) {
+        Stage stage = new Stage();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Media Toevoegen");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.png", "*.gif", "*.jpg"));
+        File file = fileChooser.showOpenDialog(stage);
+        if (file != null) {
+            try {
+                BufferedImage image = ImageIO.read(file);
+                domeinController.profielfotoGebruikerWijzigen(image, selected);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }finally {
+                vulProfielfotoIn(selected);
+            }
+        }
+    }
+
 
     public void updateGebruiker(ActionEvent actionEvent){
         domeinController.updateGebruiker(txtFieldGebruiker.getText(), txtFieldGebruikersnaam.getText(),
@@ -222,10 +261,12 @@ public class GebruikerController extends AnchorPane {
                 comboBoxTypeGebruiker.getSelectionModel().getSelectedItem());
         btnOpslaan.setVisible(false);
         btnWijzigen.setVisible(true);
+        uploadFoto.setVisible(false);
         refreshTable();
     }
 
     private void maakNieuweGebruiker(ActionEvent actionEvent){
+        uploadFoto.setVisible(false);
         btnWijzigen.setVisible(false);
         btnOpslaan.setVisible(true);
         clearDetails();
@@ -237,6 +278,7 @@ public class GebruikerController extends AnchorPane {
     }
 
     private void gebruikerAanmaken(ActionEvent actionEvent) {
+        uploadFoto.setVisible(true);
         System.out.println(txtFieldGebruiker.getText());
         System.out.println(txtFieldGebruikersnaam.getText());
         System.out.println(comboBoxStatusGebruiker.getSelectionModel().getSelectedItem());
@@ -271,6 +313,17 @@ public class GebruikerController extends AnchorPane {
         comboBoxStatusGebruiker.getSelectionModel().selectFirst();
         comboBoxTypeGebruiker.setItems(FXCollections.observableArrayList(gebruiker.getGebruikersprofiel()));
         comboBoxTypeGebruiker.getSelectionModel().selectFirst();
+        vulProfielfotoIn(gebruiker);
+    }
+
+    public void vulProfielfotoIn(IGebruiker gebruiker){
+        if (gebruiker.getProfielfoto() != null) {
+            Image image = SwingFXUtils.toFXImage(gebruiker.getProfielfoto(), null);
+            profielfoto.setImage(image);
+        }else{
+            Image image = new Image("storage/profielfotos/profielfoto.png");
+            profielfoto.setImage(image);
+        }
     }
 
     public void clearTableGebruikers(){

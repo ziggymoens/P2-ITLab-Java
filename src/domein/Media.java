@@ -54,7 +54,7 @@ public class Media implements IMedia {
     /**
      * Constructor voor JPA
      */
-    protected Media() {
+    public Media() {
     }
 
     /**
@@ -164,7 +164,7 @@ public class Media implements IMedia {
     }
  */
 
-    private void setAfbeelding(BufferedImage afbeelding){
+    public void setAfbeelding(BufferedImage afbeelding){
         try{
             ByteArrayOutputStream byteOutStream = new ByteArrayOutputStream();
             ImageIO.write(afbeelding, "png", byteOutStream);

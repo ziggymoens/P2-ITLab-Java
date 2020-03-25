@@ -572,6 +572,10 @@ public class DomeinController {
         typeStrategy.verwijderFeedback((Feedback) feedback);
     }
 
+    public void profielfotoGebruikerWijzigen(BufferedImage image, IGebruiker selected) {
+        huidigeSessieKalender.profielfotoGebruikerWijzigen(image, (Gebruiker) selected);
+    }
+
 
     //endregion
 }

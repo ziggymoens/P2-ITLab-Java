@@ -195,11 +195,16 @@
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="372.0" prefWidth="299.0">
                             <children>
-                                <ImageView fitHeight="165.0" fitWidth="177.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="profielfoto" fitHeight="165.0" fitWidth="177.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../../storage/profielfotos/profielfoto.png" />
                                     </image>
                                 </ImageView>
+                        <Button fx:id="uploadFoto" mnemonicParsing="false" prefHeight="27.0" prefWidth="165.0" text="upload">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Button>
                             </children>
                         </VBox>
                     </children>

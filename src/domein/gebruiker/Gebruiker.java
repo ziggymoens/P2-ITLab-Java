@@ -10,6 +10,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -68,7 +69,7 @@ public class Gebruiker implements IGebruiker, Serializable {
         setGebruikersnaam(gebruikersnaam);
         setCurrentProfiel(gebruikersprofiel);
         setCurrentStatus(gebruikersstatus);
-        setProfielfoto("storage/profielfotos/profielfoto.png");
+        this.profielfoto = new Media();
         setWachtwoord(wachtwoord);
         this.inlogPogingen = 0;
         this.laatstIngelogd = LocalDate.now();
@@ -103,10 +104,8 @@ public class Gebruiker implements IGebruiker, Serializable {
 
 
     //region Setters
-    private void setProfielfoto(String path) {
-        //File file = new File("storage/profielfotos/profielfoto.png");
-        //byte[] bFile = new byte[(int) file.length()];
-        this.profielfoto = new Media(this, "storage/profielfotos/profielfoto.png", "FOTO");
+    public void setProfielfoto(BufferedImage image) {
+        this.profielfoto.setAfbeelding(image);
     }
 
     private void setNaam(String naam) {
@@ -163,7 +162,7 @@ public class Gebruiker implements IGebruiker, Serializable {
                 toStatusState(new NietActiefStatusState(this));
                 break;
             default:
-                throw new GebruikerException("Gebruikerstatus onbekend " +status);
+                throw new GebruikerException("Gebruikerstatus onbekend " + status);
         }
     }
 
@@ -224,8 +223,12 @@ public class Gebruiker implements IGebruiker, Serializable {
     }
 
     @Override
-    public String getProfielfoto() {
-        return profielfoto.getLocatie();
+    public BufferedImage getProfielfoto() {
+        try {
+            return profielfoto.getAfbeeding();
+        } catch (Exception ignored) {
+        }
+        return null;
     }
 
     @Override
