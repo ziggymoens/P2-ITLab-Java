@@ -62,36 +62,38 @@ public class StatistiekController extends AnchorPane {
         ObservableList<Integer> is = FXCollections.observableArrayList(1, 2, 3, 5, 10, 15, 20, 25, 50, 100);
         ObservableList<String> t = FXCollections.observableArrayList("aanwezigheid","aankondiging", "feedback", "inschrijving", "media");
         ObservableList<String> p = FXCollections.observableArrayList("gebruiker", "verantwoordelijke", "hoofdverantwoordelijke");
-        sAantal.setItems(is);
-        sAantal.getSelectionModel().selectedItemProperty().addListener((observableValue, integer, t1) -> {
-            vulCsvSessies();
-        });
-        sAantal.getSelectionModel().select(0);
-        gAantal.setItems(is);
-        gAantal.getSelectionModel().selectedItemProperty().addListener((observableValue, integer, t1) -> {
-            vulCsvGebruikers();
-        });
-        gAantal.getSelectionModel().select(0);
-        lAantal.setItems(is);
-        lAantal.getSelectionModel().selectedItemProperty().addListener((observableValue, integer, t1) -> {
-            vulCsvLokalen();
-        });
-        lAantal.getSelectionModel().select(0);
-        gTopAantal.setItems(p);
-        gTopAantal.getSelectionModel().selectedItemProperty().addListener((observableValue, integer, t1) -> {
-            vulCsvTopGebruikers();
-        });
-        gTopAantal.getSelectionModel().select(0);
-        sType.setItems(t);
-        sType.getSelectionModel().selectedItemProperty().addListener((observableValue, integer, t1) -> {
-            vulCsvSessies();
-        });
-        sType.getSelectionModel().select(0);
-        gType.setItems(t);
-        gType.getSelectionModel().selectedItemProperty().addListener((observableValue, integer, t1) -> {
-            vulCsvGebruikers();
-        });
-        gType.getSelectionModel().select(0);
+        try {
+            sAantal.setItems(is);
+            sAantal.getSelectionModel().selectedItemProperty().addListener((observableValue, integer, t1) -> {
+                vulCsvSessies();
+            });
+            sAantal.getSelectionModel().select(0);
+            gAantal.setItems(is);
+            gAantal.getSelectionModel().selectedItemProperty().addListener((observableValue, integer, t1) -> {
+                vulCsvGebruikers();
+            });
+            gAantal.getSelectionModel().select(0);
+            lAantal.setItems(is);
+            lAantal.getSelectionModel().selectedItemProperty().addListener((observableValue, integer, t1) -> {
+                vulCsvLokalen();
+            });
+            lAantal.getSelectionModel().select(0);
+            gTopAantal.setItems(p);
+            gTopAantal.getSelectionModel().selectedItemProperty().addListener((observableValue, integer, t1) -> {
+                vulCsvTopGebruikers();
+            });
+            gTopAantal.getSelectionModel().select(0);
+            sType.setItems(t);
+            sType.getSelectionModel().selectedItemProperty().addListener((observableValue, integer, t1) -> {
+                vulCsvSessies();
+            });
+            sType.getSelectionModel().select(0);
+            gType.setItems(t);
+            gType.getSelectionModel().selectedItemProperty().addListener((observableValue, integer, t1) -> {
+                vulCsvGebruikers();
+            });
+            gType.getSelectionModel().select(0);
+        }catch (Exception ignored){}
     }
 
     public void vulCsvSessies(){
