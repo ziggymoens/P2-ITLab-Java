@@ -245,6 +245,11 @@ public class Gebruiker implements IGebruiker, Serializable {
         return wachtwoord;
     }
 
+    @Override
+    public long getBarcode() {
+        return barcode;
+    }
+
     public GebruikerStatusState getGebruikerStatusState() {
         return currentStatus;
     }

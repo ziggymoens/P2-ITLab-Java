@@ -18,6 +18,8 @@ public interface IGebruiker {
 
     String getWachtwoord();
 
+    long getBarcode();
+
     //List<IFeedback> getIFeedbackList();
 
     //List<IAankondiging> getIAankondigingList();
