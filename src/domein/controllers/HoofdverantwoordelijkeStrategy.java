@@ -170,6 +170,8 @@ public class HoofdverantwoordelijkeStrategy implements TypeStrategy {
 
     @Override
     public List<Sessie> geefAlleNietGeopendeSessiesKalender(Integer jaar) {
-        return null;
+        aj = jaar;
+        return huidigeSessieKalender.geefAlleSessiesKalender(jaar).stream().filter(e -> !e.getCurrentState().getStatus().equals("gesloten")).collect(Collectors.toList());
+
     }
 }

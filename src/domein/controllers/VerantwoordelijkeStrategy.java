@@ -9,6 +9,7 @@ import domein.SessieKalender;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class VerantwoordelijkeStrategy implements TypeStrategy {
     private SessieKalender huidigeSessieKalender;
@@ -37,7 +38,8 @@ public class VerantwoordelijkeStrategy implements TypeStrategy {
 
     @Override
     public List<Sessie> geefAlleNietGeopendeSessiesKalender(Integer jaar) {
-        return null;
+        aj = jaar;
+        return huidigeSessieKalender.geefAlleSessiesKalenderVanGebruiker(jaar,gebruiker).stream().filter(e -> !e.getCurrentState().getStatus().equals("gesloten")).collect(Collectors.toList());
     }
 
     @Override

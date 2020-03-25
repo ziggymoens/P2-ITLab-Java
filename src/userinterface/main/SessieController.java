@@ -143,7 +143,7 @@ public class SessieController extends AnchorPane implements IObserver {
         startSessie.setCellValueFactory(new PropertyValueFactory<>("datumString"));
         maximumAantalPlaatsen.setCellValueFactory(new PropertyValueFactory<>("maximumAantalPlaatsen"));
 
-        table.setItems(FXCollections.observableArrayList(domeinController.geefISessiesHuidigeKalender()));
+        table.setItems(FXCollections.observableArrayList(domeinController.geefNietGeopendeISessiesHuidigeKalender()));
         table.getColumns().addAll(titel, startSessie, maximumAantalPlaatsen);
 
         selectInTable();
