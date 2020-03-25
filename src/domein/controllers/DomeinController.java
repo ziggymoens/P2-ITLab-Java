@@ -270,7 +270,7 @@ public class DomeinController {
     }
 
     public List<ISessie> geefNietGeopendeISessiesHuidigeKalender() {
-        return (List<ISessie>) (Object) typeStrategy.geefAlleSessiesKalender(huidigAcademiejaar.getAcademiejaar());
+        return (List<ISessie>) (Object) typeStrategy.geefAlleNietGeopendeSessiesKalender(huidigAcademiejaar.getAcademiejaar());
     }
 
     public List<ISessie> geefISessiesOpAcademiejaar(Integer academiejaar) {
