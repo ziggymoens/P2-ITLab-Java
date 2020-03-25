@@ -197,6 +197,24 @@
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="372.0" prefWidth="299.0">
                             <children>
+                        <VBox alignment="CENTER" prefHeight="89.0" prefWidth="263.0">
+                           <VBox.margin>
+                              <Insets bottom="15.0" left="15.0" right="15.0" />
+                           </VBox.margin>
+                           <children>
+                              <Label text="Barcode">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="txtFieldBarcode" alignment="CENTER" editable="false" maxWidth="177.0" minWidth="167.0" prefHeight="27.0" prefWidth="167.0" />
+                              <Label fx:id="lblErrorBarcode" text="Barcode mag niet leeg zijn" textAlignment="CENTER" textFill="RED" visible="false">
+                                 <VBox.margin>
+                                    <Insets top="2.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
                                 <ImageView fx:id="profielfoto" fitHeight="165.0" fitWidth="177.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../../storage/profielfotos/profielfoto.png" />

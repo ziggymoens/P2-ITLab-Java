@@ -54,10 +54,10 @@ public class GebruikerController extends AnchorPane {
     private Button btnFilterConfirm;
 
     @FXML
-    private ComboBox<Gebruikersprofiel> comboBoxType;
+    private ComboBox<String> comboBoxType;
 
     @FXML
-    private ComboBox<Gebruikersstatus> comboBoxStatus;
+    private ComboBox<String> comboBoxStatus;
 
     @FXML
     private ComboBox<String> comboBoxTypeGebruiker;
@@ -94,6 +94,9 @@ public class GebruikerController extends AnchorPane {
 
     @FXML
     private TextField txtFieldStatus;
+
+    @FXML
+    private TextField txtFieldBarcode;
 
     @FXML
     private Label lblErrorStatusGebruiker;
@@ -144,16 +147,17 @@ public class GebruikerController extends AnchorPane {
         uploadFoto.setVisible(false);
         uploadFoto.setOnAction(this::uploadNewFoto);
 
-
-        comboBoxStatus.setItems(FXCollections.observableArrayList(Gebruikersstatus.values()));
-        comboBoxType.setItems(FXCollections.observableArrayList(Gebruikersprofiel.values()));
+        ObservableList<String> type = FXCollections.observableArrayList("gebruiker", "verantwoordelijke", "hoofdverantwoordelijke");
+        ObservableList<String> status = FXCollections.observableArrayList("actief", "niet actief", "geblokkeerd");
+        comboBoxType.setItems(type);
+        comboBoxStatus.setItems(status);
 
         zoek();
     }
 
     private void filter(ActionEvent actionEvent) {
-        Gebruikersstatus comboStatus = comboBoxStatus.getSelectionModel().getSelectedItem();
-        Gebruikersprofiel comboType = comboBoxType.getSelectionModel().getSelectedItem();
+        String comboStatus = comboBoxStatus.getSelectionModel().getSelectedItem();
+        String comboType = comboBoxType.getSelectionModel().getSelectedItem();
         if(comboStatus == null && comboType == null){
             vulTableGebruikers(FXCollections.observableArrayList(domeinController.geefAlleIGebruikers()));
         }else if(comboType == null && comboStatus != null){
@@ -353,6 +357,7 @@ public class GebruikerController extends AnchorPane {
         comboBoxStatusGebruiker.getSelectionModel().selectFirst();
         comboBoxTypeGebruiker.setItems(FXCollections.observableArrayList(gebruiker.getGebruikersprofiel()));
         comboBoxTypeGebruiker.getSelectionModel().selectFirst();
+        txtFieldBarcode.setText(String.valueOf(gebruiker.getBarcode()));
         vulProfielfotoIn(gebruiker);
     }
 
