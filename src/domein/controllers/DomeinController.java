@@ -619,6 +619,10 @@ public class DomeinController {
         huidigeSessieKalender.profielfotoGebruikerWijzigen(image, (Gebruiker) selected);
     }
 
+    public void mediaAfbeeldingWijzigen(BufferedImage image, IMedia huidigeMedia) {
+        huidigeSessieKalender.mediaAfbeeldingWijzigen(image, (Media) huidigeMedia);
+    }
+
 
     //endregion
 }

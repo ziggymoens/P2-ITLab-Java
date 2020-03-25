@@ -7,7 +7,7 @@ public interface IMedia {
 
     String getMediaId();
 
-    String getLocatie();
+    String getUrl();
 
     String getTypeString();
 

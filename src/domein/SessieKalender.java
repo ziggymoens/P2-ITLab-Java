@@ -363,5 +363,11 @@ public class SessieKalender {
         selected.setProfielfoto(image);
         em.getTransaction().commit();
     }
+
+    public void mediaAfbeeldingWijzigen(BufferedImage image, Media huidigeMedia) {
+        em.getTransaction().begin();
+        huidigeMedia.setAfbeelding(image);
+        em.getTransaction().commit();
+    }
     //endregion
 }

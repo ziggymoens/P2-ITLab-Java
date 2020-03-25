@@ -40,7 +40,7 @@ public class Media implements IMedia {
     @ManyToOne(fetch = FetchType.LAZY)
     private Gebruiker gebruiker;
     @NotNull
-    private String locatie;
+    private String url;
     @NotNull
     @Enumerated(EnumType.STRING)
     private MediaType type;
@@ -66,7 +66,7 @@ public class Media implements IMedia {
     public Media(Sessie sessie, Gebruiker gebruiker, String locatie, MediaType type){
         setSessie(sessie);
         setGebruiker(gebruiker);
-        setLocatie(locatie);
+        setUrl(locatie);
         setType(type);
         /*try {
             if (type == MediaType.FOTO) {
@@ -103,7 +103,7 @@ public class Media implements IMedia {
     public Media(Sessie sessie, Gebruiker gebruiker, String type, BufferedImage afbeelding, String locatie){
         setSessie(sessie);
         setGebruiker(gebruiker);
-        setLocatie(locatie);
+        setUrl(locatie);
         setType(Arrays.stream(MediaType.values()).filter(t -> t.toString().equals(type)).findFirst().orElse(MediaType.ONBEKEND));
         setAfbeelding(afbeelding);
     }
@@ -122,10 +122,10 @@ public class Media implements IMedia {
         this.sessie = sessie;
     }
 
-    private void setLocatie(String locatie) {
+    private void setUrl(String locatie) {
         if (locatie == null || locatie.isBlank())
             throw new MediaException();
-        this.locatie = locatie;
+        this.url = locatie;
     }
 
     private void setType(MediaType type) {
@@ -147,22 +147,6 @@ public class Media implements IMedia {
     public void setVerwijderd(boolean verwijderd) {
         this.verwijderd = verwijderd;
     }
-/*
-    private void setAfbeelding(BufferedImage image) throws IOException {
-        //File file = new File("/storage/profielfotos/profielfoto.png");
-        //BufferedImage bufferedImage = ImageIO.read(file);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(image, "png", baos);
-        this.afbeelding = baos.toByteArray();
-    }
-
-    private void setAfbeelding(File file) throws IOException {
-        BufferedImage bufferedImage = ImageIO.read(file);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(bufferedImage, "png", baos);
-        this.afbeelding = baos.toByteArray();
-    }
- */
 
     public void setAfbeelding(BufferedImage afbeelding){
         try{
@@ -198,8 +182,8 @@ public class Media implements IMedia {
         return mediaId;
     }
 
-    public String getLocatie() {
-        return locatie;
+    public String getUrl() {
+        return url;
     }
 
     public String getTypeString() {
@@ -253,7 +237,7 @@ public class Media implements IMedia {
                 setGebruiker((Gebruiker) gegevens.get(0));
             }
             if (gegevens.get(1) != null && !((String) gegevens.get(1)).isBlank()) {
-                setLocatie((String) gegevens.get(1));
+                setUrl((String) gegevens.get(1));
             }
             if (gegevens.get(2) != null && !((String) gegevens.get(0)).isBlank()) {
                 setType(Arrays.stream(MediaType.values()).filter(t -> t.toString().equals((String) gegevens.get(2))).findFirst().orElse(null));

@@ -3,6 +3,7 @@ package userinterface.sessie.media;
 import domein.Media;
 import domein.controllers.DomeinController;
 import domein.interfacesDomein.IFeedback;
+import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.IMedia;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -72,6 +73,9 @@ public class BeherenMediaController extends AnchorPane {
     @FXML
     private Button btnverwijder;
 
+    @FXML
+    private Button uploaden;
+
     public BeherenMediaController (DomeinController domeinController) {
         this.domeinController = domeinController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("BeherenMedia.fxml"));
@@ -87,6 +91,7 @@ public class BeherenMediaController extends AnchorPane {
         vulTable();
         btnOpslaan.setDisable(true);
         btnOpslaan.setVisible(false);
+        uploaden.setOnAction(this::uploadNewFoto);
         table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<IMedia>() {
             @Override
             public void changed(ObservableValue<? extends IMedia> observableValue, IMedia iMedia, IMedia t1) {
@@ -103,7 +108,39 @@ public class BeherenMediaController extends AnchorPane {
         btnverwijder.setOnAction(this::verwijderMedia);
     }
 
+    public void vulAfbeeldingIn(IMedia huidigeMedia){
+        BufferedImage bimage = null;
+        try {
+            bimage = huidigeMedia.getAfbeeding();
+        } catch (Exception ignored) {
+        }
 
+        if (bimage != null) {
+            Image image = SwingFXUtils.toFXImage(bimage, null);
+            imgmedia.setImage(image);
+        }else{
+            Image image = new Image("storage/profielfotos/profielfoto.png");
+            imgmedia.setImage(image);
+        }
+    }
+
+    private void uploadNewFoto(ActionEvent event) {
+        Stage stage = new Stage();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Media Toevoegen");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.png", "*.gif", "*.jpg"));
+        File file = fileChooser.showOpenDialog(stage);
+        if (file != null) {
+            try {
+                BufferedImage image = ImageIO.read(file);
+                domeinController.mediaAfbeeldingWijzigen(image, huidigeMedia);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }finally {
+                vulAfbeeldingIn(huidigeMedia);
+            }
+        }
+    }
 
 
     public void vulTable(){
@@ -121,9 +158,8 @@ public class BeherenMediaController extends AnchorPane {
     private void vulDetails() {
         cbmedia.setItems(FXCollections.observableArrayList(domeinController.geefMediaTypes()));
         cbmedia.setValue(huidigeMedia.getTypeString());
-        txtUrl.setText(huidigeMedia.getLocatie());
-        Image image = SwingFXUtils.toFXImage(huidigeMedia.getAfbeeding(), null);
-        imgmedia.setImage(image);
+        txtUrl.setText(huidigeMedia.getUrl());
+        vulAfbeeldingIn(huidigeMedia);
     }
 
     private void nieuweMedia(ActionEvent actionEvent) {
