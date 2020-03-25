@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -126,7 +127,6 @@ public class SessieController extends AnchorPane implements IObserver {
             e.printStackTrace();
             throw new RuntimeException();
         }
-
         sessieTable();
         activeerFilters();
         activeerButtons();
@@ -147,6 +147,7 @@ public class SessieController extends AnchorPane implements IObserver {
     }
 
     private void selectInTable() {
+        SessieController sc = this;
         table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ISessie>() {
             @Override
             public void changed(ObservableValue<? extends ISessie> observableValue, ISessie iSessie, ISessie t1) {
@@ -155,6 +156,7 @@ public class SessieController extends AnchorPane implements IObserver {
                 }
                 if (t1 != null) {
                     domeinController.setHuidigeISessie(t1);
+                    domeinController.addObserver(sc);
                 }
                 choiceBoxMaand.setValue(domeinController.vergelijkMaanden());
                 zetVeldenBewerken(false);
@@ -186,8 +188,7 @@ public class SessieController extends AnchorPane implements IObserver {
         txtLokaalSessie.setText(domeinController.geefHuidigeISessie().getLokaal().getLokaalCode());
         txtBeschrijving.setText(domeinController.geefHuidigeISessie().getBeschrijving());
         tempLokaal = domeinController.geefHuidigeISessie().getLokaal();
-        //setButtonsBewerken(false);
-        setButtonsOpen(domeinController.isZichtbaar());
+        setButtonsStandaard();
         cbZichtbaar.setSelected(domeinController.isZichtbaar());
         cbNietZichtbaar.setSelected(!domeinController.isZichtbaar());
         cbZichtbaar.selectedProperty().addListener(new ChangeListener<Boolean>() {
@@ -222,7 +223,7 @@ public class SessieController extends AnchorPane implements IObserver {
             }
         });
         txtMaxPlaatsenSessie.textProperty().addListener((observableValue, s, t1) -> {
-            if (controleerMaxLokaal(t1)) {
+            if (!t1.isBlank() && !t1.isEmpty() && controleerMaxLokaal(t1)) {
                 cbMax.setSelected(true);
             }
         });
@@ -252,21 +253,67 @@ public class SessieController extends AnchorPane implements IObserver {
 
     private void bewerkenSessie(ActionEvent actionEvent) {
         zetVeldenBewerken(true);
-        setButtonsBewerken(true);
+        setButtonsBewerken();
         table.setDisable(true);
         txtLokaalSessie.setOnMouseClicked(e -> toonLokalen());
         txtVerantwoordelijkeSessie.setOnMouseClicked(e -> toonGebruikers());
     }
 
-    private void setButtonsBewerken(boolean b){
-        btnBewerkenSessie.setVisible(!b);
-        btnBewerkenSessie.setDisable(b);
-        btnOpslaanSessie.setVisible(b);
-        btnOpslaanSessie.setDisable(!b);
-        btnAnnuleer.setVisible(b);
-        btnAnnuleer.setDisable(!b);
-        btnVerwijderenSessie.setDisable(b);
-        btnVerwijderenSessie.setVisible(!b);
+    private void setButtonsStandaard(){
+        if(domeinController.isZichtbaar()){
+            btnBewerkenSessie.setVisible(false);
+            btnBewerkenSessie.setDisable(true);
+            btnOpslaanSessie.setVisible(false);
+            btnOpslaanSessie.setDisable(true);
+            btnAnnuleer.setVisible(false);
+            btnAnnuleer.setDisable(true);
+            btnVerwijderenSessie.setDisable(false);
+            btnVerwijderenSessie.setVisible(true);
+            if(domeinController.isSessieGesloten()){
+                btnSluitSessie.setVisible(true);
+                btnSluitSessie.setDisable(true);
+                btnOpenSessie.setVisible(false);
+                btnOpenSessie.setDisable(true);
+            } else if(domeinController.isSessieOpen()){
+                btnSluitSessie.setVisible(true);
+                btnSluitSessie.setDisable(false);
+                btnOpenSessie.setVisible(false);
+                btnOpenSessie.setDisable(true);
+            } else{
+                btnSluitSessie.setVisible(false);
+                btnSluitSessie.setDisable(true);
+                btnOpenSessie.setVisible(true);
+                btnOpenSessie.setDisable(false);
+            }
+        } else{
+            btnSluitSessie.setVisible(false);
+            btnSluitSessie.setDisable(true);
+            btnOpenSessie.setVisible(false);
+            btnOpenSessie.setDisable(true);
+            btnBewerkenSessie.setVisible(true);
+            btnBewerkenSessie.setDisable(false);
+            btnOpslaanSessie.setVisible(false);
+            btnOpslaanSessie.setDisable(true);
+            btnAnnuleer.setVisible(false);
+            btnAnnuleer.setDisable(true);
+            btnVerwijderenSessie.setDisable(false);
+            btnVerwijderenSessie.setVisible(true);
+        }
+    }
+
+    private void setButtonsBewerken(){
+        btnSluitSessie.setVisible(false);
+        btnSluitSessie.setDisable(true);
+        btnOpenSessie.setVisible(false);
+        btnOpenSessie.setDisable(true);
+        btnBewerkenSessie.setVisible(false);
+        btnBewerkenSessie.setDisable(true);
+        btnOpslaanSessie.setVisible(true);
+        btnOpslaanSessie.setDisable(false);
+        btnAnnuleer.setVisible(true);
+        btnAnnuleer.setDisable(false);
+        btnVerwijderenSessie.setDisable(true);
+        btnVerwijderenSessie.setVisible(false);
     }
 
     private void verwijderenSessie(ActionEvent actionEvent) {
@@ -292,15 +339,16 @@ public class SessieController extends AnchorPane implements IObserver {
         veranderingen.add(7, txtMaxPlaatsenSessie.getText());
         veranderingen.add(8, ((Boolean) cbZichtbaar.isSelected()).toString());
 
-        Map<String, String> fouten = domeinController.controleerDataSessie(veranderingen);
-        fouten.entrySet().stream().forEach(e -> System.out.println(e.getKey() + " -> " + e.getValue()));
+        Map<String, String> fouten = new HashMap<String, String>(); //domeinController.controleerDataSessie(veranderingen);
+        //fouten.entrySet().stream().forEach(e -> System.out.println(e.getKey() + " -> " + e.getValue()));
         if (fouten.isEmpty()) {
             domeinController.updateSessie(veranderingen);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Sessie " + txtTitelSessie + " opgeslagen", ButtonType.OK);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Sessie " + txtTitelSessie.getText() + " opgeslagen", ButtonType.OK);
             alert.showAndWait();
             zetVeldenBewerken(false);
-            setButtonsBewerken(false);
+            setButtonsStandaard();
             verbergErrors();
+            table.setDisable(false);
         } else {
             String fout = "";
             for (Map.Entry<String, String> entry : fouten.entrySet()) {
@@ -428,28 +476,6 @@ public class SessieController extends AnchorPane implements IObserver {
     }
 
     private void sluitSessie(ActionEvent actionEvent) {
-    }
-
-    private void setButtonsOpen(boolean b) {
-        if(b){
-        btnBewerkenSessie.setDisable(b);
-        btnBewerkenSessie.setVisible(!b);
-        btnOpslaanSessie.setDisable(b);
-        btnOpslaanSessie.setVisible(!b);
-        } else {
-            setButtonsBewerken(b);
-        }
-            if (domeinController.isSessieOpen()) {
-                btnOpenSessie.setDisable(!b);
-                btnOpenSessie.setVisible(b);
-                btnSluitSessie.setDisable(b);
-                btnSluitSessie.setVisible(!b);
-            } else if (domeinController.isSessieGesloten()) {
-                btnOpenSessie.setDisable(b);
-                btnOpenSessie.setVisible(!b);
-                btnSluitSessie.setDisable(!b);
-                btnSluitSessie.setVisible(b);
-            }
     }
 
     private void toonGebruikers() {

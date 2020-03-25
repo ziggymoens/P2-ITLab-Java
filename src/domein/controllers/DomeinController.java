@@ -9,10 +9,9 @@ import domein.interfacesDomein.*;
 import domein.sessie.Sessie;
 import exceptions.domein.LokaalException;
 import exceptions.domein.SessieException;
+import userinterface.main.IObserver;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -108,7 +107,7 @@ public class DomeinController {
     }
 
     public boolean isSessieOpen(){
-        if(huidigeSessie.getCurrentState().getStatus().toLowerCase().equals("open") || huidigeSessie.getCurrentState().getStatus().toLowerCase().equals("gesloten")){
+        if(huidigeSessie.getCurrentState().getStatus().toLowerCase().equals("open")){
             return true;
         }
         return false;
@@ -140,7 +139,7 @@ public class DomeinController {
         LocalDateTime start = LocalDateTime.of(dat, startUur);
 
         String[] einduurarr = veranderingen.get(4).split(":");
-        LocalTime einduur = LocalTime.of(Integer.parseInt(startuurarr[0]), Integer.parseInt(startuurarr[1]));
+        LocalTime einduur = LocalTime.of(Integer.parseInt(einduurarr[0]), Integer.parseInt(einduurarr[1]));
         LocalDateTime eind = LocalDateTime.of(dat, einduur);
 
         Lokaal l = huidigeSessieKalender.geefLokaalById(veranderingen.get(5));
@@ -194,6 +193,10 @@ public class DomeinController {
             map.put("sessie", sessieEx.getMessage());
         }
         return map;
+    }
+
+    public void addObserver(IObserver iObserver){
+        huidigeSessie.addObserver(iObserver);
     }
 
     public List<ISessie> geefISessiesHuidigeKalender() {

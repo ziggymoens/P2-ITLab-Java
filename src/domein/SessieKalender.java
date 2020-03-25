@@ -298,8 +298,8 @@ public class SessieKalender {
         try {
             if(!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
+                em.remove(sessie.getCurrentState());
             }
-            em.remove(sessie.getCurrentState());
             sessie.update(gegevens);
             em.getTransaction().commit();
         } catch (SessieException se){
