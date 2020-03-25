@@ -232,7 +232,6 @@ public class GebruikerController extends AnchorPane {
         comboBoxStatusGebruiker.setItems(status);
         comboBoxStatusGebruiker.getSelectionModel().selectFirst();
         btnOpslaan.setOnAction(this::updateGebruiker);
-        uploadFoto.setVisible(true);
     }
 
 
@@ -306,6 +305,7 @@ public class GebruikerController extends AnchorPane {
     }
 
     public void vulDetails(IGebruiker gebruiker){
+        uploadFoto.setVisible(true);
         gebruiker = tableViewGebruiker.getSelectionModel().getSelectedItem();
         txtFieldGebruiker.setText(gebruiker.getNaam());
         txtFieldGebruikersnaam.setText(gebruiker.getGebruikersnaam());
