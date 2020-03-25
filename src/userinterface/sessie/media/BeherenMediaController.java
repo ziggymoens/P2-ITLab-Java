@@ -111,9 +111,6 @@ public class BeherenMediaController extends AnchorPane implements IDetails {
         btnNieuw.setOnAction(this::nieuweMediaFoto);
     }
 
-
-
-
     public void vulAfbeeldingIn(IMedia huidigeMedia){
         BufferedImage bimage = null;
         try {
