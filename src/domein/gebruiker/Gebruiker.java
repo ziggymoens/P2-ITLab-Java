@@ -69,7 +69,7 @@ public class Gebruiker implements IGebruiker, Serializable {
         setGebruikersnaam(gebruikersnaam);
         setCurrentProfiel(gebruikersprofiel);
         setCurrentStatus(gebruikersstatus);
-        this.profielfoto = new Media();
+        this.profielfoto = new Media(this);
         setWachtwoord(wachtwoord);
         this.inlogPogingen = 0;
         this.laatstIngelogd = LocalDate.now();

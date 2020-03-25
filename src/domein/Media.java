@@ -114,6 +114,10 @@ public class Media implements IMedia {
         setType(MediaType.FOTO);
         setAfbeelding(image);
     }
+
+    public Media(Gebruiker gebruiker) {
+        setGebruiker(gebruiker);
+    }
     //endregion
 
     //region Setters
