@@ -27,28 +27,12 @@ public class NietZichtbaarState extends SessieState {
 
     @Override
     public void update(List<Object> gegevens) {
-        if (gegevens.get(0) != null) {
-            sessie.setVerantwoordelijke((Gebruiker) gegevens.get(0));
-        }
-        if (gegevens.get(1) != null && !((String) gegevens.get(1)).isBlank()) {
-            sessie.setTitel((String) gegevens.get(1));
-        }
-        if (gegevens.get(2) != null) {
-            sessie.setStartSessie((LocalDateTime) gegevens.get(2));
-        }
-        if (gegevens.get(3) != null) {
-            sessie.setEindeSessie((LocalDateTime) gegevens.get(3));
-        }
-        if (gegevens.get(4) != null) {
-            sessie.setLokaal((Lokaal) gegevens.get(4));
-        }
-        if (gegevens.get(5) != null && !((String) gegevens.get(5)).isBlank()) {
-            sessie.setNaamGastspreker((String) gegevens.get(5));
-        }
-        if (gegevens.get(6) != null) {
-            sessie.setMaximumAantalPlaatsen((Integer) gegevens.get(6));
-        }
-        //controleData();
+        sessie.setVerantwoordelijke((Gebruiker) gegevens.get(0));
+        sessie.setTitel((String) gegevens.get(1));
+        sessie.setDatumUurSessie((LocalDateTime) gegevens.get(2), (LocalDateTime) gegevens.get(3));
+        sessie.setLokaal((Lokaal) gegevens.get(4));
+        sessie.setNaamGastspreker((String) gegevens.get(5));
+        sessie.setMaximumAantalPlaatsen((Integer) gegevens.get(6));
     }
 
     @Override

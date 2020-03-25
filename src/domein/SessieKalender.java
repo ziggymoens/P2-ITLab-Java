@@ -60,15 +60,33 @@ public class SessieKalender {
 
     //region Sessie
     public void voegSessieToe(Sessie sessie) {
-        em.getTransaction().begin();
-        em.persist(sessie);
-        em.getTransaction().commit();
+        try {
+            if(!em.getTransaction().isActive()) {
+                em.getTransaction().begin();
+            }
+            em.persist(sessie);
+            em.getTransaction().commit();
+        } catch (SessieException se){
+            em.getTransaction().rollback();
+            throw se;
+        }
     }
 
 
     public void verwijderSessie(Sessie sessie) {
         em.getTransaction().begin();
         sessie.verwijder(true);
+        em.getTransaction().commit();
+    }
+
+    public void setState(Sessie sessie, String state){
+        em.getTransaction().begin();
+        em.remove(sessie.getCurrentState());
+        if(state.toLowerCase().equals("open")) {
+            sessie.toOpenState();
+        } else {
+            sessie.toClosedState();
+        }
         em.getTransaction().commit();
     }
 
@@ -299,7 +317,11 @@ public class SessieKalender {
         try {
             if(!em.getTransaction().isActive()) {
                 em.getTransaction().begin();
-                em.remove(sessie.getCurrentState());
+                try {
+                    em.remove(sessie.getCurrentState());
+                } catch (Exception e){
+
+                }
             }
             sessie.update(gegevens);
             em.getTransaction().commit();

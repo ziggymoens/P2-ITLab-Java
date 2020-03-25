@@ -7,7 +7,6 @@ import domein.enums.MediaType;
 import domein.gebruiker.Gebruiker;
 import domein.interfacesDomein.*;
 import domein.sessie.Sessie;
-import exceptions.domein.LokaalException;
 import exceptions.domein.SessieException;
 import userinterface.main.IObserver;
 
@@ -52,22 +51,22 @@ public class DomeinController {
 
     //region Academiejaar
     public List<IAcademiejaar> geefAcademiejaren() {
-        return (List<IAcademiejaar>)(Object)huidigeSessieKalender.geefAlleAcademieJaren();
+        return (List<IAcademiejaar>) (Object) huidigeSessieKalender.geefAlleAcademieJaren();
     }
 
-    public IAcademiejaar geefAcademiejaarVanString (String academiejaar){
+    public IAcademiejaar geefAcademiejaarVanString(String academiejaar) {
         String[] ajarr = academiejaar.split(" - ");
         String j1 = ajarr[0].substring(2);
         String j2 = ajarr[1].substring(2);
-        int jaar = Integer.parseInt(j1+j2);
+        int jaar = Integer.parseInt(j1 + j2);
         return huidigeSessieKalender.geefAcademiejaarById(jaar);
     }
 
-    public IAcademiejaar geefAcademiejaarOpId(int academiejaar){
+    public IAcademiejaar geefAcademiejaarOpId(int academiejaar) {
         return this.huidigeSessieKalender.geefAcademiejaarById(academiejaar);
     }
 
-    public IAcademiejaar geefHuidigIAcademiejaar(){
+    public IAcademiejaar geefHuidigIAcademiejaar() {
         return this.huidigAcademiejaar;
     }
 
@@ -81,6 +80,17 @@ public class DomeinController {
         String[] maanden = {"Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"};
         String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
         String huidigeMaand = huidigeSessie.getStartSessie().getMonth().toString();
+        for (int i = 0; i < months.length; i++) {
+            if (months[i].toLowerCase().equals(huidigeMaand.toLowerCase()))
+                huidigeMaand = maanden[i];
+        }
+        return huidigeMaand;
+    }
+
+    public String vergelijkMaanden(Sessie s) {
+        String[] maanden = {"Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"};
+        String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        String huidigeMaand = s.getStartSessie().getMonth().toString();
         for (int i = 0; i < months.length; i++) {
             if (months[i].toLowerCase().equals(huidigeMaand.toLowerCase()))
                 huidigeMaand = maanden[i];
@@ -106,96 +116,152 @@ public class DomeinController {
         return Arrays.asList(keuzeVoorZoeken);
     }
 
-    public boolean isSessieOpen(){
-        if(huidigeSessie.getCurrentState().getStatus().toLowerCase().equals("open")){
-            return true;
-        }
-        return false;
-    }
-    public boolean isSessieGesloten(){
-        if(huidigeSessie.getCurrentState().getStatus().toLowerCase().equals("gesloten")){
-            return true;
-        }
-        return false;
-    }
-    public boolean isZichtbaar(){
-        if(huidigeSessie.getCurrentState().getStatus().toLowerCase().equals("zichtbaar") || huidigeSessie.getCurrentState().getStatus().toLowerCase().equals("open") || huidigeSessie.getCurrentState().getStatus().toLowerCase().equals("gesloten")){
+    public boolean isSessieOpen() {
+        if (huidigeSessie.getCurrentState().getStatus().toLowerCase().equals("open")) {
             return true;
         }
         return false;
     }
 
-    public void updateSessie(List<String> veranderingen) {
+    public boolean isSessieGesloten() {
+        if (huidigeSessie.getCurrentState().getStatus().toLowerCase().equals("gesloten")) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isZichtbaar() {
+        if (huidigeSessie.getCurrentState().getStatus().toLowerCase().equals("zichtbaar") || huidigeSessie.getCurrentState().getStatus().toLowerCase().equals("open") || huidigeSessie.getCurrentState().getStatus().toLowerCase().equals("gesloten")) {
+            return true;
+        }
+        return false;
+    }
+
+    public Map <String, String> errorVelden(List<String> veranderingen, boolean nieuweSessie){
         List<Object> objVeranderingen = new ArrayList<>();
-
-        Gebruiker verantwoordelijke = huidigeSessieKalender.geefGebruikerById(veranderingen.get(0));
-
-        String titel = veranderingen.get(1);
-
-        LocalDate dat = LocalDate.parse(veranderingen.get(2));
-
-        String[] startuurarr = veranderingen.get(3).split(":");
-        LocalTime startUur = LocalTime.of(Integer.parseInt(startuurarr[0]), Integer.parseInt(startuurarr[1]));
-        LocalDateTime start = LocalDateTime.of(dat, startUur);
-
-        String[] einduurarr = veranderingen.get(4).split(":");
-        LocalTime einduur = LocalTime.of(Integer.parseInt(einduurarr[0]), Integer.parseInt(einduurarr[1]));
-        LocalDateTime eind = LocalDateTime.of(dat, einduur);
-
-        Lokaal l = huidigeSessieKalender.geefLokaalById(veranderingen.get(5));
-
-        Integer i = Integer.parseInt(veranderingen.get(7));
-
-        Boolean zichtbaar = Boolean.parseBoolean(veranderingen.get(8));
-
-        objVeranderingen.add(0, verantwoordelijke);
-        objVeranderingen.add(1, titel);
-        objVeranderingen.add(2, start);
-        objVeranderingen.add(3, eind);
-        objVeranderingen.add(4, l);
-        objVeranderingen.add(5, veranderingen.get(6));
-        objVeranderingen.add(6, i);
-        objVeranderingen.add(7, zichtbaar);
-        typeStrategy.bewerkSessie(huidigeSessie, objVeranderingen);
-    }
-
-    public Map<String, String> controleerDataSessie(List<String> data) {
-        Map<String, String> map = new HashMap<>();
+        Map<String, String> fouten = new HashMap<>();
         try {
-            updateSessie(data);
-        } catch (LokaalException lokaalEx) {
-            map.put("lokaal", lokaalEx.getMessage());
-        } catch (SessieException sessieEx) {
-            String[] fout = sessieEx.getMessage().split(";");
-            switch (fout[0]) {
-                case "verantwoordelijke":
-                    map.put("verantwoordelijke", fout[1]);
-                    break;
-                case "titel":
-                    map.put("titel", fout[1]);
-                    break;
-                case "start":
-                    map.put("start", fout[1]);
-                    break;
-                case "eind":
-                    map.put("eind", fout[1]);
-                    break;
-                case "gastspreker":
-                    map.put("gastspreker", fout[1]);
-                    break;
-                case "maxPlaatsen":
-                    map.put("maxPlaatsen", fout[1]);
-                    break;
-                case "lokaal":
-                    map.put("lokaal", fout[1]);
-                    break;
+            Gebruiker verantwoordelijke = null;
+            String titel = null;
+            Lokaal lokaal = null;
+            Integer maxLokaal = null;
+            String gastspreker;
+            Boolean zichtbaar;
+            LocalDateTime eind = null;
+            LocalDateTime start = null;
+            LocalDate datum = null;
+            String beschrijving;
+            try{
+                titel = veranderingen.get(1);
+                if(titel.isBlank()) throw new SessieException();
+            } catch(SessieException se){
+                fouten.put("titel", "Sessie moet een titel hebben");
             }
-            map.put("sessie", sessieEx.getMessage());
+            try {
+                if(veranderingen.get(0) != null) {
+                    verantwoordelijke = huidigeSessieKalender.geefGebruikerById(veranderingen.get(0));
+                } else{
+                    throw new SessieException();
+                }
+            } catch (SessieException se) {
+                fouten.put("verantwoordelijke", "Sessie moet een verantwoordelijke hebben");
+            }
+            try {
+                datum = LocalDate.parse(veranderingen.get(2));
+            } catch (NullPointerException np) {
+                fouten.put("datum", "Sessie moet een datum hebben");
+            }
+            try {
+                String[] startuurarr = veranderingen.get(3).split(":");
+                LocalTime startUur = LocalTime.of(Integer.parseInt(startuurarr[0]), Integer.parseInt(startuurarr[1]));
+                start = LocalDateTime.of(datum, startUur);
+            }catch (NumberFormatException np) {
+                fouten.put("start", "Sessie moet een start uur hebben");
+            }
+            try {
+                String[] einduurarr = veranderingen.get(4).split(":");
+                LocalTime einduur = LocalTime.of(Integer.parseInt(einduurarr[0]), Integer.parseInt(einduurarr[1]));
+                eind = LocalDateTime.of(datum, einduur);
+            } catch (NumberFormatException np) {
+                fouten.put("eind", "Sessie moet een eind uur hebben");
+            }
+            try {
+                if(veranderingen.get(5) != null) {
+                    lokaal = huidigeSessieKalender.geefLokaalById(veranderingen.get(5));
+                } else {
+                    throw new SessieException();
+                }
+            }  catch (SessieException se) {
+                fouten.put("lokaal", "Sessie moet een lokaal hebben");
+            }
+
+            try {
+                maxLokaal = Integer.parseInt(veranderingen.get(7));
+            }   catch (NumberFormatException np) {
+                fouten.put("maxPlaatsen", "Sessie moet een max hebben");
+            }
+            gastspreker = veranderingen.get(6);
+            zichtbaar = Boolean.parseBoolean(veranderingen.get(9));
+            beschrijving = veranderingen.get(8);
+
+
+            objVeranderingen.add(0, verantwoordelijke);
+            objVeranderingen.add(1, titel);
+            objVeranderingen.add(2, start);
+            objVeranderingen.add(3, eind);
+            objVeranderingen.add(4, lokaal);
+            objVeranderingen.add(5, gastspreker);
+            objVeranderingen.add(6, maxLokaal);
+            objVeranderingen.add(7, zichtbaar);
+            objVeranderingen.add(8, beschrijving);
+
+            if(fouten.isEmpty()) {
+                if (nieuweSessie) {
+                    fouten.putAll(maakSessieAan(objVeranderingen));
+                } else {
+                    updateSessie(objVeranderingen);
+                    fouten.putAll(huidigeSessie.getFouten());
+                }
+            }
+        } catch (SessieException se) {
+            String[] fout = se.getMessage().split(";");
+            fouten.put(fout[0], fout[1]);
         }
-        return map;
+
+        return fouten;
+
     }
 
-    public void addObserver(IObserver iObserver){
+    public void updateSessie(List<Object> veranderingen) {
+        typeStrategy.bewerkSessie(huidigeSessie, veranderingen);
+    }
+
+    public Map<String, String> maakSessieAan(List<Object> sessie) {
+        Sessie s = new Sessie((String) sessie.get(1), (String) sessie.get(8), (LocalDateTime) sessie.get(2), (LocalDateTime) sessie.get(3), (Lokaal) sessie.get(4), (Gebruiker) sessie.get(0), this.huidigAcademiejaar, (Boolean) sessie.get(7) ? "zichtbaar" : "niet zichtbaar");
+        if(s.getFouten().isEmpty()){typeStrategy.maakSessieAan(s);}
+        return s.getFouten();
+    }
+
+    public String verwijderSessie(ISessie verwijderen, ISessie vorige) {
+        String s = "";
+        setHuidigeISessie(vorige);
+        try {
+            typeStrategy.verwijderSessie((Sessie) verwijderen);
+        } catch (SessieException se){
+            s = se.getMessage();
+        }
+        return s;
+    }
+
+    public void veranderState(String state){
+        typeStrategy.setState(huidigeSessie, state);
+    }
+
+    public void setHuidigeISessie(ISessie sessie) {
+        this.huidigeSessie = typeStrategy.geefSessieId(sessie.getSessieId());
+    }
+
+    public void addObserver(IObserver iObserver) {
         huidigeSessie.addObserver(iObserver);
     }
 
@@ -238,21 +304,6 @@ public class DomeinController {
         return (List<ISessie>) (Object) huidigeSessieKalender.geefAlleSessiesKalenderVanGebruiker(huidigAcademiejaar.getAcademiejaar(), gebruiker);
     }
 
-    public void maakSessieAan(List<String> sessie) {
-        Sessie s = new Sessie(sessie.get(0), sessie.get(1), LocalDateTime.parse(sessie.get(2)), LocalDateTime.parse(sessie.get(3)),
-                huidigeSessieKalender.geefLokaalById(sessie.get(4)), huidigeSessieKalender.geefGebruikerById(sessie.get(5)), huidigeSessieKalender.getAcademiejaarByDate(LocalDateTime.parse(sessie.get(6))));
-        typeStrategy.maakSessieAan(s);
-    }
-
-    public void verwijderSessie(ISessie verwijderen, ISessie vorige) {
-        setHuidigeISessie(vorige);
-        typeStrategy.verwijderSessie((Sessie) verwijderen);
-    }
-
-    public void setHuidigeISessie(ISessie sessie) {
-        this.huidigeSessie = typeStrategy.geefSessieId(sessie.getSessieId());
-    }
-
 
     /* public List<ISessie> geefISessiesVanGebruiker() {
         return (List<ISessie>) (Object) huidigeSessieKalender.geefSessiesVanGebruiker(huidigeGebruiker);
@@ -279,7 +330,7 @@ public class DomeinController {
         return (List<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers();
     }
 
-    public List<IGebruiker> geefAlleVerantwoordelijken(){
+    public List<IGebruiker> geefAlleVerantwoordelijken() {
         return (List<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers().stream().filter(g -> g.getGebruikersprofiel().contains("verant")).collect(Collectors.toList());
     }
 
@@ -492,7 +543,7 @@ public class DomeinController {
         huidigeSessieKalender.voegMediaToe(new Media(huidigeSessie, (Gebruiker) gebruiker, locatie, type), (Sessie) sessie);
     }
 
-    public void voegMediaToe(ISessie sessie, IGebruiker gebruiker, String type, BufferedImage afbeelding, String fileName){
+    public void voegMediaToe(ISessie sessie, IGebruiker gebruiker, String type, BufferedImage afbeelding, String fileName) {
         huidigeSessieKalender.voegMediaToeLob(new Media(huidigeSessie, (Gebruiker) gebruiker, type, afbeelding, fileName), (Sessie) sessie);
     }
 
@@ -549,11 +600,11 @@ public class DomeinController {
     }
 
     public void addInschrijvingSessie(String sessieId, String gebruikersnaam, LocalDateTime inschrijvingsdatum, boolean statusAanwezigheid) {
-        Inschrijving inschrijving = new Inschrijving( huidigeSessie, huidigeSessieKalender.geefGebruikerById(gebruikersnaam), inschrijvingsdatum,statusAanwezigheid);
+        Inschrijving inschrijving = new Inschrijving(huidigeSessie, huidigeSessieKalender.geefGebruikerById(gebruikersnaam), inschrijvingsdatum, statusAanwezigheid);
         huidigeSessieKalender.voegInschrijvingToe(inschrijving, huidigeSessieKalender.geefSessieById(sessieId));
     }
 
-    public void verwijderInschrijving(IInschrijving inschrijving){
+    public void verwijderInschrijving(IInschrijving inschrijving) {
         typeStrategy.verwijderInschrijving((Inschrijving) inschrijving);
     }
     //endregion

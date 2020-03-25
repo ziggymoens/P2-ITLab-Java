@@ -161,9 +161,12 @@ public class BeherenMediaController extends AnchorPane implements IDetails {
 
     private void vulDetails() {
         cbmedia.setItems(FXCollections.observableArrayList(domeinController.geefMediaTypes()));
-        cbmedia.setValue(huidigeMedia.getTypeString());
-        if(huidigeMedia.getUrl() != null)
+        try{
+            cbmedia.setValue(huidigeMedia.getTypeString());
             txtUrl.setText(huidigeMedia.getUrl());
+        }catch(Exception e){
+
+        }
         vulAfbeeldingIn(huidigeMedia);
     }
 
