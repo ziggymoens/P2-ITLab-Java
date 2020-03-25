@@ -622,5 +622,11 @@ public class DomeinController {
     public void mediaAfbeeldingWijzigen(BufferedImage image, IMedia huidigeMedia) {
         huidigeSessieKalender.mediaAfbeeldingWijzigen(image, (Media) huidigeMedia);
     }
+
+    public IStatistiek geefStatistiek() {
+        return new Statistiek();
+    }
+
+
     //endregion
 }

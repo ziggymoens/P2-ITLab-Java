@@ -60,6 +60,7 @@ public class MainController extends AnchorPane{
         openSessie();
         openGebruiker();
         openKalender();
+        openStatistiek();
         SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
         selectionModel.select(0);
         gebruiker.setOnAction(this::huidigeGebruikerDetails);
@@ -93,6 +94,14 @@ public class MainController extends AnchorPane{
         Tab tab = new Tab("Sessie");
         tab.setClosable(false);
         tab.setContent(new SessieController(domeinController));
+        tabPane.getTabs().add(tab);
+        tabPane.getSelectionModel().select(tab);
+    }
+
+    private void openStatistiek() {
+        Tab tab = new Tab("Statistiek");
+        tab.setClosable(false);
+        tab.setContent(new StatistiekController(domeinController));
         tabPane.getTabs().add(tab);
         tabPane.getSelectionModel().select(tab);
     }

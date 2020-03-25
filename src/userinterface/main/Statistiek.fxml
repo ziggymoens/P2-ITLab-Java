@@ -1,13 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<fx:root xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            prefHeight="800.0" prefWidth="1400.0" type="AnchorPane">
 
+<fx:root prefHeight="800.0" prefWidth="1400.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextArea fx:id="csvSessies" editable="false" layoutX="41.0" layoutY="140.0" prefHeight="200.0" prefWidth="386.0" />
+      <ChoiceBox fx:id="sAantal" layoutX="249.0" layoutY="97.0" prefHeight="27.0" prefWidth="178.0" />
+      <ChoiceBox fx:id="sType" layoutX="41.0" layoutY="97.0" prefHeight="27.0" prefWidth="178.0" />
+      <TextArea fx:id="csvGebruikers" editable="false" layoutX="507.0" layoutY="140.0" prefHeight="200.0" prefWidth="386.0" />
+      <ChoiceBox fx:id="gAantal" layoutX="715.0" layoutY="97.0" prefHeight="27.0" prefWidth="178.0" />
+      <ChoiceBox fx:id="gType" layoutX="507.0" layoutY="97.0" prefHeight="27.0" prefWidth="178.0" />
+      <TextArea fx:id="csvLokalen" editable="false" layoutX="962.0" layoutY="140.0" prefHeight="200.0" prefWidth="386.0" />
+      <ChoiceBox fx:id="gTopAantal" layoutX="508.0" layoutY="425.0" prefHeight="27.0" prefWidth="386.0" />
+      <TextArea fx:id="csvTopGebruikers" editable="false" layoutX="41.0" layoutY="471.0" prefHeight="200.0" prefWidth="1306.0" />
+      <Label layoutX="115.0" layoutY="73.0" text="type" />
+      <Label layoutX="323.0" layoutY="73.0" text="aantal" />
+      <Label layoutX="581.0" layoutY="73.0" text="type" />
+      <Label layoutX="789.0" layoutY="73.0" text="aantal" />
+      <Label layoutX="46.0" layoutY="35.0" text="Sessies met meeste aantal van &quot;type&quot;">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="483.0" layoutY="35.0" text="gebruikers met meeste aantal van &quot;type&quot;">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="982.0" layoutY="35.0" text="Lokalen met meeste aantal sessies">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="596.0" layoutY="361.0" text="Overzicht gebruikers">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="684.0" layoutY="400.0" text="aantal" />
+      <ChoiceBox fx:id="lAantal" layoutX="964.0" layoutY="97.0" prefHeight="27.0" prefWidth="386.0" />
+      <Label layoutX="1140.0" layoutY="72.0" text="aantal" />
+      <Text layoutX="278.0" layoutY="722.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Deze CSV's kunt u gebruiken om in Power Bi geavanceerde grafieken te laten plotten">
+         <font>
+            <Font name="System Italic" size="24.0" />
+         </font>
+      </Text>
+   </children>
 </fx:root>
