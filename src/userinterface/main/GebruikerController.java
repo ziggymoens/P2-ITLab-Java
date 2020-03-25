@@ -292,7 +292,6 @@ public class GebruikerController extends AnchorPane {
         String gebruikersnaam = txtFieldGebruikersnaam.getText();
         String gebruikersprofiel = comboBoxStatusGebruiker.getSelectionModel().getSelectedItem();
         String gebruikerstype = comboBoxTypeGebruiker.getSelectionModel().getSelectedItem();
-        System.out.println(denyPersist);
         opslaanDoorgeven(naam, gebruikersnaam, gebruikersprofiel, gebruikerstype);
     }
 

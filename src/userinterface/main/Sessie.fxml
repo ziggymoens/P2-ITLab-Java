@@ -30,7 +30,7 @@
                             <children>
                                 <ChoiceBox fx:id="choiceBoxStad" disable="true" prefHeight="30.0" prefWidth="180.0" visible="false" />
                         <ChoiceBox fx:id="choiceBoxStatus" disable="true" prefHeight="30.0" prefWidth="180.0" visible="false" />
-                                <TextField fx:id="txtSearchbarTitel" prefHeight="30.0" prefWidth="250.0" promptText="zoek" />
+                                <TextField fx:id="txtSearchbar" prefHeight="30.0" prefWidth="250.0" promptText="zoek" />
                             </children>
                         </Pane>
                       <TableView fx:id="table" prefHeight="360.0" prefWidth="290.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">

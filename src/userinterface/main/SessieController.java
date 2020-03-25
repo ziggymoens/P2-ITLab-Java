@@ -7,6 +7,7 @@ import domein.interfacesDomein.ISessie;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,7 +47,7 @@ public class SessieController extends AnchorPane implements IObserver {
     @FXML
     private ChoiceBox<String> choiceBoxMaand, choiceBoxJaar, choiceBoxZoeken, choiceBoxStad, choiceBoxStatus;
     @FXML
-    private TextField txtSearchBar;
+    private TextField txtSearchbar;
 
     @FXML
     private TableView<ISessie> table;
@@ -147,6 +148,8 @@ public class SessieController extends AnchorPane implements IObserver {
         table.getColumns().addAll(titel, startSessie, maximumAantalPlaatsen);
 
         selectInTable();
+        zoek();
+
     }
 
     private void selectInTable() {
@@ -443,22 +446,22 @@ public class SessieController extends AnchorPane implements IObserver {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 if (t1.equals("Titel")) {
-                    txtSearchBar.setVisible(true);
-                    txtSearchBar.setDisable(false);
+                    txtSearchbar.setVisible(true);
+                    txtSearchbar.setDisable(false);
                     choiceBoxStad.setVisible(false);
                     choiceBoxStad.setDisable(true);
                     choiceBoxStad.setVisible(false);
                     choiceBoxStad.setDisable(true);
                 } else if (t1.equals("Stad")) {
-                    txtSearchBar.setVisible(false);
-                    txtSearchBar.setDisable(true);
+                    txtSearchbar.setVisible(false);
+                    txtSearchbar.setDisable(true);
                     choiceBoxStad.setVisible(true);
                     choiceBoxStad.setDisable(false);
                     choiceBoxStad.setVisible(false);
                     choiceBoxStad.setDisable(true);
                 } else if (t1.equals("Status")) {
-                    txtSearchBar.setVisible(false);
-                    txtSearchBar.setDisable(true);
+                    txtSearchbar.setVisible(false);
+                    txtSearchbar.setDisable(true);
                     choiceBoxStad.setVisible(false);
                     choiceBoxStad.setDisable(true);
                     choiceBoxStad.setVisible(true);
@@ -582,5 +585,28 @@ public class SessieController extends AnchorPane implements IObserver {
         this.tempLokaal = lokaal;
         txtMaxPlaatsenSessie.setText(((Integer) tempLokaal.getAantalPlaatsen()).toString());
         txtLokaalSessie.setText(lokaal.getLokaalCode());
+    }
+
+    private void zoek(){
+        ObservableList data =  table.getItems();
+        txtSearchbar.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if (oldValue != null && (newValue.length() < oldValue.length())) {
+                table.setItems(data);
+            }
+            String value = newValue.toLowerCase();
+            ObservableList<ISessie> subentries = FXCollections.observableArrayList();
+
+            long count = table.getColumns().stream().count();
+            for (int i = 0; i < table.getItems().size(); i++) {
+                for (int j = 0; j < count; j++) {
+                    String entry = "" + table.getColumns().get(j).getCellData(i);
+                    if (entry.toLowerCase().contains(value)) {
+                        subentries.add(table.getItems().get(i));
+                        break;
+                    }
+                }
+            }
+            table.setItems(subentries);
+        });
     }
 }
