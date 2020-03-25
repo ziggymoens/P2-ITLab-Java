@@ -91,6 +91,7 @@ public class BeherenMediaController extends AnchorPane {
                 btnNieuw.setDisable(false);
                 imgmedia.setVisible(true);
                 huidigeMedia = t1;
+                txtErrorUrl.setVisible(false);
                 vulDetails();
             }
         });
@@ -107,7 +108,6 @@ public class BeherenMediaController extends AnchorPane {
         imgmedia.setVisible(false);
         cbmedia.getSelectionModel().select(1);
         btnNieuw.setOnAction(this::nieuweMediaFoto);
-
     }
 
 
@@ -185,7 +185,10 @@ public class BeherenMediaController extends AnchorPane {
                 }
             }
         } else {
-            domeinController.maakNieuweMedia(domeinController.geefHuidigeISessie(), domeinController.geefHuidigeIGebruiker(), "URL", txtUrl.getText());
+            if(!txtUrl.getText().isEmpty())
+                domeinController.maakNieuweMedia(domeinController.geefHuidigeISessie(), domeinController.geefHuidigeIGebruiker(), "URL", txtUrl.getText());
+            else
+                txtErrorUrl.setVisible(true);
         }
         //vulTable();
     }
