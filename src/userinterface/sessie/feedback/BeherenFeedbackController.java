@@ -15,6 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
+import userinterface.sessie.IDetails;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -24,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class BeherenFeedbackController extends AnchorPane {
+public class BeherenFeedbackController extends AnchorPane implements IDetails {
     private DomeinController domeinController;
     private ObservableList<IFeedback> feedback;
     private IFeedback huidigeFeedback;
@@ -187,5 +188,10 @@ public class BeherenFeedbackController extends AnchorPane {
         txtGebruiker.setText(huidigeFeedback.getIGebruiker().getNaam());
         txtPublicatieDatum.setText(huidigeFeedback.getDate().format( DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         txtInhoud.setText(huidigeFeedback.getTekst());
+    }
+
+    @Override
+    public void update() {
+        vulTable();
     }
 }

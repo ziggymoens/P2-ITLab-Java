@@ -16,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import userinterface.sessie.IDetails;
 import userinterface.sessie.aankondiging.BeherenAankondigingController;
 import userinterface.sessie.feedback.BeherenFeedbackController;
 import userinterface.sessie.gebruiker.GebruikerBeherenController;
@@ -36,6 +37,7 @@ public class SessieController extends AnchorPane implements IObserver {
     private ILokaal tempLokaal;
     private IGebruiker tempGebruiker;
     private ISessie sessie;
+    private List<IDetails> detailPanels;
 
     @FXML
     private AnchorPane apSessie, apSessieDetail;
@@ -117,6 +119,7 @@ public class SessieController extends AnchorPane implements IObserver {
     //endregion
 
     public SessieController(DomeinController domeinController) {
+        detailPanels = new ArrayList<>();
         this.domeinController = domeinController;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Sessie.fxml"));
         loader.setRoot(this);
@@ -227,7 +230,9 @@ public class SessieController extends AnchorPane implements IObserver {
                 cbMax.setSelected(true);
             }
         });
+        updateDetailsPanels();
     }
+
 
     private boolean controleerMaxLokaal(String s) {
         return domeinController.controleerMaxCapaciteitLokaal(Integer.parseInt(s), tempLokaal);
@@ -503,7 +508,9 @@ public class SessieController extends AnchorPane implements IObserver {
                     rabtnFeedback.setSelected(false);
                     rabtnInschrijving.setSelected(false);
                     rabtnMedia.setSelected(false);
-                    apRechts.getChildren().addAll(new BeherenAankondigingController(domeinController));
+                    BeherenAankondigingController d = new BeherenAankondigingController(domeinController);
+                    detailPanels.add(d);
+                    apRechts.getChildren().addAll(d);
                 } else
                     apRechts.getChildren().remove(0);
             }
@@ -516,7 +523,9 @@ public class SessieController extends AnchorPane implements IObserver {
                     rabtnAankondiging.setSelected(false);
                     rabtnInschrijving.setSelected(false);
                     rabtnMedia.setSelected(false);
-                    apRechts.getChildren().addAll(new BeherenFeedbackController(domeinController));
+                    BeherenFeedbackController d = new BeherenFeedbackController(domeinController);
+                    detailPanels.add(d);
+                    apRechts.getChildren().addAll(d);
                 } else
                     apRechts.getChildren().remove(0);
             }
@@ -529,7 +538,9 @@ public class SessieController extends AnchorPane implements IObserver {
                     rabtnAankondiging.setSelected(false);
                     rabtnFeedback.setSelected(false);
                     rabtnMedia.setSelected(false);
-                    apRechts.getChildren().addAll(new BeherenInschrijvingController(domeinController));
+                    BeherenInschrijvingController d = new BeherenInschrijvingController(domeinController);
+                    detailPanels.add(d);
+                    apRechts.getChildren().addAll(d);
                 } else
                     apRechts.getChildren().remove(0);
             }
@@ -542,11 +553,19 @@ public class SessieController extends AnchorPane implements IObserver {
                     rabtnAankondiging.setSelected(false);
                     rabtnFeedback.setSelected(false);
                     rabtnInschrijving.setSelected(false);
-                    apRechts.getChildren().addAll(new BeherenMediaController(domeinController));
+                    BeherenMediaController d = new BeherenMediaController(domeinController);
+                    detailPanels.add(d);
+                    apRechts.getChildren().addAll(d);
                 } else
                     apRechts.getChildren().remove(0);
             }
         });
+    }
+
+    private void updateDetailsPanels() {
+        for(IDetails d : detailPanels){
+            d.update();
+        }
     }
 
     @Override

@@ -1,5 +1,6 @@
 package userinterface.sessie.aankondiging;
 
+import com.sun.xml.bind.v2.model.core.ID;
 import domein.Aankondiging;
 import domein.controllers.DomeinController;
 import domein.enums.HerinneringTijdstip;
@@ -16,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import userinterface.sessie.IDetails;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -24,7 +26,7 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class BeherenAankondigingController extends AnchorPane {
+public class BeherenAankondigingController extends AnchorPane implements IDetails {
     DomeinController domeinController;
     private ObservableList<IAankondiging> aankondiging;
     private IAankondiging huidigeAankondiging;
@@ -207,5 +209,10 @@ public class BeherenAankondigingController extends AnchorPane {
                 throw new IllegalArgumentException("Geen correcte enum");
         }
         return h;
+    }
+
+    @Override
+    public void update() {
+        vulTable();
     }
 }

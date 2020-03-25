@@ -16,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import userinterface.sessie.IDetails;
 import userinterface.sessie.gebruiker.GebruikerBeherenController;
 
 import java.io.IOException;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class BeherenInschrijvingController extends AnchorPane{
+public class BeherenInschrijvingController extends AnchorPane implements IDetails {
     private DomeinController domeinController;
     private ObservableList<IInschrijving> inschrijving;
     private IInschrijving huidigeInschrijving;
@@ -168,5 +169,10 @@ public class BeherenInschrijvingController extends AnchorPane{
         if(result.get() == ButtonType.OK){
             domeinController.verwijderInschrijving(table.getSelectionModel().getSelectedItem());
         }
+    }
+
+    @Override
+    public void update() {
+        vulTable();
     }
 }

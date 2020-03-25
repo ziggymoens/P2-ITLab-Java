@@ -22,6 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import userinterface.sessie.IDetails;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -31,7 +32,7 @@ import java.nio.Buffer;
 import java.sql.SQLOutput;
 import java.util.Optional;
 
-public class BeherenMediaController extends AnchorPane {
+public class BeherenMediaController extends AnchorPane implements IDetails {
     private DomeinController domeinController;
     private ObservableList<IMedia> media;
     private IMedia huidigeMedia;
@@ -239,5 +240,10 @@ public class BeherenMediaController extends AnchorPane {
         if(result.get() == ButtonType.OK){
             domeinController.verwijderMedia(table.getSelectionModel().getSelectedItem());
         }
+    }
+
+    @Override
+    public void update() {
+        vulTable();
     }
 }
