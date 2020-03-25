@@ -65,7 +65,6 @@ public class Statistiek implements IStatistiek {
             CsvDriver.writeToCsv(results, ps, append);
             return baos.toString(utf8);
         } catch (Exception e) {
-            e.printStackTrace();
             throw new StatistiekException("geef Top Sessie Tabel, " + naam);
         }
     }
@@ -92,7 +91,6 @@ public class Statistiek implements IStatistiek {
             CsvDriver.writeToCsv(results, ps, append);
             return baos.toString(utf8);
         } catch (Exception e) {
-            e.printStackTrace();
             throw new StatistiekException("geef Top Gebruiker Tabel, " + naam);
         }
     }
@@ -114,7 +112,6 @@ public class Statistiek implements IStatistiek {
             CsvDriver.writeToCsv(results, ps, append);
             return baos.toString(utf8);
         } catch (Exception e) {
-            e.printStackTrace();
             throw new StatistiekException("geef Top Gebruiker");
         }
     }
@@ -134,7 +131,6 @@ public class Statistiek implements IStatistiek {
             CsvDriver.writeToCsv(results, ps, append);
             return baos.toString(utf8);
         } catch (Exception e) {
-            e.printStackTrace();
             throw new StatistiekException("geef Top Gebruiker");
         }
     }
