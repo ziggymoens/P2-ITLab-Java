@@ -1,6 +1,7 @@
 package main;
 
 import domein.Media;
+import domein.PasswordUtils;
 import domein.SessieKalender;
 import domein.Statistiek;
 import domein.controllers.DomeinController;
@@ -19,6 +20,10 @@ public class Test {
 
 
     public static void main(String[] args) throws IOException {
+
+        System.out.println("itlab = " + PasswordUtils.generateSecurePassword("itlab"));
+        System.out.println("test = " + PasswordUtils.generateSecurePassword("test"));
+        /*
         String[] datatabellen = {"aankondiging", "academiejaar", "feedback", "gebruiker", "gebruikersprofiel", "gebruikersstatus", "herinnering", "inschrijving", "lokaal", "media", "sessie", "sessiestatus"};
 
         Statistiek s = new Statistiek();
@@ -31,7 +36,7 @@ public class Test {
 
         SessieKalender sessieKalender = new SessieKalender();
         System.out.println(sessieKalender.geefMediaById("M1920-000052").getAfbeeding());
-
+*/
         /*
         s.geefTopSessieTabel("inschrijving", 10);
         System.out.println();

@@ -31,7 +31,7 @@
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://52.233.199.3:1433;databaseName=ITLab" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://52.233.199.3:1433;databaseName=ITLab_JAVA" />
             <property name="javax.persistence.jdbc.user" value="ziggy.moens" />
             <property name="javax.persistence.jdbc.password" value="C0165.974d77" />
             <property name="javax.persistence.schema-generation.database.action" value=""/>

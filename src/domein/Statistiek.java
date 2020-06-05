@@ -13,7 +13,7 @@ import org.relique.jdbc.csv.CsvDriver;
 public class Statistiek implements IStatistiek {
 
     private final String IP_SERVER="52.233.199.3";
-    private final String DB_NAME="ITLab";
+    private final String DB_NAME="ITLab_JAVA";
     private final String DB_USER="ziggy.moens";
     private final String DB_PWD="C0165.974d77";
     private String connectionUrl ="jdbc:sqlserver://" + IP_SERVER + ":1433;"

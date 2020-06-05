@@ -70,7 +70,6 @@ public class SessieKalenderDataInit {
                 String[] sessie = line.split(",");
                 Sessie s = new Sessie(sessie[0], sessie[1],LocalDateTime.parse(sessie[2]), LocalDateTime.parse(sessie[3]), sessieKalender.geefLokaalById(sessie[4]), sessieKalender.geefGebruikerById(sessie[5]), sessieKalender.getAcademiejaarByDate(LocalDateTime.parse(sessie[2])), sessie[6]);
                 sessieKalender.voegSessieToe(s);
-
             }
         } catch (IOException e) {
             e.printStackTrace();
