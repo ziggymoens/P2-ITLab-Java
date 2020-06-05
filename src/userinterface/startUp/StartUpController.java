@@ -52,8 +52,8 @@ public class StartUpController extends AnchorPane {
         Image image = new Image("storage/images/logoHoGent.png");
         this.logo.setImage(image);
         welkom = I18N.labelForKey(() -> I18N.get("welkom"));
-        gebruikersNaam.setText("itlab");
-        wachtwoord.setText("itlab");
+        gebruikersNaam.setText("758095zm");
+        wachtwoord.setText("P@ssword1");
         inloggenButton.setOnAction(this::inloggen);
         inloggenButton.setDefaultButton(true);
         tonen.selectedProperty().addListener(new ChangeListener<Boolean>() {

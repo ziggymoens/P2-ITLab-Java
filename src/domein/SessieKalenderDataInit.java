@@ -69,6 +69,7 @@ public class SessieKalenderDataInit {
             while ((line = br.readLine()) != null) {
                 String[] sessie = line.split(",");
                 Sessie s = new Sessie(sessie[0], sessie[1],LocalDateTime.parse(sessie[2]), LocalDateTime.parse(sessie[3]), sessieKalender.geefLokaalById(sessie[4]), sessieKalender.geefGebruikerById(sessie[5]), sessieKalender.getAcademiejaarByDate(LocalDateTime.parse(sessie[2])), sessie[6]);
+                s.setNaamGastspreker(sessie[7]);
                 sessieKalender.voegSessieToe(s);
             }
         } catch (IOException e) {

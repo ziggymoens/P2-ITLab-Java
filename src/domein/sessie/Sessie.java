@@ -156,7 +156,7 @@ public class Sessie implements ISessie, Serializable, IObservable {
         this.titel = titel;
     }
 
-    protected void setNaamGastspreker(String naamGastspreker) {
+    public void setNaamGastspreker(String naamGastspreker) {
         this.naamGastspreker = naamGastspreker;
     }
 
