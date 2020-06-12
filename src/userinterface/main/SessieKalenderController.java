@@ -49,14 +49,20 @@ public class SessieKalenderController extends AnchorPane {
             e.printStackTrace();
             throw new RuntimeException();
         }
+        //Vul tabellen
         vulTabel();
+
+        //Vul comboboxes met academiejaren
         vulComboxes();
+
+        //Declareer buttons
         activeerButtons();
     }
 
     private void vulTabel() {
         tableAj.getColumns().clear();
 
+        //Voeg kolommen toe aan tabel voor academiejaar
         tableAj.getColumns().addAll(academiejaarString, startString, eindString, aantalSessies);
 
         academiejaarString.setCellValueFactory(new PropertyValueFactory("academiejaarString"));
@@ -64,6 +70,7 @@ public class SessieKalenderController extends AnchorPane {
         eindString.setCellValueFactory(new PropertyValueFactory("eindString"));
         aantalSessies.setCellValueFactory(new PropertyValueFactory("aantal"));
 
+        //Vul tabel met academiejaren
         tableAj.setItems(FXCollections.observableArrayList(domeinController.geefAcademiejaren()));
 
         selectInTable();
@@ -85,6 +92,7 @@ public class SessieKalenderController extends AnchorPane {
     }
 
     private void selectInTable() {
+        //Vul sessies voor academiejaar met listener
         tableAj.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<IAcademiejaar>() {
             @Override
             public void changed(ObservableValue<? extends IAcademiejaar> observableValue, IAcademiejaar iAcademiejaar, IAcademiejaar t1) {
@@ -105,6 +113,7 @@ public class SessieKalenderController extends AnchorPane {
     private void vulTableSessies(){
         tableSessie.getColumns().clear();
 
+        //Vul tabel met sessies
         tableSessie.getColumns().addAll(titel, datum, stad, aanwezigen);
 
         titel.setCellValueFactory(new PropertyValueFactory("titel"));
@@ -112,6 +121,7 @@ public class SessieKalenderController extends AnchorPane {
         stad.setCellValueFactory(new PropertyValueFactory("stad"));
         aanwezigen.setCellValueFactory(new PropertyValueFactory("aantalAanwezigen"));
 
+        //Sessies voor tabel op te vullen
         tableSessie.setItems(FXCollections.observableArrayList(domeinController.geefISessiesOpAcademiejaar(huidigAj.getAcademiejaar())));
     }
     private void activeerButtons() {
@@ -123,6 +133,7 @@ public class SessieKalenderController extends AnchorPane {
     }
 
     private void vulComboxes() {
+        //Vullen van comboboxes met academiejaren en alle maanden
         cbAj.setItems(FXCollections.observableArrayList(domeinController.geefAcademiejaren().stream().map(e -> e.getAcademiejaarString()).collect(Collectors.toList())));
         cbMaand.setItems(FXCollections.observableArrayList(domeinController.geefMaanden()));
 

@@ -593,6 +593,7 @@ public class Sessie implements ISessie, Serializable, IObservable {
     //endregion
 
     //region observer
+    //notify
     public void verwittig() {
         for (IObserver obs : observers) {
             obs.update();

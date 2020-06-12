@@ -163,6 +163,10 @@ public class SessieKalender {
         return em.find(Gebruiker.class, gebruikerId);
     }
 
+    /***
+     * Methode die alle gebruikers teruggeeft zonder parameters
+     * @return List van IGebruiker
+     */
     public List<IGebruiker> geefAlleGebruikers() {
         return (List<IGebruiker>) em.createQuery("select g from Gebruiker g where g.verwijderd = false order by g.naam, g.gebruikersnaam").getResultList();
     }

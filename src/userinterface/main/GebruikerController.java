@@ -207,11 +207,13 @@ public class GebruikerController extends AnchorPane {
         tableViewGebruiker.getColumns().addAll(TVnaam, TVgebruikersnaamChamilo, TVtype, TVstatus);
 
         tableViewGebruiker.getSelectionModel().select(0);
+        //Selecteren van eerste gebruiker en details hiervan vullen als er gebruikers er in het systeem aanwezig zijn.
         if(tableViewGebruiker.getSelectionModel().getSelectedItem() != null){
             vulDetails(tableViewGebruiker.getSelectionModel().getSelectedItem());
             vulTableSessies((Gebruiker) tableViewGebruiker.getSelectionModel().getSelectedItem());
         }
 
+        //Listener voor het vullen van de details en sessies van de gebruiker waarop geklikt is.
         tableViewGebruiker.getSelectionModel().selectedItemProperty().addListener((observableValue, gebruiker, t1) -> {
             if(t1 != null) {
                 this.selected = t1;
@@ -272,20 +274,20 @@ public class GebruikerController extends AnchorPane {
     private void maakNieuweGebruiker(ActionEvent actionEvent){
         System.out.println(denyPersist);
 
-            uploadFoto.setVisible(false);
-            btnWijzigen.setVisible(false);
-            btnAnnuleren.setVisible(true);
-            btnAnnuleren.setCancelButton(true);
-            btnOpslaan.setVisible(true);
+        uploadFoto.setVisible(false);
+        btnWijzigen.setVisible(false);
+        btnAnnuleren.setVisible(true);
+        btnAnnuleren.setCancelButton(true);
+        btnOpslaan.setVisible(true);
 
-            clearDetails();
-            txtFieldGebruiker.setEditable(true);
-            txtFieldGebruikersnaam.setEditable(true);
-            ObservableList<String> type = FXCollections.observableArrayList("gebruiker", "verantwoordelijke", "hoofdverantwoordelijke");
-            ObservableList<String> status = FXCollections.observableArrayList("actief", "niet actief", "geblokkeerd");
-            comboBoxTypeGebruiker.setItems(type);
-            comboBoxStatusGebruiker.setItems(status);
-            btnOpslaan.setOnAction(this::gebruikerAanmaken);
+        clearDetails();
+        txtFieldGebruiker.setEditable(true);
+        txtFieldGebruikersnaam.setEditable(true);
+        ObservableList<String> type = FXCollections.observableArrayList("gebruiker", "verantwoordelijke", "hoofdverantwoordelijke");
+        ObservableList<String> status = FXCollections.observableArrayList("actief", "niet actief", "geblokkeerd");
+        comboBoxTypeGebruiker.setItems(type);
+        comboBoxStatusGebruiker.setItems(status);
+        btnOpslaan.setOnAction(this::gebruikerAanmaken);
     }
 
     private void gebruikerAanmaken() {

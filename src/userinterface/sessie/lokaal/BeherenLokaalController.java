@@ -58,12 +58,14 @@ public class BeherenLokaalController extends AnchorPane {
     private void vulTable() {
         table.getColumns().clear();
 
+        //Init kolomnamen
         lokaalCode.setCellValueFactory(new PropertyValueFactory<>("lokaalCode"));
         stad.setCellValueFactory(new PropertyValueFactory<>("stad"));
         gebouw.setCellValueFactory(new PropertyValueFactory<>("gebouw"));
         verdieping.setCellValueFactory(new PropertyValueFactory<>("verdieping"));
         aantalPlaatsen.setCellValueFactory(new PropertyValueFactory<>("aantalPlaatsen"));
 
+        //Vul tabel met lokalen
         filteredList = domeinController.geefILokalen();
         table.setItems(FXCollections.observableArrayList(filteredList));
         table.getColumns().addAll(lokaalCode, stad, gebouw,verdieping,aantalPlaatsen);
@@ -72,15 +74,18 @@ public class BeherenLokaalController extends AnchorPane {
         }
     }
 
+    //Methode wordt gebruikt om een lijst van ILokaal aan mee te geven --> gefilterde lijst weergeven
     private void vulTable(List<ILokaal> lokalen) {
         table.getColumns().clear();
 
+        //Init kolomnamen
         lokaalCode.setCellValueFactory(new PropertyValueFactory<>("lokaalCode"));
         stad.setCellValueFactory(new PropertyValueFactory<>("stad"));
         gebouw.setCellValueFactory(new PropertyValueFactory<>("gebouw"));
         verdieping.setCellValueFactory(new PropertyValueFactory<>("verdieping"));
         aantalPlaatsen.setCellValueFactory(new PropertyValueFactory<>("aantalPlaatsen"));
 
+        //Vul tabel met lokalenw
         table.setItems(FXCollections.observableArrayList(lokalen));
         table.getColumns().addAll(lokaalCode, stad, gebouw,verdieping,aantalPlaatsen);
         if (!table.getItems().isEmpty() || table.getItems() != null) {
@@ -117,6 +122,7 @@ public class BeherenLokaalController extends AnchorPane {
     }
 
     private void zetFiltersActief(ActionEvent actionEvent) {
+        //Filters
         String stad = cbStad.getSelectionModel().getSelectedItem();
         String gebouw = cbGebouw.getSelectionModel().getSelectedItem();
         String verdieping = cbVerdieping.getSelectionModel().getSelectedItem();
@@ -145,6 +151,7 @@ public class BeherenLokaalController extends AnchorPane {
     }
 
     private void kiezen(ActionEvent actionEvent) {
+        //kiezen van lokaal
         sessieController.setLokaal((ILokaal) table.getSelectionModel().getSelectedItem());
         Stage stage = (Stage) this.getScene().getWindow();
         stage.close();

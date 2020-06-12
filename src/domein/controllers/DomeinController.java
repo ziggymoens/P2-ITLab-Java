@@ -77,6 +77,7 @@ public class DomeinController {
     }
 
     public String vergelijkMaanden() {
+        //vergelijking tussen Nederlandse en Engelse maanden voor dropdown
         String[] maanden = {"Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"};
         String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
         String huidigeMaand = huidigeSessie.getStartSessie().getMonth().toString();
@@ -326,10 +327,18 @@ public class DomeinController {
         return huidigeSessieKalender.geefGebruikerById(id);
     }
 
+    /***
+     * Returntypes worden gecast naar een Object --> IGebruiker =/= Gebruiker (types zijn anders incompatible)
+     * @return
+     */
     public List<IGebruiker> geefAlleIGebruikers() {
         return (List<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers();
     }
 
+    /***
+     * Returntypes worden gecast naar een Object --> IGebruiker =/= Gebruiker (types zijn anders incompatible)
+     * @return
+     */
     public List<IGebruiker> geefAlleVerantwoordelijken() {
         return (List<IGebruiker>) (Object) huidigeSessieKalender.geefAlleGebruikers().stream().filter(g -> g.getGebruikersprofiel().contains("verant")).collect(Collectors.toList());
     }

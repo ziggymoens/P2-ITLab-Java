@@ -55,18 +55,26 @@ public class MainController extends AnchorPane{
             e.printStackTrace();
             throw new RuntimeException();
         }
+        //Init ingelogde gebruiker als huidige gebruiker
         iGebruiker = domeinController.geefHuidigeIGebruiker();
         gebruiker.setText(iGebruiker.getNaam());
+
+        //Verschillende tabpanes
         openSessie();
         openGebruiker();
         openKalender();
         openStatistiek();
+
+        //Standaard eerste tabpane van de 4 selecteren.
         SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
         selectionModel.select(0);
+
+        //Toon informatie over ingelogde gebruiker
         gebruiker.setOnAction(this::huidigeGebruikerDetails);
     }
 
     private void huidigeGebruikerDetails(ActionEvent event) {
+        //Pop-up voor informatie over huidige gebruiker
         Scene scene = new Scene(new HuidigeGebruikerController(domeinController.geefHuidigeIGebruiker()));
         Stage stage = new Stage();
         stage.setScene(scene);

@@ -156,8 +156,6 @@ public class BeherenAankondigingController extends AnchorPane implements IDetail
         boolean autoHerinnering = cbAutom.getSelectionModel().getSelectedItem() != domeinController.geefHerinneringsTijdstippen().get(0);
         domeinController.addAankondigingSessie(domeinController.geefHuidigeISessie().getSessieId(), domeinController.geefHuidigeIGebruiker().getGebruikersnaam(),
                 txfInhoud.getText(), autoHerinnering, stringNaarEnum(cbAutom.getValue()).getDagen());
-
-
     }
 
     private void nieuweAankondiging(ActionEvent actionEvent) {
