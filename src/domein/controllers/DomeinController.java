@@ -260,7 +260,6 @@ public class DomeinController {
     public void updateGebruiker(String naam, String gebruikersnaam, String status, String profiel) {
         List<String> gegevens = new ArrayList<>(Arrays.asList(naam, gebruikersnaam, status.toLowerCase(), profiel.toLowerCase()));
         Gebruiker gebruiker = huidigeSessieKalender.geefGebruikerById(gebruikersnaam);
-        System.out.println(gebruiker.toString());
         huidigeSessieKalender.updateGebruiker(gebruiker, gegevens);
     }
 

@@ -386,6 +386,9 @@ public class SessieController extends AnchorPane implements IObserver {
         } catch (NullPointerException np) {
             veranderingen.add(0, null);
         }
+        if(dpStart.getValue().isBefore(LocalDate.now())){
+            fouten.put("datum", "sessie moet in de toekomst liggen");
+        }
         veranderingen.add(1, txtTitelSessie.getText());
         veranderingen.add(2, dpStart.getValue().toString());
         zetTijdVelden();
@@ -519,6 +522,7 @@ public class SessieController extends AnchorPane implements IObserver {
     }
 
     private void annuleer(ActionEvent event) {
+        verbergErrors();
         setButtonsStandaard();
         zetVeldenBewerken(false);
         table.setDisable(false);

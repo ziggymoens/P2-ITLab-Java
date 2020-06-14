@@ -21,7 +21,6 @@ public class SessieKalender {
     private EntityManager em;
     private EntityManagerFactory emf;
 
-
     public SessieKalender() {
         initPersistentie();
     }
@@ -30,7 +29,6 @@ public class SessieKalender {
         emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         em = emf.createEntityManager();
     }
-
 
     //region Academiejaar
     public List<Academiejaar> geefAlleAcademieJaren() {
@@ -72,7 +70,6 @@ public class SessieKalender {
         }
     }
 
-
     public void verwijderSessie(Sessie sessie) {
         em.getTransaction().begin();
         sessie.verwijder(true);
@@ -92,7 +89,6 @@ public class SessieKalender {
 
     public Sessie geefSessieById(String sessieId) {
         return em.find(Sessie.class, sessieId);
-        //return (Sessie) em.createQuery("select s from Sessie s where sessieId = ?1").setParameter(1, sessieId).getResultList().get(0);
     }
 
     public List<Sessie> geefAlleSessiesKalender(int academiejaar) {
@@ -101,12 +97,6 @@ public class SessieKalender {
             sessie.initData();
         }
         return sessies;
-    }
-
-    public List<Sessie> geefAlleNietOpenSessiesKalender(int academiejaar){
-        LocalDate vandaag = LocalDate.now();
-        List <Sessie> sessies = (List<Sessie>) em.createQuery("select s from Sessie s where s.verwijderd = false and academiejaar = ?1").setParameter(1, geefAcademiejaarById(academiejaar)).getResultList();
-        return sessies.stream().filter(s -> s.getStartSessie().toLocalDate().isAfter(vandaag)).collect(Collectors.toList());
     }
 
     public List<Sessie> geefAlleSessiesKalenderVanGebruiker(int academiejaar, Gebruiker gebruiker) {
@@ -137,7 +127,6 @@ public class SessieKalender {
 
     public Lokaal geefLokaalById(String lokaalCode) {
         return em.find(Lokaal.class, lokaalCode);
-        //return (Lokaal) em.createQuery("select l from Lokaal l where lokaalCode = ?1").setParameter(1, lokaalCode).getResultList().get(0);
     }
 
     public List<Lokaal> geefLokaalByCampus(String campus) {
@@ -170,10 +159,6 @@ public class SessieKalender {
     public List<IGebruiker> geefAlleGebruikers() {
         return (List<IGebruiker>) em.createQuery("select g from Gebruiker g where g.verwijderd = false order by g.naam, g.gebruikersnaam").getResultList();
     }
-
-//    public List<Gebruiker> geefAlleActieveGebruikers(){
-//        return (List<Gebruiker>) em.createQuery("select g from Gebruiker g where g.status = 'actief'").getResultList();
-//    }
     //endregion
 
     //region Aankondiging
@@ -192,7 +177,6 @@ public class SessieKalender {
 
     public Aankondiging geefAankondigingById(String aankondigingsId) {
         return em.find(Aankondiging.class, aankondigingsId);
-        //return (Aankondiging) em.createQuery("select a from Aankondiging a where aankondigingsId = ?1").setParameter(1, aankondigingsId).getResultList().get(0);
     }
 
     public List<Gebruiker> geefAlleAankondigingen() {
@@ -220,7 +204,6 @@ public class SessieKalender {
 
     public Feedback geefFeedbackById(String feedbackId) {
         return em.find(Feedback.class, feedbackId);
-        //return (Feedback) em.createQuery("select f from Feedback f where feedbackId = ?1").setParameter(1, feedbackId).getResultList().get(0);
     }
 
     public List<Feedback> geefAlleFeedback() {
@@ -248,7 +231,6 @@ public class SessieKalender {
 
     public Inschrijving geefInschrijvingById(String inschrijvingsId) {
         return em.find(Inschrijving.class, inschrijvingsId);
-        //return (Inschrijving) em.createQuery("select i from Inschrijving i where inschrijvingsId = ?1").setParameter(1, inschrijvingsId).getResultList().get(0);
     }
 
     public List<Inschrijving> geefAlleInschrijvingen() {
@@ -276,7 +258,6 @@ public class SessieKalender {
 
     public Media geefMediaById(String mediaId) {
         return em.find(Media.class, mediaId);
-        //return (Media) em.createQuery("select m from Media m where mediaId = ?1").setParameter(1, mediaId).getResultList().get(0);
     }
 
     public List<Media> geefAlleMedia() {
@@ -304,7 +285,6 @@ public class SessieKalender {
 
     public Herinnering geefHerinneringById(String herinneringsId) {
         return em.find(Herinnering.class, herinneringsId);
-        //return (Media) em.createQuery("select h from Herinnering h where herinneringsId = ?1").setParameter(1, herinneringsId).getResultList().get(0);
     }
 
     public List<Herinnering> geefAlleHerinneringen() {
@@ -324,7 +304,6 @@ public class SessieKalender {
                 try {
                     em.remove(sessie.getCurrentState());
                 } catch (Exception e){
-
                 }
             }
             sessie.update(gegevens);
@@ -333,7 +312,6 @@ public class SessieKalender {
             em.getTransaction().rollback();
             throw se;
         }
-
     }
 
     public void updateGebruiker(Gebruiker gebruiker, List<String> gegevens) {

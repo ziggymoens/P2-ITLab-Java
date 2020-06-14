@@ -510,7 +510,7 @@ public class Sessie implements ISessie, Serializable, IObservable {
     /**
      * @param gegevens (Gebruiker gebruiker, String titel, LocalDateTime start, LocalDateTime einde, Lokaal lokaal, String gastspreker)
      */
-    public void update(List<Object> gegevens) { //aantal plaatsen moet nog veranderen
+    public void update(List<Object> gegevens) {
         this.currentState.update(gegevens);
         if (!(Boolean) gegevens.get(7)) {
             setState("niet zichtbaar");

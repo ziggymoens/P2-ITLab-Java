@@ -265,8 +265,6 @@ public class GebruikerController extends AnchorPane {
     }
 
     private void maakNieuweGebruiker(ActionEvent actionEvent){
-        System.out.println(denyPersist);
-
         uploadFoto.setVisible(false);
         btnWijzigen.setVisible(false);
         btnAnnuleren.setVisible(true);
