@@ -9,6 +9,7 @@ import domein.sessie.Sessie;
 import java.time.LocalDate;
 import java.util.List;
 
+//EIGENLIJK EEN ABSTRACTE KLASSE
 public interface TypeStrategy {
 
     Sessie geefSessieId(String id);

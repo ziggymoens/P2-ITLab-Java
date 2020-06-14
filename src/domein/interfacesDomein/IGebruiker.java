@@ -20,6 +20,8 @@ public interface IGebruiker {
 
     long getBarcode();
 
+    IMedia getAfb();
+
     //List<IFeedback> getIFeedbackList();
 
     //List<IAankondiging> getIAankondigingList();

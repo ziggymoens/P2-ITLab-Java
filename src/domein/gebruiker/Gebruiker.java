@@ -4,6 +4,7 @@ import com.sun.istack.NotNull;
 import domein.Media;
 import domein.PasswordUtils;
 import domein.interfacesDomein.IGebruiker;
+import domein.interfacesDomein.IMedia;
 import exceptions.domein.GebruikerException;
 import language.Talen;
 import org.hibernate.annotations.OnDelete;
@@ -227,6 +228,11 @@ public class Gebruiker implements IGebruiker, Serializable {
     @Override
     public long getBarcode() {
         return barcode;
+    }
+
+    @Override
+    public IMedia getAfb() {
+        return (IMedia) this.profielfoto;
     }
 
     public GebruikerStatusState getGebruikerStatusState() {

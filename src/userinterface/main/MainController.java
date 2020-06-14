@@ -74,7 +74,7 @@ public class MainController extends AnchorPane{
 
     private void huidigeGebruikerDetails(ActionEvent event) {
         //Pop-up voor informatie over huidige gebruiker
-        Scene scene = new Scene(new HuidigeGebruikerController(domeinController.geefHuidigeIGebruiker()));
+        Scene scene = new Scene(new HuidigeGebruikerController(domeinController.geefHuidigeIGebruiker(), domeinController));
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setResizable(false);

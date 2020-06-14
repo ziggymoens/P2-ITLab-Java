@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 public class SessieKalender {
 
-    public final String PERSISTENCE_UNIT_NAME = "ITLab";
+    public final String PERSISTENCE_UNIT_NAME = "ITLab_JAVA";
     private EntityManager em;
     private EntityManagerFactory emf;
 
