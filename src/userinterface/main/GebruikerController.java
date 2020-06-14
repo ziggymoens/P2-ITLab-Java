@@ -1,10 +1,7 @@
 package userinterface.main;
 
-import domein.gebruiker.Gebruiker;
 import domein.controllers.DomeinController;
-import domein.controllers.HoofdverantwoordelijkeStrategy;
-import domein.enums.Gebruikersprofiel;
-import domein.enums.Gebruikersstatus;
+import domein.gebruiker.Gebruiker;
 import domein.interfacesDomein.IGebruiker;
 import domein.interfacesDomein.ISessie;
 import javafx.beans.value.ObservableValue;
@@ -28,8 +25,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public class GebruikerController extends AnchorPane {
     private DomeinController domeinController;
@@ -241,7 +236,6 @@ public class GebruikerController extends AnchorPane {
         btnAnnuleren.setOnAction(this::refreshAll);
     }
 
-
     private void uploadNewFoto(ActionEvent event) {
         Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
@@ -259,7 +253,6 @@ public class GebruikerController extends AnchorPane {
             }
         }
     }
-
 
     public void updateGebruiker(ActionEvent actionEvent){
         domeinController.updateGebruiker(txtFieldGebruiker.getText(), txtFieldGebruikersnaam.getText(),

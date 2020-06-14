@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
@@ -23,17 +22,7 @@
          <children>
             <AnchorPane prefWidth="500.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
                <children>
-                        <ChoiceBox fx:id="choiceBoxMaand" prefHeight="30.0" prefWidth="150.0" />
-                        <ChoiceBox fx:id="choiceBoxJaar" layoutX="160.0" prefHeight="30.0" prefWidth="150.0" />
-                        <ChoiceBox fx:id="choiceBoxZoeken" layoutY="50.0" prefHeight="30.0" prefWidth="150.0" />
-                        <Pane layoutX="160.0" layoutY="50.0" prefHeight="30.0" prefWidth="250.0">
-                            <children>
-                                <ChoiceBox fx:id="choiceBoxStad" disable="true" prefHeight="30.0" prefWidth="180.0" visible="false" />
-                        <ChoiceBox fx:id="choiceBoxStatus" disable="true" prefHeight="30.0" prefWidth="180.0" visible="false" />
-                                <TextField fx:id="txtSearchbar" prefHeight="30.0" prefWidth="250.0" promptText="zoek" />
-                            </children>
-                        </Pane>
-                      <TableView fx:id="table" prefHeight="360.0" prefWidth="290.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+                      <TableView fx:id="table" prefHeight="360.0" prefWidth="290.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                           <columns>
                               <TableColumn fx:id="titel" editable="false" maxWidth="300.0" minWidth="300.0" prefWidth="300.0" text="Titel" />
                               <TableColumn fx:id="startSessie" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" sortable="false" text="Start" />

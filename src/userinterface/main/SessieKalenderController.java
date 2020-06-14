@@ -6,15 +6,14 @@ import domein.interfacesDomein.ISessie;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
-import java.util.stream.Collectors;
 
 public class SessieKalenderController extends AnchorPane {
     @FXML
@@ -25,17 +24,9 @@ public class SessieKalenderController extends AnchorPane {
     private TableColumn<IAcademiejaar, String> academiejaarString, startString, eindString, aantalSessies;
     @FXML
     private TableColumn<ISessie,String>titel, datum, stad, aanwezigen;
-    @FXML
-    private Button btnNieuwAj, btnKiezen;
-    @FXML
-    private ComboBox<String> cbAj, cbMaand;
-    @FXML
-    private Label lblErrorAj;
 
     private DomeinController domeinController;
     private IAcademiejaar huidigAj;
-    private IAcademiejaar filteredAj;
-    private String maand;
 
     public SessieKalenderController(DomeinController domeinController) {
         this.domeinController = domeinController;
@@ -51,12 +42,6 @@ public class SessieKalenderController extends AnchorPane {
         }
         //Vul tabellen
         vulTabel();
-
-        //Vul comboboxes met academiejaren
-        vulComboxes();
-
-        //Declareer buttons
-        activeerButtons();
     }
 
     private void vulTabel() {
@@ -123,33 +108,5 @@ public class SessieKalenderController extends AnchorPane {
 
         //Sessies voor tabel op te vullen
         tableSessie.setItems(FXCollections.observableArrayList(domeinController.geefISessiesOpAcademiejaar(huidigAj.getAcademiejaar())));
-    }
-    private void activeerButtons() {
-        btnNieuwAj.setOnAction(this::startNieuwAcademiejaar);
-    }
-
-    private void startNieuwAcademiejaar(ActionEvent actionEvent) {
-        //domeinController.startNieuwAcademiejaar();
-    }
-
-    private void vulComboxes() {
-        //Vullen van comboboxes met academiejaren en alle maanden
-        cbAj.setItems(FXCollections.observableArrayList(domeinController.geefAcademiejaren().stream().map(e -> e.getAcademiejaarString()).collect(Collectors.toList())));
-        cbMaand.setItems(FXCollections.observableArrayList(domeinController.geefMaanden()));
-
-        cbAj.valueProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                filteredAj =  domeinController.geefAcademiejaarVanString(t1);
-            }
-        });
-        cbMaand.valueProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                maand = t1;
-
-            }
-        });
-
     }
 }

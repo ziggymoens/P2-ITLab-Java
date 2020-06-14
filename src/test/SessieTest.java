@@ -43,7 +43,8 @@ class SessieTest {
 
     @ParameterizedTest
     @MethodSource("opsommingGeldigeWaarden")
-    public void maakSessieGeldigeWaarden_Slaagt(String titel, String beschrijving, LocalDateTime startSessie, LocalDateTime eindSessie, Lokaal lokaal, Gebruiker gebruiker, Academiejaar academiejaar, String state) {
+    public void maakSessieGeldigeWaarden_Slaagt(String titel, String beschrijving, LocalDateTime startSessie, LocalDateTime eindSessie, Lokaal lokaal, Gebruiker gebruiker,
+                                                Academiejaar academiejaar, String state) {
         Sessie sessie = new Sessie(titel, beschrijving, startSessie, eindSessie, lokaal, gebruiker, academiejaar, state);
         Assertions.assertEquals(titel, sessie.getTitel());
         Assertions.assertEquals(beschrijving, sessie.getBeschrijving());
@@ -65,7 +66,8 @@ class SessieTest {
 
     @ParameterizedTest
     @MethodSource("opsommingOngeldigeWaarden")
-    public void maakSessieOngeldigeWaarden_GooitException(String titel, String beschrijving, LocalDateTime startSessie, LocalDateTime eindSessie, Lokaal lokaal, Gebruiker gebruiker, Academiejaar academiejaar, String state) {
+    public void maakSessieOngeldigeWaarden_GooitException(String titel, String beschrijving, LocalDateTime startSessie, LocalDateTime eindSessie, Lokaal lokaal,
+                                                          Gebruiker gebruiker, Academiejaar academiejaar, String state) {
         Assertions.assertThrows(SessieException.class, () -> new Sessie(titel, beschrijving, startSessie, eindSessie, lokaal, gebruiker, academiejaar, state));
     }
 

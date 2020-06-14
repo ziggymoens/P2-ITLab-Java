@@ -32,7 +32,6 @@ public class MainController extends AnchorPane{
     private Button gebruiker;
     //endregion FMXL
 
-
     @FXML
     private TabPane tabPane;
     @FXML
@@ -114,7 +113,6 @@ public class MainController extends AnchorPane{
         tabPane.getSelectionModel().select(tab);
     }
 
-
     public Tab maakNieuwTab(Node node) {
         Tab tab = new Tab();
         tab.setContent(node);
@@ -122,7 +120,6 @@ public class MainController extends AnchorPane{
         tabPane.getTabs().add(tab);
         return tab;
     }
-
 
     public void addTab(Tab tab) {
         tabPane.getTabs().add(tab);

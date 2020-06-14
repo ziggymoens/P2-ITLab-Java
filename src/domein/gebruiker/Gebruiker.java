@@ -178,27 +178,6 @@ public class Gebruiker implements IGebruiker, Serializable {
         this.verwijderd = verwijderd;
     }
 
-    /*
-    private void setAantalInlogPogingen(int aantalInlogPogingen) {
-        if (aantalInlogPogingen < 0) {
-            throw new GebruikerException();
-        }
-        if (aantalInlogPogingen > 3) {
-            setCurrentStatus(Gebruikersstatus.GEBLOKKEERD);
-        }
-        this.aantalInlogPogingen = aantalInlogPogingen;
-    }
-
-    public void addInlogPoging() {
-        setAantalInlogPogingen(aantalInlogPogingen + 1);
-    }
-
-    public void setIngelogd() {
-        this.laatstIngelogd = LocalDateTime.now();
-    }
-
-     */
-
     public void setWachtwoord(String wachtwoord) {
         this.wachtwoord = PasswordUtils.generateSecurePassword(wachtwoord);
     }

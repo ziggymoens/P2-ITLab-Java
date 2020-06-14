@@ -7,7 +7,6 @@ import domein.interfacesDomein.ISessie;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,14 +27,17 @@ import userinterface.sessie.media.BeherenMediaController;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SessieController extends AnchorPane implements IObserver {
     private DomeinController domeinController;
     private ILokaal tempLokaal;
     private IGebruiker tempGebruiker;
     private ISessie sessie;
+    private boolean bewerkingsmodus;
     private Button temp;
     private List<IDetails> detailPanels;
 
@@ -43,11 +45,6 @@ public class SessieController extends AnchorPane implements IObserver {
     private AnchorPane apSessie, apSessieDetail;
 
     //region sessieTable FXML
-    @FXML
-    private ChoiceBox<String> choiceBoxMaand, choiceBoxJaar, choiceBoxZoeken, choiceBoxStad, choiceBoxStatus;
-    @FXML
-    private TextField txtSearchbar;
-
     @FXML
     private TableView<ISessie> table;
     @FXML
@@ -134,9 +131,6 @@ public class SessieController extends AnchorPane implements IObserver {
         //Overzichtstabel van sessies vullen
         sessieTable();
 
-        //init filterknoppen
-        activeerFilters();
-
         //init resterende knoppen
         activeerButtons();
 
@@ -157,7 +151,6 @@ public class SessieController extends AnchorPane implements IObserver {
         table.getColumns().addAll(titel, startSessie, maximumAantalPlaatsen);
 
         selectInTable();
-        zoek();
 
     }
 
@@ -173,8 +166,6 @@ public class SessieController extends AnchorPane implements IObserver {
                     domeinController.setHuidigeISessie(t1);
                     domeinController.addObserver(sc);
                 }
-                //Vul choicebox met verschillende maanden vullen obv de vergelijkMaanden methode
-                choiceBoxMaand.setValue(domeinController.vergelijkMaanden());
 
                 //Velden niet bewerkbaar
                 zetVeldenBewerken(false);
@@ -217,6 +208,8 @@ public class SessieController extends AnchorPane implements IObserver {
 
         //Normalisering in buttons & andere velden
         setButtonsStandaard();
+        bewerkingsmodus = false;
+
         cbZichtbaar.setSelected(domeinController.isZichtbaar());
         cbNietZichtbaar.setSelected(!domeinController.isZichtbaar());
 
@@ -264,7 +257,6 @@ public class SessieController extends AnchorPane implements IObserver {
         updateDetailsPanels();
     }
 
-
     private boolean controleerMaxLokaal(String s) {
         return domeinController.controleerMaxCapaciteitLokaal(Integer.parseInt(s), tempLokaal);
     }
@@ -289,6 +281,7 @@ public class SessieController extends AnchorPane implements IObserver {
     }
 
     private void bewerkenSessie(ActionEvent actionEvent) {
+        bewerkingsmodus = true;
         zetVeldenBewerken(true);
         setButtonsBewerken();
         temp = (Button) actionEvent.getSource();
@@ -298,7 +291,7 @@ public class SessieController extends AnchorPane implements IObserver {
     }
 
     private void setButtonsStandaard() {
-        //Controleren ofdat sessie zichtbaar is. 
+        //Controleren ofdat sessie in zichtbaar, open of gesloten state is.
         if (domeinController.isZichtbaar()) {
             btnBewerkenSessie.setVisible(true);
             btnBewerkenSessie.setDisable(false);
@@ -308,7 +301,7 @@ public class SessieController extends AnchorPane implements IObserver {
             btnAnnuleer.setDisable(true);
             btnVerwijderenSessie.setDisable(false);
             btnVerwijderenSessie.setVisible(true);
-            btnVerwijderenSessie.setDisable(true);
+            //controleren of sessie gesloten is
             if (domeinController.isSessieGesloten()) {
                 btnBewerkenSessie.setDisable(true);
                 btnVerwijderenSessie.setVisible(false);
@@ -316,14 +309,15 @@ public class SessieController extends AnchorPane implements IObserver {
                 btnSluitSessie.setDisable(true);
                 btnOpenSessie.setVisible(false);
                 btnOpenSessie.setDisable(true);
+            //anders controleren of sessie open is
             } else if (domeinController.isSessieOpen()) {
                 btnBewerkenSessie.setDisable(true);
                 btnVerwijderenSessie.setVisible(false);
-                btnBewerkenSessie.setDisable(true);
                 btnSluitSessie.setVisible(true);
                 btnSluitSessie.setDisable(false);
                 btnOpenSessie.setVisible(false);
                 btnOpenSessie.setDisable(true);
+            //anders is sessie zichtbaar
             } else {
                 btnBewerkenSessie.setVisible(true);
                 btnBewerkenSessie.setDisable(false);
@@ -332,6 +326,7 @@ public class SessieController extends AnchorPane implements IObserver {
                 btnOpenSessie.setVisible(true);
                 btnOpenSessie.setDisable(false);
             }
+        //als sessie niet zichtbaar is
         } else {
             btnSluitSessie.setVisible(false);
             btnSluitSessie.setDisable(true);
@@ -408,7 +403,6 @@ public class SessieController extends AnchorPane implements IObserver {
 
         if(temp.getId().equals("btnToevoegenSessie")){
             fouten.putAll(domeinController.errorVelden(veranderingen, true));
-            //update();
         } else {
             fouten.putAll(domeinController.errorVelden(veranderingen, false));
         }
@@ -419,6 +413,7 @@ public class SessieController extends AnchorPane implements IObserver {
             zetVeldenBewerken(false);
             setButtonsStandaard();
             verbergErrors();
+            bewerkingsmodus = false;
             table.setDisable(false);
             update();
         } else {
@@ -456,9 +451,6 @@ public class SessieController extends AnchorPane implements IObserver {
                 }
             }
         }
-/*        List<Node> n = vboxSessieDetail.getChildren();
-        List<String> s = n.stream().filter(e -> e instanceof TextField).map(e -> ((TextField) e).getText()).collect(Collectors.toList());
-        s.stream().forEach(e -> System.out.println(e));*/
     }
 
     private void zetTijdVelden(){
@@ -500,6 +492,7 @@ public class SessieController extends AnchorPane implements IObserver {
         lblErrorUur.setVisible(false);
     }
 
+    //bij het maken van een nieuwe sessie
     private void resetTextvelden() {
         lblTitelSessie.setText("NIEUWE SESSIE");
         txtTitelSessie.clear();
@@ -514,57 +507,7 @@ public class SessieController extends AnchorPane implements IObserver {
         cbNietZichtbaar.setSelected(true);
     }
 
-    private void activeerFilters() {
-        choiceBoxJaar.setItems(FXCollections.observableArrayList(domeinController.geefAcademiejaren().stream().map(e -> e.getAcademiejaarString()).collect(Collectors.toList())));
-        //choiceBoxJaar.setValue(choiceBoxJaar.getItems().get());
-/*        choiceBoxJaar.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                int aj = Integer.parseInt(t1.substring(0,5));
-                String temp = domeinController.geefHuidigeIGebruiker().getGebruikersnaam();
-                domeinController.setAcademiejaar(//castStringnrDate);
-                domeinController.setHuidigeGebruiker(temp);
-            }
-        });*/
-        choiceBoxMaand.setItems(FXCollections.observableArrayList(domeinController.geefMaanden()));
-        choiceBoxMaand.setValue(domeinController.vergelijkMaanden());
-        choiceBoxMaand.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                //
-            }
-        });
-        choiceBoxZoeken.setItems(FXCollections.observableArrayList(domeinController.geefFilterOpties()));
-        choiceBoxZoeken.setValue(domeinController.geefFilterOpties().get(0));
-        choiceBoxZoeken.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                if (t1.equals("Titel")) {
-                    txtSearchbar.setVisible(true);
-                    txtSearchbar.setDisable(false);
-                    choiceBoxStad.setVisible(false);
-                    choiceBoxStad.setDisable(true);
-                    choiceBoxStad.setVisible(false);
-                    choiceBoxStad.setDisable(true);
-                } else if (t1.equals("Stad")) {
-                    txtSearchbar.setVisible(false);
-                    txtSearchbar.setDisable(true);
-                    choiceBoxStad.setVisible(true);
-                    choiceBoxStad.setDisable(false);
-                    choiceBoxStad.setVisible(false);
-                    choiceBoxStad.setDisable(true);
-                } else if (t1.equals("Status")) {
-                    txtSearchbar.setVisible(false);
-                    txtSearchbar.setDisable(true);
-                    choiceBoxStad.setVisible(false);
-                    choiceBoxStad.setDisable(true);
-                    choiceBoxStad.setVisible(true);
-                    choiceBoxStad.setDisable(false);
-                }
-            }
-        });
-    }
-
+    //buttons koppelen aan juiste eventhandlers
     private void activeerButtons() {
         btnBewerkenSessie.setOnAction(this::bewerkenSessie);
         btnOpslaanSessie.setOnAction(this::opslaanSessie);
@@ -591,20 +534,25 @@ public class SessieController extends AnchorPane implements IObserver {
     }
 
     private void toonGebruikers() {
-        Scene scene = new Scene(new GebruikerBeherenController(domeinController, this));
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
+        //open popup voor gebruikerselectie
+        if(bewerkingsmodus) {
+            Scene scene = new Scene(new GebruikerBeherenController(domeinController, this));
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+        }
     }
 
     private void toonLokalen() {
         //Open popup voor lokaalselectie
-        Scene scene = new Scene(new BeherenLokaalController(domeinController, this));
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
+        if(bewerkingsmodus ) {
+            Scene scene = new Scene(new BeherenLokaalController(domeinController, this));
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+        }
     }
 
     private void activeerRadioButtons() {
@@ -698,29 +646,5 @@ public class SessieController extends AnchorPane implements IObserver {
         this.tempLokaal = lokaal;
         txtMaxPlaatsenSessie.setText(((Integer) tempLokaal.getAantalPlaatsen()).toString());
         txtLokaalSessie.setText(lokaal.getLokaalCode());
-    }
-
-    private void zoek(){
-        //Searchbar
-        ObservableList data =  table.getItems();
-        txtSearchbar.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-            if (oldValue != null && (newValue.length() < oldValue.length())) {
-                table.setItems(data);
-            }
-            String value = newValue.toLowerCase();
-            ObservableList<ISessie> subentries = FXCollections.observableArrayList();
-
-            long count = table.getColumns().stream().count();
-            for (int i = 0; i < table.getItems().size(); i++) {
-                for (int j = 0; j < count; j++) {
-                    String entry = "" + table.getColumns().get(j).getCellData(i);
-                    if (entry.toLowerCase().contains(value)) {
-                        subentries.add(table.getItems().get(i));
-                        break;
-                    }
-                }
-            }
-            table.setItems(subentries);
-        });
     }
 }
